@@ -1,0 +1,134 @@
+﻿@using Priya_Cement_MVC.Helpers
+@model Priya_Cement_BusinessLogic.Entity.HomePageModel
+@{
+    ViewData["Title"] = "Nekta";
+    Layout = "~/Views/Shared/_Layout_home_page.cshtml";
+}
+
+@section head {
+    <title></title>
+
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Nekta" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:url" content="https://www.nekta.com/" />
+    <meta property="og:image" content="" />
+
+    <meta itemprop="name" content="Nekta" />
+    <meta itemprop="description" content="" />
+    <meta itemprop="image" content="" />
+
+    <!-- Facebook / Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nekta" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="https://www.nekta.com/" />
+
+    <link rel="canonical" href="https://www.nekta.com/" />
+}
+
+@section Styles {
+    <link rel="preload" href="~/Assets/css/swiper-bundle.min.css" as="style">
+    <link rel="stylesheet" href="~/Assets/css/swiper-bundle.min.css" />
+
+    <link rel="preload" href="~/Assets/css/homepage-style.css" as="style">
+    <link rel="stylesheet" href="~/Assets/css/homepage-style.css" />
+
+    <link rel="preload" href="~/Assets/css/swiper-custom.css" as="style">
+    <link rel="stylesheet" href="~/Assets/css/swiper-custom.css" />
+
+}
+
+<!--============================================
+         1: HERO SECTION 
+         =============================================-->
+
+
+@if (Model?.Banners != null && Model.Banners.Any())
+{
+    @await Html.PartialAsync("_banner", Model.Banners)
+}
+
+
+
+<!--========================================
+         2: Seeking an Elevated Dining Experience
+         ========================================-->
+@if (Model?.DiningExperience_List != null && Model.DiningExperience_List.Any())
+{
+    @await Html.PartialAsync("_dining_experience", Model.DiningExperience_List)
+}
+
+
+<!-- ==================== ===========
+         3: From the house trusted on air to delighting on ground Serving up a beautiful world of  food inbetween
+         =================================== -->
+
+@if (Model?.FoodInbetween_List != null && Model.FoodInbetween_List.Any())
+{
+    @await Html.PartialAsync("_foodIn_between", Model.FoodInbetween_List)
+}
+
+
+
+<!-- ==================================
+         4: Diverse Playgrounds. Singular Spirit
+         =================================== -->
+
+@if (Model?.SingularSpirit_List != null && Model.SingularSpirit_List.Any())
+{
+    @await Html.PartialAsync("_singular_spirit", Model.SingularSpirit_List)
+}
+
+
+<!-- ==================== 
+         5: Built on Culinary Precision. Delivered With Hospitality Excellence.
+         ==================== -->
+
+@if (Model?.HospitalityExcellance_List != null && Model.HospitalityExcellance_List.Any())
+{
+    @await Html.PartialAsync("_hospitality_excellence", Model.HospitalityExcellance_List)
+}
+
+<!-- ==================== 
+         6: Nekta’s EDGE SLIDER SECTION
+         ==================== -->
+
+@if (Model?.NektaEdge_List != null && Model.NektaEdge_List.Any())
+{
+    @await Html.PartialAsync("_nekta_edge", Model.NektaEdge_List)
+}
+
+<!-- ==================== 
+         7: TESTIMONIALS SECTION 
+         ==================== -->
+
+@if (Model?.ExperienceSpeaks_List != null && Model.ExperienceSpeaks_List.Any())
+{
+    @await Html.PartialAsync("_experience_speaks", Model.ExperienceSpeaks_List)
+}
+
+
+<!-- ==================== LATEST TRENDS & INSIGHTS SECTION ==================== -->
+
+
+@if (Model?.LatestTrends_List != null && Model.LatestTrends_List.Any())
+{
+    @await Html.PartialAsync("_latest_trends", Model)
+}
+
+
+@section Scripts {
+
+}

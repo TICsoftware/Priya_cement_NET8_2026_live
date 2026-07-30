@@ -1,0 +1,75 @@
+@using Priya_Cement_BusinessLogic.Entity
+@using Priya_Cement_MVC.Helpers
+@model BlogsModel
+
+@{
+    var articlePosts = Model.BlogPosts_List?
+    .OrderBy(x => x.Sequence)
+    .ToList() ?? new List<ArticleModel>();
+}
+
+<section class="section-spacing relative overflow-hidden">
+    <img src="/Assets/images/bg-pattern.webp" alt="" class="bg-pattern-img" />
+    <div class="container">
+
+        @* @if (header != null)
+        {
+            <div class="section-title-outer text-center max-w-8xl mx-auto">
+                <h2 class="title-section text text-h2" data-leaf-target letters-slide-down text-split>
+                    @Html.Raw(
+                        !string.IsNullOrWhiteSpace(header.DisplayTitle)
+                            ? header.DisplayTitle.CleanParagraphTags()
+                            : header.Title)
+                </h2>
+                @if (!string.IsNullOrWhiteSpace(header.Intro))
+                {
+                    @Html.Raw(header.Intro)
+                }
+            </div>
+        } *@
+
+        <div class="blogs-cards-grid" id="articleContainer">
+
+            @foreach (var item in articlePosts)
+            {
+                <div class="insight-card blogs-cards-wrapper blog-item">
+                    <div class="media-frame blogs-cards-image">
+                        <img loading="lazy" src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" />
+                        @if (!string.IsNullOrWhiteSpace(item.HmpgIntro))
+                        {
+                            <span class="pill">@Html.Raw(item.HmpgIntro.CleanParagraphTags())</span>
+                        }
+                    </div>
+                    <div class="blogs-cards-content">
+                        @if (item.DisplayDate.HasValue)
+                        {
+                            <span class="post-date">@item.DisplayDate.Value.ToString("dd MMMM yyyy")</span>
+                        }
+                        <h3 class="insight-title">@item.Title</h3>
+                        @if (!string.IsNullOrWhiteSpace(item.Url))
+                        {
+                            <a href="@item.Url" target="@(string.IsNullOrWhiteSpace(item.UrlTarget) ? "_self" : item.UrlTarget)"
+                                class="link-md link-primary">
+                                <span class="underline">Read More</span>
+                                <img loading="lazy" src="/Assets/images/arrows/orangearrow-long-right.png" alt="rightArrow" />
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+
+
+        </div>
+
+        @if (Model.TotalCount > 10)
+        {
+            <div class="view-all-wrap" id="DivLoad">
+                <a href="#" class="common-btn btn-slide-fill" id="btnLoadMore">
+                    <span>Load More</span>
+                    <img loading="lazy" src="/Assets/images/arrows/creamarrow-long-right.png" alt="rightArrow" />
+                </a>
+            </div>
+        }
+
+    </div>
+</section>
