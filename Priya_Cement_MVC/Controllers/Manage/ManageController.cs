@@ -613,7 +613,7 @@ namespace Priya_Cement_MVC.Controllers.Manage
 
         string GenerateQr(string username, string secret)
         {
-            var url = $"otpauth://totp/MyApp:{username}?secret={secret}&issuer=Nekta";
+            var url = $"otpauth://totp/MyApp:{username}?secret={secret}&issuer=PriyaCement";
 
             using QRCodeGenerator qr = new QRCodeGenerator();
             var data = qr.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
