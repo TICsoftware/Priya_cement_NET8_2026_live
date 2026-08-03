@@ -1,95 +1,89 @@
-document.addEventListener("DOMContentLoaded", (event) => {
-  gsap.registerPlugin(ScrollTrigger); // safe to call even if already registered
+document.addEventListener("DOMContentLoaded", () => {
 
-  function createScrollTrigger(triggerElement, timeline) {
+  function splitText(el) {
+    const chars = [];
+    const frag = document.createDocumentFragment();
+    let currentWord = null;
+
+    function flushWord() {
+      if (currentWord && currentWord.childNodes.length) {
+        frag.appendChild(currentWord);
+      }
+      currentWord = null;
+    }
+
+    function newWord() {
+      const w = document.createElement("span");
+      w.className = "word";
+      w.style.display = "inline-block";
+      return w;
+    }
+
+    function addChar(letter, highlight) {
+      if (!currentWord) currentWord = newWord();
+      const c = document.createElement("span");
+      c.className = "char" + (highlight ? " highlight" : "");
+      c.textContent = letter;
+      c.style.display = "inline-block";
+      currentWord.appendChild(c);
+      chars.push(c);
+    }
+
+    function processText(text, highlight) {
+      text.split(/(\s+)/).forEach((part) => {
+        if (part === "") return;
+        if (/^\s+$/.test(part)) {
+          flushWord();
+          frag.appendChild(document.createTextNode(" "));
+        } else {
+          [...part].forEach((letter) => addChar(letter, highlight));
+        }
+      });
+    }
+
+    function walk(node, highlight) {
+      node.childNodes.forEach((child) => {
+        if (child.nodeType === Node.TEXT_NODE) {
+          processText(child.textContent, highlight);
+        } else if (child.nodeType === Node.ELEMENT_NODE) {
+          walk(child, highlight || child.tagName === "SPAN");
+        }
+      });
+    }
+
+    walk(el, false);
+    flushWord();
+
+    el.textContent = "";
+    el.appendChild(frag);
+
+    return { chars };
+  }
+
+  const splitTypes = document.querySelectorAll(".reveal-text");
+
+  splitTypes.forEach((container) => {
+    const { chars } = splitText(container);
+    const total = chars.length;
+
     ScrollTrigger.create({
-      trigger: triggerElement,
-      start: "top bottom",
-      onLeaveBack: () => {
-        timeline.progress(0);
-        timeline.pause();
+      trigger: container,
+      start: "top 80%",
+      end: "top 20%",
+      scrub: true,
+      markers: false,
+      onUpdate: (self) => {
+        const progress = self.progress; // 0 -> 1 as you scroll through the range
+        chars.forEach((c, i) => {
+          const charThreshold = i / total; // each char's own "turn" in sequence
+          if (progress >= charThreshold) {
+            c.classList.add("revealed");
+          } else {
+            c.classList.remove("revealed");
+          }
+        });
       },
     });
-    ScrollTrigger.create({
-      trigger: triggerElement,
-      start: "top 80%",
-      onEnter: () => timeline.play(),
-    });
-  }
-
-  /**
-   * Tiny replacement for SplitType (types: "words, chars", tagName: "span").
-   * Walks the element's text nodes and wraps every word in <span class="word">
-   * and every character in <span class="char">, keeping nested markup
-   * (e.g. <br>, <em>, nested spans) intact.
-   */
-  function splitText(root) {
-    // Save original markup so it could be restored later if ever needed
-    if (!root.dataset.splitOriginal) {
-      root.dataset.splitOriginal = root.innerHTML;
-    }
-
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-    const textNodes = [];
-    let node;
-    while ((node = walker.nextNode())) {
-      if (node.nodeValue.trim() !== "") textNodes.push(node);
-    }
-
-    textNodes.forEach((textNode) => {
-      const fragment = document.createDocumentFragment();
-      // Split into words and whitespace runs, keeping the whitespace
-      const parts = textNode.nodeValue.split(/(\s+)/);
-
-      parts.forEach((part) => {
-        if (part === "") return;
-
-        if (/^\s+$/.test(part)) {
-          // Preserve spaces between words as plain text
-          fragment.appendChild(document.createTextNode(" "));
-          return;
-        }
-
-        const wordSpan = document.createElement("span");
-        wordSpan.className = "word";
-        wordSpan.style.display = "inline-block";
-
-        // Array.from splits by code points (handles emoji/accents better than .split(""))
-        Array.from(part).forEach((ch) => {
-          const charSpan = document.createElement("span");
-          charSpan.className = "char";
-          charSpan.style.display = "inline-block";
-          charSpan.textContent = ch;
-          wordSpan.appendChild(charSpan);
-        });
-
-        fragment.appendChild(wordSpan);
-      });
-
-      textNode.parentNode.replaceChild(fragment, textNode);
-    });
-  }
-
-  // 1. Split the text FIRST — this creates the .char spans
-  const splitTypeElements = document.querySelectorAll("[text-split]");
-  splitTypeElements.forEach((splitTypeElement) => {
-    splitText(splitTypeElement);
   });
 
-  // 2. Now the .char elements exist and can be animated
-  const lettersSlideDownElements = document.querySelectorAll("[letters-slide-down]");
-  lettersSlideDownElements.forEach((element) => {
-    const tl = gsap.timeline({ paused: true });
-    const chars = element.querySelectorAll(".char");
-    tl.from(chars, {
-      yPercent: -120,
-      duration: 0.3,
-      ease: "power1.out",
-      stagger: { amount: 0.7 },
-    });
-    createScrollTrigger(element, tl);
-  });
-
-  // 3. Reveal the elements (they're usually hidden via CSS until split is done)
-  gsap.set("[text-split]", { opacity: 1 });
 });

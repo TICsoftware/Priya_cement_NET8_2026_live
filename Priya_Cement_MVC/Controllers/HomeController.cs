@@ -40,6 +40,10 @@ public class HomeController : Controller
         return View(data);
     }
 
+    public IActionResult indexhtml()
+    {
+        return View();
+    }
     public IActionResult encruptIndex()
     {
         //CryptoEngine CryptoObj = new CryptoEngine();    
