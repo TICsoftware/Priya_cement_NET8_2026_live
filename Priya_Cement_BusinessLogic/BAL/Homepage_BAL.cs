@@ -44,21 +44,9 @@ namespace Priya_Cement_BusinessLogic.BAL
                 model.Home_Components = groupedData;
 
                 model.Banners = MapComponentCommon(groupedData, 1);
-                model.DiningExperience_List = MapComponentCommon(groupedData, 2);
-                model.FoodInbetween_List = MapComponentCommon(groupedData, 3);
-                model.SingularSpirit_List = MapComponentCommon(groupedData, 4);
-                model.HospitalityExcellance_List = MapComponentCommon(groupedData, 5);
-                model.NektaEdge_List = MapComponentCommon(groupedData, 6);
-                model.ExperienceSpeaks_List = MapComponentCommon(groupedData, 7);
-                model.ClientsWeServe_List = MapComponentCommon(groupedData, 8);
-                model.LatestTrends_List = MapComponentCommon(groupedData, 9);
-
-
-                if (ds?.Tables.Count > 2 && ds.Tables[2].Rows.Count > 0)
-                {
-                    model.Blogs_List = Config_Application_Website.MapArticleList(ds.Tables[2]); ;
-                }
                
+
+
 
             }
 

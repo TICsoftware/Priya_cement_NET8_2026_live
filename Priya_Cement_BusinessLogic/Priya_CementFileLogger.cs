@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Priya_Cement_BusinessLogic.Common
 {
-    public static class NektaFileLogger
+    public static class Priya_CementFileLogger
     {
         private static readonly object _lock = new();
 

@@ -12,16 +12,7 @@ namespace Priya_Cement_BusinessLogic.Entity
         public List<ComponentGroup> Home_Components { get; set; } = new();
 
         public List<HomeCommonModel> Banners { get; set; } = new();
-        public List<HomeCommonModel> DiningExperience_List { get; set; } = new();
-        public List<HomeCommonModel> FoodInbetween_List { get; set; } = new();
-        public List<HomeCommonModel> SingularSpirit_List { get; set; } = new();
-        public List<HomeCommonModel> HospitalityExcellance_List { get; set; } = new();
-        public List<HomeCommonModel> NektaEdge_List { get; set; } = new();
-        public List<HomeCommonModel> ExperienceSpeaks_List { get; set; } = new();
-        public List<HomeCommonModel> ClientsWeServe_List { get; set; } = new();
-        public List<HomeCommonModel> LatestTrends_List { get; set; } = new();
-
-        public List<ArticleModel> Blogs_List { get; set; } = new();
+       
     }
 
 
