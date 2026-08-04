@@ -36,11 +36,18 @@ namespace Priya_Cement_BusinessLogic.Entity
         public string ThumbnailAltText { get; set; }
         public string Url { get; set; }
         public string Url_Text { get; set; }
+
+
+         public string component_Url2 { get; set; }
+        public string component_Url_Text2 { get; set; }
+
         public int Sequence { get; set; }
         public int IsBlock { get; set; }
         public string Video_path { get; set; }
         public string Video_poster { get; set; }
         public string Icon_Image { get; set; }
+        public string Icon_Image2 { get; set; }
+
         public string background_image { get; set; }
         public string Popup_Content { get; set; }
         public string Popup_Display_Title { get; set; }
@@ -53,7 +60,8 @@ namespace Priya_Cement_BusinessLogic.Entity
 
         public string component_icon_image { get; set; }
         public string component_icon_image_alt { get; set; }
-
+        public string component_icon_image2 { get; set; }
+        public string component_icon_image2_alt { get; set; }
         public string Designation { get; set; }
     }
 }

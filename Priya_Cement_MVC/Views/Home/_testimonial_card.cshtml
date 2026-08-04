@@ -11,7 +11,7 @@
 <div class="quote-card rounded-sm shrink-0">
   <div class="quote-mark"> <img src="/Assets/images/common-images/quote-icon.svg" alt="" class="w-auto object-cover"></div>
   <p class="quote-card-para">
-    @Html.Raw(Model.Content.CleanParagraphTags())
+    @Html.Raw(Model.Intro.CleanParagraphTags())
   </p>
   <div class="flex items-center gap-3 quote-card-content">
     @if (!string.IsNullOrWhiteSpace(avatar))
