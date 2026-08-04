@@ -286,46 +286,97 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /* ---------------------------------------
-   PRODUCTS LION 
+   PRODUCTS LION — scale up + stroke draw → fill (no travel / pin)
 --------------------------------------- */
- /* ---------------------------------------
-   LION LOGO — elastic bounce pop-in, replays on re-entry
---------------------------------------- */
-if (!reduceMotion && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-  const mmLogo = gsap.matchMedia();
+  if (
+    !reduceMotion &&
+    sectionProducts &&
+    typeof gsap !== 'undefined' &&
+    typeof ScrollTrigger !== 'undefined'
+  ) {
+    const lionWrap = sectionProducts.querySelector('.lion-logo-wrap');
+    const lionSvg = lionWrap && lionWrap.querySelector('.lion-logo-svg');
+    const lionFill = lionSvg && lionSvg.querySelector('.lion-logo-fill');
 
-  mmLogo.add('all', () => {
-    const logoWrap = document.querySelector('.logo-lion-vector-outer');
-    if (!logoWrap) return;
+    if (lionWrap && lionSvg && lionFill) {
+      // Clone fill path as a stroke outline for the line-draw
+      let lionStroke = lionSvg.querySelector('.lion-logo-stroke');
+      if (!lionStroke) {
+        lionStroke = lionFill.cloneNode();
+        lionStroke.removeAttribute('fill');
+        lionStroke.classList.remove('lion-logo-fill');
+        lionStroke.classList.add('lion-logo-stroke');
+        lionStroke.setAttribute('fill', 'none');
+        lionStroke.setAttribute('stroke', '#C8C8C8');
+        lionStroke.setAttribute('stroke-width', '1.75');
+        lionStroke.setAttribute('stroke-linecap', 'round');
+        lionStroke.setAttribute('stroke-linejoin', 'round');
+        lionStroke.setAttribute('vector-effect', 'non-scaling-stroke');
+        lionSvg.insertBefore(lionStroke, lionFill);
+      }
 
-    gsap.set(logoWrap, {
-      scale: 0.4,
-      autoAlpha: 0,
-      force3D: true,
-      transformOrigin: '50% 50%',
-    });
+      const pathLen = (() => {
+        try {
+          return lionStroke.getTotalLength();
+        } catch (e) {
+          return 0;
+        }
+      })();
 
-    const tween = gsap.to(logoWrap, {
-      scale: 1,
-      autoAlpha: 1,
-      duration: 1,
-      ease: 'elastic.out(1, 0.65)',
-      paused: true, // don't play immediately — let ScrollTrigger control it
-      scrollTrigger: {
-        trigger: logoWrap,
-        start: 'top 85%',
-        toggleActions: 'play none none reverse',
-        invalidateOnRefresh: true,
-      },
-    });
+      if (pathLen > 0) {
+        gsap.set(lionWrap, {
+          scale: 0.05,
+          transformOrigin: '50% 50%',
+          force3D: true,
+        });
+        gsap.set(lionStroke, {
+          strokeDasharray: pathLen,
+          strokeDashoffset: pathLen,
+          autoAlpha: 1,
+        });
+        gsap.set(lionFill, { autoAlpha: 0 });
 
-    return () => {
-      if (tween.scrollTrigger) tween.scrollTrigger.kill();
-      tween.kill();
-      gsap.set(logoWrap, { clearProps: 'transform,opacity,visibility' });
-    };
-  });
-}
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: sectionProducts,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+              invalidateOnRefresh: true,
+            },
+          })
+          .to(
+            lionWrap,
+            {
+              scale: 1,
+              duration: 1.35,
+              ease: 'power2.out',
+              force3D: true,
+            },
+            0
+          )
+          .to(
+            lionStroke,
+            {
+              strokeDashoffset: 0,
+              duration: 1.35,
+              ease: 'power2.inOut',
+            },
+            0
+          )
+          .to(
+            lionFill,
+            { autoAlpha: 1, duration: 0.55, ease: 'power2.out' },
+            '-=0.3'
+          )
+          .to(
+            lionStroke,
+            { autoAlpha: 0, duration: 0.4, ease: 'power1.out' },
+            '-=0.35'
+          );
+      }
+    }
+  }
 
 
 /* ---------------------------------------
@@ -801,6 +852,8 @@ if (!reduceMotion && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'un
 
 /* ---------------------------------------
    TESTIMONIALS
+   Desktop: opposite vertical marquee + hover pause + drag/swipe
+   Mobile: static list + Load more
 --------------------------------------- */
   function makeLoopable(trackId) {
     const track = document.getElementById(trackId);
@@ -816,7 +869,9 @@ if (!reduceMotion && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'un
     originalCards.forEach((card) => {
       const clone = card.cloneNode(true);
       clone.setAttribute('aria-hidden', 'true');
-      clone.querySelectorAll('a, button, input, [tabindex]').forEach((el) => el.setAttribute('tabindex', '-1'));
+      clone.querySelectorAll('a, button, input, [tabindex]').forEach((el) =>
+        el.setAttribute('tabindex', '-1')
+      );
       track.appendChild(clone);
     });
 
@@ -829,12 +884,159 @@ if (!reduceMotion && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'un
   const MOBILE_BATCH_SIZE = 3;
   let mobileRevealedCount = 0;
   let marqueeObserver = null;
+  const marqueeColumns = [];
 
   function getOriginalQuoteCards() {
     if (!sectionMarquee) return [];
     return Array.from(
       sectionMarquee.querySelectorAll('.quote-card:not([aria-hidden="true"])')
     );
+  }
+
+  function getLoopHeight(track) {
+    return Math.max(1, track.scrollHeight / 2);
+  }
+
+  function createMarqueeColumn(track, direction) {
+    const viewport = track.closest('.marquee-viewport');
+    if (!viewport || track.dataset.marqueeBound === '1') {
+      return marqueeColumns.find((c) => c.track === track) || null;
+    }
+    track.dataset.marqueeBound = '1';
+
+    let offset = 0;
+    let dragging = false;
+    let hoverPaused = false;
+    let startY = 0;
+    let startOffset = 0;
+    let dragDist = 0;
+    let rafId = null;
+    const speed = 0.42; // px per frame ≈ calm 30s loop feel
+
+    function wrapOffset() {
+      const half = getLoopHeight(track);
+      while (offset <= -half) offset += half;
+      while (offset > 0) offset -= half;
+    }
+
+    function apply() {
+      track.style.transform = 'translate3d(0,' + offset + 'px,0)';
+    }
+
+    function resetOffset() {
+      offset = direction === 'down' ? -getLoopHeight(track) : 0;
+      apply();
+    }
+
+    function tick() {
+      if (!testimonialsDesktopMq.matches) {
+        rafId = null;
+        return;
+      }
+
+      const inView = sectionMarquee.classList.contains('section-in-view');
+      if (inView && !dragging && !hoverPaused && !reduceMotion) {
+        offset += direction === 'up' ? -speed : speed;
+        wrapOffset();
+        apply();
+      }
+
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function start() {
+      if (rafId == null) rafId = requestAnimationFrame(tick);
+    }
+
+    function stop() {
+      if (rafId != null) cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+
+    function clearMotion() {
+      stop();
+      track.style.transform = '';
+      viewport.classList.remove('is-dragging');
+      dragging = false;
+      hoverPaused = false;
+    }
+
+    viewport.addEventListener('pointerenter', () => {
+      if (testimonialsDesktopMq.matches) hoverPaused = true;
+    });
+    viewport.addEventListener('pointerleave', () => {
+      if (!dragging) hoverPaused = false;
+    });
+
+    viewport.addEventListener('pointerdown', (e) => {
+      // Desktop only — never capture touch on mobile (blocks page scroll)
+      if (!testimonialsDesktopMq.matches || e.button === 2) return;
+      dragging = true;
+      hoverPaused = true;
+      dragDist = 0;
+      startY = e.clientY;
+      startOffset = offset;
+      viewport.classList.add('is-dragging');
+      try {
+        viewport.setPointerCapture(e.pointerId);
+      } catch (err) {}
+    });
+
+    viewport.addEventListener('pointermove', (e) => {
+      if (!dragging || !testimonialsDesktopMq.matches) return;
+      const dy = e.clientY - startY;
+      dragDist = Math.max(dragDist, Math.abs(dy));
+      offset = startOffset + dy;
+      wrapOffset();
+      apply();
+      e.preventDefault();
+    });
+
+    function endDrag() {
+      if (!dragging) return;
+      dragging = false;
+      viewport.classList.remove('is-dragging');
+      hoverPaused = testimonialsDesktopMq.matches && viewport.matches(':hover');
+    }
+
+    viewport.addEventListener('pointerup', endDrag);
+    viewport.addEventListener('pointercancel', endDrag);
+
+    // After a drag, don't follow links accidentally
+    viewport.addEventListener(
+      'click',
+      (e) => {
+        if (dragDist > 6) {
+          e.preventDefault();
+          e.stopPropagation();
+          dragDist = 0;
+        }
+      },
+      true
+    );
+
+    resetOffset();
+
+    const api = { track, start, stop, clearMotion, resetOffset, refresh: resetOffset };
+    marqueeColumns.push(api);
+    return api;
+  }
+
+  function startDesktopMarqueeMotion() {
+    if (!sectionMarquee) return;
+    sectionMarquee.classList.add('is-js-marquee');
+    if (reduceMotion) return;
+
+    const up = document.getElementById('track-up');
+    const down = document.getElementById('track-down');
+    if (up) createMarqueeColumn(up, 'up')?.start();
+    if (down) createMarqueeColumn(down, 'down')?.start();
+  }
+
+  function stopDesktopMarqueeMotion() {
+    if (!sectionMarquee) return;
+    sectionMarquee.classList.remove('is-js-marquee');
+    marqueeColumns.forEach((col) => col.clearMotion());
   }
 
   function enableDesktopMarquee() {
@@ -846,6 +1048,7 @@ if (!reduceMotion && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'un
 
     makeLoopable('track-up');
     makeLoopable('track-down');
+    startDesktopMarqueeMotion();
 
     if (!marqueeObserver) {
       marqueeObserver = new IntersectionObserver(
@@ -861,7 +1064,6 @@ if (!reduceMotion && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'un
       marqueeObserver.observe(sectionMarquee);
     }
 
-    // If already in view after switching to desktop
     const rect = sectionMarquee.getBoundingClientRect();
     if (rect.top < window.innerHeight * 0.8 && rect.bottom > 0) {
       sectionMarquee.classList.add('section-in-view');
@@ -872,7 +1074,15 @@ if (!reduceMotion && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'un
     if (!sectionMarquee) return;
 
     sectionMarquee.classList.remove('section-in-view');
+    sectionMarquee.classList.remove('is-js-marquee');
     sectionMarquee.classList.add('is-mobile-static');
+    stopDesktopMarqueeMotion();
+
+    // Kill any in-progress drag so touch can scroll the page
+    marqueeColumns.forEach((col) => {
+      col.clearMotion();
+      if (col.track) col.track.style.transform = '';
+    });
 
     const cards = getOriginalQuoteCards();
     mobileRevealedCount = 0;

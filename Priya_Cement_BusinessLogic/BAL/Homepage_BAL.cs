@@ -44,10 +44,11 @@ namespace Priya_Cement_BusinessLogic.BAL
                 model.Home_Components = groupedData;
 
                 model.Banners = MapComponentCommon(groupedData, 1);
-               
-
-
-
+                model.Products_List = MapComponentCommon(groupedData, 2);
+                model.WhatWeStandFor_List = MapComponentCommon(groupedData, 3);
+                model.Sustainability_List = MapComponentCommon(groupedData, 4);
+                model.Testimonials_List = MapComponentCommon(groupedData, 5);
+                model.Careers_List = MapComponentCommon(groupedData, 6);
             }
 
             // Our team
@@ -146,8 +147,8 @@ namespace Priya_Cement_BusinessLogic.BAL
                 Component_right_image = Config_Application_Website.GetPath(group, "Component right image"),
                 Component_right_image_alt = Config_Application_Website.GetPath(group, "Component Right image alt"),
                 component_icon_image = Config_Application_Website.GetPath(group, "component icon image"),
-                component_icon_image_alt = Config_Application_Website.GetPath(group, "component icon image alt"),
-                Designation = Config_Application_Website.GetPath(group, "Designation"),
+                component_icon_image_alt = Config_Application_Website.GetValue(dict, "component icon image alt"),
+                Designation = Config_Application_Website.GetValue(dict, "Designation"),
             });
         }
 

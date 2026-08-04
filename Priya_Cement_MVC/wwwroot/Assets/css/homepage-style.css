@@ -464,7 +464,7 @@
 }
 
 
-
+.eyebrow-text {display: none;}
 
 @media (max-width: 992px){
   .home-products-section .outer-product-slider{
@@ -715,7 +715,7 @@
     animation-duration: 32s;
   }
 
-  /* start running only once the section enters view */
+  /* start running only once the section enters view (CSS fallback) */
   .section-in-view .marquee-track {
     animation-play-state: running;
   }
@@ -723,6 +723,24 @@
   /* pause whichever column is hovered, without affecting the other */
   .marquee-viewport:hover .marquee-track {
     animation-play-state: paused;
+  }
+
+  /* JS-driven marquee (auto + drag) — desktop only */
+  @media (min-width: 1024px) {
+    #marquee-section.is-js-marquee .marquee-track {
+      animation: none !important;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    #marquee-section.is-js-marquee .marquee-viewport {
+      touch-action: none;
+      cursor: grab;
+    }
+    #marquee-section.is-js-marquee .marquee-viewport.is-dragging,
+    #marquee-section.is-js-marquee .marquee-viewport.is-dragging .marquee-track {
+      cursor: grabbing;
+    }
   }
 
   @keyframes scrollUp {
@@ -736,6 +754,9 @@
 
   @media (prefers-reduced-motion: reduce) {
     .marquee-track { animation: none !important; }
+    #marquee-section.is-js-marquee .marquee-track {
+      cursor: default;
+    }
   }
 
 
@@ -783,6 +804,8 @@ z-index: -1;
       -webkit-mask-image: none;
               mask-image: none;
       padding-top: 0 !important;
+      touch-action: auto;
+      cursor: auto;
     }
 
     #marquee-section .marquee-track {
@@ -790,6 +813,15 @@ z-index: -1;
       transform: none !important;
       will-change: auto;
       gap: 1.5rem;
+      cursor: auto;
+      user-select: auto;
+    }
+
+    /* Never capture swipe on mobile — even if is-js-marquee leaked */
+    #marquee-section.is-js-marquee .marquee-viewport,
+    #marquee-section.is-js-marquee .marquee-track {
+      touch-action: auto !important;
+      cursor: auto !important;
     }
 
     #marquee-section .quote-card[aria-hidden="true"] {
@@ -860,14 +892,9 @@ z-index: -1;
 .logo-lion-vector-outer {
   position: absolute;
   top: -2vw;
-  right: -10vw;
+  left: -18vw;
   z-index: -1;
   pointer-events: none;
-  will-change: transform;
-}
-.logo-lion-vector-outer.is-lion-traveling {
-  z-index: 0;
-  margin: 0;
 }
 
 
@@ -884,7 +911,7 @@ z-index: -1;
   .logo-lion-vector-outer {max-width: 65%;}
   /* .hero-swiper .slide-media {left: 0;} */
   .hero-swiper {height: calc(90vh - var(--header-h, 0px));}
-
+.logo-lion-vector-outer {right: -5vw; left: auto;}
 }
 
 @media (max-width: 393px){
@@ -905,6 +932,7 @@ z-index: -1;
 .banner-extra-logo-wrap { top: -5vw;} 
 .banner-logo-wrap img {max-width: 120px;}
 .sustainability-block {max-width: 30vw;}
+ .lion-logo-svg {max-width: min(45vw, 320px);}
 }
 
 /* 150% zoom */

@@ -12,10 +12,12 @@ namespace Priya_Cement_BusinessLogic.Entity
         public List<ComponentGroup> Home_Components { get; set; } = new();
 
         public List<HomeCommonModel> Banners { get; set; } = new();
-       
+        public List<HomeCommonModel> Products_List { get; set; } = new();
+        public List<HomeCommonModel> WhatWeStandFor_List { get; set; } = new();
+        public List<HomeCommonModel> Sustainability_List { get; set; } = new();
+        public List<HomeCommonModel> Testimonials_List { get; set; } = new();
+        public List<HomeCommonModel> Careers_List { get; set; } = new();
     }
-
-
 
     public class HomeCommonModel
     {
@@ -53,10 +55,5 @@ namespace Priya_Cement_BusinessLogic.Entity
         public string component_icon_image_alt { get; set; }
 
         public string Designation { get; set; }
-
     }
-
-
-
-
 }
