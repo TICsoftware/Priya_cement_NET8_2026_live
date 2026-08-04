@@ -185,7 +185,7 @@ namespace Priya_Cement_MVC.Classes
                     "password"
                 );
 
-                message.From = new MailAddress("ticworks2022@gmail.com", "Nekta");
+                message.From = new MailAddress("ticworks2022@gmail.com", Priya Cement);
                 message.To.Add("ashabbir72@gmail.com");
 
                 message.Subject = strSubject;
