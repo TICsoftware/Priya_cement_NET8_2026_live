@@ -64,5 +64,7 @@ namespace Priya_Cement_BusinessLogic.Entity
         public string component_icon_image2 { get; set; }
         public string component_icon_image2_alt { get; set; }
         public string Designation { get; set; }
+         public string component_Video_path { get; set; }
+
     }
 }
