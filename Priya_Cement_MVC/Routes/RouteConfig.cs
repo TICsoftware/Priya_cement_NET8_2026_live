@@ -15,8 +15,8 @@ namespace Priya_Cement_MVC.Routes
 
             app.MapControllerRoute(
                   name: "ourproducts",
-                  pattern: "our-products",
-                  defaults: new { controller = "Product", action = "Index", title = "our-products" }
+                  pattern: "what-we-offer",
+                  defaults: new { controller = "Product", action = "Index", title = "what-we-offer" }
               );
 
 
