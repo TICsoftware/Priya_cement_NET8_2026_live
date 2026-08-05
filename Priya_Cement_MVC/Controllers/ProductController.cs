@@ -1,15 +1,9 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Priya_Cement_MVC.Models;
-using Priya_Cement_MVC.Classes;
-using Core_project_BusinessLogic;
 using Priya_Cement_BusinessLogic.BAL;
 using Priya_Cement_BusinessLogic.Entity;
-using System.Net;
-using System.Net.Mail;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Priya_Cement_MVC;
-
 
 namespace Priya_Cement_MVC.Controllers;
 
@@ -24,20 +18,21 @@ public class ProductController : Controller
         _bal = new Product_BAL(configuration);
     }
 
-
-
     public IActionResult Index(string title)
     {
         try
         {
+<<<<<<< HEAD
             //string pageName = HttpContext?.Request?.Path.Value?.Trim('/') ?? string.Empty;
+=======
+>>>>>>> 33b5aaf8c6d9076320abd1f08e7a6bfb4ad91929
             var data = _bal.GetProduct_BAL(title, 1, 1);
             return View(data);
         }
         catch (Exception ex)
         {
-            FileLogger.LogError("/About_Cop :", ex);
-            return View(new AboutModel());
+            FileLogger.LogError("/Product/Index :", ex);
+            return View(new ProductModel());
         }
         finally
         {
@@ -45,8 +40,27 @@ public class ProductController : Controller
         }
     }
 
+    public IActionResult Inside(string title)
+    {
+        try
+        {
+            var data = _bal.GetProductInside_BAL(title, 1, 1);
+            return View(data);
+        }
+        catch (Exception ex)
+        {
+            FileLogger.LogError("/Product/Inside :", ex);
+            return View(new ProductModel());
+        }
+        finally
+        {
+            _bal.Dispose();
+        }
+    }
 
-
-
-
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
 }

@@ -1,0 +1,68 @@
+@using Priya_Cement_BusinessLogic.Entity
+@using Priya_Cement_MVC.Helpers
+@model List<ComponentModel>
+
+@{
+    var floatItem = Model?
+        .Where(x => x.IsBlock == 0)
+        .OrderBy(x => x.Sequence)
+        .FirstOrDefault();
+
+    var downloads = Model?
+        .Where(x => x.IsBlock == 1)
+        .OrderBy(x => x.Sequence)
+        .ToList() ?? new List<ComponentModel>();
+
+    var bagImg = !string.IsNullOrWhiteSpace(floatItem?.ComponentThumbnail)
+        ? floatItem.ComponentThumbnail
+        : (!string.IsNullOrWhiteSpace(floatItem?.Component_right_image) ? floatItem.Component_right_image : floatItem?.ThumbnailImage);
+    var bagAlt = !string.IsNullOrWhiteSpace(floatItem?.ComponentThumbnailAltText)
+        ? floatItem.ComponentThumbnailAltText
+        : "";
+    var ctaUrl = !string.IsNullOrWhiteSpace(floatItem?.Url) ? floatItem.Url : "#";
+    var ctaText = !string.IsNullOrWhiteSpace(floatItem?.Url_Text) ? floatItem.Url_Text : "Get in touch";
+}
+
+@if (floatItem != null && !string.IsNullOrWhiteSpace(bagImg))
+{
+    <div class="product-float-rail">
+        <div class="product-float-outer product-float-sticky">
+            <div class="product-float-inner" aria-hidden="true">
+                <img src="@bagImg" alt="@bagAlt" class="product-float-bag">
+                <img src="/Assets/images/products/shadow-ellipse.webp" alt="" class="product-shadow-ellipse">
+            </div>
+            <div class="product-site-link">
+                <a href="@ctaUrl" class="fill-site-link">
+                    <span>@ctaText</span>
+                    <span class="fill-site-link-arrow" aria-hidden="true">
+                        <img src="/Assets/images/common-images/button-arrow-icon.svg" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+@if (downloads.Any())
+{
+    <div class="product-download-fab" data-download-fab>
+        <div class="product-download-fab-actions" role="group" aria-label="Downloads">
+            @foreach (var item in downloads)
+            {
+                var href = !string.IsNullOrWhiteSpace(item.MediafilePath)
+                    ? item.MediafilePath
+                    : (!string.IsNullOrWhiteSpace(item.Url) ? item.Url : "#");
+                var label = !string.IsNullOrWhiteSpace(item.Url_Text)
+                    ? item.Url_Text
+                    : (!string.IsNullOrWhiteSpace(item.DisplayTitle) ? item.DisplayTitle.CleanParagraphTags() : item.Title);
+                <a href="@href" class="product-download-pill">
+                    <span>@Html.Raw(label)</span>
+                    <img src="/Assets/images/common-images/download-vector.svg" alt="" aria-hidden="true">
+                </a>
+            }
+        </div>
+        <button type="button" class="product-float-button" aria-expanded="false" aria-label="Download documents">
+            <img src="/Assets/images/common-images/download-icon.svg" alt="" class="w-auto h-auto object-cover" aria-hidden="true">
+        </button>
+    </div>
+}
