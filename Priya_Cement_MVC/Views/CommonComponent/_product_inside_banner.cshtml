@@ -1,0 +1,53 @@
+@using Priya_Cement_BusinessLogic.Entity
+@using Priya_Cement_MVC.Helpers
+@model ContentViewModel
+
+@{
+    var desktopImg = !string.IsNullOrWhiteSpace(Model?.MastheadImage) ? Model.MastheadImage : "/Assets/images/banners/productsinside-banner-desktop.webp";
+    var mobileImg = !string.IsNullOrWhiteSpace(Model?.MobileMastheadImage) ? Model.MobileMastheadImage : "/Assets/images/banners/productsinside-banner-mob.webp";
+    var title = !string.IsNullOrWhiteSpace(Model?.ContTitle) ? Model.ContTitle : "";
+    var crumb = !string.IsNullOrWhiteSpace(Model?.BreadcrumPath) ? Model.BreadcrumPath.CleanParagraphTags() : "Products";
+    var alt = !string.IsNullOrWhiteSpace(Model?.Masthead_image_Alt_text) ? Model.Masthead_image_Alt_text : title;
+}
+
+<section class="relative inside-banner-outer overflow-hidden">
+    <div class="inside-banner-inner banner-animation relative ">
+
+        <div class="overflow-hidden h-[75vh] sm:h-131.25 relative innerbanner-image-wrapper">
+            <picture>
+                <source media="(min-width:1024px)" srcset="@desktopImg">
+                <source media="(min-width:992px)" srcset="@mobileImg">
+                <img src="@mobileImg"
+                     alt="@alt"
+                     class="innerbanner-image absolute left-0 top-0 w-full h-full object-cover"
+                     loading="eager"
+                     fetchpriority="high">
+            </picture>
+            <div class="innerbanner-overlay"></div>
+        </div>
+
+        <div class="innerbanner-caption absolute inset-0 z-30 flex items-center">
+            <div class="container">
+                <div class="max-w-5xl text-left">
+                    @if (!string.IsNullOrWhiteSpace(title))
+                    {
+                        <h1 class="innerbanner-title text-h1 text-white">
+                            @Html.Raw(title.CleanParagraphTags())
+                        </h1>
+                    }
+
+                    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+                        <ol class="flex items-center gap-2 text-sm">
+                            <li>
+                                <a href="/" class="text-white/70 hover:text-white transition">Home</a>
+                            </li>
+                            <li class="text-white/60">/</li>
+                            <li class="text-white">@Html.Raw(crumb)</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

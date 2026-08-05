@@ -1,0 +1,93 @@
+@using Priya_Cement_MVC.Helpers
+@model Priya_Cement_BusinessLogic.Entity.ProductModel
+@{
+    ViewData["Title"] = Model?.Content?.ContTitle ?? "Product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var content = Model?.Content;
+}
+
+@section head {
+    <title>@(content?.cont_window_title)</title>
+
+    <meta content="@(content?.cont_metatag)" name="keywords" />
+    <meta content="@(content?.cont_metadesc)" name="description" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="" />
+    <meta name="twitter:title" content="@(content?.ContTitle)" />
+    <meta name="twitter:description" content="@(content?.cont_metadesc)" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Priya Cement" />
+    <meta property="og:title" content="@(content?.ContTitle)" />
+    <meta property="og:description" content="@(content?.cont_metadesc)" />
+    <meta property="og:url" content="@(content?.CanonicalUrl)" />
+    <meta property="og:image" content="@(content?.cont_meta_image)" />
+
+    <meta itemprop="name" content="Priya Cement" />
+    <meta itemprop="description" content="@(content?.cont_metadesc)" />
+    <meta itemprop="image" content="@(content?.cont_meta_image)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Priya Cement" />
+    <meta property="og:title" content="@(content?.ContTitle)" />
+    <meta property="og:description" content="@(content?.cont_metadesc)" />
+    <meta property="og:image" content="@(content?.cont_meta_image)" />
+    <meta property="og:url" content="@(content?.CanonicalUrl)" />
+
+    <link rel="canonical" href="@(content?.CanonicalUrl)" />
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/Assets/css/products-inside-style.css" />
+}
+
+@if (Model?.Content != null)
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_product_inside_banner.cshtml", Model.Content)
+}
+
+@if (Model?.Product_Float_List != null && Model.Product_Float_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_product_float_download.cshtml", Model.Product_Float_List)
+}
+
+@if (Model?.Intro_BestFor_List != null && Model.Intro_BestFor_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_product_intro_bestfor.cshtml", Model.Intro_BestFor_List)
+}
+
+@if (Model?.Why_Experts_List != null && Model.Why_Experts_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_product_why_experts.cshtml", Model.Why_Experts_List)
+}
+
+@if (Model?.Physical_Properties_List != null && Model.Physical_Properties_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_product_physical_properties.cshtml", Model.Physical_Properties_List)
+}
+
+@if (Model?.Compressive_Strength_List != null && Model.Compressive_Strength_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_product_compressive_strength.cshtml", Model.Compressive_Strength_List)
+}
+
+@if (Model?.Chemical_Properties_List != null && Model.Chemical_Properties_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_product_chemical_properties.cshtml", Model.Chemical_Properties_List)
+}
+
+@if (Model?.Things_To_Know_List != null && Model.Things_To_Know_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_product_things_to_know.cshtml", Model.Things_To_Know_List)
+}
+
+@if (Model?.Product_CTA_List != null && Model.Product_CTA_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_product_cta_band.cshtml", Model.Product_CTA_List)
+}
+
+@section Scripts {
+    <script src="~/Assets/js/inner-banner-script.js"></script>
+    <script src="~/Assets/js/products-inside-script.js"></script>
+}
