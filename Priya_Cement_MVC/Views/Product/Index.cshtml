@@ -1,0 +1,104 @@
+@using Priya_Cement_MVC.Helpers
+@model Priya_Cement_BusinessLogic.Entity.AboutModel
+@{
+   ViewData["Title"] = "Product";
+   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head {
+   <title>@Model.Content.cont_window_title</title>
+
+   <meta content="@Model.Content.cont_metatag" name="keywords" />
+   <meta content="@Model.Content.cont_metadesc" name="description" />
+
+
+   <meta name="twitter:card" content="summary" />
+   <meta name="twitter:site" content="" />
+   <meta name="twitter:title" content="@Model.Content.ContTitle" />
+   <meta name="twitter:description" content="@Model.Content.cont_metadesc" />
+
+
+   <meta property="og:type" content="article" />
+   <meta property="og:site_name" content="Nekta" />
+   <meta property="og:title" content="@Model.Content.ContTitle" />
+   <meta property="og:description" content="@Model.Content.cont_metadesc" />
+   <meta property="og:url" content="https://www.nekta.com/" />
+   <meta property="og:image" content="@Model.Content.cont_meta_image" />
+
+   <meta itemprop="name" content="Nekta" />
+   <meta itemprop="description" content="@Model.Content.cont_metadesc" />
+   <meta itemprop="image" content="@Model.Content.cont_meta_image" />
+
+   <!-- Facebook / Open Graph -->
+   <meta property="og:type" content="website" />
+   <meta property="og:site_name" content="Nekta" />
+   <meta property="og:title" content="@Model.Content.ContTitle" />
+   <meta property="og:description" content="@Model.Content.cont_metadesc" />
+   <meta property="og:image" content="@Model.Content.cont_meta_image" />
+   <meta property="og:url" content="https://www.nekta.com/" />
+
+   <link rel="canonical" href="@Model.Content.CanonicalUrl" />
+}
+
+@section Styles {
+   <link rel="stylesheet" href="~/Assets/css/center-mode-slider.css">
+   <link rel="stylesheet" href="~/Assets/css/three-box-slider.css">
+   <link rel="stylesheet" href="~/Assets/css/three-tilt-card.css">
+   <link rel="stylesheet" href="~/Assets/css/about-us.css" />
+}
+
+<!-- HERO BANNER -->
+@if (Model?.Content != null)
+{
+   @await Html.PartialAsync("~/Views/CommonComponent/_page_banner.cshtml", Model.Content)
+}
+
+<!-- INTRO SECTION -->
+@if (Model?.Content != null)
+{
+   @await Html.PartialAsync("~/Views/CommonComponent/_page_intro_text.cshtml", Model.Content)
+}
+
+<!-- AT A GLANCE / THREE TILT CARD -->
+@if (Model.Component_With_Cards_List != null && Model.Component_With_Cards_List.Any())
+{
+   @await Html.PartialAsync("~/Views/CommonComponent/_at_a_glance.cshtml", Model.Component_With_Cards_List)
+}
+
+<!-- COUNTER SECTION -->
+@if (Model.infographics_List != null && Model.infographics_List.Any())
+{
+   @await Html.PartialAsync("~/Views/CommonComponent/_infographics_counter.cshtml", Model.infographics_List)
+}
+
+<!-- ENQUIRE NOW CTA -->
+@if (Model.Access_to_Safe_List != null && Model.Access_to_Safe_List.Any())
+{
+   @await Html.PartialAsync("~/Views/CommonComponent/_enquire_now_cta.cshtml", Model.Access_to_Safe_List)
+}
+
+<!-- WHO WE ARE -->
+@if (Model.Who_Are_We_List != null && Model.Who_Are_We_List.Any())
+{
+   @await Html.PartialAsync("~/Views/CommonComponent/_who_are_we.cshtml", Model.Who_Are_We_List)
+}
+
+<!-- FOOTPRINT SECTION -->
+@if (Model.Our_Footprint_List != null && Model.Our_Footprint_List.Any())
+{
+   @await Html.PartialAsync("~/Views/CommonComponent/_our_footprint.cshtml", Model.Our_Footprint_List)
+}
+
+<!-- SINGULAR SPIRIT -->
+@if (Model.Singular_Spirit_Aboutus_List != null && Model.Singular_Spirit_Aboutus_List.Any())
+{
+   @await Html.PartialAsync("~/Views/CommonComponent/_singular_spirit.cshtml", Model.Singular_Spirit_Aboutus_List)
+}
+
+@section Scripts {
+   <script src="~/Assets/js/inner-banner-script.js"></script>
+   <script src="~/Assets/js/center-mode-slider.js"></script>
+   <script src="~/Assets/js/three-box-slider.js"></script>
+   <script src="~/Assets/js/three-tilt-card.js"></script>
+   <script src="~/Assets/js/about-us.js"></script>
+}
