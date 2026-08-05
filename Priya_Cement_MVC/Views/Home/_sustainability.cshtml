@@ -24,10 +24,10 @@
       muted
       loop
       playsinline
-      poster="@Component.Video_poster">
-      @if (!string.IsNullOrWhiteSpace(Component.Video_path))
+      poster="@Component.ComponentThumbnail">
+      @if (!string.IsNullOrWhiteSpace(Component.component_Video_path))
       {
-          <source src="@Component.Video_path" type="video/mp4">
+          <source src="@Component.component_Video_path" type="video/mp4">
       }
     </video>
     <div class="video-bg-overlay absolute top-0 inset-s-0 w-full h-full"></div>
