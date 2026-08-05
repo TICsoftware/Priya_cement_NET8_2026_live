@@ -30,7 +30,11 @@ namespace Priya_Cement_BusinessLogic.BAL
 
                 model.Intro_PL_List = MapComponents(groupedData, 1);
                 model.Technical_team_PL_List = MapComponents(groupedData, 2);
+            }
 
+            if (ds?.Tables.Count > 2 && ds.Tables[2].Rows.Count > 0)
+            {
+                model.Product_List = Config_Application_Website.MapArticleList(ds.Tables[2]); ;
             }
 
             return model;
