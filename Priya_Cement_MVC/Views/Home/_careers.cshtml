@@ -7,25 +7,6 @@
         .Where(x => x.IsBlock == 0)
         .OrderBy(x => x.Sequence)
         .FirstOrDefault();
-
-    var ctas = Model
-        .Where(x => x.IsBlock == 1)
-        .OrderBy(x => x.Sequence)
-        .ToList();
-
-    // Fallback: if no block CTAs, use Url/Url_Text on the section component
-    if (!ctas.Any() && Component != null && !string.IsNullOrWhiteSpace(Component.Url))
-    {
-        ctas = new List<HomeCommonModel>
-        {
-            new HomeCommonModel
-            {
-                Url = Component.Url,
-                Url_Text = Component.Url_Text,
-                Title = Component.Url_Text
-            }
-        };
-    }
 }
 
 @if (Component != null)
@@ -65,21 +46,34 @@
                   }
                 </div>
 
-                @if (ctas.Any())
+                @if (!string.IsNullOrWhiteSpace(Component.Url) || !string.IsNullOrWhiteSpace(Component.component_Url2))
                 {
                 <div class="flex flex-wrap gap-10 mt-10">
-                    @foreach (var item in ctas)
+
+                    @if (!string.IsNullOrWhiteSpace(Component.Url))
                     {
-                        if (string.IsNullOrWhiteSpace(item.Url)) { continue; }
                         <div class="outer-btn-wrap">
-                          <a class="site-link" href="@item.Url">
-                            @(!string.IsNullOrWhiteSpace(item.Url_Text)
-                                ? item.Url_Text
-                                : (!string.IsNullOrWhiteSpace(item.Title) ? item.Title : "Learn more"))
-                            <span class="site-link-arrow" aria-hidden="true"><img src="/Assets/images/common-images/button-arrow-icon.svg" alt="" class="w-auto object-cover"></span>
+                          <a class="site-link" href="@Component.Url">
+                            @(!string.IsNullOrWhiteSpace(Component.Url_Text) ? Component.Url_Text : "Our Culture")
+                            <span class="site-link-arrow" aria-hidden="true">
+                              <img src="@(string.IsNullOrWhiteSpace(Component.Icon_Image) ? "/Assets/images/common-images/button-arrow-icon.svg" : Component.Icon_Image)" alt="" class="w-auto object-cover">
+                            </span>
                           </a>
                         </div>
                     }
+
+                    @if (!string.IsNullOrWhiteSpace(Component.component_Url2))
+                    {
+                        <div class="outer-btn-wrap">
+                          <a class="site-link" href="@Component.component_Url2">
+                            @(!string.IsNullOrWhiteSpace(Component.component_Url_Text2) ? Component.component_Url_Text2 : "Explore openings")
+                            <span class="site-link-arrow" aria-hidden="true">
+                              <img src="@(string.IsNullOrWhiteSpace(Component.Icon_Image2) ? "/Assets/images/common-images/button-arrow-icon.svg" : Component.Icon_Image2)" alt="" class="w-auto object-cover">
+                            </span>
+                          </a>
+                        </div>
+                    }
+
                 </div>
                 }
 

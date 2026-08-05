@@ -24,6 +24,7 @@ namespace Priya_Cement_BusinessLogic.Entity
         public string GroupId { get; set; }
         public string Title { get; set; }
         public string Intro { get; set; }
+         public string Landing_Intro { get; set; }
         public string HmpgIntro { get; set; }
         public string DisplayTitle { get; set; }
         public string Content { get; set; }
