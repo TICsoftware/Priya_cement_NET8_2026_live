@@ -22,10 +22,6 @@ public class ProductController : Controller
     {
         try
         {
-<<<<<<< HEAD
-            //string pageName = HttpContext?.Request?.Path.Value?.Trim('/') ?? string.Empty;
-=======
->>>>>>> 33b5aaf8c6d9076320abd1f08e7a6bfb4ad91929
             var data = _bal.GetProduct_BAL(title, 1, 1);
             return View(data);
         }
