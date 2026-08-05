@@ -22,7 +22,7 @@
       <p class="quote-card-member">@Model.Title</p>
       @if (!string.IsNullOrWhiteSpace(Model.Designation))
       {
-          <p class="quote-card-desn">@Model.Designation</p>
+          <p class="quote-card-desn"> @Html.Raw(Model.Designation.CleanParagraphTags())</p>
       }
     </div>
   </div>
