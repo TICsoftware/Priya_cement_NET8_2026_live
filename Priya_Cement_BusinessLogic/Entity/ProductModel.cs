@@ -14,15 +14,9 @@ namespace Priya_Cement_BusinessLogic.Entity
 
 
         //About us
-        public List<ComponentModel> Component_With_Cards_List { get; set; } = new();
-        public List<ComponentModel> infographics_List { get; set; } = new();
-        public List<ComponentModel> Access_to_Safe_List { get; set; } = new();
-        public List<ComponentModel> Who_Are_We_List { get; set; } = new();
-        public List<ComponentModel> Our_Footprint_List { get; set; } = new();
-        public List<ComponentModel> Singular_Spirit_Aboutus_List { get; set; } = new();
-
-
-
+        public List<ComponentModel> Intro_PL_List { get; set; } = new();
+        public List<ComponentModel> Technical_team_PL_List { get; set; } = new();
+         public List<ArticleModel> Product_List { get; set; } = new();
 
 
         public int TotalCount { get; set; }

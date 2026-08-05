@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (heroEl && typeof Swiper !== 'undefined') {
-    const PARALLAX_MAX = 5;
+    const PARALLAX_MAX = 10;
     let heroSwiperReady = false;
 
     function applyImageParallax(swiper, duration) {
@@ -21,16 +21,33 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    // Tag title / paragraph / CTA per slide with data-swiper-parallax at
+    // runtime — same attribute the codepen reference sets in markup, just
+    // applied via JS so Index.cshtml stays untouched. Depths (300/400/500)
+    // match the reference 1:1: title moves least, button travels furthest.
+    function applyParallaxAttrs() {
+      if (reduceMotion) return;
+      heroEl.querySelectorAll('.swiper-slide').forEach((slide) => {
+        const title = slide.querySelector('.slide-content h1, .slide-content h2');
+        const text = slide.querySelector('.slide-content .hero-para');
+        const btnWrap = slide.querySelector('.outer-hero-button');
+        if (title) title.setAttribute('data-swiper-parallax', '300');
+        if (text) text.setAttribute('data-swiper-parallax', '400');
+        if (btnWrap) btnWrap.setAttribute('data-swiper-parallax', '500');
+      });
+    }
+
     function initHeroSwiper() {
       if (heroSwiperReady) return;
       heroSwiperReady = true;
 
-      const section = document.querySelector('.hero-banner-section');
+      applyParallaxAttrs();
 
       new Swiper(heroEl, {
         loop: true,
         speed: reduceMotion ? 0 : 1050,
         effect: 'slide',
+        parallax: !reduceMotion,
         watchSlidesProgress: true,
         grabCursor: true,
         resistanceRatio: 0.85,
@@ -69,12 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.appendChild(img);
               }
             });
-
-            if (section) {
-              requestAnimationFrame(() => {
-                section.classList.add('is-hero-ready');
-              });
-            }
           },
           progress(sw) {
             applyImageParallax(sw, 0);
@@ -86,11 +97,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Deferred until the splash preloader (homepage-preloader.js) hands off
-    // — see 'homepagePreloaderDone'. Timeout is a safety net in case that
-    // script is missing or fails; initHeroSwiper() itself is idempotent.
-    document.addEventListener('homepagePreloaderDone', initHeroSwiper, { once: true });
-    window.setTimeout(initHeroSwiper, 6000);
+    // Built immediately, hidden behind the preloader's opaque backdrop —
+    // so the slider is already fully laid out and running (autoplay armed,
+    // first slide positioned) by the time the preloader exits, instead of
+    // still being under construction the instant it becomes visible.
+    // homepage-preloader.js handles *revealing* the hero section on exit;
+    // this only builds it.
+    initHeroSwiper();
   }
 
 

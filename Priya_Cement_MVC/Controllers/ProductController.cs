@@ -16,12 +16,12 @@ namespace Priya_Cement_MVC.Controllers;
 public class ProductController : Controller
 {
     private readonly ILogger<ProductController> _logger;
-    private readonly About_BAL _bal;
+    private readonly Product_BAL _bal;
 
     public ProductController(ILogger<ProductController> logger, IConfiguration configuration)
     {
         _logger = logger;
-        _bal = new About_BAL(configuration);
+        _bal = new Product_BAL(configuration);
     }
 
 
@@ -31,7 +31,7 @@ public class ProductController : Controller
         try
         {
             //string pageName = HttpContext?.Request?.Path.Value?.Trim('/') ?? string.Empty;
-            var data = _bal.GetAboutUs_BAL(title, 1, 1);
+            var data = _bal.GetProduct_BAL(title, 1, 1);
             return View(data);
         }
         catch (Exception ex)
