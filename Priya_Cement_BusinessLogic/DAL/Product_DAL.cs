@@ -16,7 +16,9 @@ namespace Priya_Cement_BusinessLogic.DAL
             return GetContentComponentData_DAL(pagename, languageId, geographyId);
         }
 
-       
-
+        public DataSet GetTechnicalServices_DAL(string pagename, int languageId, int geographyId)
+        {
+            return GetContentComponentData_DAL(pagename, languageId, geographyId);
+        }
     }
 }

@@ -27,6 +27,7 @@ public class ProductController : Controller
     {
         try
         {
+            //string pageName = HttpContext?.Request?.Path.Value?.Trim('/') ?? string.Empty;
             var data = _bal.GetProduct_BAL(title, 1, 1);
             return View(data);
         }
@@ -58,59 +59,18 @@ public class ProductController : Controller
             _bal.Dispose();
         }
     }
-
-
-    public IActionResult Test(string title)
+    
+    public IActionResult TechnicalServices(string title)
     {
         try
         {
-            var data = _bal.GetProductInside_BAL("what-we-offer", 1, 1);
-
-            // Service Type
-            ViewBag.ServiceTypeList = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "1", Text = "On-site testing services" },
-                new SelectListItem { Value = "2", Text = "Technical support services" }
-            };
-
-            // State List
-            ViewBag.StateList = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "1", Text = "Andhra Pradesh" },
-                new SelectListItem { Value = "2", Text = "Telangana" },
-                new SelectListItem { Value = "3", Text = "Tamil Nadu" },
-                new SelectListItem { Value = "4", Text = "Karnataka" },
-                new SelectListItem { Value = "5", Text = "Odisha" },
-                new SelectListItem { Value = "6", Text = "Maharashtra" }
-            };
-
-            // City List
-            ViewBag.CityList = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "1", Text = "Hyderabad, Rangareddy" },
-                new SelectListItem { Value = "2", Text = "Vijayawada, Krishna" },
-                new SelectListItem { Value = "3", Text = "Visakhapatnam" },
-                new SelectListItem { Value = "4", Text = "Chennai" },
-                new SelectListItem { Value = "5", Text = "Bengaluru, Urban" },
-                new SelectListItem { Value = "6", Text = "Other" }
-            };
-
-            // Test Type List
-            ViewBag.TestTypeList = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "1", Text = "Cement tests" },
-                new SelectListItem { Value = "2", Text = "Aggregate tests" },
-                new SelectListItem { Value = "3", Text = "Concrete tests" },
-                new SelectListItem { Value = "4", Text = "Water quality testing" },
-                new SelectListItem { Value = "5", Text = "Other tests" }
-            };
-
-
+            var pageName = string.IsNullOrWhiteSpace(title) ? "technical-services" : title;
+            var data = _bal.GetTechnicalServices_BAL(pageName, 1, 1);
             return View(data);
         }
         catch (Exception ex)
         {
-            FileLogger.LogError("/Product/Inside :", ex);
+            FileLogger.LogError("/Product/TechnicalServices :", ex);
             return View(new ProductModel());
         }
         finally
@@ -118,7 +78,6 @@ public class ProductController : Controller
             _bal.Dispose();
         }
     }
-
 
     [HttpPost]
     [ValidateAntiForgeryToken]

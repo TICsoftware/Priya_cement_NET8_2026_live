@@ -25,6 +25,14 @@ namespace Priya_Cement_BusinessLogic.Entity
         public List<ComponentModel> Things_To_Know_List { get; set; } = new();
         public List<ComponentModel> Product_CTA_List { get; set; } = new();
 
+        // Technical services
+        public List<ComponentModel> Intro_TS_List { get; set; } = new();
+        public List<ComponentModel> Onsite_Testing_List { get; set; } = new();
+        public List<ComponentModel> Testing_Capabilities_List { get; set; } = new();
+        public List<ComponentModel> Support_Intro_List { get; set; } = new();
+        public List<ComponentModel> Support_Items_List { get; set; } = new();
+        public List<ComponentModel> Enquiry_CTA_List { get; set; } = new();
+
         public int TotalCount { get; set; }
     }
 }

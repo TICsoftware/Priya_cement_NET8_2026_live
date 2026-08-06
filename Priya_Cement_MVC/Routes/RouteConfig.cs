@@ -30,6 +30,7 @@ namespace Priya_Cement_MVC.Routes
                       );
 
             app.MapControllerRoute(
+<<<<<<< HEAD
                name: "Test",
                pattern: "test",
                defaults: new { controller = "Product", action = "Test" }
@@ -43,6 +44,14 @@ namespace Priya_Cement_MVC.Routes
 
 
 
+=======
+                          name: "technical-services",
+                          pattern: "technical-services",
+                          defaults: new { controller = "Product", action = "TechnicalServices", title = "technical-services" }
+                      );
+
+          
+>>>>>>> e07c66a129e4a3d5b022fd37e880ffb4398cd539
             app.MapControllerRoute(
                 name: "LoadMoreSearch",
                 pattern: "Search/LoadMoreSearch",
