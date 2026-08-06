@@ -22,6 +22,7 @@ public class ProductController : Controller
     {
         try
         {
+            //string pageName = HttpContext?.Request?.Path.Value?.Trim('/') ?? string.Empty;
             var data = _bal.GetProduct_BAL(title, 1, 1);
             return View(data);
         }
@@ -53,8 +54,25 @@ public class ProductController : Controller
             _bal.Dispose();
         }
     }
-
-
+    
+    public IActionResult TechnicalServices(string title)
+    {
+        try
+        {
+            var pageName = string.IsNullOrWhiteSpace(title) ? "technical-services" : title;
+            var data = _bal.GetTechnicalServices_BAL(pageName, 1, 1);
+            return View(data);
+        }
+        catch (Exception ex)
+        {
+            FileLogger.LogError("/Product/TechnicalServices :", ex);
+            return View(new ProductModel());
+        }
+        finally
+        {
+            _bal.Dispose();
+        }
+    }
 
     [HttpPost]
     public ActionResult SaveTechnicalSupport(TechnicalSupportEnquiry model)
@@ -76,6 +94,7 @@ public class ProductController : Controller
             Message = "Enquiry submitted successfully."
         });
     }
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

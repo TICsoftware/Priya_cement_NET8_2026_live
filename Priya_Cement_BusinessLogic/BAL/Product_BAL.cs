@@ -72,5 +72,36 @@ namespace Priya_Cement_BusinessLogic.BAL
 
             return model;
         }
+
+        /// <summary>
+        /// Technical services page.
+        /// Sequences: 1 intro+tabs, 2 onsite testing, 3 testing capabilities,
+        /// 4 support intro, 5 support items, 6 enquiry CTA.
+        /// </summary>
+        public ProductModel GetTechnicalServices_BAL(string pagename, int languageId, int geographyId)
+        {
+            var model = new ProductModel();
+            var ds = GetContentComponentData_DAL(pagename, languageId, geographyId);
+
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                model.Content = MapContent(ds.Tables[0].Rows[0]);
+            }
+
+            if (ds.Tables.Count > 1 && ds.Tables[1].Rows.Count > 0)
+            {
+                var groupedData = GetGroupedComponents(ds.Tables[1]);
+                model.Components = groupedData;
+
+                model.Intro_TS_List = MapComponents(groupedData, 1);
+                model.Onsite_Testing_List = MapComponents(groupedData, 2);
+                model.Testing_Capabilities_List = MapComponents(groupedData, 3);
+                model.Support_Intro_List = MapComponents(groupedData, 4);
+                model.Support_Items_List = MapComponents(groupedData, 5);
+                model.Enquiry_CTA_List = MapComponents(groupedData, 6);
+            }
+
+            return model;
+        }
     }
 }

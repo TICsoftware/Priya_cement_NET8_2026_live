@@ -34,6 +34,9 @@ namespace Priya_Cement_BusinessLogic.Entity
         public string FileUploadTitle1 { get; set; }
         public string FileUploadTitle2 { get; set; }
 
+        public string Component_Button_Title1 { get; set; }
+        public string Component_Button_Title2 { get; set; }
+
         public int Sequence { get; set; }
         public int IsBlock { get; set; }
 
