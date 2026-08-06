@@ -54,6 +54,29 @@ public class ProductController : Controller
         }
     }
 
+
+
+    [HttpPost]
+    public ActionResult SaveTechnicalSupport(TechnicalSupportEnquiry model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return Json(new
+            {
+                Status = false,
+                Message = "Please fill all required fields."
+            });
+        }
+
+        // Save to database
+
+        return Json(new
+        {
+            Status = true,
+            Message = "Enquiry submitted successfully."
+        });
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
