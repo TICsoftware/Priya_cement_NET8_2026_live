@@ -29,7 +29,7 @@ namespace Priya_Cement_BusinessLogic.BAL
                 dt = AddTechnicalSupportEnquiry_DAL(model);
                 if (dt.Rows[0][0].ToString() == "updated")
                 {
-                    SendMail(MailEnquiryContent(model), "Service request from " + model.Name);
+                    //SendMail(MailEnquiryContent(model), "Service request from " + model.Name);
                 }
             }
             catch (Exception ex)
