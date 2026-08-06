@@ -5,18 +5,15 @@
 <form asp-controller="Product" asp-action="SubmitTechnicalSupport" method="post" id="technicalSupportForm" novalidate>
 
     <div class="mt-8 flex flex-wrap sm:items-center sm:justify-center gap-x-[44px] gap-y-3">
-        <label class="radio-opt">
-            <input asp-for="ServiceTypeId" type="radio" value="1" />
-            <span class="radio-dot"></span>
-            <span class="text-p font-medium text-white">Schedule an testing visit</span>
-        </label>
+        @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ServiceTypeList)
+        {
+            <label class="radio-opt">
+                <input asp-for="ServiceTypeId" name="ServiceTypeId" type="radio" value="@item.Value" />
+                <span class="radio-dot"></span>
+                <span class="text-p font-medium text-white">@item.Text</span>
+            </label>
+        }
 
-        <label class="radio-opt">
-            <input asp-for="ServiceTypeId" type="radio" value="2" />
-            <span class="radio-dot"></span>
-            <span class="text-p font-medium text-white">Request technical support for your
-                project</span>
-        </label>
         <span asp-validation-for="ServiceTypeId" class="text-red-500"></span>
     </div>
 

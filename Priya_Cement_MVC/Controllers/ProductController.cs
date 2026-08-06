@@ -153,41 +153,46 @@ public class ProductController : Controller
 
     private void BindTechnicalSupportDropdowns()
     {
-        ViewBag.ServiceTypeList = new List<SelectListItem>
-        {
-            new SelectListItem { Value = "1", Text = "On-site testing services" },
-            new SelectListItem { Value = "2", Text = "Technical support services" }
-        };
+        ViewBag.ServiceTypeList = new SelectList(_TechnicalSupport_bal.GetServiceTypeList(), "Id", "Name");
 
-        ViewBag.StateList = new List<SelectListItem>
-        {
-            new SelectListItem { Value = "1", Text = "Andhra Pradesh" },
-            new SelectListItem { Value = "2", Text = "Telangana" },
-            new SelectListItem { Value = "3", Text = "Tamil Nadu" },
-            new SelectListItem { Value = "4", Text = "Karnataka" },
-            new SelectListItem { Value = "5", Text = "Odisha" },
-            new SelectListItem { Value = "6", Text = "Maharashtra" }
-        };
+        ViewBag.StateList = new SelectList(_TechnicalSupport_bal.GetStateList(), "Id", "Name");
 
-        ViewBag.CityList = new List<SelectListItem>
-        {
-            new SelectListItem { Value = "1", Text = "Hyderabad, Rangareddy" },
-            new SelectListItem { Value = "2", Text = "Vijayawada, Krishna" },
-            new SelectListItem { Value = "3", Text = "Visakhapatnam" },
-            new SelectListItem { Value = "4", Text = "Chennai" },
-            new SelectListItem { Value = "5", Text = "Bengaluru, Urban" },
-            new SelectListItem { Value = "6", Text = "Other" }
-        };
+        ViewBag.CityList = new SelectList(_TechnicalSupport_bal.GetCityList(), "Id", "Name");
 
-        ViewBag.TestTypeList = new List<SelectListItem>
-        {
-            new SelectListItem { Value = "1", Text = "Cement tests" },
-            new SelectListItem { Value = "2", Text = "Aggregate tests" },
-            new SelectListItem { Value = "3", Text = "Concrete tests" },
-            new SelectListItem { Value = "4", Text = "Water quality testing" },
-            new SelectListItem { Value = "5", Text = "Other tests" }
-        };
+        ViewBag.TestTypeList = new SelectList(_TechnicalSupport_bal.GetTestTypeList(), "Id", "Name");
     }
+
+
+    [HttpGet]
+    public JsonResult GetCities(int stateId)
+    {
+        DataTable dt = _TechnicalSupport_bal.GetCityByState(stateId);
+
+        var data = dt.AsEnumerable()
+            .Select(x => new
+            {
+                CityId = Convert.ToInt32(x["CityId"]),
+                CityName = x["CityName"].ToString()
+            });
+
+        return Json(data);
+    }
+
+    [HttpGet]
+    public JsonResult GetTestTypes(int serviceTypeId)
+    {
+        DataTable dt = _TechnicalSupport_bal.GetTestTypeByService(serviceTypeId);
+
+        var data = dt.AsEnumerable()
+            .Select(x => new
+            {
+                TestTypeId = Convert.ToInt32(x["TestTypeId"]),
+                TestTypeName = x["TestTypeName"].ToString()
+            });
+
+        return Json(data);
+    }
+
 
 
     private string GetClientIpAddress()

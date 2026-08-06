@@ -33,5 +33,62 @@ namespace Priya_Cement_BusinessLogic.DAL
 
             return GetDataSet("AddTechnicalSupportEnquiry", sqlParams).Tables[0];
         }
+
+
+        public List<CommonDropdownModel> GetServiceTypeList_DAL()
+        {
+            return GetDropdownList("sp_GetServiceType");
+        }
+
+        public List<CommonDropdownModel> GetStateList_DAL()
+        {
+            return GetDropdownList("sp_GetState");
+        }
+
+        public List<CommonDropdownModel> GetCityList_DAL()
+        {
+            return GetDropdownList("sp_GetCity");
+        }
+
+        public List<CommonDropdownModel> GetTestTypeList_DAL()
+        {
+            return GetDropdownList("sp_GetTestType");
+        }
+
+
+        public DataTable GetCityByState_DAL(int stateId)
+        {
+            SqlParameter[] param =
+            {
+                new SqlParameter("@StateId", stateId)
+            };
+
+            return GetDataSet("sp_GetCityByState", param).Tables[0];
+        }
+
+        public DataTable GetTestTypeByService_DAL(int serviceTypeId)
+        {
+            SqlParameter[] param =
+            {
+                new SqlParameter("@ServiceRequestId", serviceTypeId)
+            };
+
+            return GetDataSet("sp_GetTestTypeByService", param).Tables[0];
+        }
+
+
+        private List<CommonDropdownModel> GetDropdownList(string procedureName)
+        {
+            DataTable dt = GetDataSet(procedureName).Tables[0];
+
+            return dt.AsEnumerable()
+                     .Select(x => new CommonDropdownModel
+                     {
+                         Id = Convert.ToInt32(x["Id"]),
+                         Name = x["Name"].ToString()
+                     }).ToList();
+        }
+
+
     }
 }

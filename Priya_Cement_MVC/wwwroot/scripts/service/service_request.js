@@ -79,6 +79,9 @@ $(document).ready(function () {
             $('[data-valmsg-for="ServiceTypeId"]').text("Please select a service type.");
             isValid = false;
         }
+        else{
+            $('[data-valmsg-for="ServiceTypeId"]').text("");
+        }
 
         // Name
         let name = $("#Name").val().trim();
@@ -91,6 +94,9 @@ $(document).ready(function () {
             $('[data-valmsg-for="Name"]').text("Only alphabets, spaces and '.' are allowed.");
             isValid = false;
         }
+        else{
+            $('[data-valmsg-for="Name"]').text("");
+        }
 
         // Designation
         let designation = $("#Designation").val().trim();
@@ -98,6 +104,9 @@ $(document).ready(function () {
         if (designation === "") {
             $('[data-valmsg-for="Designation"]').text("Please enter your designation.");
             isValid = false;
+        }
+        else{
+            $('[data-valmsg-for="Designation"]').text("");
         }
 
         // Company
@@ -107,6 +116,9 @@ $(document).ready(function () {
             $('[data-valmsg-for="CompanyName"]').text("Please enter company name.");
             isValid = false;
         }
+        else{
+            $('[data-valmsg-for="CompanyName"]').text("");
+        }
 
         // Phone
         let phone = $("#PhoneNumber").val().trim();
@@ -114,55 +126,105 @@ $(document).ready(function () {
         if (phone === "") {
             $('[data-valmsg-for="PhoneNumber"]').text("Please enter phone number.");
             isValid = false;
-        }
-        else {
+        } else {
 
             let cleanPhone = phone.replace(/[\s()-]/g, "");
-
             const phoneRegex = /^\+?[1-9]\d{6,14}$/;
 
             if (!phoneRegex.test(cleanPhone)) {
                 $('[data-valmsg-for="PhoneNumber"]').text("Please enter a valid phone number.");
                 isValid = false;
+            } else {
+                $('[data-valmsg-for="PhoneNumber"]').text("");
             }
         }
 
-        // Email
+        // Email Address
         let email = $("#EmailAddress").val().trim();
 
         if (email === "") {
             $('[data-valmsg-for="EmailAddress"]').text("Please enter email address.");
             isValid = false;
-        }
-        else {
+        } else {
 
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
             if (!emailRegex.test(email)) {
                 $('[data-valmsg-for="EmailAddress"]').text("Please enter a valid email address.");
                 isValid = false;
+            } else {
+                $('[data-valmsg-for="EmailAddress"]').text("");
             }
         }
 
+       
         // State
         if ($("#StateId").val() === "") {
             $('[data-valmsg-for="StateId"]').text("Please select a state.");
             isValid = false;
+        } else {
+            $('[data-valmsg-for="StateId"]').text("");
         }
 
         // City
         if ($("#CityId").val() === "") {
             $('[data-valmsg-for="CityId"]').text("Please select site location.");
             isValid = false;
+        } else {
+            $('[data-valmsg-for="CityId"]').text("");
         }
 
         // Test Type
         if ($("#TestTypeId").val() === "") {
             $('[data-valmsg-for="TestTypeId"]').text("Please select type of tests required.");
             isValid = false;
+        } else {
+            $('[data-valmsg-for="TestTypeId"]').text("");
         }
 
         return isValid;
     }
+
+
+
+    // State -> City
+$("#StateId").change(function () {
+
+    var stateId = $(this).val();
+
+    $("#CityId").html('<option value="">Loading...</option>');
+
+    $.get("/Product/GetCities", { stateId: stateId }, function (data) {
+
+        var options = '<option value="">Select City</option>';
+
+        $.each(data, function (i, item) {
+            options += '<option value="' + item.cityId + '">' + item.cityName + '</option>';
+        });
+
+        $("#CityId").html(options);
+    });
+});
+
+// Service Type -> Test Type
+$("input[name='ServiceTypeId']").change(function () {
+
+    var serviceId = $(this).val();
+
+    $("#TestTypeId").html('<option value="">Loading...</option>');
+
+    $.get("/Product/GetTestTypes", { serviceTypeId: serviceId }, function (data) {
+
+        var options = '<option value="">Select Type of Test</option>';
+
+        $.each(data, function (i, item) {
+            options += '<option value="' + item.testTypeId + '">' + item.testTypeName + '</option>';
+        });
+
+        $("#TestTypeId").html(options);
+    });
+});
+
+
 
 });

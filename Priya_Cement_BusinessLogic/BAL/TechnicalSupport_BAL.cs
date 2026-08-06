@@ -146,7 +146,35 @@ namespace Priya_Cement_BusinessLogic.BAL
         }
 
 
+        public List<CommonDropdownModel> GetServiceTypeList()
+        {
+            return GetServiceTypeList_DAL();
+        }
 
+        public List<CommonDropdownModel> GetStateList()
+        {
+            return GetStateList_DAL();
+        }
+
+        public List<CommonDropdownModel> GetCityList()
+        {
+            return GetCityList_DAL();
+        }
+
+        public List<CommonDropdownModel> GetTestTypeList()
+        {
+            return GetTestTypeList_DAL();
+        }
+
+        public DataTable GetCityByState(int stateId)
+        {
+            return GetCityByState_DAL(stateId);
+        }
+
+        public DataTable GetTestTypeByService(int serviceTypeId)
+        {
+            return GetTestTypeByService_DAL(serviceTypeId);
+        }
 
 
     }
