@@ -1,6 +1,4 @@
-@using Priya_Cement_BusinessLogic.Entity
-@using Priya_Cement_MVC.Helpers
-@model ContentViewModel
+@model TechnicalSupportEnquiryModal
 
 
 <section id="enquiry" class="bg-brand-band relative overflow-hidden section-spacing">
@@ -35,60 +33,95 @@
                     </h2>
                 </div>
 
-                <!-- radio filter -->
-                <div class="mt-8 flex flex-wrap sm:items-center sm:justify-center gap-x-[44px] gap-y-3"
-                    role="radiogroup" aria-label="Service type">
-                    <label class="radio-opt">
-                        <input type="radio" name="serviceType" value="onsite" checked />
-                        <span class="radio-dot" aria-hidden="true"></span>
-                        <span class="text-p font-medium text-white">On-site testing services</span>
-                    </label>
-                    <label class="radio-opt">
-                        <input type="radio" name="serviceType" value="support" />
-                        <span class="radio-dot" aria-hidden="true"></span>
-                        <span class="text-p font-medium text-white">Technical support services</span>
-                    </label>
-                </div>
+                <form asp-controller="Product" asp-action="SubmitTechnicalSupport" method="post"
+                    id="technicalSupportForm" novalidate>
 
-                <form id="enquiry-form" novalidate
-                    class="mx-auto mt-10 grid max-w-[1248px] grid-cols-1 gap-x-[30px] lg:gap-x-[30px] xl:gap-x-[42px] gap-y-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+                    <div class="mt-8 flex flex-wrap sm:items-center sm:justify-center gap-x-[44px] gap-y-3">
+                        <label class="radio-opt">
+                            <input asp-for="ServiceTypeId" type="radio" value="1" />
+                            <span class="radio-dot"></span>
+                            <span class="text-p font-medium text-white">Schedule an testing visit</span>
+                        </label>
 
-                    <input type="text" name="name" placeholder="Name*" aria-label="Name" class="f-field" />
-                    <input type="text" name="designation" placeholder="Designation*"
-                        aria-label="designation" class="f-field" />
-                    <input type="text" name="company" placeholder="Company or firm name*"
-                        aria-label="Company or firm name" class="f-field" />
-                    <div class="f-field flex items-center gap-2 p-0">
-                        <span class="pl-4 text-[16px] font-light text-white">+91</span>
-                        <input type="tel" name="phone" placeholder="Phone number*" aria-label="Phone number"
-                            class="w-full bg-transparent text-base font-light text-white placeholder:text-white/40 focus:outline-none" />
+                        <label class="radio-opt">
+                            <input asp-for="ServiceTypeId" type="radio" value="2" />
+                            <span class="radio-dot"></span>
+                            <span class="text-p font-medium text-white">Request technical support for your
+                                project</span>
+                        </label>
+                        <span asp-validation-for="ServiceTypeId" class="text-red-500"></span>
                     </div>
 
-                    <input type="email" name="email" placeholder="Email address*" aria-label="Email address"
-                        class="f-field" />
-                    <div class="cselect" data-cselect data-name="location"
-                        data-placeholder="Site location (city and district)"
-                        data-options="Hyderabad, Rangareddy|Vijayawada, Krishna|Visakhapatnam|Chennai|Bengaluru, Urban|Other">
-                    </div>
-                    <div class="cselect" data-cselect data-name="state" data-placeholder="State"
-                        data-options="Andhra Pradesh|Telangana|Tamil Nadu|Karnataka|Odisha|Maharashtra"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-10">
 
-                    <div class="hidden lg:block"></div>
-                    <div class="cselect" data-cselect data-name="requirement" data-placeholder="Type of tests required"
-                        data-options="Cement tests|Aggregate tests|Concrete tests|Water quality testing|Other tests">
-                    </div>
-                    <div class="hidden lg:block"></div>
+                        <div>
+                            <input asp-for="Name" class="f-field" placeholder="Name*" />
+                            <span asp-validation-for="Name" class="text-red-500"></span>
+                        </div>
 
-                    <div class="md:col-span-2 lg:col-span-3 mt-3 flex justify-center">
-                        <button type="submit"
-                            class="inline-flex items-center gap-2.5 rounded-[10px] bg-white px-[14px] py-[10px] text-base font-medium text-[#231f20] shadow-[0px_4px_5px_rgba(0,0,0,0.1),0px_17px_8.5px_rgba(0,0,0,0.09)] transition-transform hover:-translate-y-0.5">
-                            Submit
-                            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" aria-hidden="true">
-                                <path d="M0 5h14M10 1l4 4-4 4" stroke="#231f20" stroke-width="1.4"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
+                        <div>
+                            <input asp-for="Designation" class="f-field" placeholder="Designation" />
+                            <span asp-validation-for="Designation"></span>
+                        </div>
+
+                        <div>
+                            <input asp-for="CompanyName" class="f-field" placeholder="Company or firm name*" />
+                            <span asp-validation-for="CompanyName"></span>
+                        </div>
+
+                        <div>
+                            <input asp-for="PhoneNumber" class="f-field" placeholder="Phone number*" />
+                            <span asp-validation-for="PhoneNumber"></span>
+                        </div>
+
+                        <div>
+                            <input asp-for="EmailAddress" class="f-field" placeholder="Email address*" />
+                            <span asp-validation-for="EmailAddress"></span>
+                        </div>
+
+                        <div>
+                            <select asp-for="StateId" class="f-field">
+                                <option value="">Select State</option>
+                                @foreach (var item in ViewBag.StateList)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                            <span asp-validation-for="StateId"></span>
+                        </div>
+
+                        <div>
+                            <select asp-for="CityId" class="f-field">
+                                <option value="">Site Location</option>
+                                @foreach (var item in ViewBag.CityList)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                            <span asp-validation-for="CityId"></span>
+                        </div>
+
+                        <div>
+                            <select asp-for="TestTypeId" class="f-field">
+                                <option value="">Type of tests required</option>
+                                @foreach (var item in ViewBag.TestTypeList)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                            <span asp-validation-for="TestTypeId"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="text-center mt-8">
+                        <button type="submit" class="common-btn btn-slide-fill">
+                            <span>Submit</span>
+                            <img src="~/Assets/images/arrows/creamarrow-long-right.png" alt="">
                         </button>
+                        <div id="technicalSupportMessage" class="mt-3"></div>
                     </div>
+
                 </form>
             </div>
         </div>

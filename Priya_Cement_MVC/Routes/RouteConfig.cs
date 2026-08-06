@@ -21,7 +21,7 @@ namespace Priya_Cement_MVC.Routes
 
 
 
-          
+
 
             app.MapControllerRoute(
                           name: "products-inside",
@@ -29,7 +29,20 @@ namespace Priya_Cement_MVC.Routes
                           defaults: new { controller = "Product", action = "Inside" }
                       );
 
-          
+            app.MapControllerRoute(
+               name: "Test",
+               pattern: "test",
+               defaults: new { controller = "Product", action = "Test" }
+           );
+
+            app.MapControllerRoute(
+              name: "SubmitTechnicalSupport",
+              pattern: "Product/SubmitTechnicalSupport",
+              defaults: new { controller = "Product", action = "SubmitTechnicalSupport" }
+          );
+
+
+
             app.MapControllerRoute(
                 name: "LoadMoreSearch",
                 pattern: "Search/LoadMoreSearch",
