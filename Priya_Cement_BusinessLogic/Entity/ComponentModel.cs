@@ -29,6 +29,11 @@ namespace Priya_Cement_BusinessLogic.Entity
 
         public string MediafilePath { get; set; }
 
+        public string Component_FileUpload1 { get; set; }
+        public string Component_FileUpload2 { get; set; }
+        public string FileUploadTitle1 { get; set; }
+        public string FileUploadTitle2 { get; set; }
+
         public int Sequence { get; set; }
         public int IsBlock { get; set; }
 

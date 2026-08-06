@@ -8,11 +8,6 @@
         .OrderBy(x => x.Sequence)
         .FirstOrDefault();
 
-    var downloads = Model?
-        .Where(x => x.IsBlock == 1)
-        .OrderBy(x => x.Sequence)
-        .ToList() ?? new List<ComponentModel>();
-
     var bagImg = !string.IsNullOrWhiteSpace(floatItem?.ComponentThumbnail)
         ? floatItem.ComponentThumbnail
         : (!string.IsNullOrWhiteSpace(floatItem?.Component_right_image) ? floatItem.Component_right_image : floatItem?.ThumbnailImage);
@@ -21,6 +16,16 @@
         : "";
     var ctaUrl = !string.IsNullOrWhiteSpace(floatItem?.Url) ? floatItem.Url : "#";
     var ctaText = !string.IsNullOrWhiteSpace(floatItem?.Url_Text) ? floatItem.Url_Text : "Get in touch";
+
+    var file1 = floatItem?.Component_FileUpload1;
+    var file2 = floatItem?.Component_FileUpload2;
+    var title1 = !string.IsNullOrWhiteSpace(floatItem?.FileUploadTitle1)
+        ? floatItem.FileUploadTitle1.CleanParagraphTags()
+        : "Product Brochure";
+    var title2 = !string.IsNullOrWhiteSpace(floatItem?.FileUploadTitle2)
+        ? floatItem.FileUploadTitle2.CleanParagraphTags()
+        : "Technical Data Sheet";
+    var hasDownloads = !string.IsNullOrWhiteSpace(file1) || !string.IsNullOrWhiteSpace(file2);
 }
 
 @if (floatItem != null && !string.IsNullOrWhiteSpace(bagImg))
@@ -43,20 +48,21 @@
     </div>
 }
 
-@if (downloads.Any())
+@if (floatItem != null && hasDownloads)
 {
     <div class="product-download-fab" data-download-fab>
         <div class="product-download-fab-actions" role="group" aria-label="Downloads">
-            @foreach (var item in downloads)
+            @if (!string.IsNullOrWhiteSpace(file1))
             {
-                var href = !string.IsNullOrWhiteSpace(item.MediafilePath)
-                    ? item.MediafilePath
-                    : (!string.IsNullOrWhiteSpace(item.Url) ? item.Url : "#");
-                var label = !string.IsNullOrWhiteSpace(item.Url_Text)
-                    ? item.Url_Text
-                    : (!string.IsNullOrWhiteSpace(item.DisplayTitle) ? item.DisplayTitle.CleanParagraphTags() : item.Title);
-                <a href="@href" class="product-download-pill">
-                    <span>@Html.Raw(label)</span>
+                <a href="@file1" class="product-download-pill" download>
+                    <span>@Html.Raw(title1)</span>
+                    <img src="/Assets/images/common-images/download-vector.svg" alt="" aria-hidden="true">
+                </a>
+            }
+            @if (!string.IsNullOrWhiteSpace(file2))
+            {
+                <a href="@file2" class="product-download-pill" download>
+                    <span>@Html.Raw(title2)</span>
                     <img src="/Assets/images/common-images/download-vector.svg" alt="" aria-hidden="true">
                 </a>
             }

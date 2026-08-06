@@ -42,6 +42,17 @@ namespace Priya_Cement_BusinessLogic
             return path ?? "";
         }
 
+        public static string GetPath(ComponentGroup group, params string[] fieldNames)
+        {
+            foreach (var fieldName in fieldNames)
+            {
+                var path = GetPath(group, fieldName);
+                if (!string.IsNullOrWhiteSpace(path))
+                    return path;
+            }
+            return "";
+        }
+
 
 
 
