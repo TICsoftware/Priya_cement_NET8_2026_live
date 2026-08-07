@@ -59,7 +59,15 @@
     });
   }
 
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    // Without GSAP, CSS keeps the bag at opacity:0 — force it visible
+    const bagFallback = document.querySelector('.product-float-sticky');
+    if (bagFallback) {
+      bagFallback.style.opacity = '1';
+      bagFallback.style.visibility = 'visible';
+    }
+    return;
+  }
 
   /* ---- Product bag: fixed until CTA end, then release (no opacity 0 at end) ---- */
   const mm = gsap.matchMedia();
@@ -70,7 +78,8 @@
     const cta = document.querySelector('.cta-band');
     const banner = document.querySelector('.inside-banner-outer');
     const intro = document.querySelector('.page-intro-outer');
-    if (!bag || !rail || !cta) return;
+    // CTA is optional — pages without .cta-band still need the bag visible
+    if (!bag || !rail) return;
 
     gsap.set(bag, { autoAlpha: 0 });
 
@@ -103,6 +112,12 @@
     };
 
     const releaseToCta = () => {
+      if (!cta) {
+        armFixed();
+        show();
+        return;
+      }
+
       const bagRect = bag.getBoundingClientRect();
       const ctaRect = cta.getBoundingClientRect();
       const top = bagRect.top - ctaRect.top;
@@ -127,8 +142,8 @@
     const rangeST = ScrollTrigger.create({
       trigger: intro || rail || banner,
       start: 'top bottom',
-      endTrigger: cta,
-      end: 'bottom bottom',
+      endTrigger: cta || document.body,
+      end: cta ? 'bottom bottom' : 'bottom bottom',
       invalidateOnRefresh: true,
       onEnter: () => {
         armFixed();
@@ -139,7 +154,11 @@
         show();
       },
       onLeave: () => {
-        releaseToCta();
+        if (cta) releaseToCta();
+        else {
+          armFixed();
+          show();
+        }
       },
       onLeaveBack: () => {
         if (bag.parentElement !== rail) rail.appendChild(bag);
@@ -152,11 +171,21 @@
     });
 
     const syncBagVisibility = () => {
-      if (rangeST.progress >= 1) {
+      if (cta && rangeST.progress >= 1) {
         releaseToCta();
       } else if (rangeST.isActive || rangeST.progress > 0) {
         armFixed();
         show();
+      } else {
+        // Intro already above fold on load — still show the bag
+        const introEl = intro || rail || banner;
+        if (introEl) {
+          const top = introEl.getBoundingClientRect().top;
+          if (top < window.innerHeight) {
+            armFixed();
+            show();
+          }
+        }
       }
     };
 

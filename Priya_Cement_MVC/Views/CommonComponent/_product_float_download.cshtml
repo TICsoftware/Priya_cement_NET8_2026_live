@@ -3,21 +3,65 @@
 @model List<ComponentModel>
 
 @{
-    var floatItem = Model?
-        .Where(x => x.IsBlock == 0)
-        .OrderBy(x => x.Sequence)
-        .FirstOrDefault();
+    // Main float component (no sequence ordering)
+    var floatItem = Model?.FirstOrDefault(x => x.IsBlock == 0) ?? Model?.FirstOrDefault();
 
-    var bagImg = !string.IsNullOrWhiteSpace(floatItem?.ComponentThumbnail)
-        ? floatItem.ComponentThumbnail
-        : (!string.IsNullOrWhiteSpace(floatItem?.Component_right_image) ? floatItem.Component_right_image : floatItem?.ThumbnailImage);
+    bool IsDocumentPath(string? path)
+    {
+        if (string.IsNullOrWhiteSpace(path)) return false;
+        var clean = path.Split('?', '#')[0];
+        var ext = System.IO.Path.GetExtension(clean)?.ToLowerInvariant() ?? "";
+        return ext is ".pdf" or ".doc" or ".docx" or ".xls" or ".xlsx" or ".ppt" or ".pptx" or ".zip" or ".rar" or ".csv" or ".txt";
+    }
+
+    bool IsImagePath(string? path)
+    {
+        if (string.IsNullOrWhiteSpace(path)) return false;
+        // Never use download/file paths as the bag image
+        if (IsDocumentPath(path)) return false;
+        return true;
+    }
+
+    string? PickBagImage(ComponentModel? item)
+    {
+        if (item == null) return null;
+        var candidates = new[]
+        {
+            item.ComponentThumbnail,
+            item.Component_right_image,
+            item.ThumbnailImage,
+            item.Icon_Image,
+            item.Component_LHS_thumbnail,
+            item.Thumbnail_color_image
+        };
+        return candidates.FirstOrDefault(IsImagePath);
+    }
+
+    // If main item has no image, fall back to any list item that has a CMS image
+    var bagImg = PickBagImage(floatItem);
+    if (string.IsNullOrWhiteSpace(bagImg) && Model != null)
+    {
+        foreach (var item in Model)
+        {
+            bagImg = PickBagImage(item);
+            if (!string.IsNullOrWhiteSpace(bagImg))
+            {
+                floatItem ??= item;
+                break;
+            }
+        }
+    }
+
     var bagAlt = !string.IsNullOrWhiteSpace(floatItem?.ComponentThumbnailAltText)
         ? floatItem.ComponentThumbnailAltText
-        : "";
+        : (!string.IsNullOrWhiteSpace(floatItem?.Component_Right_image_alt) ? floatItem.Component_Right_image_alt : "");
     var ctaUrl = !string.IsNullOrWhiteSpace(floatItem?.Url) ? floatItem.Url : "#";
     var ctaText = !string.IsNullOrWhiteSpace(floatItem?.Url_Text) ? floatItem.Url_Text : "Get in touch";
 
-    var file1 = floatItem?.Component_FileUpload1;
+    // Downloads stay independent of bag image
+    var file1 = !string.IsNullOrWhiteSpace(floatItem?.Component_FileUpload1)
+        ? floatItem.Component_FileUpload1
+        : floatItem?.MediafilePath;
     var file2 = floatItem?.Component_FileUpload2;
     var title1 = !string.IsNullOrWhiteSpace(floatItem?.FileUploadTitle1)
         ? floatItem.FileUploadTitle1.CleanParagraphTags()

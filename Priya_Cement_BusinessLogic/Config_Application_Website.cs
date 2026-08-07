@@ -34,12 +34,29 @@ namespace Priya_Cement_BusinessLogic
 
         public static string GetPath(ComponentGroup group, string fieldName)
         {
-            var path = group.Fields
+            var field = group.Fields
                 .FirstOrDefault(x =>
                     string.Equals(x.FieldName?.Trim(), fieldName.Trim(), StringComparison.OrdinalIgnoreCase)
-                )?.ImagePath;
+                );
 
-            return path ?? "";
+            if (field == null)
+                return "";
+
+            if (!string.IsNullOrWhiteSpace(field.ImagePath))
+                return field.ImagePath.Trim();
+
+            // File uploads / some media fields store the path in FieldValue
+            var value = field.FieldValue?.Trim() ?? "";
+            if (string.IsNullOrWhiteSpace(value))
+                return "";
+
+            if (value.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+                || value.StartsWith("/")
+                || value.Contains('/')
+                || value.Contains('\\'))
+                return value;
+
+            return "";
         }
 
         public static string GetPath(ComponentGroup group, params string[] fieldNames)
