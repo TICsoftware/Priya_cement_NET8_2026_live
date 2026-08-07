@@ -88,15 +88,40 @@ namespace Priya_Cement_BusinessLogic.BAL
 
         protected List<ComponentModel> MapComponents(List<ComponentGroup> data, int sequence)
         {
-            return Config_Application_Website.MapComponent(data, sequence, (group, dict) => new ComponentModel
+            return Config_Application_Website.MapComponent(data, sequence, (group, dict) =>
             {
+                var thumbnail = Config_Application_Website.GetPath(
+                    group,
+                    "Component Thumbnail image",
+                    "component thumbnail image",
+                    "Component thumbnail",
+                    "Component Thumbnail",
+                    "thumbnail image",
+                    "product image",
+                    "Product image");
+
+                // Fallback: first image-like media on the component (skips file-upload fields)
+                if (string.IsNullOrWhiteSpace(thumbnail))
+                {
+                    thumbnail = Config_Application_Website.GetFirstImagePath(
+                        group,
+                        excludeFieldNames: new[]
+                        {
+                            "component fileupload1", "Component File Upload 1", "component file upload 1",
+                            "component fileupload2", "Component File Upload 2", "component file upload 2",
+                            "File Upload", "file upload"
+                        });
+                }
+
+                return new ComponentModel
+                {
                 GroupId = group.GroupId,
                 Title = Config_Application_Website.GetValue(dict, "Title", "Component Title"),
                 Intro = Config_Application_Website.GetValue(dict, "Intro", "Component Intro"),
                 HmpgIntro = Config_Application_Website.GetValue(dict, "Landing intro", "Component Landing intro"),
                 DisplayTitle = Config_Application_Website.GetValue(dict, "Component Display title"),
                 Content = Config_Application_Website.GetValue(dict, "Content", "Component Content"),
-                ComponentThumbnail = Config_Application_Website.GetPath(group, "Component Thumbnail image", "component thumbnail image", "Component thumbnail"),
+                ComponentThumbnail = thumbnail,
                 ComponentThumbnailAltText = Config_Application_Website.GetValue(dict, "Component thumbnail image alt"),
                 Componentbackground = Config_Application_Website.GetPath(group, "Component Background image"),
                 ComponentbackgroundAltText = Config_Application_Website.GetValue(dict, "Component background image alt"),
@@ -136,6 +161,7 @@ namespace Priya_Cement_BusinessLogic.BAL
                 Component_LHS_icon2 = Config_Application_Website.GetPath(group, "LHS component icon image2"),
                 Component_RHS_icon1 = Config_Application_Website.GetPath(group, "RHS component icon image1"),
                 Component_RHS_icon2 = Config_Application_Website.GetPath(group, "RHS component icon image2"),
+                };
             })
             .OrderBy(x => x.Sequence)
             .ToList();

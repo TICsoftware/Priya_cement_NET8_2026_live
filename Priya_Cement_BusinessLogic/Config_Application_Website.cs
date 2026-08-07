@@ -43,20 +43,38 @@ namespace Priya_Cement_BusinessLogic
                 return "";
 
             if (!string.IsNullOrWhiteSpace(field.ImagePath))
-                return field.ImagePath.Trim();
+                return NormalizeMediaPath(field.ImagePath);
 
             // File uploads / some media fields store the path in FieldValue
-            var value = field.FieldValue?.Trim() ?? "";
-            if (string.IsNullOrWhiteSpace(value))
+            // (including relative paths like "uploads/thumbnail/x.webp" with no leading slash)
+            return NormalizeMediaPath(field.FieldValue);
+        }
+
+        public static string NormalizeMediaPath(string? path)
+        {
+            var value = path?.Trim() ?? "";
+            if (string.IsNullOrWhiteSpace(value) || value.Contains('<'))
                 return "";
 
-            if (value.StartsWith("http", StringComparison.OrdinalIgnoreCase)
-                || value.StartsWith("/")
+            var isUrl = value.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+                || value.StartsWith("//");
+            var looksLikePath = value.StartsWith("/")
+                || value.StartsWith("~")
                 || value.Contains('/')
-                || value.Contains('\\'))
-                return value;
+                || value.Contains('\\')
+                || value.StartsWith("uploads", StringComparison.OrdinalIgnoreCase)
+                || System.Text.RegularExpressions.Regex.IsMatch(
+                    value,
+                    @"\.(webp|png|jpe?g|gif|svg|pdf|docx?|xlsx?|pptx?|zip|rar|csv|txt)(\?|#|$)",
+                    System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
-            return "";
+            if (!isUrl && !looksLikePath)
+                return "";
+
+            if (!isUrl && !value.StartsWith("/") && !value.StartsWith("~"))
+                value = "/" + value.TrimStart('/', '\\').Replace('\\', '/');
+
+            return value;
         }
 
         public static string GetPath(ComponentGroup group, params string[] fieldNames)
@@ -67,6 +85,39 @@ namespace Priya_Cement_BusinessLogic
                 if (!string.IsNullOrWhiteSpace(path))
                     return path;
             }
+            return "";
+        }
+
+        /// <summary>
+        /// First image-like media path on the component (webp/png/jpg/gif/svg), skipping excluded fields.
+        /// </summary>
+        public static string GetFirstImagePath(ComponentGroup group, params string[] excludeFieldNames)
+        {
+            if (group?.Fields == null || group.Fields.Count == 0)
+                return "";
+
+            foreach (var field in group.Fields)
+            {
+                var name = field.FieldName?.Trim() ?? "";
+                if (excludeFieldNames != null && excludeFieldNames.Any(x =>
+                        string.Equals(x?.Trim(), name, StringComparison.OrdinalIgnoreCase)))
+                    continue;
+
+                var path = NormalizeMediaPath(
+                    !string.IsNullOrWhiteSpace(field.ImagePath) ? field.ImagePath : field.FieldValue);
+
+                if (string.IsNullOrWhiteSpace(path))
+                    continue;
+
+                var ext = System.IO.Path.GetExtension(path.Split('?', '#')[0])?.ToLowerInvariant() ?? "";
+                if (ext is ".pdf" or ".doc" or ".docx" or ".xls" or ".xlsx" or ".ppt" or ".pptx" or ".zip" or ".rar" or ".csv" or ".txt")
+                    continue;
+
+                if (ext is ".webp" or ".png" or ".jpg" or ".jpeg" or ".gif" or ".svg"
+                    || (string.IsNullOrEmpty(ext) && path.Contains("upload", StringComparison.OrdinalIgnoreCase)))
+                    return path;
+            }
+
             return "";
         }
 

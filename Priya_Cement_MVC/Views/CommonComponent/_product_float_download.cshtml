@@ -3,9 +3,6 @@
 @model List<ComponentModel>
 
 @{
-    // Main float component (no sequence ordering)
-    var floatItem = Model?.FirstOrDefault(x => x.IsBlock == 0) ?? Model?.FirstOrDefault();
-
     bool IsDocumentPath(string? path)
     {
         if (string.IsNullOrWhiteSpace(path)) return false;
@@ -17,9 +14,17 @@
     bool IsImagePath(string? path)
     {
         if (string.IsNullOrWhiteSpace(path)) return false;
-        // Never use download/file paths as the bag image
         if (IsDocumentPath(path)) return false;
         return true;
+    }
+
+    string? NormalizeSrc(string? path)
+    {
+        if (string.IsNullOrWhiteSpace(path)) return null;
+        var value = path.Trim();
+        if (value.StartsWith("http", StringComparison.OrdinalIgnoreCase) || value.StartsWith("//") || value.StartsWith("/") || value.StartsWith("~"))
+            return value;
+        return "/" + value.TrimStart('/', '\\').Replace('\\', '/');
     }
 
     string? PickBagImage(ComponentModel? item)
@@ -32,21 +37,36 @@
             item.ThumbnailImage,
             item.Icon_Image,
             item.Component_LHS_thumbnail,
-            item.Thumbnail_color_image
+            item.Thumbnail_color_image,
+            item.Componentbackground
         };
-        return candidates.FirstOrDefault(IsImagePath);
+        return candidates.Select(NormalizeSrc).FirstOrDefault(IsImagePath);
     }
 
-    // If main item has no image, fall back to any list item that has a CMS image
+    // Prefer main component; otherwise first item that has media
+    var floatItem = Model?.FirstOrDefault(x => x.IsBlock == 0)
+        ?? Model?.FirstOrDefault(x => !string.IsNullOrWhiteSpace(PickBagImage(x))
+            || !string.IsNullOrWhiteSpace(x.Component_FileUpload1)
+            || !string.IsNullOrWhiteSpace(x.Component_FileUpload2)
+            || !string.IsNullOrWhiteSpace(x.MediafilePath))
+        ?? Model?.FirstOrDefault();
+
     var bagImg = PickBagImage(floatItem);
     if (string.IsNullOrWhiteSpace(bagImg) && Model != null)
     {
         foreach (var item in Model)
         {
-            bagImg = PickBagImage(item);
-            if (!string.IsNullOrWhiteSpace(bagImg))
+            var img = PickBagImage(item);
+            if (!string.IsNullOrWhiteSpace(img))
             {
-                floatItem ??= item;
+                bagImg = img;
+                // Keep CTA/downloads from main item when possible; only swap if main had nothing useful
+                if (floatItem == null || (string.IsNullOrWhiteSpace(floatItem.Url)
+                    && string.IsNullOrWhiteSpace(floatItem.Component_FileUpload1)
+                    && string.IsNullOrWhiteSpace(floatItem.MediafilePath)))
+                {
+                    floatItem = item;
+                }
                 break;
             }
         }
@@ -58,16 +78,29 @@
     var ctaUrl = !string.IsNullOrWhiteSpace(floatItem?.Url) ? floatItem.Url : "#";
     var ctaText = !string.IsNullOrWhiteSpace(floatItem?.Url_Text) ? floatItem.Url_Text : "Get in touch";
 
-    // Downloads stay independent of bag image
-    var file1 = !string.IsNullOrWhiteSpace(floatItem?.Component_FileUpload1)
-        ? floatItem.Component_FileUpload1
-        : floatItem?.MediafilePath;
-    var file2 = floatItem?.Component_FileUpload2;
-    var title1 = !string.IsNullOrWhiteSpace(floatItem?.FileUploadTitle1)
-        ? floatItem.FileUploadTitle1.CleanParagraphTags()
+    // Downloads: prefer main float item, then any list item that has uploads
+    var downloadItem = floatItem;
+    if (downloadItem != null
+        && string.IsNullOrWhiteSpace(downloadItem.Component_FileUpload1)
+        && string.IsNullOrWhiteSpace(downloadItem.Component_FileUpload2)
+        && string.IsNullOrWhiteSpace(downloadItem.MediafilePath)
+        && Model != null)
+    {
+        downloadItem = Model.FirstOrDefault(x =>
+            !string.IsNullOrWhiteSpace(x.Component_FileUpload1)
+            || !string.IsNullOrWhiteSpace(x.Component_FileUpload2)
+            || !string.IsNullOrWhiteSpace(x.MediafilePath)) ?? floatItem;
+    }
+
+    var file1 = NormalizeSrc(!string.IsNullOrWhiteSpace(downloadItem?.Component_FileUpload1)
+        ? downloadItem.Component_FileUpload1
+        : downloadItem?.MediafilePath);
+    var file2 = NormalizeSrc(downloadItem?.Component_FileUpload2);
+    var title1 = !string.IsNullOrWhiteSpace(downloadItem?.FileUploadTitle1)
+        ? downloadItem.FileUploadTitle1.CleanParagraphTags()
         : "Product Brochure";
-    var title2 = !string.IsNullOrWhiteSpace(floatItem?.FileUploadTitle2)
-        ? floatItem.FileUploadTitle2.CleanParagraphTags()
+    var title2 = !string.IsNullOrWhiteSpace(downloadItem?.FileUploadTitle2)
+        ? downloadItem.FileUploadTitle2.CleanParagraphTags()
         : "Technical Data Sheet";
     var hasDownloads = !string.IsNullOrWhiteSpace(file1) || !string.IsNullOrWhiteSpace(file2);
 }
@@ -92,7 +125,7 @@
     </div>
 }
 
-@if (floatItem != null && hasDownloads)
+@if (downloadItem != null && hasDownloads)
 {
     <div class="product-download-fab" data-download-fab>
         <div class="product-download-fab-actions" role="group" aria-label="Downloads">
