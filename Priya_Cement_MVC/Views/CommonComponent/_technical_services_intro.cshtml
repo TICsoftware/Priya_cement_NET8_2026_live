@@ -5,9 +5,7 @@
 @{
     var intro = Model?
         .Where(x => x.IsBlock == 0)
-        .OrderBy(x => x.Sequence)
-        .FirstOrDefault()
-        ?? Model?.OrderBy(x => x.Sequence).FirstOrDefault();
+            
 
     var media = !string.IsNullOrWhiteSpace(intro?.Component_right_image)
         ? intro.Component_right_image
