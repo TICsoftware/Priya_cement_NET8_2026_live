@@ -33,6 +33,8 @@ namespace Priya_Cement_BusinessLogic.Entity
         public List<ComponentModel> Support_Items_List { get; set; } = new();
         public List<ComponentModel> Enquiry_CTA_List { get; set; } = new();
 
+        
+
         public int TotalCount { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 using System.Data;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Priya_Cement_BusinessLogic.Entity;
 
 namespace Priya_Cement_BusinessLogic.DAL
 {

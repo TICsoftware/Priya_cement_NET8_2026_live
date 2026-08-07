@@ -4,6 +4,8 @@ using Priya_Cement_MVC.Models;
 using Priya_Cement_BusinessLogic.BAL;
 using Priya_Cement_BusinessLogic.Entity;
 using Priya_Cement_MVC;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data;
 
 namespace Priya_Cement_MVC.Controllers;
 
@@ -11,11 +13,14 @@ public class ProductController : Controller
 {
     private readonly ILogger<ProductController> _logger;
     private readonly Product_BAL _bal;
+    private readonly TechnicalSupport_BAL _TechnicalSupport_bal;
 
     public ProductController(ILogger<ProductController> logger, IConfiguration configuration)
     {
         _logger = logger;
         _bal = new Product_BAL(configuration);
+        _TechnicalSupport_bal = new TechnicalSupport_BAL(configuration);
+
     }
 
     public IActionResult Index(string title)
@@ -54,13 +59,14 @@ public class ProductController : Controller
             _bal.Dispose();
         }
     }
-    
+
     public IActionResult TechnicalServices(string title)
     {
         try
         {
             var pageName = string.IsNullOrWhiteSpace(title) ? "technical-services" : title;
             var data = _bal.GetTechnicalServices_BAL(pageName, 1, 1);
+            BindTechnicalSupportDropdowns();
             return View(data);
         }
         catch (Exception ex)
@@ -75,24 +81,128 @@ public class ProductController : Controller
     }
 
     [HttpPost]
-    public ActionResult SaveTechnicalSupport(TechnicalSupportEnquiry model)
+    [ValidateAntiForgeryToken]
+    public IActionResult SubmitTechnicalSupport(TechnicalSupportEnquiryModal model)
     {
         if (!ModelState.IsValid)
         {
             return Json(new
             {
-                Status = false,
-                Message = "Please fill all required fields."
+                status = false,
+                message = "Please correct the highlighted fields and try again."
             });
         }
 
-        // Save to database
-
-        return Json(new
+        try
         {
-            Status = true,
-            Message = "Enquiry submitted successfully."
-        });
+            var entity = new TechnicalSupportEnquiry
+            {
+                ServiceTypeId = model.ServiceTypeId,
+                Name = model.Name,
+                Designation = model.Designation,
+                CompanyName = model.CompanyName,
+                PhoneNumber = model.PhoneNumber,
+                EmailAddress = model.EmailAddress,
+                StateId = Convert.ToInt32(model.StateId),
+                CityId = Convert.ToInt32(model.CityId),
+                TestTypeId = Convert.ToInt32(model.TestTypeId),
+                IPAddress = GetClientIpAddress()
+            };
+
+
+            DataTable dt = _TechnicalSupport_bal.SubmitEnquiry_BAL(entity);
+
+            string result = dt.Rows[0][0].ToString();
+
+            switch (result.ToLower())
+            {
+                case "updated":
+                    return Json(new
+                    {
+                        status = true,
+                        message = "Thank you for your enquiry. Our technical team will contact you shortly."
+                    });
+
+                case "exceeds":
+                    return Json(new
+                    {
+                        status = false,
+                        message = "You have exceeded the maximum number of enquiries allowed today."
+                    });
+
+                default:
+                    return Json(new
+                    {
+                        status = false,
+                        message = result
+                    });
+            }
+        }
+        catch (Exception ex)
+        {
+            FileLogger.LogError("SubmitTechnicalSupport", ex);
+
+            return Json(new
+            {
+                status = false,
+                message = "Something went wrong while submitting your enquiry."
+            });
+        }
+    }
+
+
+    private void BindTechnicalSupportDropdowns()
+    {
+        ViewBag.ServiceTypeList = new SelectList(_TechnicalSupport_bal.GetServiceTypeList(), "Id", "Name");
+
+        ViewBag.StateList = new SelectList(_TechnicalSupport_bal.GetStateList(), "Id", "Name");
+
+        ViewBag.CityList = new SelectList(_TechnicalSupport_bal.GetCityList(), "Id", "Name");
+
+        ViewBag.TestTypeList = new SelectList(_TechnicalSupport_bal.GetTestTypeList(), "Id", "Name");
+    }
+
+
+    [HttpGet]
+    public JsonResult GetCities(int stateId)
+    {
+        DataTable dt = _TechnicalSupport_bal.GetCityByState(stateId);
+
+        var data = dt.AsEnumerable()
+            .Select(x => new
+            {
+                CityId = Convert.ToInt32(x["CityId"]),
+                CityName = x["CityName"].ToString()
+            });
+
+        return Json(data);
+    }
+
+    [HttpGet]
+    public JsonResult GetTestTypes(int serviceTypeId)
+    {
+        DataTable dt = _TechnicalSupport_bal.GetTestTypeByService(serviceTypeId);
+
+        var data = dt.AsEnumerable()
+            .Select(x => new
+            {
+                TestTypeId = Convert.ToInt32(x["TestTypeId"]),
+                TestTypeName = x["TestTypeName"].ToString()
+            });
+
+        return Json(data);
+    }
+
+
+
+    private string GetClientIpAddress()
+    {
+        var forwardedFor = Request.Headers["X-Forwarded-For"].FirstOrDefault();
+
+        if (!string.IsNullOrWhiteSpace(forwardedFor))
+            return forwardedFor.Split(',')[0].Trim();
+
+        return HttpContext.Connection.RemoteIpAddress?.ToString() ?? string.Empty;
     }
 
 
