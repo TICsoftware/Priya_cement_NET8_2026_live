@@ -88,7 +88,7 @@
       <div
          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 lg:gap-y-24 our-products-landing-cards">
 
-         @foreach (var item in Model.Product_List)
+         @foreach (var item in Model.Product_List.OrderBy(x => x.Sequence))
          {
             <article
                class="group rounded-md flex flex-col hover:shadow-lg hover:shadow-slate-200/60 transition-shadow duration-300 our-products-cards">
