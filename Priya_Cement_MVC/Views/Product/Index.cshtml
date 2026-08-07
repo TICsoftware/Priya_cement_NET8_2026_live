@@ -52,7 +52,9 @@
 
 
 
-@foreach (var item in Model.Intro_PL_List.Where(x => x.IsBlock == 0))
+@foreach (var item in Model.Intro_PL_List
+.Where(x => x.IsBlock == 0)
+.OrderBy(x => x.Sequence))
 {
    <section class="relative overflow-hidden section-spacing page-intro-outer">
       <div class="container">
