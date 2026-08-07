@@ -39,7 +39,7 @@ namespace Priya_Cement_MVC.Routes
 
             app.MapControllerRoute(
                       name: "technical-services",
-                      pattern: "technical-services",
+                      pattern: "what-we-offer/ttechnical-services",
                       defaults: new { controller = "Product", action = "TechnicalServices", title = "technical-services" }
                   );
 
