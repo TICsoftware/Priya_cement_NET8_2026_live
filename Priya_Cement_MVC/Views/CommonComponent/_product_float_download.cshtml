@@ -3,104 +3,27 @@
 @model List<ComponentModel>
 
 @{
-    bool IsDocumentPath(string? path)
-    {
-        if (string.IsNullOrWhiteSpace(path)) return false;
-        var clean = path.Split('?', '#')[0];
-        var ext = System.IO.Path.GetExtension(clean)?.ToLowerInvariant() ?? "";
-        return ext is ".pdf" or ".doc" or ".docx" or ".xls" or ".xlsx" or ".ppt" or ".pptx" or ".zip" or ".rar" or ".csv" or ".txt";
-    }
+    var floatItem = Model?
+        .Where(x => x.IsBlock == 0)
+        .OrderBy(x => x.Sequence)
+        .FirstOrDefault();
 
-    bool IsImagePath(string? path)
-    {
-        if (string.IsNullOrWhiteSpace(path)) return false;
-        if (IsDocumentPath(path)) return false;
-        return true;
-    }
-
-    string? NormalizeSrc(string? path)
-    {
-        if (string.IsNullOrWhiteSpace(path)) return null;
-        var value = path.Trim();
-        if (value.StartsWith("http", StringComparison.OrdinalIgnoreCase) || value.StartsWith("//") || value.StartsWith("/") || value.StartsWith("~"))
-            return value;
-        return "/" + value.TrimStart('/', '\\').Replace('\\', '/');
-    }
-
-    string? PickBagImage(ComponentModel? item)
-    {
-        if (item == null) return null;
-        var candidates = new[]
-        {
-            item.ComponentThumbnail,
-            item.Component_right_image,
-            item.ThumbnailImage,
-            item.Icon_Image,
-            item.Component_LHS_thumbnail,
-            item.Thumbnail_color_image,
-            item.Componentbackground
-        };
-        return candidates.Select(NormalizeSrc).FirstOrDefault(IsImagePath);
-    }
-
-    // Prefer main component; otherwise first item that has media
-    var floatItem = Model?.FirstOrDefault(x => x.IsBlock == 0)
-        ?? Model?.FirstOrDefault(x => !string.IsNullOrWhiteSpace(PickBagImage(x))
-            || !string.IsNullOrWhiteSpace(x.Component_FileUpload1)
-            || !string.IsNullOrWhiteSpace(x.Component_FileUpload2)
-            || !string.IsNullOrWhiteSpace(x.MediafilePath))
-        ?? Model?.FirstOrDefault();
-
-    var bagImg = PickBagImage(floatItem);
-    if (string.IsNullOrWhiteSpace(bagImg) && Model != null)
-    {
-        foreach (var item in Model)
-        {
-            var img = PickBagImage(item);
-            if (!string.IsNullOrWhiteSpace(img))
-            {
-                bagImg = img;
-                // Keep CTA/downloads from main item when possible; only swap if main had nothing useful
-                if (floatItem == null || (string.IsNullOrWhiteSpace(floatItem.Url)
-                    && string.IsNullOrWhiteSpace(floatItem.Component_FileUpload1)
-                    && string.IsNullOrWhiteSpace(floatItem.MediafilePath)))
-                {
-                    floatItem = item;
-                }
-                break;
-            }
-        }
-    }
-
+    var bagImg = !string.IsNullOrWhiteSpace(floatItem?.ComponentThumbnail)
+        ? floatItem.ComponentThumbnail
+        : (!string.IsNullOrWhiteSpace(floatItem?.Component_right_image) ? floatItem.Component_right_image : floatItem?.ThumbnailImage);
     var bagAlt = !string.IsNullOrWhiteSpace(floatItem?.ComponentThumbnailAltText)
         ? floatItem.ComponentThumbnailAltText
-        : (!string.IsNullOrWhiteSpace(floatItem?.Component_Right_image_alt) ? floatItem.Component_Right_image_alt : "");
+        : "";
     var ctaUrl = !string.IsNullOrWhiteSpace(floatItem?.Url) ? floatItem.Url : "#";
     var ctaText = !string.IsNullOrWhiteSpace(floatItem?.Url_Text) ? floatItem.Url_Text : "Get in touch";
 
-    // Downloads: prefer main float item, then any list item that has uploads
-    var downloadItem = floatItem;
-    if (downloadItem != null
-        && string.IsNullOrWhiteSpace(downloadItem.Component_FileUpload1)
-        && string.IsNullOrWhiteSpace(downloadItem.Component_FileUpload2)
-        && string.IsNullOrWhiteSpace(downloadItem.MediafilePath)
-        && Model != null)
-    {
-        downloadItem = Model.FirstOrDefault(x =>
-            !string.IsNullOrWhiteSpace(x.Component_FileUpload1)
-            || !string.IsNullOrWhiteSpace(x.Component_FileUpload2)
-            || !string.IsNullOrWhiteSpace(x.MediafilePath)) ?? floatItem;
-    }
-
-    var file1 = NormalizeSrc(!string.IsNullOrWhiteSpace(downloadItem?.Component_FileUpload1)
-        ? downloadItem.Component_FileUpload1
-        : downloadItem?.MediafilePath);
-    var file2 = NormalizeSrc(downloadItem?.Component_FileUpload2);
-    var title1 = !string.IsNullOrWhiteSpace(downloadItem?.FileUploadTitle1)
-        ? downloadItem.FileUploadTitle1.CleanParagraphTags()
+    var file1 = floatItem?.Component_FileUpload1;
+    var file2 = floatItem?.Component_FileUpload2;
+    var title1 = !string.IsNullOrWhiteSpace(floatItem?.FileUploadTitle1)
+        ? floatItem.FileUploadTitle1.CleanParagraphTags()
         : "Product Brochure";
-    var title2 = !string.IsNullOrWhiteSpace(downloadItem?.FileUploadTitle2)
-        ? downloadItem.FileUploadTitle2.CleanParagraphTags()
+    var title2 = !string.IsNullOrWhiteSpace(floatItem?.FileUploadTitle2)
+        ? floatItem.FileUploadTitle2.CleanParagraphTags()
         : "Technical Data Sheet";
     var hasDownloads = !string.IsNullOrWhiteSpace(file1) || !string.IsNullOrWhiteSpace(file2);
 }
@@ -108,7 +31,7 @@
 @if (floatItem != null && !string.IsNullOrWhiteSpace(bagImg))
 {
     <div class="product-float-rail">
-        <div class="product-float-outer product-float-sticky">
+        <div class="product-float-outer product-float-sticky" style="opacity: 1; visibility: inherit;">
             <div class="product-float-inner" aria-hidden="true">
                 <img src="@bagImg" alt="@bagAlt" class="product-float-bag">
                 <img src="/Assets/images/products/shadow-ellipse.webp" alt="" class="product-shadow-ellipse">
@@ -125,7 +48,7 @@
     </div>
 }
 
-@if (downloadItem != null && hasDownloads)
+@if (floatItem != null && hasDownloads)
 {
     <div class="product-download-fab" data-download-fab>
         <div class="product-download-fab-actions" role="group" aria-label="Downloads">
