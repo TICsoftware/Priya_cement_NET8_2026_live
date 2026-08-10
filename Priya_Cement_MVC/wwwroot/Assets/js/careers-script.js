@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ScrollTrigger sections below must wait for #life-inside pin spacing
+     (lifeinside-script.js dispatches lifeinside:ready). Creating them earlier
+     measures against the pre-pin page height. */
+  function initScrollDrivenSections() {
 /* ---------------------------------------
    PARALLAX IMAGE
 --------------------------------------- */
@@ -137,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 /* ---------------------------------------
-   PRODUCTS LION — scale up + stroke draw → fill
+   INTRO LION — scale up + stroke draw → fill
 --------------------------------------- */
   if (!reduceMotion && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     const lionWrap = document.querySelector('.lion-logo-wrap');
@@ -182,8 +186,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         gsap.set(lionFill, { autoAlpha: 0 });
 
-        // Trigger on the lion itself — section top fires too early
-        // while the logo sits at the bottom of the products grid.
         gsap
           .timeline({
             scrollTrigger: {
@@ -224,6 +226,21 @@ document.addEventListener("DOMContentLoaded", () => {
           );
       }
     }
+  }
+  }
+
+  let scrollDrivenReady = false;
+  function runScrollDrivenOnce() {
+    if (scrollDrivenReady) return;
+    scrollDrivenReady = true;
+    initScrollDrivenSections();
+  }
+
+  if (document.getElementById('life-inside')) {
+    window.addEventListener('lifeinside:ready', runScrollDrivenOnce, { once: true });
+    window.setTimeout(runScrollDrivenOnce, 10000);
+  } else {
+    runScrollDrivenOnce();
   }
 
 /* ---------------------------------------

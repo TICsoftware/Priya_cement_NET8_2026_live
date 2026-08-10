@@ -129,6 +129,8 @@ namespace Priya_Cement_BusinessLogic.BAL
                 ThumbnailAltText = Config_Application_Website.GetValue(dict, "thumbnail image alt"),
                 Url = Config_Application_Website.GetValue(dict, "Url", "Component URL"),
                 Url_Text = Config_Application_Website.GetValue(dict, "Url text", "Component URL text"),
+                component_Url2 = Config_Application_Website.GetValue(dict, "component url 2", "Component URL 2"),
+                component_Url_Text2 = Config_Application_Website.GetValue(dict, "component url text2", "Component URL text 2"),
                 Video_path = Config_Application_Website.GetPath(group, "Video"),
                 Video_poster = Config_Application_Website.GetPath(group, "Video poster"),
                 Icon_Image = Config_Application_Website.GetPath(group, "Icon image"),

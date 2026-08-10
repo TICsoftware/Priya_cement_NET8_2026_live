@@ -118,13 +118,7 @@ app.UseStaticFiles(new StaticFileOptions
 
 var redirects = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
 {
-    { "^testslist$", "/tests-and-services" },
-    { "^joinTeam$", "/clinical-expertise/our-team" },
-    { "^antibodies$", "/" },
-    { "^trainingAcademy$", "/" },
-    { "^researchMaterial$", "/" },
-    { "^aboutCOP$", "/about-cop" },
-    { "^contactUs$", "/contactus" }
+ 
 };
 
 var options = new RewriteOptions();

@@ -26,6 +26,8 @@ namespace Priya_Cement_BusinessLogic.Entity
 
         public string Url { get; set; }
         public string Url_Text { get; set; }
+        public string component_Url2 { get; set; }
+        public string component_Url_Text2 { get; set; }
 
         public string MediafilePath { get; set; }
 
