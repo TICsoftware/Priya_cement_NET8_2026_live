@@ -12,3 +12,12 @@ flex-direction: column;
 .customerservice-block:hover {box-shadow: 0 12px 24px 4px rgba(0, 0, 0, 0.12);}
 .customerservice-block p {margin-bottom:0;}
 .time-txt {font-size: var(--text-p) !important; font-weight: 500;}
+
+.cu-form-alert { margin-top: 8px; font-size: 0.95rem; }
+.cu-form-alert--success { color: #b8f0c2; }
+.cu-form-alert--error { color: #ffb4b0; }
+.cu-field-error { color: #ffb4b0; font-size: 0.85rem; }
+
+.map-info-card { display: none; }
+.map-info-card.is-active,
+.map-info-card[aria-hidden="false"] { display: block; }

@@ -70,6 +70,12 @@ namespace Priya_Cement_MVC.Routes
             );
 
             app.MapControllerRoute(
+                name: "SubmitContactEnquiry",
+                pattern: "Contactus/SubmitEnquiry",
+                defaults: new { controller = "Contactus", action = "SubmitEnquiry" }
+            );
+
+            app.MapControllerRoute(
                 name: "legal-disclaimer",
                 pattern: "legal-disclaimer",
                 defaults: new { controller = "pagearticle", action = "article", id = "legal-disclaimer" }

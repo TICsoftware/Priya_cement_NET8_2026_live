@@ -132,14 +132,14 @@ $(document).ready(function () {
         }
     
         // City
-        if ($("#City").val() === "") {
-            $('[data-valmsg-for="City"]').text("Please select your city.");
+        if ($("#CityId").val() === "" || $("#CityId").val() === "0") {
+            $('[data-valmsg-for="CityId"]').text("Please select your city.");
             isValid = false;
         }
     
         // Interest
-        if ($("#Interest").val() === "") {
-            $('[data-valmsg-for="Interest"]').text("Please select an area of interest.");
+        if ($("#InterestId").val() === "" || $("#InterestId").val() === "0") {
+            $('[data-valmsg-for="InterestId"]').text("Please select an area of interest.");
             isValid = false;
         }
     

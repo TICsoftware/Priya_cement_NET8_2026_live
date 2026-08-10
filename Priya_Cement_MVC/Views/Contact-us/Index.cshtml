@@ -1,0 +1,96 @@
+@using Priya_Cement_MVC.Helpers
+@using Priya_Cement_MVC.Models
+@model Priya_Cement_BusinessLogic.Entity.ContactusModel
+@{
+    ViewData["Title"] = Model?.Content?.ContTitle ?? "Contact Us";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var content = Model?.Content;
+}
+
+@section head {
+    <title>@(content?.cont_window_title)</title>
+
+    <meta content="@(content?.cont_metatag)" name="keywords" />
+    <meta content="@(content?.cont_metadesc)" name="description" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="" />
+    <meta name="twitter:title" content="@(content?.ContTitle)" />
+    <meta name="twitter:description" content="@(content?.cont_metadesc)" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Priya Cement" />
+    <meta property="og:title" content="@(content?.ContTitle)" />
+    <meta property="og:description" content="@(content?.cont_metadesc)" />
+    <meta property="og:url" content="@(content?.CanonicalUrl)" />
+    <meta property="og:image" content="@(content?.cont_meta_image)" />
+
+    <meta itemprop="name" content="Priya Cement" />
+    <meta itemprop="description" content="@(content?.cont_metadesc)" />
+    <meta itemprop="image" content="@(content?.cont_meta_image)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Priya Cement" />
+    <meta property="og:title" content="@(content?.ContTitle)" />
+    <meta property="og:description" content="@(content?.cont_metadesc)" />
+    <meta property="og:image" content="@(content?.cont_meta_image)" />
+    <meta property="og:url" content="@(content?.CanonicalUrl)" />
+
+    <link rel="canonical" href="@(content?.CanonicalUrl)" />
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/Assets/css/contactus-style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Assets/css/technicalservices-style.css" asp-append-version="true" />
+}
+
+@if (Model?.Content != null)
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_page_banner.cshtml", Model.Content)
+}
+
+@if (Model?.Intro_List != null && Model.Intro_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_contactus_intro.cshtml", Model.Intro_List)
+}
+
+@if (Model?.TollFree_List != null && Model.TollFree_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_contactus_tollfree.cshtml", Model.TollFree_List)
+}
+
+@{
+    var enquiryHeadingItem = Model?.Enquiry_CTA_List?
+        .Where(x => x.IsBlock == 0)
+        .OrderBy(x => x.Sequence)
+        .FirstOrDefault()
+        ?? Model?.Enquiry_CTA_List?.OrderBy(x => x.Sequence).FirstOrDefault();
+    var enquiryHeading = !string.IsNullOrWhiteSpace(enquiryHeadingItem?.DisplayTitle)
+        ? enquiryHeadingItem.DisplayTitle
+        : (!string.IsNullOrWhiteSpace(enquiryHeadingItem?.Title)
+            ? enquiryHeadingItem.Title
+            : "Tell us a little about your requirement");
+}
+<section id="enquiry" class="bg-brand-band relative overflow-hidden section-spacing">
+    <div class="container">
+        <div class="px-4 sm:px-6 lg:px-8 relative">
+            <div class="rounded-[20px] bg-black/30 px-5 py-12 sm:px-10 lg:px-16 lg:py-[76px] relative overflow-hidden">
+                <div class="section-title-outer section-title-outer-center section-title-md white-copy">
+                    <h2 class="text-h2 title-section reveal-text">
+                        @Html.Raw(enquiryHeading.CleanParagraphTags())
+                    </h2>
+                </div>
+
+                @await Html.PartialAsync(
+                    "~/Views/CommonComponent/_contactus_enquiry_form.cshtml",
+                    new ContactUsEnquiryModel())
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/Assets/js/inner-banner-script.js"></script>
+    <script src="~/Assets/js/contactus-script.js"></script>
+    <script src="~/scripts/contact/enquiry.js"></script>
+}
