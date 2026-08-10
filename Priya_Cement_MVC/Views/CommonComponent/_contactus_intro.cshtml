@@ -86,7 +86,7 @@
                     <div class="map-inside-wrapper relative max-w-4xl">
                         @if (!string.IsNullOrWhiteSpace(mapHtml))
                         {
-                            @Html.Raw(mapHtml)
+                            @Html.Raw(mapHtml.CleanParagraphTags())
                         }
 
                         @foreach (var loc in locations)
