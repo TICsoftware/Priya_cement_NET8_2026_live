@@ -15,7 +15,7 @@ namespace Priya_Cement_MVC.Routes
 
             app.MapControllerRoute(
                   name: "ourproducts",
-                  pattern: "what-we-offer",
+                  pattern: "solutions",
                   defaults: new { controller = "Product", action = "Index", title = "what-we-offer" }
               );
 
@@ -23,13 +23,13 @@ namespace Priya_Cement_MVC.Routes
 
         app.MapControllerRoute(
                       name: "technical-services",
-                      pattern: "what-we-offer/technical-services",
+                      pattern: "solutions/technical-services",
                       defaults: new { controller = "Product", action = "TechnicalServices", title = "technical-services" }
                   );
 
             app.MapControllerRoute(
                           name: "products-inside",
-                          pattern: "what-we-offer/{title?}",
+                          pattern: "solutions/{title?}",
                           defaults: new { controller = "Product", action = "Inside" }
                       );
 
@@ -65,8 +65,8 @@ namespace Priya_Cement_MVC.Routes
 
             app.MapControllerRoute(
                 name: "contactus",
-                pattern: "contactus",
-                defaults: new { controller = "Contactus", action = "Index", title = "contact" }
+                pattern: "contact-us",
+                defaults: new { controller = "Contactus", action = "Index", title = "contact-us" }
             );
 
             app.MapControllerRoute(
