@@ -131,17 +131,18 @@ $(document).ready(function () {
             }
         }
     
+        // State
+        if ($("#StateId").val() === "" || $("#StateId").val() === "0") {
+            $('[data-valmsg-for="StateId"]').text("Please select your state.");
+            isValid = false;
+        }
+
         // City
         if ($("#CityId").val() === "" || $("#CityId").val() === "0") {
             $('[data-valmsg-for="CityId"]').text("Please select your city.");
             isValid = false;
         }
-    
-        // Interest
-        if ($("#InterestId").val() === "" || $("#InterestId").val() === "0") {
-            $('[data-valmsg-for="InterestId"]').text("Please select an area of interest.");
-            isValid = false;
-        }
+
     
         // Consent
         if (!$("#Consent").prop("checked")) {
@@ -151,5 +152,25 @@ $(document).ready(function () {
     
         return isValid;
     }
+
+
+    $("#StateId").change(function () {
+
+        var stateId = $(this).val();
+    
+        $("#CityId").html('<option value="">Loading...</option>');
+    
+        $.get("/Product/GetCities", { stateId: stateId }, function (data) {
+    
+            var options = '<option value="">Select city</option>';
+    
+            $.each(data, function (i, item) {
+                options += '<option value="' + item.cityId + '">' + item.cityName + '</option>';
+            });
+    
+            $("#CityId").html(options);
+        });
+    });
+
 
 });

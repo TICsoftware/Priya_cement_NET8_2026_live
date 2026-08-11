@@ -18,32 +18,45 @@ namespace Priya_Cement_BusinessLogic.DAL
         {
             SqlParameter[] sqlParams =
             {
-                new SqlParameter("@FullName", model.FullName ?? (object)DBNull.Value),
+                new SqlParameter("@Name",string.IsNullOrWhiteSpace(model.FullName) ? (object)DBNull.Value: model.FullName),
+                new SqlParameter("@CompanyName", string.IsNullOrWhiteSpace(model.Organisation) ? (object)DBNull.Value : model.Organisation),
                 new SqlParameter("@Designation", string.IsNullOrWhiteSpace(model.Designation) ? (object)DBNull.Value : model.Designation),
-                new SqlParameter("@Organisation", model.Organisation ?? (object)DBNull.Value),
-                new SqlParameter("@Email", model.Email ?? (object)DBNull.Value),
-                new SqlParameter("@Phone", model.Phone ?? (object)DBNull.Value),
+                new SqlParameter("@PhoneNumber", string.IsNullOrWhiteSpace(model.Phone) ? (object)DBNull.Value : model.Phone),
+                new SqlParameter("@EmailAddress", string.IsNullOrWhiteSpace(model.Email) ? (object)DBNull.Value : model.Email),
+                new SqlParameter("@StateId", model.StateId),
                 new SqlParameter("@CityId", model.CityId),
-                new SqlParameter("@InterestId", model.InterestId),
                 new SqlParameter("@Query", string.IsNullOrWhiteSpace(model.Query) ? (object)DBNull.Value : model.Query),
-                new SqlParameter("@Consent", model.Consent),
                 new SqlParameter("@IPAddress", string.IsNullOrWhiteSpace(model.IPAddress) ? (object)DBNull.Value : model.IPAddress)
             };
 
-            return GetDataSet("sp_AddContactUsEnquiry", sqlParams).Tables[0];
+            return GetDataSet("AddContactUs", sqlParams).Tables[0];
         }
 
         public List<CommonDropdownModel> GetCityList_DAL()
         {
-            DataTable dt = GetDataSet("GetCityMaster").Tables[0];
+            DataTable dt = GetDataSet("sp_GetCity").Tables[0];
 
             return dt.AsEnumerable()
                      .Select(x => new CommonDropdownModel
                      {
-                         Id = Convert.ToInt32(x["CityId"]),
-                         Name = x["CityName"]?.ToString()
+                         Id = Convert.ToInt32(x["Id"]),
+                         Name = x["Name"]?.ToString()
                      }).ToList();
         }
+
+        public List<CommonDropdownModel> GetStateList_DAL()
+        {
+            DataTable dt = GetDataSet("sp_GetState").Tables[0];
+
+            return dt.AsEnumerable()
+                     .Select(x => new CommonDropdownModel
+                     {
+                         Id = Convert.ToInt32(x["Id"]),
+                         Name = x["Name"]?.ToString()
+                     }).ToList();
+        }
+
+
 
         public List<CommonDropdownModel> GetAreaOfInterestList_DAL()
         {

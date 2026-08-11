@@ -11,13 +11,18 @@
         </div>
 
         <div>
+            <input asp-for="Organisation" class="f-field" placeholder="Company or contractor name*" />
+            <span asp-validation-for="Organisation" class="text-red-500"></span>
+        </div>
+
+        <div>
             <input asp-for="Designation" class="f-field" placeholder="Designation*" />
             <span asp-validation-for="Designation" class="text-red-500"></span>
         </div>
 
         <div>
-            <input asp-for="Organisation" class="f-field" placeholder="Organisation*" />
-            <span asp-validation-for="Organisation" class="text-red-500"></span>
+            <input asp-for="Phone" class="f-field" placeholder="Contact number*" />
+            <span asp-validation-for="Phone" class="text-red-500"></span>
         </div>
 
         <div>
@@ -25,9 +30,17 @@
             <span asp-validation-for="Email" class="text-red-500"></span>
         </div>
 
+
+
         <div>
-            <input asp-for="Phone" class="f-field" placeholder="Contact number*" />
-            <span asp-validation-for="Phone" class="text-red-500"></span>
+            <select asp-for="StateId" class="f-field">
+                <option value="">Select State</option>
+                @foreach (var item in ViewBag.StateList)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+            <span asp-validation-for="StateId" class="text-red-500"></span>
         </div>
 
         <div>
@@ -44,22 +57,11 @@
             <span asp-validation-for="CityId" class="text-red-500"></span>
         </div>
 
-        <div>
-            <select asp-for="InterestId" class="f-field">
-                <option value="">Area of interest*</option>
-                @if (ViewBag.InterestList != null)
-                {
-                    foreach (var item in (IEnumerable<SelectListItem>)ViewBag.InterestList)
-                    {
-                        <option value="@item.Value">@item.Text</option>
-                    }
-                }
-            </select>
-            <span asp-validation-for="InterestId" class="text-red-500"></span>
-        </div>
+
 
         <div class="md:col-span-2 xl:col-span-3">
-            <textarea asp-for="Message" class="f-field" rows="4" placeholder="Tell us a little about your requirement"></textarea>
+            <textarea asp-for="Message" class="f-field" rows="4"
+                placeholder="Tell us a little about your requirement"></textarea>
             <span asp-validation-for="Message" class="text-red-500"></span>
         </div>
     </div>
@@ -74,11 +76,11 @@
 
     <div class="md:col-span-2 lg:col-span-3 mt-6 flex justify-center">
         <button type="submit"
-                class="inline-flex items-center gap-2.5 rounded-[10px] bg-white px-[14px] py-[10px] text-base font-medium text-[#231f20] shadow-[0px_4px_5px_rgba(0,0,0,0.1),0px_17px_8.5px_rgba(0,0,0,0.09)] transition-transform hover:-translate-y-0.5">
+            class="inline-flex items-center gap-2.5 rounded-[10px] bg-white px-[14px] py-[10px] text-base font-medium text-[#231f20] shadow-[0px_4px_5px_rgba(0,0,0,0.1),0px_17px_8.5px_rgba(0,0,0,0.09)] transition-transform hover:-translate-y-0.5">
             <span>Send enquiry</span>
             <svg width="16" height="10" viewBox="0 0 16 10" fill="none" aria-hidden="true">
                 <path d="M0 5h14M10 1l4 4-4 4" stroke="#231f20" stroke-width="1.4" stroke-linecap="round"
-                      stroke-linejoin="round" />
+                    stroke-linejoin="round" />
             </svg>
         </button>
     </div>

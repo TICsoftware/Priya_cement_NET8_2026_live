@@ -49,6 +49,11 @@ namespace Priya_Cement_BusinessLogic.BAL
             return dt;
         }
 
+
+        public List<CommonDropdownModel> GetStateList()
+        {
+            return GetStateList_DAL();
+        }
         public List<CommonDropdownModel> GetCityList()
         {
             return GetCityList_DAL();
@@ -102,11 +107,11 @@ namespace Priya_Cement_BusinessLogic.BAL
                 (!string.IsNullOrWhiteSpace(obj.Designation)
                     ? "<tr><td><strong>Designation</strong></td><td>" + obj.Designation + "</td></tr>"
                     : "") +
-                "<tr><td><strong>Organisation</strong></td><td>" + obj.Organisation + "</td></tr>" +
+                "<tr><td><strong>Company</strong></td><td>" + obj.Organisation + "</td></tr>" +
                 "<tr><td><strong>Email</strong></td><td>" + obj.Email + "</td></tr>" +
                 "<tr><td><strong>Phone</strong></td><td>" + obj.Phone + "</td></tr>" +
                 "<tr><td><strong>City Id</strong></td><td>" + obj.CityId + "</td></tr>" +
-                "<tr><td><strong>Interest Id</strong></td><td>" + obj.InterestId + "</td></tr>" +
+                "<tr><td><strong>State Id</strong></td><td>" + obj.StateId + "</td></tr>" +
                 (!string.IsNullOrWhiteSpace(obj.Query)
                     ? "<tr><td><strong>Message</strong></td><td>" + obj.Query + "</td></tr>"
                     : "") +
