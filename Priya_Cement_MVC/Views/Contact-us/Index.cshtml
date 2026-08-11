@@ -42,6 +42,7 @@
 @section Styles {
     <link rel="stylesheet" href="~/Assets/css/contactus-style.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Assets/css/technicalservices-style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Assets/css/map-style.css" asp-append-version="true" />
 }
 
 @if (Model?.Content != null)
@@ -61,15 +62,15 @@
 
 @{
     var enquiryHeadingItem = Model?.Enquiry_CTA_List?
-        .Where(x => x.IsBlock == 0)
-        .OrderBy(x => x.Sequence)
-        .FirstOrDefault()
-        ?? Model?.Enquiry_CTA_List?.OrderBy(x => x.Sequence).FirstOrDefault();
+    .Where(x => x.IsBlock == 0)
+    .OrderBy(x => x.Sequence)
+    .FirstOrDefault()
+    ?? Model?.Enquiry_CTA_List?.OrderBy(x => x.Sequence).FirstOrDefault();
     var enquiryHeading = !string.IsNullOrWhiteSpace(enquiryHeadingItem?.DisplayTitle)
-        ? enquiryHeadingItem.DisplayTitle
-        : (!string.IsNullOrWhiteSpace(enquiryHeadingItem?.Title)
-            ? enquiryHeadingItem.Title
-            : "Tell us a little about your requirement");
+    ? enquiryHeadingItem.DisplayTitle
+    : (!string.IsNullOrWhiteSpace(enquiryHeadingItem?.Title)
+    ? enquiryHeadingItem.Title
+    : "Tell us a little about your requirement");
 }
 <section id="enquiry" class="bg-brand-band relative overflow-hidden section-spacing">
     <div class="container">
@@ -82,15 +83,16 @@
                 </div>
 
                 @await Html.PartialAsync(
-                    "~/Views/CommonComponent/_contactus_enquiry_form.cshtml",
-                    new ContactUsEnquiryModel())
+                "~/Views/CommonComponent/_contactus_enquiry_form.cshtml",
+                                new ContactUsEnquiryModel())
             </div>
         </div>
     </div>
 </section>
 
 @section Scripts {
-    <script src="~/Assets/js/inner-banner-script.js"></script>
-    <script src="~/Assets/js/contactus-script.js"></script>
+    <script src="~/Assets/js/inner-banner-script.js" asp-append-version="true"></script>
+    <script src="~/Assets/js/contactus-script.js" asp-append-version="true"></script>
+    <script src="~/Assets/js/map-script.js" asp-append-version="true"></script>
     <script src="~/scripts/contact/enquiry.js"></script>
 }
