@@ -68,7 +68,7 @@ public class ContactusController : Controller
                 Email = model.Email,
                 Phone = model.Phone,
                 CityId = model.CityId,
-                InterestId = model.InterestId,
+                StateId = model.StateId,
                 Query = model.Message,
                 Consent = model.Consent,
                 IPAddress = GetClientIpAddress()
@@ -121,7 +121,7 @@ public class ContactusController : Controller
     private void BindEnquiryDropdowns()
     {
         ViewBag.CityList = new SelectList(_enquiryBal.GetCityList(), "Id", "Name");
-        ViewBag.InterestList = new SelectList(_enquiryBal.GetAreaOfInterestList(), "Id", "Name");
+        ViewBag.StateList = new SelectList(_enquiryBal.GetStateList(), "Id", "Name");
     }
 
     private string GetClientIpAddress()

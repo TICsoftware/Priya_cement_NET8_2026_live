@@ -26,13 +26,15 @@ namespace Priya_Cement_MVC.Models
         [RegularExpression(@"^\+?[1-9][\d\s-]{7,14}$", ErrorMessage = "Enter a valid contact number")]
         public string? Phone { get; set; }
 
+
+        [Required(ErrorMessage = "Please select your state")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please select your state")]
+        public int StateId { get; set; }
+
         [Required(ErrorMessage = "Please select your city")]
         [Range(1, int.MaxValue, ErrorMessage = "Please select your city")]
         public int CityId { get; set; }
 
-        [Required(ErrorMessage = "Please select an area of interest")]
-        [Range(1, int.MaxValue, ErrorMessage = "Please select an area of interest")]
-        public int InterestId { get; set; }
 
         [StringLength(1000, ErrorMessage = "Message cannot exceed 1000 characters")]
         public string? Message { get; set; }

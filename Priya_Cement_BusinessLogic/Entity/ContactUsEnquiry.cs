@@ -9,6 +9,7 @@ namespace Priya_Cement_BusinessLogic.Entity
         public string Email { get; set; }
         public string Phone { get; set; }
         public int CityId { get; set; }
+        public int StateId{ get; set; }
         public int InterestId { get; set; }
         public string Query { get; set; }
         public bool Consent { get; set; }
