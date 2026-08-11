@@ -55,7 +55,7 @@
             <span asp-validation-for="StateId"></span>
         </div>
 
-        <div>
+        <div class="cselect">
             <select asp-for="CityId" class="f-field">
                 <option value="">Site Location</option>
                 @foreach (var item in ViewBag.CityList)
@@ -66,7 +66,7 @@
             <span asp-validation-for="CityId"></span>
         </div>
 
-        <div>
+        <div class="cselect"> 
             <select asp-for="TestTypeId" class="f-field">
                 <option value="">Type of tests required</option>
                 @foreach (var item in ViewBag.TestTypeList)
