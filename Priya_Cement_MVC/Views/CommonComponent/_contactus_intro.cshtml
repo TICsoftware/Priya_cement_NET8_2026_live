@@ -91,9 +91,7 @@
 
                         @foreach (var loc in locations)
                         {
-                            var locationKey = !string.IsNullOrWhiteSpace(loc.Section_title)
-                                ? loc.Section_title.CleanParagraphTags()
-                                : string.Empty;
+                            var locationKey = loc.HmpgIntro.CleanParagraphTags();
                             if (string.IsNullOrWhiteSpace(locationKey)) { continue; }
 
                             var cardId = "map-info-card-" + locationKey.ToLowerInvariant().Replace(" ", string.Empty);
@@ -105,7 +103,7 @@
                       
                             var phones = BuildPhones(loc);
 
-                            <div class="map-info-card" id="@cardId" data-location="@locationKey" aria-hidden="true">
+                            <div class="map-info-card" id="@cardId" data-location="@Html.Raw(locationKey)" aria-hidden="true">
                                 <div class="map-info-flag">
                                     <svg class="map-info-pin-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                                         <path d="M7 0C3.96 0 1.5 2.46 1.5 5.5c0 4.13 5 8.5 5.5 8.5s5.5-4.37 5.5-8.5C12.5 2.46 10.04 0 7 0Zm0 7.5A2 2 0 1 1 7 3.5a2 2 0 0 1 0 4Z" fill="#fff"/>
