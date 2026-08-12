@@ -2649,6 +2649,9 @@
     .lg\:max-w-\[50\%\] {
       max-width: 50%;
     }
+    .lg\:max-w-\[55\%\] {
+      max-width: 55%;
+    }
     .lg\:max-w-\[60\%\] {
       max-width: 60%;
     }
