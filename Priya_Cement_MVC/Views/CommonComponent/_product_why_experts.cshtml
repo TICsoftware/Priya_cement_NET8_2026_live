@@ -29,7 +29,7 @@
             {
                 <h3 class="text-h4">@Html.Raw(sectionTitle.CleanParagraphTags())</h3>
             }
-            <div class="mt-4 grid gap-10 border-t border-[#EAEAEA] pt-6 lg:max-w-6xl lg:grid-cols-2 lg:gap-x-16">
+            <div class="mt-4 grid gap-10 border-t border-[#EAEAEA] pt-6 product-content-max lg:max-w-6xl lg:grid-cols-2 lg:gap-x-16">
                 @foreach (var item in items)
                 {
                     var icon = !string.IsNullOrWhiteSpace(item.Component_Icon_Image)
