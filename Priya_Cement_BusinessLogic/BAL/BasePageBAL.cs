@@ -158,7 +158,7 @@ namespace Priya_Cement_BusinessLogic.BAL
                     FileUploadTitle2 = Config_Application_Website.GetValue(dict, "fileupload title2", "File Upload Title 2", "file upload title 2"),
                     Component_LHS_thumbnail = Config_Application_Website.GetPath(group, "component LHS thumbnail"),
                     Component_LHS_thumbnail_image_alt = Config_Application_Website.GetPath(group, "Component LHS thumbnail image alt"),
-                    bg_class = Config_Application_Website.GetValue(dict, "bg class"),
+                    bg_class = Config_Application_Website.GetValue(dict, "bg class", "block bg class"),
                     Component_LHS_icon1 = Config_Application_Website.GetPath(group, "LHS component icon image1"),
                     Component_LHS_icon2 = Config_Application_Website.GetPath(group, "LHS component icon image2"),
                     Component_RHS_icon1 = Config_Application_Website.GetPath(group, "RHS component icon image1"),
