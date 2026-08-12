@@ -69,7 +69,7 @@
 
                @if (!string.IsNullOrWhiteSpace(item.Intro))
                   {
-                     @Html.Raw(item.Intro.CleanParagraphTags())
+                     @Html.Raw(item.Intro)
                   }
                </div>
             </div>
@@ -142,7 +142,7 @@
    <div class="container">
       <div class="aboutus-leadership-inner">
          <div class="aboutus-leadership-quote" aria-hidden="true">
-            <div class="quote-vector1"> <img src="@item.Component_LHS_thumbnail_image_alt"
+            <div class="quote-vector1"> <img src="@item.Component_LHS_thumbnail"
                   alt="@item.Component_LHS_thumbnail_image_alt" class="w-auto"></div>
             <div class="quote-vector2"> <img src="@item.Component_right_image" alt="@item.Component_Right_image_alt"
                   class="w-auto"></div>
@@ -159,12 +159,12 @@
 
             <div class="aboutus-leadership-row">
                <div class="aboutus-leadership-photo">
-                  <img src="~/Assets/images/aboutus/NSujithKumarReddy.webp" alt="N. Sujith Kumar Reddy" class="w-auto">
+                  <img src="@item.ComponentThumbnail" alt="@item.ComponentThumbnailAltText" class="w-auto">
                </div>
                <div class="aboutus-leadership-copy">
                   @if (!string.IsNullOrWhiteSpace(item.Content))
                      {
-                        @Html.Raw(item.Content.CleanParagraphTags())
+                        @Html.Raw(item.Content)
                      }
                   </div>
                </div>
