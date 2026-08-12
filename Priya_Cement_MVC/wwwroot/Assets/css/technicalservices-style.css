@@ -98,7 +98,7 @@
 }
 [data-tab-wrap].is-docked > * {
   pointer-events: auto;
-      width: 90%;
+      width: 95%;
     max-width: 1680px;
   margin-left: auto;
   margin-right: auto;
