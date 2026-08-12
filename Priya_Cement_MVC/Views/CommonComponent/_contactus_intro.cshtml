@@ -99,7 +99,8 @@
                             var company = !string.IsNullOrWhiteSpace(loc.Title) && loc.Title != cardTitle
                                 ? loc.Title
                                 : (!string.IsNullOrWhiteSpace(loc.HmpgIntro) ? loc.HmpgIntro : loc.Section_title);
-                            var address = !string.IsNullOrWhiteSpace(loc.Intro) ? loc.Intro : loc.Content;
+                            var address = !string.IsNullOrWhiteSpace(loc.Intro) ? loc.Intro : "";
+                            var contact = !string.IsNullOrWhiteSpace(loc.Content) ? loc.Content : "";
                       
                             var phones = BuildPhones(loc);
 
@@ -121,6 +122,11 @@
                                     @if (!string.IsNullOrWhiteSpace(address))
                                     {
                                         <p class="map-info-address">@Html.Raw(address.CleanParagraphTags())</p>
+                                    }
+
+                                    @if (!string.IsNullOrWhiteSpace(contact))
+                                    {
+                                        @Html.Raw(contact)
                                     }
                                
                                 </div>
