@@ -78,7 +78,7 @@
                                 @if (!string.IsNullOrWhiteSpace(phone))
                                 {
                                     <div class="text-p mt-2">
-                                        <a href="@telHref">@Html.Raw(phone.CleanParagraphTags())</a>
+                                        <a href="tel:@telHref">@Html.Raw(phone.CleanParagraphTags())</a>
                                     </div>
                                 }
                             </div>
