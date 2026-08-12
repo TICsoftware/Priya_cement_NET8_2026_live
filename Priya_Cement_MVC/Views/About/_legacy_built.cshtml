@@ -3,13 +3,13 @@
 @model List<ComponentModel>
 
 @{
-    var component = Model?.FirstOrDefault(x => x.IsBlock == 0)
-    ?? Model?.FirstOrDefault();
+   var component = Model?.FirstOrDefault(x => x.IsBlock == 0)
+   ?? Model?.FirstOrDefault();
 
-    var projects = Model?
-    .Where(x => x.IsBlock == 1)
-    .OrderBy(x => x.Sequence)
-    .ToList();
+   var projects = Model?
+   .Where(x => x.IsBlock == 1)
+   .OrderBy(x => x.Sequence)
+   .ToList();
 }
 
 <section id="pageContainerLegacy" class="relative section-pt overflow-x-clip">
@@ -24,16 +24,16 @@
          <div class="section-title-outer section-title-outer-start section-with-intro no-p-width">
             <h2 class="text-h2 title-section reveal-text">
                @Html.Raw(
-                        !string.IsNullOrWhiteSpace(component?.DisplayTitle)
-                        ? component.DisplayTitle.CleanParagraphTags()
-                        : component?.Title)
+               !string.IsNullOrWhiteSpace(component?.DisplayTitle)
+               ? component.DisplayTitle.CleanParagraphTags()
+               : component?.Title)
             </h2>
-             @if (!string.IsNullOrWhiteSpace(component?.Intro))
-                    {
-                        <p>
-                            @Html.Raw(component.Intro.CleanParagraphTags())
-                        </p>
-                    }
+            @if (!string.IsNullOrWhiteSpace(component?.Intro))
+            {
+               <p>
+                  @Html.Raw(component.Intro.CleanParagraphTags())
+               </p>
+            }
          </div>
 
          <div class="relative mt-2 md:mt-4 flex-1 slidesData-contant">
@@ -463,22 +463,24 @@
          TIMELINE CONTENT — edit this plain HTML to add/change slides.
          ============================================================ -->
    <div id="slidesData" class="hidden" aria-hidden="true">
-        @if (projects != null)
-        {
-            @foreach (var item in projects.OrderByDescending(x => x.year))
-            {
-                <article data-year="@item.year">
-                    <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText">
-                    <h3>@item.Title</h3>
-                    @if (!string.IsNullOrWhiteSpace(component?.Intro))
-                    {
-                        <p>
-                            @Html.Raw(component.Intro.CleanParagraphTags())
-                        </p>
-                    }
-                </article>
-            }
-        }
+      @if (projects != null)
+      {
+         @foreach (var item in projects.OrderByDescending(x => x.year))
+         {
+            <article data-year="@item.year">
+               <img src="@(string.IsNullOrWhiteSpace(item.ThumbnailImage) 
+                        ? Url.Content("~/uploads/thumbnail/dummy-rectangle-slide.webp") 
+                        : item.ThumbnailImage)" alt="@item.ThumbnailAltText">
+               <h3>@item.Title</h3>
+               @if (!string.IsNullOrWhiteSpace(item?.Intro))
+               {
+                  <p>
+                     @Html.Raw(item.Intro.CleanParagraphTags())
+                  </p>
+               }
+            </article>
+         }
+      }
    </div>
 
 </section>
