@@ -128,8 +128,8 @@
                                     ? item.ComponentThumbnail
                                     : (!string.IsNullOrWhiteSpace(item.ThumbnailImage) ? item.ThumbnailImage : item.Component_right_image);
                                 var listHtml = item.Content;
-                                <article class="grid items-start gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)_minmax(220px,300px)] lg:gap-10">
-                                    <div class="flex min-w-0 gap-4 sm:gap-6">
+                                <article class="grid items-start gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)_minmax(220px,300px)] lg:gap-10 outer-grid-cols">
+                                    <div class="flex min-w-0 gap-4 sm:gap-6 grid-cols-content">
                                         <span data-count class="font-bold text-ghost text-big leading-none shrink-0">@index.ToString("00")</span>
                                         <div data-fade class="min-w-0 pt-1">
                                             <h4 class="text-h4">@Html.Raw(itemTitle.CleanParagraphTags())</h4>
@@ -148,7 +148,7 @@
                                     {
                                         if (listHtml.Contains("<li", StringComparison.OrdinalIgnoreCase) || listHtml.Contains("<ul", StringComparison.OrdinalIgnoreCase))
                                         {
-                                            <div data-fade class="md:col-span-2 lg:col-span-1 lg:pt-2">
+                                            <div data-fade class="md:col-span-2 lg:col-span-1 lg:pt-2 right-listcol">
                                                 @Html.Raw(listHtml)
                                             </div>
                                         }
