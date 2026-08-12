@@ -69,6 +69,7 @@ namespace Priya_Cement_BusinessLogic.Entity
         public string Component_RHS_icon1 { get; set; }
         public string Component_RHS_icon2 { get; set; }
         public string bg_class { get; set; }
+        public string year { get; set; }
     }
 
 

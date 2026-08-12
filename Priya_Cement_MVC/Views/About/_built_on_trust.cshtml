@@ -1,0 +1,118 @@
+@using Priya_Cement_BusinessLogic.Entity
+@using Priya_Cement_MVC.Helpers
+@model List<ComponentModel>
+
+@{
+    var component = Model?.FirstOrDefault(x => x.IsBlock == 0)
+    ?? Model?.FirstOrDefault();
+
+    var projects = Model?
+    .Where(x => x.IsBlock == 1)
+    .OrderBy(x => x.Sequence)
+    .ToList();
+}
+
+<section class="aboutus-projects-section section-spacing relative">
+
+    <div class="bgimage-outer-wrap" aria-hidden="true">
+        <img src="~/Assets/images/bg-image-dark2.webp" alt="" class="w-full h-full object-cover bg-image">
+    </div>
+
+    <div data-rail-scope class="aboutus-projects-band">
+
+        <div class="container">
+
+            <!-- Section Heading -->
+            <div class="section-sticky-head lg:max-w-2xl">
+
+                <div class="section-title-outer section-title-outer-start section-with-intro section-title-nonintro">
+
+                    <h2 class="section-sticky-title text-h2 title-section reveal-text">
+                        @Html.Raw(
+                        !string.IsNullOrWhiteSpace(component?.DisplayTitle)
+                        ? component.DisplayTitle.CleanParagraphTags()
+                        : component?.Title)
+                    </h2>
+
+                    @if (!string.IsNullOrWhiteSpace(component?.Intro))
+                    {
+                        <p>
+                            @Html.Raw(component.Intro.CleanParagraphTags())
+                        </p>
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- Projects -->
+            <div class="mt-10 flex gap-3 sm:mt-12 sm:gap-5 lg:mt-14 lg:gap-8">
+
+                <div data-rail class="relative w-[8px] shrink-0 self-stretch">
+                    <span class="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 aboutus-rail-line"></span>
+                    <span data-rail-thumb class="absolute left-0 top-0 h-10 w-2 rounded-full bg-secondary"></span>
+                </div>
+
+
+                <div class="min-w-0 flex-1 space-y-12 sm:space-y-14 lg:space-y-16 aboutus-projects-grid">
+
+                    @if (projects != null)
+                    {
+                        foreach (var item in projects)
+                        {
+                            <article class="relative grid gap-6 lg:block lg:pl-16">
+                                <!-- Project Image -->
+                                <div class="inner-article-img">
+                                    <img data-fade src="@item.ThumbnailImage" alt="@item.ThumbnailAltText"
+                                        class="w-full h-auto rounded-md object-contain lg:ml-auto lg:w-[74%]" />
+
+                                    @if (!string.IsNullOrWhiteSpace(item.ThumbnailAltText))
+                                    {
+                                        <div class="img-caption-txt">
+                                            <p>@item.ThumbnailAltText</p>
+                                        </div>
+                                    }
+                                </div>
+
+
+                                <!-- Project Content -->
+                                <div class="inner-content-box">
+
+                                    <span data-count aria-hidden="true"
+                                        class="pointer-events-none relative z-0 mb-2 block select-none leading-none text-ghost lg:absolute lg:left-0 lg:top-[8vw] lg:mb-0 text-big">
+                                        @item.Sequence.ToString("D2")
+                                    </span>
+                                    <div
+                                        class="relative z-10 rounded-md bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.08)] sm:p-8 lg:absolute lg:left-0 lg:top-1/2 lg:w-[388px] lg:-translate-y-1/2 lg:p-[21px] lg:pt-12">
+
+                                        <h4 class="text-h4">
+                                            @item.Title
+                                        </h4>
+
+                                        <span class="my-3 block h-px w-full bg-[#EDEDED]"></span>
+
+                                        @if (!string.IsNullOrWhiteSpace(item.Intro))
+                                        {
+                                            <p>
+                                                @Html.Raw(item.Intro.CleanParagraphTags())
+                                            </p>
+                                        }
+
+                                    </div>
+
+                                </div>
+
+                            </article>
+                        }
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

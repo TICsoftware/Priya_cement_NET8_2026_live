@@ -14,27 +14,15 @@ namespace Priya_Cement_BusinessLogic.Entity
 
 
         //About us
-        public List<ComponentModel> Component_With_Cards_List { get; set; } = new();
-        public List<ComponentModel> infographics_List { get; set; } = new();
-        public List<ComponentModel> Access_to_Safe_List { get; set; } = new();
-        public List<ComponentModel> Who_Are_We_List { get; set; } = new();
-        public List<ComponentModel> Our_Footprint_List { get; set; } = new();
-        public List<ComponentModel> Singular_Spirit_Aboutus_List { get; set; } = new();
+        public List<ComponentModel> Four_Decades_Of_Building_List { get; set; } = new();
+        public List<ComponentModel> Infographic_List { get; set; } = new();
+        public List<ComponentModel> What_We_Stand_For_List { get; set; } = new();
+        public List<ComponentModel> A_Word_From_Our_Leadership_List { get; set; } = new();
+        public List<ComponentModel> Values_That_Define_How_We_Work_List { get; set; } = new();
+        public List<ComponentModel> Built_On_Trust_Proven_At_Scale_List { get; set; } = new();
+        public List<ComponentModel> Legacy_Built_One_Year_At_A_Time_List { get; set; } = new();
+        public List<ComponentModel> Ready_To_Build_With_Priya_Cement_List { get; set; } = new();
 
-
-
-        //Leadership
-        public List<ComponentModel> leadership_intro_1_List { get; set; } = new();
-        public List<ComponentModel> Core_team_List { get; set; } = new();
-        public List<ComponentModel> Support_Functions_List { get; set; } = new();
-        public List<ComponentModel> leadership_intro_2_List { get; set; } = new();
-        public List<ComponentModel> Board_of_directors_List { get; set; } = new();
-
-
-        //Company Information
-        public List<ComponentModel> Company_Details_List { get; set; } = new();
-        public List<ComponentModel> Policies_List { get; set; } = new();
-        public List<ArticleModel> AnnualReturn_List { get; set; } = new();
 
 
         public int TotalCount { get; set; }

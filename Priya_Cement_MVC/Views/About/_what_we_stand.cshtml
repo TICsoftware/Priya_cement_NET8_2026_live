@@ -1,0 +1,56 @@
+@using Priya_Cement_BusinessLogic.Entity
+@using Priya_Cement_MVC.Helpers
+@model List<ComponentModel>
+
+@{
+    var component = Model?.FirstOrDefault(x => x.IsBlock == 0) ?? Model?.FirstOrDefault();
+
+}
+
+
+<section class="aboutus-stand-section section-spacing">
+    <div class="container">
+        <div class="aboutus-stand-inner">
+            <div class="aboutus-stand-visual">
+                <img src="~/Assets/images/aboutus/lion.webp" alt="" class="aboutus-stand-visual-img">
+            </div>
+
+            <div class="aboutus-stand-content">
+                <div class="section-title-outer section-title-outer-start aboutus-stand-heading">
+                    <h2 class="text-h2 title-section reveal-text">
+                        @Html.Raw(
+                        !string.IsNullOrWhiteSpace(component.DisplayTitle)
+                        ? component.DisplayTitle.CleanParagraphTags()
+                        : component.Title)
+                    </h2>
+                </div>
+
+                <div class="aboutus-stand-cards">
+                    @foreach (var item in Model.Where(x => x.IsBlock == 1).OrderBy(x => x.Sequence))
+                    {
+                        <article class="aboutus-stand-card">
+                            <div class="inner-stand">
+                                <span class="aboutus-stand-num text-ghost text-big leading-none" aria-hidden="true">
+                                    @item.Sequence.ToString("D2")
+                                </span>
+                                <span class="aboutus-stand-icon">
+                                    <img src="@item.Icon_Image" alt="@item.Title" class="w-auto">
+                                </span>
+                            </div>
+
+                            <h3 class="text-h4">
+                                @item.Title
+                            </h3>
+
+                            @if (!string.IsNullOrWhiteSpace(item.Intro))
+                            {
+                                @Html.Raw(item.Intro.CleanParagraphTags())
+                            }
+
+                        </article>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

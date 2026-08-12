@@ -48,44 +48,7 @@ public class AboutController : Controller
         }
     }
 
-    public IActionResult Leadership(string title)
-    {
-        try
-        {
-            //string pageName = HttpContext?.Request?.Path.Value?.Trim('/') ?? string.Empty;
-            var data = _bal.GetLeadership_BAL(title, 1, 1);
-            return View(data);
-        }
-        catch (Exception ex)
-        {
-            FileLogger.LogError("/About_Cop :", ex);
-            return View(new AboutModel());
-        }
-        finally
-        {
-            _bal.Dispose();
-        }
-    }
-
-
-    public IActionResult CompanyInformation(string title)
-    {
-        try
-        {
-            //string pageName = HttpContext?.Request?.Path.Value?.Trim('/') ?? string.Empty;
-            var data = _bal.CompanyInformation_BAL(title, 1, 1);
-            return View(data);
-        }
-        catch (Exception ex)
-        {
-            FileLogger.LogError("/About_Cop :", ex);
-            return View(new AboutModel());
-        }
-        finally
-        {
-            _bal.Dispose();
-        }
-    }
+    
 
 
 
