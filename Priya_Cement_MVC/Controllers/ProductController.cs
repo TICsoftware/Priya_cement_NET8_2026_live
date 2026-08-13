@@ -60,6 +60,26 @@ public class ProductController : Controller
         }
     }
 
+
+     public IActionResult SolutionsCenter(string title)
+    {
+        try
+        {
+            var data = _bal.GetSolutionsCenter_BAL(title, 1, 1);
+            return View(data);
+        }
+        catch (Exception ex)
+        {
+            FileLogger.LogError("/Product/Inside :", ex);
+            return View(new ProductModel());
+        }
+        finally
+        {
+            _bal.Dispose();
+        }
+    }
+
+
     public IActionResult TechnicalServices(string title)
     {
         try
@@ -79,6 +99,9 @@ public class ProductController : Controller
             _bal.Dispose();
         }
     }
+
+
+
 
     [HttpPost]
     [ValidateAntiForgeryToken]

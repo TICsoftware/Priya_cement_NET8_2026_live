@@ -38,6 +38,12 @@ app.MapControllerRoute(
                       defaults: new { controller = "Product", action = "TechnicalServices", title = "technical-services" }
                   );
 
+                  app.MapControllerRoute(
+                      name: "solutions-enquiry",
+                      pattern: "solutions/enquiry",
+                      defaults: new { controller = "Product", action = "SolutionsCenter", title = "enquiry" }
+                  );
+
             app.MapControllerRoute(
                           name: "products-inside",
                           pattern: "solutions/{title?}",
