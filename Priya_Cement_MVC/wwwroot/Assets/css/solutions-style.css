@@ -216,7 +216,7 @@
   gap: 1.75rem;
 }
 
-.whypartner-need-list > li {
+.whypartner-need-list > .inner-col-whypartner {
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr;

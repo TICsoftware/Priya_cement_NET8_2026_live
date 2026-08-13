@@ -11,11 +11,11 @@ namespace Priya_Cement_MVC.Models
         public string FullName { get; set; }
 
         [Required(ErrorMessage = "Please enter your phone number")]
-        [RegularExpression(@"^[6-9]\d{9}$", ErrorMessage = "Enter a valid 10-digit mobile number")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Enter a valid 10-digit mobile number")]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Please enter your WhatsApp number")]
-        [RegularExpression(@"^[6-9]\d{9}$", ErrorMessage = "Enter a valid 10-digit WhatsApp number")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Enter a valid 10-digit WhatsApp number")]
         public string WhatsAppNumber { get; set; }
 
         [Required(ErrorMessage = "Please enter your email address")]

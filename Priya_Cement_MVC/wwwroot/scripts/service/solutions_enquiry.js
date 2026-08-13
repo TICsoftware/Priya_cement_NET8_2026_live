@@ -79,14 +79,14 @@ $(document).ready(function () {
         var phone = ($("#PhoneNumber").val() || "").trim();
         if (phone === "") {
             setError("PhoneNumber", "Please enter your phone number.");
-        } else if (!/^[6-9]\d{9}$/.test(phone)) {
+        } else if (!/^\d{10}$/.test(phone)) {
             setError("PhoneNumber", "Enter a valid 10-digit mobile number.");
         }
 
         var whatsapp = ($("#WhatsAppNumber").val() || "").trim();
         if (whatsapp === "") {
             setError("WhatsAppNumber", "Please enter your WhatsApp number.");
-        } else if (!/^[6-9]\d{9}$/.test(whatsapp)) {
+        } else if (!/^\d{10}$/.test(whatsapp)) {
             setError("WhatsAppNumber", "Enter a valid 10-digit WhatsApp number.");
         }
 
