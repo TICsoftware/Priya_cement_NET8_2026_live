@@ -529,6 +529,7 @@ BULLET LIST CSS
 .field-validation-valid {color: red; font-size: 0.75rem; }
 .breadcrumb-nav ol {flex-wrap: wrap;}
 
+
 /* Image on the right, content on the left â€” no HTML reorder */
 @media (min-width: 1024px) {
   .leftright-grid-section.leftright-grid-reverse {
@@ -670,8 +671,9 @@ BULLET LIST CSS
 .form-check-label {
   flex: 1;
   min-width: 0;
+  font-size: 0.75rem;
 }
-
+.label-check-txt p {font-size: 0.75rem; color:#fff;}
 /* Light surfaces (if checkbox is used on white background) */
 .form-check.form-check-light {
   color: var(--color-primary, #231F20);
