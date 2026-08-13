@@ -1,5 +1,5 @@
-/* =====================================================================
-   LIFE INSIDE PRIYA CEMENT — cinematic scroll story
+﻿/* =====================================================================
+   LIFE INSIDE PRIYA CEMENT â€” cinematic scroll story
    GSAP + ScrollTrigger + HTML5 Canvas image sequence (120 frames)
    ===================================================================== */
 (() => {
@@ -22,7 +22,7 @@
   const ctx = canvas.getContext("2d", { alpha: true });
   if (!ctx) return;
 
-  /* Razor ~/ does not work in JS — use data-frames-base from the section */
+  /* Razor ~/ does not work in JS â€” use data-frames-base from the section */
   const framesBase = (
     section.dataset.framesBase || "/Assets/images/careers/images/"
   ).replace(/\/?$/, "/");
@@ -59,7 +59,7 @@
   let master = null;
   let seqStart = 0;
 
-  /* Original Figma layout — matched to petal tips before any canvas nudge */
+  /* Original Figma layout â€” matched to petal tips before any canvas nudge */
   const FIGMA_LAYOUT = {
     nodes: {
       logo: { x: 47.81, y: 51.36, size: 25.23 },
@@ -72,13 +72,13 @@
       safety: { x: 19.95, y: 26.78, size: 24.76 },
     },
     labelOffset: {
-      wellness: { x: 14.2, y: -13.7 },
+      wellness: { x: 14.2, y: -14.7 },
       learning: { x: 14.8, y: -5.9 },
       leadership: { x: 14.9, y: -5.2 },
-      recognition: { x: 12.4, y: 8.3 },
-      purpose: { x: -14.1, y: 5.4 },
-      culture: { x: -14.3, y: 3.2 },
-      safety: { x: -1.4, y: -25.0 },
+      recognition: { x: 12.4, y: 5.3 },
+      purpose: { x: -39.1, y: 5.4 },
+      culture: { x: -34.3, y: 3.2 },
+      safety: { x: -23.4, y: -28.0 },
     },
     /* Push labels farther into side gutters when the stage is scaled down */
     labelOffsetMobile: {
@@ -90,6 +90,20 @@
       culture: { x: -38, y: 2 },
       safety: { x: -18, y: -32 },
     },
+    /*
+     * 1920px display @ ~150% browser zoom only (CSS viewport ~1280).
+     * Does not replace desktop/mobile maps — selected only by isZoom150On1920().
+     * Tune x/y in % of stage: +x right, +y down.
+     */
+    labelOffsetZoom150: {
+      wellness: { x: 14.6, y: -16.2 },
+      learning: { x: 15.6, y: -2.2 },
+      leadership: { x: 15.8, y: -1.4 },
+      recognition: { x: 16.8, y: 6.5 },
+      purpose: { x: -42.8, y: 3.6 },
+      culture: { x: -38.0, y: 1.6 },
+      safety: { x: -12.2, y: -30.2 },
+    },
   };
 
   const mqNarrow = window.matchMedia("(max-width: 767px)");
@@ -97,9 +111,41 @@
   /* Icons slightly smaller on phone so petals leave room for copy */
   const NODE_SIZE_SCALE = () => (mqNarrow.matches ? 0.82 : 1);
 
+  /** 1920-class screen with ~150% page zoom (CSS viewport ≈ 1280×720). */
+  function isZoom150On1920() {
+    if (mqNarrow.matches) return false;
+    const sw = window.screen && window.screen.width ? window.screen.width : 0;
+    // Accept 1920-class displays (and common laptop variants)
+    if (sw < 1800 || sw > 2100) return false;
+
+    const outerW = window.outerWidth || sw;
+    const innerW = window.innerWidth || 0;
+    const innerH = window.innerHeight || 0;
+    if (!innerW) return false;
+
+    const zoomW = outerW / Math.max(innerW, 1);
+    // 1920/1.5 ≈ 1280; height ~720 but browser chrome can make it lower
+    const cssWidth150 = innerW >= 1180 && innerW <= 1380;
+    const cssHeight150 = !innerH || (innerH >= 560 && innerH <= 900);
+    const zoom150 = zoomW >= 1.35 && zoomW <= 1.7;
+
+    const matched = (zoom150 || cssWidth150) && cssHeight150;
+    // DevTools: document.documentElement.dataset.lifeinsideZoom150 === "1"
+    document.documentElement.dataset.lifeinsideZoom150 = matched ? "1" : "0";
+    return matched;
+  }
+
+  function getLabelOffsets() {
+    if (mqNarrow.matches) return FIGMA_LAYOUT.labelOffsetMobile;
+    if (isZoom150On1920() && FIGMA_LAYOUT.labelOffsetZoom150) {
+      return FIGMA_LAYOUT.labelOffsetZoom150;
+    }
+    return FIGMA_LAYOUT.labelOffset;
+  }
+
   /*
    * Per-icon fine-tune in % of stage (added on top of Figma %).
-   * x: + right / − left | y: + down / − up | ~1 ≈ 1% of stage width
+   * x: + right / âˆ’ left | y: + down / âˆ’ up | ~1 â‰ˆ 1% of stage width
    */
   const NODE_NUDGE = {
     learning: { x: 0, y: 0 },
@@ -114,13 +160,13 @@
 
   /*
    * Shift drawn frames so the flower hole lands on Figma logo center.
-   * Icons/labels keep Figma % — they already match the (nudged) petals.
+   * Icons/labels keep Figma % â€” they already match the (nudged) petals.
    */
   const FRAME_NUDGE = { x: 0.0341, y: 0.0466 };
 
   const nodes = [...icons, logo].filter(Boolean);
 
-  /** Center nodes on their left/top anchor — GSAP only (no CSS translate) */
+  /** Center nodes on their left/top anchor â€” GSAP only (no CSS translate) */
   function centerNodes(extra = {}) {
     gsap.set(nodes, {
       x: 0,
@@ -142,9 +188,7 @@
     const stageToHostY = stageRect.top - hostRect.top;
     const iconCenters = {};
     const sizeScale = NODE_SIZE_SCALE();
-    const labelOffsets = mqNarrow.matches
-      ? FIGMA_LAYOUT.labelOffsetMobile
-      : FIGMA_LAYOUT.labelOffset;
+    const labelOffsets = getLabelOffsets();
 
     for (const [key, p] of Object.entries(FIGMA_LAYOUT.nodes)) {
       const el =
@@ -177,12 +221,13 @@
 
       labelEl.style.left = "0px";
       labelEl.style.top = "0px";
-      const lr = labelEl.getBoundingClientRect();
+      // Layout box (not getBoundingClientRect) — avoids zoom/transform skew
+      const lw = labelEl.offsetWidth;
+      const lh = labelEl.offsetHeight;
 
       /*
        * labelOffset is % of stage from the icon CENTER.
-       * x/y here are what you edit in FIGMA_LAYOUT.labelOffset /
-       * labelOffsetMobile.
+       * Edit FIGMA_LAYOUT.labelOffset / labelOffsetMobile / labelOffsetZoom150.
        */
       const ox = (off.x / 100) * w;
       const oy = (off.y / 100) * h;
@@ -193,15 +238,17 @@
       /* Left-side copy: offset is to the text start — shift by label width
          so the block sits fully on the left of the orb */
       if (side === "left") {
-        left -= lr.width;
+        left -= lw;
       }
 
-      const pad = EDGE_PAD();
-      left = Math.max(pad, Math.min(left, hostRect.width - pad - lr.width));
-      top = Math.max(pad, Math.min(top, hostRect.height - pad - lr.height));
+      // Full x/y from labelOffsetZoom150 must apply — do not re-center and
+      // ignore offsets. Softer edge pad at 150% so large ±x still moves.
+      const pad = isZoom150On1920() ? 4 : EDGE_PAD();
+      left = Math.max(pad, Math.min(left, hostRect.width - pad - lw));
+      top = Math.max(pad, Math.min(top, hostRect.height - pad - lh));
 
-      labelEl.style.left = left + "px";
-      labelEl.style.top = top + "px";
+      labelEl.style.left = Math.round(left) + "px";
+      labelEl.style.top = Math.round(top) + "px";
     }
   }
 
@@ -290,11 +337,11 @@
   }
 
   function createTimeline() {
-    /* Keep title inside the sticky panel — viewport centering at init time
+    /* Keep title inside the sticky panel â€” viewport centering at init time
        pushed it hundreds of px above the fold once the section pins. */
     gsap.set(title, { opacity: 0, scale: 1.12, y: 48 });
     gsap.set(canvas, { opacity: 0, filter: "blur(12px)" });
-    /* GSAP alone centers nodes — never mix with CSS translate(-50%,-50%) */
+    /* GSAP alone centers nodes â€” never mix with CSS translate(-50%,-50%) */
     centerNodes({
       opacity: 0,
       scale: 0.5,
@@ -323,7 +370,7 @@
       },
     });
 
-    /* Title + canvas appear as soon as the section pins — no empty white beat */
+    /* Title + canvas appear as soon as the section pins â€” no empty white beat */
     tl.to(title, { opacity: 1, scale: 1, duration: 1.0 }, 0)
       .to(canvas, { opacity: 1, duration: 0.5, ease: "power1.out" }, 0.15)
       .to(title, { y: 0, duration: 1.4, ease: "power3.out" }, 0.35)
@@ -413,7 +460,7 @@
         );
         centerNodes({ opacity: 1, scale: 1, filter: "none" });
         // No pin gets created on this path, but sections below still wait
-        // for this signal (see careers-script.js) — fire it regardless.
+        // for this signal (see careers-script.js) â€” fire it regardless.
         window.dispatchEvent(new Event("lifeinside:ready"));
         return;
       }
@@ -422,7 +469,7 @@
       ScrollTrigger.refresh();
       /* Sections further down the page (CTA parallax, workplace culture
          tile parallax, man-cutout reveal) create their own ScrollTriggers
-         only after this fires — creating them earlier measures against
+         only after this fires â€” creating them earlier measures against
          the pre-pin page height, and a later ScrollTrigger.refresh() does
          not correct that mismatch. */
       window.dispatchEvent(new Event("lifeinside:ready"));

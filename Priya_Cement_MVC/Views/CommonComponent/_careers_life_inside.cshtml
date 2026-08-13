@@ -1,4 +1,4 @@
-@using Priya_Cement_BusinessLogic.Entity
+﻿@using Priya_Cement_BusinessLogic.Entity
 @using Priya_Cement_MVC.Helpers
 @model List<ComponentModel>
 
@@ -75,7 +75,7 @@
                 @foreach (var item in items)
                 {
                     var key =( item.Title.ToLowerInvariant()?.Replace(" ", "-"));
-                    var side = !string.IsNullOrWhiteSpace(item.bg_class);
+                    var side = string.IsNullOrWhiteSpace(item.bg_class) ? "right" : item.bg_class.Trim().ToLowerInvariant();
                        
                     var labelTitle = !string.IsNullOrWhiteSpace(item.DisplayTitle) ? item.DisplayTitle : item.Title;
                     var labelBody = !string.IsNullOrWhiteSpace(item.Intro) ? item.Intro : item.Content;
