@@ -85,7 +85,7 @@
 .hero-pag-wrap{
   position:absolute;
   left:50%;
-  bottom:120px;
+  bottom:70px;
   transform:translateX(-50%);
   z-index:20;
   display:flex;
@@ -941,9 +941,14 @@ z-index: -1;
 .logo-lion-vector-outer {right: -5vw; left: auto;}
 }
 
+@media (max-width: 480px){
+.hero-swiper .slide-copy--right .slide-content {top: 25vw;}
+}
+
 @media (max-width: 393px){
  .home-sustainability-section {
    min-height: calc(100svh - var(--header-h, 0px));
+   .hero-swiper .slide-copy--right .slide-content {top: 15vw;}
  }
 }
 @media (max-width: 375px){

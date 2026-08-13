@@ -467,6 +467,8 @@ BULLET LIST CSS
 
 .breadcrumb-nav li, .breadcrumb-nav li a {font-size: var(--text-small);}
 
+.field-validation-valid {color: red; font-size: 0.75rem; }
+
 /* Image on the right, content on the left â€” no HTML reorder */
 @media (min-width: 1024px) {
   .leftright-grid-section.leftright-grid-reverse {

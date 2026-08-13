@@ -313,7 +313,7 @@
 
 @media (min-width: 1200px) and (max-width: 1366px) {
 .map-inside-wrapper {max-width: 40vw;}
-.map-title-section {max-width: 620px;}
+.map-title-section {max-width: 580px;}
 .circle-img { max-width: 55vw;}
 .map-outer-warapper {margin-top: -23vw;left: 15vw;}
 
