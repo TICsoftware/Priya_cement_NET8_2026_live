@@ -15,6 +15,7 @@ public class ProductController : Controller
     private readonly Product_BAL _bal;
     private readonly TechnicalSupport_BAL _TechnicalSupport_bal;
     private readonly SolutionsEnquiry_BAL _SolutionsEnquiry_bal;
+    private readonly IConfiguration objconfig;
 
     public ProductController(ILogger<ProductController> logger, IConfiguration configuration)
     {
@@ -22,6 +23,7 @@ public class ProductController : Controller
         _bal = new Product_BAL(configuration);
         _TechnicalSupport_bal = new TechnicalSupport_BAL(configuration);
         _SolutionsEnquiry_bal = new SolutionsEnquiry_BAL(configuration);
+        objconfig = configuration;
     }
 
     public IActionResult Index(string title)
@@ -62,7 +64,7 @@ public class ProductController : Controller
     }
 
 
-     public IActionResult SolutionsCenter(string title)
+    public IActionResult SolutionsCenter(string title)
     {
         try
         {
@@ -87,6 +89,7 @@ public class ProductController : Controller
         {
             var pageName = string.IsNullOrWhiteSpace(title) ? "technical-services" : title;
             var data = _bal.GetTechnicalServices_BAL(pageName, 1, 1);
+            ViewBag.captchapublickey = objconfig["CaptchaKeys:PublicKey"];
             BindTechnicalSupportDropdowns();
             return View(data);
         }

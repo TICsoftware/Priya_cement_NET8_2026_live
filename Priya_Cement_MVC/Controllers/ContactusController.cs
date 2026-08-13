@@ -14,12 +14,14 @@ public class ContactusController : Controller
     private readonly ILogger<ContactusController> _logger;
     private readonly Contactus_BAL _bal;
     private readonly ContactusEnquiry_BAL _enquiryBal;
+    private readonly IConfiguration objconfig;
 
     public ContactusController(ILogger<ContactusController> logger, IConfiguration configuration)
     {
         _logger = logger;
         _bal = new Contactus_BAL(configuration);
         _enquiryBal = new ContactusEnquiry_BAL(configuration);
+        objconfig = configuration;
     }
 
     public IActionResult Index(string title)
@@ -28,6 +30,7 @@ public class ContactusController : Controller
         {
             var pageName = string.IsNullOrWhiteSpace(title) ? "contact" : title;
             var data = _bal.GetContactus_BAL(pageName, 1, 1);
+            ViewBag.captchapublickey = objconfig["CaptchaKeys:PublicKey"];
             BindEnquiryDropdowns();
             return View("~/Views/Contact-us/Index.cshtml", data);
         }
