@@ -14,13 +14,14 @@ public class ProductController : Controller
     private readonly ILogger<ProductController> _logger;
     private readonly Product_BAL _bal;
     private readonly TechnicalSupport_BAL _TechnicalSupport_bal;
+    private readonly SolutionsEnquiry_BAL _SolutionsEnquiry_bal;
 
     public ProductController(ILogger<ProductController> logger, IConfiguration configuration)
     {
         _logger = logger;
         _bal = new Product_BAL(configuration);
         _TechnicalSupport_bal = new TechnicalSupport_BAL(configuration);
-
+        _SolutionsEnquiry_bal = new SolutionsEnquiry_BAL(configuration);
     }
 
     public IActionResult Index(string title)
@@ -105,6 +106,75 @@ public class ProductController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    public IActionResult SubmitSolutionsEnquiry(SolutionCenterEnquiryModal model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return Json(new
+            {
+                status = false,
+                message = "Please correct the highlighted fields and try again."
+            });
+        }
+
+        try
+        {
+            var entity = new SolutionsEnquiry
+            {
+                FullName = model.FullName,
+                MobileNumber = model.PhoneNumber,
+                WhatsappNumber = model.WhatsAppNumber,
+                EmailId = model.EmailAddress,
+                Gender = model.Gender,
+                AgeGroup = model.AgeGroup,
+                District = model.District,
+                TownVillage = model.TownVillage,
+                CurrentOccupation = model.CurrentOccupation,
+                CurrentOccupationOthers = string.Equals(model.CurrentOccupation, "Other", StringComparison.OrdinalIgnoreCase)
+                    ? model.CurrentOccupationOthers
+                    : null,
+                OwnShopCommercialSpace = model.OwnShopOrCommercialSpace,
+                PreviouslyRunBusiness = model.PreviouslyRunBusiness,
+                SpaceForStoreSetup = model.HaveSpaceForStoreSetup,
+                StoreSizeSqft = string.Equals(model.HaveSpaceForStoreSetup, "Yes", StringComparison.OrdinalIgnoreCase)
+                    ? model.StoreSizeSqFt
+                    : null,
+                PreferredTimeForContact = model.PreferredTimeForContact
+            };
+
+            DataTable dt = _SolutionsEnquiry_bal.SubmitEnquiry_BAL(entity);
+            string result = dt.Rows.Count > 0 ? dt.Rows[0][0]?.ToString() ?? string.Empty : string.Empty;
+
+            if (int.TryParse(result, out int newId) && newId > 0)
+            {
+                return Json(new
+                {
+                    status = true,
+                    message = "Thank you for your enquiry. Our team will contact you shortly."
+                });
+            }
+
+            return Json(new
+            {
+                status = false,
+                message = string.IsNullOrWhiteSpace(result)
+                    ? "Something went wrong while submitting your enquiry."
+                    : result
+            });
+        }
+        catch (Exception ex)
+        {
+            FileLogger.LogError("SubmitSolutionsEnquiry", ex);
+            return Json(new
+            {
+                status = false,
+                message = "Something went wrong while submitting your enquiry."
+            });
+        }
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult SubmitTechnicalSupport(TechnicalSupportEnquiryModal model)
     {
         if (!ModelState.IsValid)
@@ -129,6 +199,7 @@ public class ProductController : Controller
                 StateId = Convert.ToInt32(model.StateId),
                 CityId = Convert.ToInt32(model.CityId),
                 TestTypeId = Convert.ToInt32(model.TestTypeId),
+                Consent = Convert.ToBoolean(model.Consent),
                 IPAddress = GetClientIpAddress()
             };
 

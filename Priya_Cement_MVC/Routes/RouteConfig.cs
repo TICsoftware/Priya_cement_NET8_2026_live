@@ -63,6 +63,12 @@ app.MapControllerRoute(
               defaults: new { controller = "Product", action = "SubmitTechnicalSupport" }
           );
 
+            app.MapControllerRoute(
+              name: "SubmitSolutionsEnquiry",
+              pattern: "Product/SubmitSolutionsEnquiry",
+              defaults: new { controller = "Product", action = "SubmitSolutionsEnquiry" }
+          );
+
 
             
 
