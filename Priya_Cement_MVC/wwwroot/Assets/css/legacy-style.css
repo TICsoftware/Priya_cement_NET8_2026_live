@@ -269,8 +269,8 @@
   }
 
   #pageContainerLegacy .legacy-copy {
-    flex: 0 0 clamp(16rem, 26vw, 28rem);
-    max-width: clamp(16rem, 26vw, 28rem);
+    flex: 0 0 clamp(16rem, 26vw, 30rem);
+    max-width: clamp(16rem, 26vw, 30rem);
   }
 
   #pageContainerLegacy .legacy-media {
