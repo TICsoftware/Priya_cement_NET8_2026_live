@@ -15,7 +15,7 @@
 
     var sectionTitle = !string.IsNullOrWhiteSpace(header?.DisplayTitle)
         ? header.DisplayTitle
-        : (!string.IsNullOrWhiteSpace(header?.Section_title) ? header.Section_title : header?.Title);
+        : header?.Title;
 
     // Optional: full HTML table stored in header Content
     var htmlTable = header?.Content;
@@ -25,6 +25,8 @@
 {
     <section class="section-spacing physicalproperties-section">
         <div class="container">
+         <h2 class="text-h4">@Html.Raw(header.Section_title)</h2>
+
             @if (!string.IsNullOrWhiteSpace(sectionTitle))
             {
                 <h3 class="text-h4">@Html.Raw(sectionTitle.CleanParagraphTags())</h3>

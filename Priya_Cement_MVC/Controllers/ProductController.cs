@@ -116,7 +116,12 @@ public class ProductController : Controller
             return Json(new
             {
                 status = false,
-                message = "Please correct the highlighted fields and try again."
+                message = "Please correct the highlighted fields and try again.",
+                errors = ModelState
+                    .Where(x => x.Value != null && x.Value.Errors.Count > 0)
+                    .ToDictionary(
+                        x => x.Key,
+                        x => x.Value!.Errors.Select(e => e.ErrorMessage).FirstOrDefault() ?? "This field is required.")
             });
         }
 
