@@ -34,6 +34,11 @@ $(document).ready(function () {
                         scrollTop: $("#solutionsEnquiryMessage").offset().top - 100
                     }, 500);
                 } else {
+                    if (response.errors) {
+                        $.each(response.errors, function (key, msg) {
+                            $('[data-valmsg-for="' + key + '"]').text(msg || "");
+                        });
+                    }
                     $("#solutionsEnquiryMessage").html(
                         `<div class="cu-form-alert cu-form-alert--error">${response.message}</div>`
                     );

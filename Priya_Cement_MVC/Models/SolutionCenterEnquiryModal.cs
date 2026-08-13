@@ -40,7 +40,7 @@ namespace Priya_Cement_MVC.Models
         public string CurrentOccupation { get; set; }
 
         [StringLength(200)]
-        public string CurrentOccupationOthers { get; set; }
+        public string? CurrentOccupationOthers { get; set; }
 
         [Required(ErrorMessage = "Please select whether you own a shop/commercial space")]
         public string OwnShopOrCommercialSpace { get; set; } = "Yes";
@@ -52,10 +52,10 @@ namespace Priya_Cement_MVC.Models
         public string HaveSpaceForStoreSetup { get; set; } = "Yes";
 
         [StringLength(20)]
-        public string StoreSizeSqFt { get; set; }
+        public string? StoreSizeSqFt { get; set; }
 
         [StringLength(100)]
-        public string PreferredTimeForContact { get; set; }
+        public string? PreferredTimeForContact { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
