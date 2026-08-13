@@ -465,6 +465,8 @@ BULLET LIST CSS
 
 .form-Submitbtn-wrap {margin-top: 30px;}
 
+.breadcrumb-nav li, .breadcrumb-nav li a {font-size: var(--text-small);}
+
 /* Image on the right, content on the left â€” no HTML reorder */
 @media (min-width: 1024px) {
   .leftright-grid-section.leftright-grid-reverse {
