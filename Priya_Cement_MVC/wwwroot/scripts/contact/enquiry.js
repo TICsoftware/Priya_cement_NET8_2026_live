@@ -26,6 +26,9 @@ $(document).ready(function () {
                     // Option 1 - Reset the form
                     $("#contactForm")[0].reset();
 
+                    grecaptcha.reset();
+                    $("#captchaError").text("");
+
                     $(".cu-field-error").text("");
 
                     $("#contactMessage").html(
@@ -59,6 +62,8 @@ $(document).ready(function () {
                         Something went wrong. Please try again.
                     </div>`
                 );
+                grecaptcha.reset();
+                $("#captchaError").text("");
             }
         });
 
@@ -171,6 +176,16 @@ $(document).ready(function () {
         }
         else {
             $('[data-valmsg-for="Consent"]').text("");
+        }
+
+        // Google reCAPTCHA
+        var captchaResponse = grecaptcha.getResponse();
+
+        if (!captchaResponse || captchaResponse.length === 0) {
+            $("#captchaError").text("Please complete the captcha.");
+            isValid = false;
+        } else {
+            $("#captchaError").text("");
         }
     
         return isValid;
