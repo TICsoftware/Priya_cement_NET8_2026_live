@@ -28,7 +28,8 @@ namespace Priya_Cement_BusinessLogic.DAL
                 new SqlParameter("@StateId", model.StateId),
                 new SqlParameter("@CityId", model.CityId),
                 new SqlParameter("@TestTypeId", model.TestTypeId == 0 ? (object)DBNull.Value : model.TestTypeId),
-                new SqlParameter("@IPAddress", string.IsNullOrWhiteSpace(model.IPAddress) ? (object)DBNull.Value : model.IPAddress)
+                new SqlParameter("@IPAddress", string.IsNullOrWhiteSpace(model.IPAddress) ? (object)DBNull.Value : model.IPAddress),
+                new SqlParameter("@Consent", (object?)model.Consent ?? DBNull.Value)
             };
 
             return GetDataSet("AddTechnicalSupportEnquiry", sqlParams).Tables[0];

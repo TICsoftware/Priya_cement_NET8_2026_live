@@ -38,10 +38,14 @@ namespace Priya_Cement_MVC.Models
 
         public int TestTypeId { get; set; }
 
-       
+        [Required]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Please accept the consent.")]
+        public bool Consent { get; set; }
 
-        
 
-        
+
+
+
+
     }
 }

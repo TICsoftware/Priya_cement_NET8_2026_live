@@ -129,6 +129,7 @@ public class ProductController : Controller
                 StateId = Convert.ToInt32(model.StateId),
                 CityId = Convert.ToInt32(model.CityId),
                 TestTypeId = Convert.ToInt32(model.TestTypeId),
+                Consent = Convert.ToBoolean(model.Consent),
                 IPAddress = GetClientIpAddress()
             };
 

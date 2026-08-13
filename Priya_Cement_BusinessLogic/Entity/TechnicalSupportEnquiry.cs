@@ -29,6 +29,8 @@ namespace Priya_Cement_BusinessLogic.Entity
 
         public string IPAddress { get; set; }
 
+        public bool Consent{ get; set; }
+
 
     }
 }

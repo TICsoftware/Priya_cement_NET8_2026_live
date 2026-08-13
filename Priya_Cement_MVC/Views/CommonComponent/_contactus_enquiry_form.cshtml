@@ -67,8 +67,21 @@
             <input asp-for="Consent" type="checkbox" class="form-check-input" />
             <span class="form-check-box" aria-hidden="true"></span>
             <span class="form-check-label">I agree to be contacted regarding this enquiry.</span>
+
         </label>
         <span asp-validation-for="Consent" class="text-red-500"></span>
+    </div>
+
+    <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <label bel class="form-check">
+            <p>
+                Disclaimer: I authorize Rain Cements Limited (Priya Cement) and its representatives to Call, SMS,
+                Email or WhatsApp me about its updates and notifications. This consent overrides any registration for Do
+                Not
+                Disturb (DND) /
+                National Do Not Call (NDNC).
+            </p>
+        </label>
     </div>
 
     <div class="md:col-span-2 lg:col-span-3 mt-6 flex justify-center form-Submitbtn-wrap">
