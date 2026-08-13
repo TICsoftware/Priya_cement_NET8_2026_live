@@ -239,7 +239,7 @@
 
 @media all and (max-width: 767px) {
    .tic-text {position: relative;}
-   .logo-link img { height: 30px;}
+   .logo-link img { height: 38px;}
 }
 
 @media (min-width: 1200px) and (max-width: 1366px) {

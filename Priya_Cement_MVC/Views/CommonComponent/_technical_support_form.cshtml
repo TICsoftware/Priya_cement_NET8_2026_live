@@ -1,4 +1,4 @@
-@model TechnicalSupportEnquiryModal
+﻿@model TechnicalSupportEnquiryModal
 
 
 
@@ -44,7 +44,7 @@
             <span asp-validation-for="EmailAddress"></span>
         </div>
 
-        <div>
+        <div class="cselect">
             <select asp-for="StateId" class="f-field">
                 <option value="">Select State</option>
                 @foreach (var item in ViewBag.StateList)
@@ -66,7 +66,7 @@
             <span asp-validation-for="CityId"></span>
         </div>
 
-        <div class="cselect"> 
+        <div class="cselect">
             <select asp-for="TestTypeId" class="f-field">
                 <option value="">Type of tests required</option>
                 @foreach (var item in ViewBag.TestTypeList)
@@ -79,7 +79,7 @@
 
     </div>
 
-    <div class="md:col-span-2 lg:col-span-3 mt-3 flex justify-center">
+    <div class="md:col-span-2 lg:col-span-3 mt-3 flex justify-center form-Submitbtn-wrap">
         <button type="submit"
             class="inline-flex items-center gap-2.5 rounded-[10px] bg-white px-[14px] py-[10px] text-base font-medium text-[#231f20] shadow-[0px_4px_5px_rgba(0,0,0,0.1),0px_17px_8.5px_rgba(0,0,0,0.09)] transition-transform hover:-translate-y-0.5">
             Submit
@@ -89,13 +89,5 @@
             </svg>
         </button>
     </div>
-
-    @* <div class="text-center mt-8">
-        <button type="submit" class="common-btn btn-slide-fill">
-            <span>Submit</span>
-            <img src="~/Assets/images/arrows/creamarrow-long-right.png" alt="">
-        </button>
-        <div id="technicalSupportMessage" class="mt-3"></div>
-    </div> *@
 
 </form>

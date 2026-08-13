@@ -1,4 +1,4 @@
-.customerservice-block {
+﻿.customerservice-block {
   border-radius: 20px;
   border: 1px solid #EFEFEF;
   background: #FFF;
@@ -21,7 +21,7 @@
   margin-top: auto; /* pushes phone line to the bottom for equal heights */
 }
 .customerservice-grid.is-rise-anim .customerservice-block {
-  /* GSAP owns translateY — don't fight it with CSS transition on transform */
+  /* GSAP owns translateY â€” don't fight it with CSS transition on transform */
   transition: box-shadow 0.3s ease;
 }
 .customerservice-block:hover { box-shadow: 0 12px 24px 4px rgba(0, 0, 0, 0.12); }
@@ -34,9 +34,9 @@
 
 
 
-/* ══════════════════════════════
-   CONTACT US — enquiry band + form
-══════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CONTACT US â€” enquiry band + form
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 #enquiry .f-field {
   width: 100%;
   background-color: #5E1E21;
@@ -130,10 +130,52 @@
   max-width: none;
   height: auto;
 }
+
+
+/* Hide native select — kept in DOM for submit / validation / cascade */
+.cselect select.cselect-native {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  opacity: 0;
+  pointer-events: none;
+}
+.cselect .cselect-ui { position: relative; width: 100%; }
+
+/* Enquiry form card: allow cselect dropdown to escape (was overflow-hidden) */
+.enquiry-form-card {
+  overflow: visible;
+}
+.enquiry-form-card .logo-lion-vector-outer {
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+#enquiry .cselect,
+.bg-brand-band .cselect {
+  z-index: 5;
+}
+#enquiry .cselect.is-open,
+.bg-brand-band .cselect.is-open {
+  z-index: 50;
+}
+#enquiry .cselect-menu,
+.bg-brand-band .cselect-menu {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
 @media (min-width: 1200px) and (max-width: 1366px) {
 .customerservice-block .call-txt a{font-size:1rem}
 .customerservice-grid {gap: 20px;}
 #enquiry .f-field { padding: 8px 13px;font-size: 0.875rem;}
+.customerservice-block a {font-size: 1rem;}
 }
 
 
