@@ -62,6 +62,11 @@
     @await Html.PartialAsync("~/Views/CommonComponent/_product_why_experts.cshtml", Model.Why_Experts_List)
 }
 
+@if (Model?.GreenPro_Certificate_List != null && Model.GreenPro_Certificate_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_product_greenpro_certificate.cshtml", Model.GreenPro_Certificate_List)
+}
+
 @if (Model?.Physical_Properties_List != null && Model.Physical_Properties_List.Any())
 {
     @await Html.PartialAsync("~/Views/CommonComponent/_product_physical_properties.cshtml", Model.Physical_Properties_List)
