@@ -27,6 +27,7 @@ namespace Priya_Cement_BusinessLogic.Entity
          public string Landing_Intro { get; set; }
         public string HmpgIntro { get; set; }
         public string DisplayTitle { get; set; }
+         public string BlockDisplayTitle { get; set; }
         public string Content { get; set; }
         public string ComponentThumbnail { get; set; }
         public string ComponentThumbnailAltText { get; set; }
