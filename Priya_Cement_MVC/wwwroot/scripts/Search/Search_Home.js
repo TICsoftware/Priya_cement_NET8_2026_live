@@ -1,19 +1,40 @@
+// $(document).on("submit", ".search-form", function (e) {
+
+//     e.preventDefault();
+
+//     var keyword = $("#searchInput").val().trim();
+
+//     if (keyword == "") {
+
+//         alert("Please enter search keyword.");
+
+//         $("#searchInput").focus();
+
+//         return false;
+//     }
+
+//     window.location.href =
+//         "/search/" + encodeURIComponent(keyword);
+// });
+
+
+
+
 $(document).on("submit", ".search-form", function (e) {
 
     e.preventDefault();
 
-    var keyword = $("#txtSearch").val().trim();
+    var keyword = $(this).find("#searchInput").val().trim();
 
-    if (keyword == "") {
+    console.log("Keyword:", keyword);
 
+    if (!keyword) {
         alert("Please enter search keyword.");
 
-        $("#txtSearch").focus();
+        $(this).find("#searchInput").focus();
 
         return false;
     }
 
-    window.location.href =
-        "/search/" + encodeURIComponent(keyword);
+    window.location.href = "/search/" + encodeURIComponent(keyword);
 });
-
