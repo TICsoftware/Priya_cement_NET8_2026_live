@@ -282,6 +282,7 @@
   }
 
   .careers-intro { margin-bottom: -40px; }
+  .logo-lion-vector-outer {display: flex;justify-content: end;}
 }
 
 @media (max-width: 393px) {
