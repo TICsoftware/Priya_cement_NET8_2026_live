@@ -465,7 +465,7 @@
    <div id="slidesData" class="hidden" aria-hidden="true">
       @if (projects != null)
       {
-         @foreach (var item in projects.OrderByDescending(x => x.year))
+         @foreach (var item in projects.OrderBy(x => x.year))
          {
             <article data-year="@item.year">
                <img src="@(string.IsNullOrWhiteSpace(item.ThumbnailImage) 
