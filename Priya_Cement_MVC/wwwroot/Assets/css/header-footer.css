@@ -240,6 +240,83 @@
 @media all and (max-width: 767px) {
    .tic-text {position: relative;}
    .logo-link img { height: 38px;}
+
+   /* Footer link columns — mobile accordion */
+   .linkcolumns-outer.grid {row-gap: 0;}
+   .linkcolumns-block {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+   }
+   .linkcolumns-block h4 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 0;
+      padding: 14px 0;
+      cursor: pointer;
+      user-select: none;
+   }
+   .linkcolumns-block h4::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      transform: rotate(45deg);
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+      margin-top: -4px;
+   }
+   .linkcolumns-block.is-open h4::after {
+      transform: rotate(-135deg);
+      margin-top: 4px;
+   }
+   .linkcolumns-block > ul {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin: 0;
+      transition:
+        max-height 0.35s ease,
+        opacity 0.25s ease,
+        padding-top 0.35s ease,
+        padding-bottom 0.35s ease;
+   }
+   .linkcolumns-block.is-open > ul {
+      opacity: 1;
+      padding-top: 8px;
+      padding-bottom: 20px;
+   }
+   .linkcolumns-block > ul > li + li {
+      margin-top: 14px;
+   }
+
+   /* Follow us — social links side by side on mobile */
+   .linkcolumns-block:has(.social-item) > ul {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px 20px;
+   }
+   .linkcolumns-block:has(.social-item) > ul > li {
+      margin-top: 0 !important;
+   }
+}
+
+@media (min-width: 768px) {
+   .linkcolumns-block > ul {
+      max-height: none !important;
+      overflow: visible !important;
+      opacity: 1 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+   }
+   .linkcolumns-block h4::after {
+      content: none !important;
+   }
 }
 
 @media (min-width: 1200px) and (max-width: 1366px) {
