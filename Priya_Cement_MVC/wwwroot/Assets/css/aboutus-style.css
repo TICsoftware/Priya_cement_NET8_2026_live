@@ -221,7 +221,7 @@
 
 .aboutus-leadership-row {
   display: grid;
-  grid-template-columns: minmax(160px, 40%) minmax(0, 1fr);
+  /* grid-template-columns: minmax(160px, 40%) minmax(0, 1fr); */
   gap: clamp(1.25rem, 3vw, 2rem);
   align-items: start;
   margin-top: clamp(1.5rem, 3vw, 2.75rem);
@@ -280,7 +280,7 @@
 @media (max-width: 1366px) {
   .aboutus-leadership-heading { margin-left: -10vw; }
   .aboutus-leadership-row {
-    grid-template-columns: minmax(140px, 36%) minmax(0, 1fr);
+    /* grid-template-columns: minmax(140px, 36%) minmax(0, 1fr); */
   }
   .aboutus-leadership-quote img {width: clamp(6.75rem, 12.5vw, 18.3125rem);}
   .aboutus-leadership-quote .quote-vector1 {margin-top: clamp(-9.375rem, -1.4vw, 0rem);}
@@ -1113,6 +1113,10 @@
   .aboutus-projects-grid {
     max-width: 100%;
   }
+}
+
+@media (min-width: 1200px) and (max-width: 1366px) {
+  .aboutus-projects-section .section-title-outer .section-sticky-title{max-width: 30vw;}
 }
 
 

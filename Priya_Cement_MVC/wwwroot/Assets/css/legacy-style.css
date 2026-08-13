@@ -311,3 +311,13 @@
 #pageContainerLegacy .legacy-media {margin-left: 8px;}
 .slidesData-contant h3 {margin-bottom: 5px;}
 }
+
+@media (min-width: 1200px) and (max-width: 1366px) {
+
+  #pageContainerLegacy .legacy-copy {
+    flex: 0 0 clamp(16rem, 30vw, 30rem);
+    max-width: clamp(16rem, 30vw, 30rem);
+  }
+#aboutus-values .aboutus-values-title {max-width: min(26rem, 70vw);left: clamp(1rem, 7vw, 20rem); top: clamp(1.25rem, 8vh, 8.5rem)}
+
+}
