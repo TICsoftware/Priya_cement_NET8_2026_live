@@ -41,12 +41,16 @@
                         </div>
                         <div class="font-bold text-p mt-5">@item.Title</div>
                         <div class="outer-btn-wrap">
-                            <a class="site-link" href="@item.MediafilePath">
-                                @item.Url_Text
-                                <span class="site-link-arrow" aria-hidden="true"><img
-                                        src="/Assets/images/common-images/download-vector-btn.svg" alt=""
-                                        class="w-auto object-cover"></span>
-                            </a>
+                            @if (!string.IsNullOrWhiteSpace(item.MediafilePath) && item.MediafilePath.EndsWith(".pdf",
+                                                    StringComparison.OrdinalIgnoreCase))
+                            {
+                                <a class="site-link" href="@item.MediafilePath" target="_blank">
+                                    @item.Url_Text
+                                    <span class="site-link-arrow" aria-hidden="true"><img
+                                            src="/Assets/images/common-images/download-vector-btn.svg" alt=""
+                                            class="w-auto object-cover"></span>
+                                </a>
+                            }
                         </div>
                     </div>
                 }
