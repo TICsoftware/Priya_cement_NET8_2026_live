@@ -73,7 +73,7 @@
 .fade-slide-enter {
   animation: fadeSlideIn .7s cubic-bezier(.22,.61,.36,1) both;
 }
-.slidesData-contant h3 {font-size: var(--text-h4);}
+.slidesData-contant h3 {font-size: var(--text-h4);margin-bottom: 8px;}
 
 @keyframes fadeSlideIn {
   from { opacity: 0; transform: translateY(14px); }
