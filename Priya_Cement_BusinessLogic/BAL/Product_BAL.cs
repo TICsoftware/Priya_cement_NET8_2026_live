@@ -103,5 +103,36 @@ namespace Priya_Cement_BusinessLogic.BAL
 
             return model;
         }
+
+
+        public ProductModel GetSolutionsCenter_BAL(string pagename, int languageId, int geographyId)
+        {
+            var model = new ProductModel();
+            var ds = GetContentComponentData_DAL(pagename, languageId, geographyId);
+
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                model.Content = MapContent(ds.Tables[0].Rows[0]);
+            }
+
+            if (ds.Tables.Count > 1 && ds.Tables[1].Rows.Count > 0)
+            {
+                var groupedData = GetGroupedComponents(ds.Tables[1]);
+                model.Components = groupedData;
+
+                model.Build_Your_Own_Business_List = MapComponents(groupedData, 1);
+                model.What_Is_Priya_Cement_Customer_Solutions_List = MapComponents(groupedData, 2);
+                model.Why_Partner_With_Priya_Cement_List = MapComponents(groupedData, 3);
+                model.Who_Can_Apply_List = MapComponents(groupedData, 4);
+                model.What_You_Need_List = MapComponents(groupedData, 5);
+                model.Who_Can_Apply_Download_List = MapComponents(groupedData, 6);
+                model.Take_The_First_Step_Today_List = MapComponents(groupedData, 7);
+                model.Frequently_Asked_Questions_List = MapComponents(groupedData, 8);
+            }
+
+            return model;
+        }
+
+
     }
 }
