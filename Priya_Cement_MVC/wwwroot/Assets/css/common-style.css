@@ -468,6 +468,7 @@ BULLET LIST CSS
 .breadcrumb-nav li, .breadcrumb-nav li a {font-size: var(--text-small);}
 
 .field-validation-valid {color: red; font-size: 0.75rem; }
+.breadcrumb-nav ol {flex-wrap: wrap;}
 
 /* Image on the right, content on the left â€” no HTML reorder */
 @media (min-width: 1024px) {
@@ -516,8 +517,16 @@ BULLET LIST CSS
   }
 .innerbanner-image-wrapper {height: 75vh;}
 
+.inside-banner-outer .innerbanner-caption{justify-content: end; align-items: end;padding-bottom: 120px;}
+
 }
 
+@media (max-width: 480px){
+
+}
+@media (max-width: 393px){
+.inside-banner-outer .innerbanner-caption{justify-content: end; align-items: end;padding-bottom: 100px;}
+}
 
 @media (min-width: 1200px) and (max-width: 1366px) {
   .counter-wrap .counter, .counter-wrap .counter-no{font-size: 2.875rem;}

@@ -461,7 +461,7 @@
   .product-float-sticky {
     width: min(80vw, 180px);
     max-width: 180px;
-    margin-top: calc(-1 * min(12vh, 160px));
+    margin-top: calc(-1 * min(10vh, 160px));
   }
 
   .product-float-inner {
