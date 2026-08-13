@@ -4,6 +4,9 @@
 
 @{
     var component = Model?.FirstOrDefault(x => x.IsBlock == 0) ?? Model?.FirstOrDefault();
+    var faqItems = Model.Where(x => x.IsBlock == 1)
+    .OrderBy(x => x.Sequence)
+    .ToList();
 }
 
 
@@ -19,23 +22,33 @@
         </div>
 
         <div class="solutions-faq-list" data-solutions-faq>
-            @foreach (var item in Model.Where(x => x.IsBlock == 1).OrderBy(x => x.Sequence))
+
+
+            @for (int i = 0; i < faqItems.Count; i++)
             {
-                <div class="solutions-faq-item is-open">
-                    <button type="button" class="solutions-faq-trigger" aria-expanded="true">
+                var item = faqItems[i];
+                var isOpen = i == 0;
+
+                <div class="solutions-faq-item @(isOpen ? "is-open" : "")">
+
+                    <button type="button" class="solutions-faq-trigger" aria-expanded="@isOpen.ToString().ToLower()">
+
                         <span class="solutions-faq-q">@item.Title</span>
+
                         <span class="solutions-faq-icon" aria-hidden="true"></span>
                     </button>
+
                     <div class="solutions-faq-panel" role="region">
                         <div class="solutions-faq-panel-inner">
+
                             @if (!string.IsNullOrWhiteSpace(item.Intro))
                             {
-                                <p>
-                                    @Html.Raw(item.Intro.CleanParagraphTags())
-                                </p>
+                                @Html.Raw(item.Intro.CleanParagraphTags())
                             }
+
                         </div>
                     </div>
+
                 </div>
             }
         </div>
