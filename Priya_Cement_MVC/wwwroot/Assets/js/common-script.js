@@ -188,7 +188,7 @@ if (yearFoot) yearFoot.innerHTML = String(new Date().getFullYear());
 
   const anim = gsap.fromTo(
     vector,
-    { y: 80, opacity: 0, force3D: true },
+    { y: 120, opacity: 0, force3D: true },
     {
       y: 0,
       opacity: 0.9,
