@@ -956,6 +956,9 @@
   .mt-auto {
     margin-top: auto;
   }
+  .mr-3\.75 {
+    margin-right: calc(var(--spacing) * 3.75);
+  }
   .mb-0 {
     margin-bottom: 0px;
   }
@@ -2002,6 +2005,9 @@
   }
   .text-\[\#999\] {
     color: #999;
+  }
+  .text-\[\#716868\] {
+    color: #716868;
   }
   .text-\[\#767676\] {
     color: #767676;
