@@ -285,6 +285,8 @@
 
   .careers-intro { margin-bottom: -40px; }
   .logo-lion-vector-outer {display: flex;justify-content: end;}
+
+
 }
 
 @media (max-width: 393px) {
@@ -816,6 +818,11 @@
 .quote-card .site-link:hover img {
   filter: brightness(0) saturate(100%) invert(11%) sepia(5%) saturate(538%) hue-rotate(314deg) brightness(94%) contrast(90%);
 }
+
+@media (max-width: 767px) {
+.quote-card-content {padding: 40px 0 0px 0;}
+}
+
 
 @media (max-width: 1680px) {
 .bg-parallax-section .bg-parallax-content {max-width: min(42rem, 40%);}

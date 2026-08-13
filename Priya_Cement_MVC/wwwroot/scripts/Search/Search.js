@@ -65,20 +65,40 @@ $(document).ready(function () {
 
 
 
-    $(document).on("submit", "#frmSearch", function (e) {
+    $(document).on("submit", "#frmSearchPage", function (e) {
+
         e.preventDefault();
     
-        var keyword = $("#search").val().trim();
+        var keyword = ($(this).find("#search").val() || "").trim();
     
-        if (keyword == "") {
+        if (keyword === "") {
             alert("Please enter search keyword.");
-            $("#search").focus();
+    
+            $(this).find("#search").focus();
+    
             return false;
         }
     
-        window.location.href =
-            "/search/" + encodeURIComponent(keyword);
+        window.location.href = "/search/" + encodeURIComponent(keyword);
     });
+
+    
+    // $(document).on("submit", "#frmSearchPage", function (e) {
+    //     e.preventDefault();
+    
+    //     //var keyword = $("#search").val().trim();
+    //     var keyword = ($(this).find("#searchInput").val() || "").trim();
+    
+    //     alert(keyword);
+    //     if (keyword == "") {
+    //         alert("Please enter search keyword.");
+    //         $("#search").focus();
+    //         return false;
+    //     }
+    
+    //     window.location.href =
+    //         "/search/" + encodeURIComponent(keyword);
+    // });
 
 
   
