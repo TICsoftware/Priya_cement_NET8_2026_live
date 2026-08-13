@@ -182,6 +182,15 @@ $(document).ready(function () {
             $('[data-valmsg-for="TestTypeId"]').text("");
         }
 
+        // Consent
+        if (!$("#Consent").prop("checked")) {
+            $('[data-valmsg-for="Consent"]').text("Please accept the consent.");
+            isValid = false;
+        }
+        else {
+            $('[data-valmsg-for="Consent"]').text("");
+        }
+
         return isValid;
     }
 

@@ -83,6 +83,9 @@ $(document).ready(function () {
             $('[data-valmsg-for="FullName"]').text("Only alphabets, spaces and '.' are allowed.");
             isValid = false;
         }
+        else{
+            $('[data-valmsg-for="FullName"]').text("");
+        }
 
          // Organisation
          let designation = $("#Designation").val().trim();
@@ -90,12 +93,18 @@ $(document).ready(function () {
              $('[data-valmsg-for="Designation"]').text("Please enter your designation name.");
              isValid = false;
          }
+         else{
+            $('[data-valmsg-for="Designation"]').text("");
+        }
     
         // Organisation
         let organisation = $("#Organisation").val().trim();
         if (organisation === "") {
             $('[data-valmsg-for="Organisation"]').text("Please enter your organisation name.");
             isValid = false;
+        }
+        else{
+            $('[data-valmsg-for="Organisation"]').text("");
         }
     
         // Email
@@ -108,6 +117,8 @@ $(document).ready(function () {
             if (!emailRegex.test(email)) {
                 $('[data-valmsg-for="Email"]').text("Please enter a valid email address.");
                 isValid = false;
+            } else {
+                $('[data-valmsg-for="Email"]').text("");
             }
         }
     
@@ -129,6 +140,9 @@ $(document).ready(function () {
                 $('[data-valmsg-for="Phone"]').text("Please enter a valid international phone number.");
                 isValid = false;
             }
+            else {
+                $('[data-valmsg-for="Phone"]').text("");
+            }
         }
     
         // State
@@ -136,11 +150,17 @@ $(document).ready(function () {
             $('[data-valmsg-for="StateId"]').text("Please select your state.");
             isValid = false;
         }
+        else {
+            $('[data-valmsg-for="StateId"]').text("");
+        }
 
         // City
         if ($("#CityId").val() === "" || $("#CityId").val() === "0") {
             $('[data-valmsg-for="CityId"]').text("Please select your city.");
             isValid = false;
+        }
+        else {
+            $('[data-valmsg-for="CityId"]').text("");
         }
 
     
@@ -148,6 +168,9 @@ $(document).ready(function () {
         if (!$("#Consent").prop("checked")) {
             $('[data-valmsg-for="Consent"]').text("Please accept the consent.");
             isValid = false;
+        }
+        else {
+            $('[data-valmsg-for="Consent"]').text("");
         }
     
         return isValid;
