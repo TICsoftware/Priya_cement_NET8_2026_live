@@ -111,18 +111,28 @@
   /* Icons slightly smaller on phone so petals leave room for copy */
   const NODE_SIZE_SCALE = () => (mqNarrow.matches ? 0.82 : 1);
 
-  /** 1920-class screen with ~150% page zoom (innerWidth ≈ 1280). */
+  /** 1920-class screen with ~150% page zoom (CSS viewport ≈ 1280×720). */
   function isZoom150On1920() {
     if (mqNarrow.matches) return false;
     const sw = window.screen && window.screen.width ? window.screen.width : 0;
-    if (sw < 1880 || sw > 1960) return false;
-    const outer = window.outerWidth || sw;
-    const inner = window.innerWidth || sw;
-    if (!inner) return false;
-    const zoom = outer / inner;
-    // Also catch cases where outerWidth is unreliable: CSS viewport near 1280 on 1920 screen
-    const cssViewport150 = inner >= 1200 && inner <= 1360;
-    return (zoom >= 1.4 && zoom <= 1.65) || cssViewport150;
+    // Accept 1920-class displays (and common laptop variants)
+    if (sw < 1800 || sw > 2100) return false;
+
+    const outerW = window.outerWidth || sw;
+    const innerW = window.innerWidth || 0;
+    const innerH = window.innerHeight || 0;
+    if (!innerW) return false;
+
+    const zoomW = outerW / Math.max(innerW, 1);
+    // 1920/1.5 ≈ 1280; height ~720 but browser chrome can make it lower
+    const cssWidth150 = innerW >= 1180 && innerW <= 1380;
+    const cssHeight150 = !innerH || (innerH >= 560 && innerH <= 900);
+    const zoom150 = zoomW >= 1.35 && zoomW <= 1.7;
+
+    const matched = (zoom150 || cssWidth150) && cssHeight150;
+    // DevTools: document.documentElement.dataset.lifeinsideZoom150 === "1"
+    document.documentElement.dataset.lifeinsideZoom150 = matched ? "1" : "0";
+    return matched;
   }
 
   function getLabelOffsets() {
@@ -231,12 +241,9 @@
         left -= lw;
       }
 
-      /* 150%/1920 only: vertically center side labels on the icon */
-      if (isZoom150On1920() && (side === "left" || side === "right")) {
-        top = stageToHostY + icon.y - lh / 2 + oy * 0.25;
-      }
-
-      const pad = EDGE_PAD();
+      // Full x/y from labelOffsetZoom150 must apply — do not re-center and
+      // ignore offsets. Softer edge pad at 150% so large ±x still moves.
+      const pad = isZoom150On1920() ? 4 : EDGE_PAD();
       left = Math.max(pad, Math.min(left, hostRect.width - pad - lw));
       top = Math.max(pad, Math.min(top, hostRect.height - pad - lh));
 

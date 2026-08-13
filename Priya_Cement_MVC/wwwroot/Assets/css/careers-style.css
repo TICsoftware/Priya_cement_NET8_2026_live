@@ -147,7 +147,7 @@
 .section-title-large .title-section { max-width: 31vw; }
 .careers-intro { margin-top: 50px; margin-bottom: -80px; }
 
- .testimonials-left-part .section-title-outer p{max-width: 100%;}
+.testimonials-left-part .section-title-outer p{max-width: 100%;}
 
 @media (min-width: 1024px) {
   .our-products-img img { height: auto; }
@@ -815,6 +815,10 @@
 
 .quote-card .site-link:hover img {
   filter: brightness(0) saturate(100%) invert(11%) sepia(5%) saturate(538%) hue-rotate(314deg) brightness(94%) contrast(90%);
+}
+
+@media (max-width: 1680px) {
+.bg-parallax-section .bg-parallax-content {max-width: min(42rem, 40%);}
 }
 
 @media (min-width: 1200px) and (max-width: 1366px) {
