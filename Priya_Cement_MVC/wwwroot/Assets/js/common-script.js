@@ -520,11 +520,18 @@ if (langWrap && langBtn) {
         <span class="drawer-sub-title">${section.dataset.label}</span>
       </div>`;
 
-    // same source markup as desktop â€” links list + promo card, just cloned
-    const linksClone = section.querySelector('.mega-links').cloneNode(true);
-    linksClone.className = 'drawer-links';
-    drawerSub.appendChild(linksClone);
-    drawerSub.appendChild(section.querySelector('.mega-promo').cloneNode(true));
+    // same source markup as desktop — links list + optional promo card
+    const links = section.querySelector('.mega-links');
+    if (links) {
+      const linksClone = links.cloneNode(true);
+      linksClone.className = 'drawer-links';
+      drawerSub.appendChild(linksClone);
+    }
+
+    const promo = section.querySelector('.mega-promo');
+    if (promo) {
+      drawerSub.appendChild(promo.cloneNode(true));
+    }
 
     drawerSub.querySelector('.drawer-back').addEventListener('click', closeSubmenu);
     drawerSub.scrollTop = 0;
