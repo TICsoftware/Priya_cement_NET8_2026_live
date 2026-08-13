@@ -41,7 +41,11 @@
             <span asp-validation-for="StateId" class="text-red-500"></span>
         </div>
 
-        <div class="cselect">
+        <div>
+            <input asp-for="City" class="f-field" placeholder="City*" />
+            <span asp-validation-for="City" class="text-red-500"></span>
+        </div>
+        @* <div class="cselect">
             <select asp-for="CityId" class="f-field">
                 <option value="">Select city*</option>
                 @if (ViewBag.CityList != null)
@@ -53,7 +57,7 @@
                 }
             </select>
             <span asp-validation-for="CityId" class="text-red-500"></span>
-        </div>
+        </div> *@
 
         <div class="md:col-span-2 xl:col-span-2">
             <textarea asp-for="Message" class="f-field" rows="4"

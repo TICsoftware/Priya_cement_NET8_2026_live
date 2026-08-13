@@ -30,11 +30,14 @@ namespace Priya_Cement_MVC.Models
         [EmailAddress]
         public string EmailAddress { get; set; }
 
-        [Required]
+
         public int CityId { get; set; }
 
         [Required]
         public int StateId { get; set; }
+
+        [Required]
+        public string City { get; set; }
 
         public int TestTypeId { get; set; }
 

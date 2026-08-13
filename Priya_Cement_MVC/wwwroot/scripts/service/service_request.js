@@ -213,23 +213,23 @@ $(document).ready(function () {
 
 
     // State -> City
-$("#StateId").change(function () {
+// $("#StateId").change(function () {
 
-    var stateId = $(this).val();
+//     var stateId = $(this).val();
 
-    $("#CityId").html('<option value="">Loading...</option>');
+//     $("#CityId").html('<option value="">Loading...</option>');
 
-    $.get("/Product/GetCities", { stateId: stateId }, function (data) {
+//     $.get("/Product/GetCities", { stateId: stateId }, function (data) {
 
-        var options = '<option value="">Select City</option>';
+//         var options = '<option value="">Select City</option>';
 
-        $.each(data, function (i, item) {
-            options += '<option value="' + item.cityId + '">' + item.cityName + '</option>';
-        });
+//         $.each(data, function (i, item) {
+//             options += '<option value="' + item.cityId + '">' + item.cityName + '</option>';
+//         });
 
-        $("#CityId").html(options);
-    });
-});
+//         $("#CityId").html(options);
+//     });
+// });
 
 // Service Type -> Test Type
 $("input[name='ServiceTypeId']").change(function () {

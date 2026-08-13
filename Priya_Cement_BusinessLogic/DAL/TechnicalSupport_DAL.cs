@@ -26,7 +26,7 @@ namespace Priya_Cement_BusinessLogic.DAL
                 new SqlParameter("@PhoneNumber", model.PhoneNumber),
                 new SqlParameter("@EmailAddress", model.EmailAddress),
                 new SqlParameter("@StateId", model.StateId),
-                new SqlParameter("@CityId", model.CityId),
+                new SqlParameter("@City", model.City),
                 new SqlParameter("@TestTypeId", model.TestTypeId == 0 ? (object)DBNull.Value : model.TestTypeId),
                 new SqlParameter("@IPAddress", string.IsNullOrWhiteSpace(model.IPAddress) ? (object)DBNull.Value : model.IPAddress),
                 new SqlParameter("@Consent", (object?)model.Consent ?? DBNull.Value)

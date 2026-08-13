@@ -70,7 +70,7 @@ public class ContactusController : Controller
                 Organisation = model.Organisation,
                 Email = model.Email,
                 Phone = model.Phone,
-                CityId = model.CityId,
+                City = model.City,
                 StateId = model.StateId,
                 Query = model.Message,
                 Consent = model.Consent,
