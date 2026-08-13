@@ -10,6 +10,7 @@
   /* Tall pin scroll must stay dark — never flash page white */
   min-height: 100vh;
   min-height: 100svh;
+  overflow: hidden;
 }
 
 /* GSAP wraps the pinned panel; spacer is otherwise page-white */
@@ -185,6 +186,7 @@
 
   #life-inside .stage {
     top: 54%;
+    left: 49%;
   }
 
   #life-inside #section-title {
@@ -196,7 +198,7 @@
   }
 
   #life-inside .label-txt {
-    max-width: 5.75rem;
+    max-width: 6.75rem;
   }
 
   #life-inside .label-txt h2 {

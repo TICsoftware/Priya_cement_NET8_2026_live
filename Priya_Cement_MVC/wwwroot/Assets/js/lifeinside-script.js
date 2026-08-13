@@ -82,13 +82,13 @@
     },
     /* Push labels farther into side gutters when the stage is scaled down */
     labelOffsetMobile: {
-      wellness: { x: 22, y: -18 },
+      wellness: { x: 10, y: -18 },
       learning: { x: 24, y: -4 },
       leadership: { x: 24, y: -2 },
       recognition: { x: 20, y: 12 },
-      purpose: { x: -22, y: 8 },
-      culture: { x: -24, y: 2 },
-      safety: { x: -8, y: -28 },
+      purpose: { x: -34, y: 8 },
+      culture: { x: -38, y: 2 },
+      safety: { x: -18, y: -32 },
     },
   };
 
