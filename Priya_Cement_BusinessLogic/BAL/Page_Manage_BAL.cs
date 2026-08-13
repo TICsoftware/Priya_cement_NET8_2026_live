@@ -140,6 +140,7 @@ namespace Priya_Cement_BusinessLogic.BAL
                 Intro = Config_Application_Website.GetValue(dict, "Intro", "Component Intro"),
                 HmpgIntro = Config_Application_Website.GetValue(dict, "Landing intro", "Component Landing intro"),
                 DisplayTitle = Config_Application_Website.GetValue(dict, "Component Display title"),
+                BlockDisplayTitle = Config_Application_Website.GetValue(dict, "Display title"),
                 Content = Config_Application_Website.GetValue(dict, "Content", "Component Content"),
                 ComponentThumbnail = Config_Application_Website.GetPath(group, "Component Thumbnail image"),
                 ComponentThumbnailAltText = Config_Application_Website.GetValue(dict, "Component thumbnail image alt"),
