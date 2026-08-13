@@ -294,14 +294,73 @@ background: linear-gradient(90deg, rgba(0, 0, 0, 0.90) -5.49%, rgba(0, 0, 0, 0.7
 /**=====================================
 ODOMETER CSS
 =====================================**/
-.counter-odometer {display: inline-flex;align-items: baseline;gap: 0ch;font-variant-numeric: tabular-nums;line-height: 1;overflow: hidden;}
-.odometer-digit {overflow: hidden;display: inline-block;vertical-align: bottom;height: 1em;width: 1ch;text-align: center;font-family: inherit;font-weight: inherit;font-size: inherit;}
-.odometer-column {display: block;transform: translateY(0);will-change: transform; overflow: hidden;}
-.odometer-digit-line {display: block;height: 1em;line-height: 1em;box-sizing: border-box;}
-.counter-suffix {display: inline-block;margin-left: 0.35ch;font-family: inherit;font-size: var(--text-58);line-height: 1; color: var(--color-primary);font-weight: 500;}
-.odometer-comma {display: inline-block; width: 0.4em; text-align: center;font-weight: inherit;vertical-align: bottom;}
-.counter-wrap .counter, .counter-wrap .counter-no {font-size: var(--text-58);font-weight: 500;line-height: 1;}
-
+.counter-odometer {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0ch;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  overflow: hidden;
+}
+.odometer-digit {
+  position: relative;
+  display: inline-block;
+  vertical-align: bottom;
+  height: 1em;
+  width: 1ch;
+  text-align: center;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: 1;
+  /* Strict clip — overflow:hidden alone leaks digit slivers at browser zoom (e.g. 150%) */
+  overflow: hidden;
+  overflow: clip;
+  clip-path: inset(2px 0);
+  -webkit-clip-path: inset(2px 0);
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: paint;
+  /* Extra safety for glyph bleed at non-100% zoom */
+  -webkit-mask-image: linear-gradient(#000 0 100%);
+  mask-image: linear-gradient(#000 0 100%);
+}
+.odometer-column {
+  display: block;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.odometer-digit-line {
+  display: block;
+  height: 1em;
+  line-height: 1;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.counter-suffix {
+  display: inline-block;
+  margin-left: 0.35ch;
+  font-family: inherit;
+  font-size: var(--text-58);
+  line-height: 1;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+.odometer-comma {
+  display: inline-block;
+  width: 0.4em;
+  text-align: center;
+  font-weight: inherit;
+  vertical-align: bottom;
+}
+.counter-wrap .counter,
+.counter-wrap .counter-no {
+  font-size: var(--text-58);
+  font-weight: 500;
+  line-height: 1;
+}
 
 .lion-logo-svg {
   display: block;
@@ -467,6 +526,9 @@ BULLET LIST CSS
 
 .breadcrumb-nav li, .breadcrumb-nav li a {font-size: var(--text-small);}
 
+.field-validation-valid {color: red; font-size: 0.75rem; }
+.breadcrumb-nav ol {flex-wrap: wrap;}
+
 /* Image on the right, content on the left â€” no HTML reorder */
 @media (min-width: 1024px) {
   .leftright-grid-section.leftright-grid-reverse {
@@ -514,8 +576,16 @@ BULLET LIST CSS
   }
 .innerbanner-image-wrapper {height: 75vh;}
 
+.inside-banner-outer .innerbanner-caption{justify-content: end; align-items: end;padding-bottom: 120px;}
+
 }
 
+@media (max-width: 480px){
+
+}
+@media (max-width: 393px){
+.inside-banner-outer .innerbanner-caption{justify-content: end; align-items: end;padding-bottom: 100px;}
+}
 
 @media (min-width: 1200px) and (max-width: 1366px) {
   .counter-wrap .counter, .counter-wrap .counter-no{font-size: 2.875rem;}

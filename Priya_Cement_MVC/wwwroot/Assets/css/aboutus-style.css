@@ -1,4 +1,4 @@
-
+﻿
 .logo-lion-vector-outer {
   position: absolute;
   top: 0;
@@ -15,9 +15,9 @@
     justify-content: center;
 }
 
-/* ══════════════════════════════
-   ABOUT US — Stats stack cards
-══════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   ABOUT US â€” Stats stack cards
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .aboutus-stats-section {
   --stats-gap: clamp(1.5rem, 3.5vw, 2.75rem);
   --stats-card-h: calc(100vh - var(--header-h, 106px) - var(--stats-gap));
@@ -111,6 +111,28 @@
   align-items: baseline;
 }
 
+/* Odometer clip hardening (150% zoom / scaled pin cards) */
+.aboutus-stats-value .odometer-digit {
+  overflow: hidden !important;
+  overflow: clip !important;
+  clip-path: inset(3px 0) !important;
+  -webkit-clip-path: inset(3px 0) !important;
+  contain: paint;
+  transform: translateZ(0);
+  -webkit-mask-image: linear-gradient(transparent 0, #000 3px, #000 calc(100% - 3px), transparent 100%);
+  mask-image: linear-gradient(transparent 0, #000 3px, #000 calc(100% - 3px), transparent 100%);
+}
+.aboutus-stats-value .odometer-digit-line {
+  line-height: 1;
+  height: 1em;
+  overflow: hidden;
+}
+.aboutus-stats-value .odometer-column {
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+
 .aboutus-stats-value .odometer-separator {
   display: inline-block;
   font-weight: inherit;
@@ -161,9 +183,9 @@
   }
 }
 
-/* ══════════════════════════════
-   ABOUT US — Leadership message
-══════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   ABOUT US â€” Leadership message
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .aboutus-leadership-section {
   background: var(--color-light, #F3F3F3);
   padding-top: clamp(3.75rem, 8vw, 10vw);
@@ -221,7 +243,7 @@
 
 .aboutus-leadership-row {
   display: grid;
-  grid-template-columns: minmax(160px, 40%) minmax(0, 1fr);
+  /* grid-template-columns: minmax(160px, 40%) minmax(0, 1fr); */
   gap: clamp(1.25rem, 3vw, 2rem);
   align-items: start;
   margin-top: clamp(1.5rem, 3vw, 2.75rem);
@@ -271,7 +293,7 @@
   margin: 0;
 }
 
-/* Laptop + 125%/150% zoom — same desktop structure, scaled */
+/* Laptop + 125%/150% zoom â€” same desktop structure, scaled */
 @media (max-width: 1600px) {
   .aboutus-leadership-heading { margin-left: -13.5vw; }
   .aboutus-leadership-row {margin-top: clamp(1.5rem, 3vw, 0.75rem);}
@@ -280,7 +302,7 @@
 @media (max-width: 1366px) {
   .aboutus-leadership-heading { margin-left: -10vw; }
   .aboutus-leadership-row {
-    grid-template-columns: minmax(140px, 36%) minmax(0, 1fr);
+    /* grid-template-columns: minmax(140px, 36%) minmax(0, 1fr); */
   }
   .aboutus-leadership-quote img {width: clamp(6.75rem, 12.5vw, 18.3125rem);}
   .aboutus-leadership-quote .quote-vector1 {margin-top: clamp(-9.375rem, -1.4vw, 0rem);}
@@ -298,7 +320,7 @@
   }
 }
 
-/* Phone + tablet — title top, quotes on photo (no duplicate markup) */
+/* Phone + tablet â€” title top, quotes on photo (no duplicate markup) */
 @media (max-width: 1023px) {
   .aboutus-leadership-inner {
     display: grid;
@@ -358,9 +380,9 @@
   }
 }
 
-/* ══════════════════════════════
-   ABOUT US — What we stand for
-══════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   ABOUT US â€” What we stand for
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .aboutus-stand-section {
   --stand-visual-w: clamp(13rem, 24vw, 28.25rem);
   --stand-num-up: clamp(3.75rem, 9.5vw, 11.15rem);
@@ -385,7 +407,7 @@
   background: radial-gradient(88.81% 88.81% at 50% 50%, #ED1C24 0%, #231F20 100%);
   height: clamp(22rem, 42vw, 40.625rem);
   /* Clip left/top/bottom so the x-slide stays inside the frame.
-     Negative right inset keeps the snout pop-out — no overflow:hidden. */
+     Negative right inset keeps the snout pop-out â€” no overflow:hidden. */
   clip-path: inset(0 -40% 0 0 round 20px 20px 0 0);
   -webkit-clip-path: inset(0 -40% 0 0 round 20px 20px 0 0);
 }
@@ -516,7 +538,7 @@
   }
 }
 
-/* Laptop + 125%/150% zoom — keep desktop row, lion fully on-screen */
+/* Laptop + 125%/150% zoom â€” keep desktop row, lion fully on-screen */
 @media (max-width: 1440px) {
   .aboutus-stand-inner {
     gap: clamp(1.25rem, 2.2vw, 2rem);
@@ -566,7 +588,7 @@
   }
 }
 
-/* Phone — title, lion, cards stacked */
+/* Phone â€” title, lion, cards stacked */
 @media (max-width: 767px) {
   .aboutus-stand-inner {
     display: grid;
@@ -630,7 +652,7 @@
   }
 }
 
-/* Tablet — stacked like phone, but sized for iPad (no oversized empty cards) */
+/* Tablet â€” stacked like phone, but sized for iPad (no oversized empty cards) */
 @media (min-width: 768px) and (max-width: 1023px) {
   .aboutus-stand-section {
     --stand-num-up: 4.75rem;
@@ -711,9 +733,9 @@
 }
 
 
-/* ══════════════════════════════
-   ABOUT US — CTA parallax (no people cutout)
-══════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   ABOUT US â€” CTA parallax (no people cutout)
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .bg-parallax-section .outer-bg-wrap {
   position: relative;
   overflow: visible;
@@ -960,9 +982,9 @@
   .bg-parallax-cta-row { max-width: 70%; }
 }
 
-/* ══════════════════════════════
-   ABOUT US — Built on trust (TS timeline)
-══════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   ABOUT US â€” Built on trust (TS timeline)
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .aboutus-projects-section {
   position: relative;
   overflow: visible;
@@ -1091,7 +1113,7 @@
 }
 }
 
-/* Sticky title: desktop only — not on phone/tablet */
+/* Sticky title: desktop only â€” not on phone/tablet */
 @media (min-width: 1024px) {
   .aboutus-projects-section .section-sticky-head {
     position: sticky;
@@ -1113,6 +1135,10 @@
   .aboutus-projects-grid {
     max-width: 100%;
   }
+}
+
+@media (min-width: 1200px) and (max-width: 1366px) {
+  .aboutus-projects-section .section-title-outer .section-sticky-title{max-width: 30vw;}
 }
 
 

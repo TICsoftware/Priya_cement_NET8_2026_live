@@ -370,8 +370,9 @@
 
 .whypartner-brochure-section .solutions-brochure-block .outer-btn-wrap{
   display:flex;
-  justify-content:center;
+  justify-content:start;
   align-items:center;
+  margin-top: 10px;
 }
 
 .whypartner-brochure-section .solutions-brochure-block .site-link{

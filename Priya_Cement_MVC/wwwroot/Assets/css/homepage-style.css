@@ -85,7 +85,7 @@
 .hero-pag-wrap{
   position:absolute;
   left:50%;
-  bottom:120px;
+  bottom:70px;
   transform:translateX(-50%);
   z-index:20;
   display:flex;
@@ -939,12 +939,18 @@ z-index: -1;
   /* .hero-swiper .slide-media {left: 0;} */
   .hero-swiper {height: calc(90vh - var(--header-h, 0px));}
 .logo-lion-vector-outer {right: -5vw; left: auto;}
+.home-sustainability-section .section-title-outer .title-section{max-width: 65vw;}
+}
+
+@media (max-width: 480px){
+/* .hero-swiper .slide-copy--right .slide-content {top: 25vw;} */
 }
 
 @media (max-width: 393px){
  .home-sustainability-section {
    min-height: calc(100svh - var(--header-h, 0px));
  }
+ /* .hero-swiper .slide-copy--right .slide-content {top: 0vw;} */
 }
 @media (max-width: 375px){
 .home-sustainability-section {

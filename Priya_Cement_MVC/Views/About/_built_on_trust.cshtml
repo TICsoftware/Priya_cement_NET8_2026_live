@@ -67,11 +67,20 @@
                                     <img data-fade src="@item.ThumbnailImage" alt="@item.ThumbnailAltText"
                                         class="w-full h-auto rounded-md object-contain lg:ml-auto lg:w-[74%]" />
 
-                                    @if (!string.IsNullOrWhiteSpace(item.ThumbnailAltText))
+                                    @if (!string.IsNullOrWhiteSpace(item.Ur))
+                                    {
+                                         @if (!string.IsNullOrWhiteSpace(item.Url))
                                     {
                                         <div class="img-caption-txt">
-                                            <p>@item.ThumbnailAltText</p>
+                                           <a href="@item.Url" target="_blank"><p>@item.Url_Text</p></a> 
                                         </div>
+                                        }
+                                        else
+                                        { 
+                                            <div class="img-caption-txt">
+                                          <p>@item.Url_Text</p>
+                                        </div>
+                                        }
                                     }
                                 </div>
 
