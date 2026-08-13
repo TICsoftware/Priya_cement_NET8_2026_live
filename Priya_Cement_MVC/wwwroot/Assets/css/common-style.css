@@ -58,10 +58,10 @@ BACK TO TOP
 FOOTER VECTOR
 =====================================**/
 .footer-vector{
+  z-index: 1;
   opacity: 0.9;
   will-change: transform, opacity;
   backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
 }
 @media (prefers-reduced-motion: reduce) {
   .footer-vector{

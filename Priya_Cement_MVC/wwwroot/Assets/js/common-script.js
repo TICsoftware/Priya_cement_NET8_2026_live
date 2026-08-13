@@ -166,44 +166,86 @@ const yearFoot = document.getElementById("year-foot");
 if (yearFoot) yearFoot.innerHTML = String(new Date().getFullYear());
 
 // --------------------------------------------
-// FOOTER VECTOR â€” smooth scroll reveal
+// FOOTER VECTOR — animate every time footer enters viewport
 // --------------------------------------------
 (function initFooterVector() {
   const vector = document.querySelector('.footer-vector');
-  if (!vector || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  const footer = document.querySelector('footer');
+  if (!vector || !footer) return;
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduceMotion) {
-    gsap.set(vector, { clearProps: 'all', opacity: 0.7, y: 0 });
+  // Always keep a visible fallback if motion libs are missing
+  if (typeof gsap === 'undefined') {
+    vector.style.opacity = '0.9';
+    vector.style.transform = 'none';
     return;
   }
 
-  gsap.set(vector, {
-    y: 140,
-    opacity: 0,
-    force3D: true,
-  });
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    gsap.set(vector, { clearProps: 'transform', opacity: 0.9, y: 0 });
+    return;
+  }
 
-  gsap.to(vector, {
-    y: 0,
-    opacity: 0.7,
-    ease: 'none',
-    force3D: true,
-    overwrite: 'auto',
-    scrollTrigger: {
-      trigger: 'footer',
-      start: 'top 92%',
-      end: 'top 45%',
-      scrub: 1.1, // soft lag = smoother with Lenis than reverse play/pause
-      invalidateOnRefresh: true,
-    },
-  });
+  const anim = gsap.fromTo(
+    vector,
+    { y: 80, opacity: 0, force3D: true },
+    {
+      y: 0,
+      opacity: 0.9,
+      duration: 1.15,
+      ease: 'power3.out',
+      force3D: true,
+      paused: true,
+    }
+  );
 
-  const refresh = () => ScrollTrigger.refresh();
-  if (!vector.complete) {
-    vector.addEventListener('load', refresh, { once: true });
+  let inView = false;
+
+  const playIn = () => {
+    if (inView) return;
+    inView = true;
+    anim.restart();
+  };
+
+  const resetOut = () => {
+    if (!inView) return;
+    inView = false;
+    anim.pause(0);
+  };
+
+  // IntersectionObserver is reliable with Lenis + native scroll
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) playIn();
+          else resetOut();
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    );
+    io.observe(footer);
+    return;
+  }
+
+  // Fallback without IO
+  if (typeof ScrollTrigger !== 'undefined') {
+    ScrollTrigger.create({
+      trigger: footer,
+      start: 'top 90%',
+      end: 'bottom top',
+      onEnter: playIn,
+      onEnterBack: playIn,
+      onLeave: resetOut,
+      onLeaveBack: resetOut,
+      onRefresh: (self) => {
+        if (self.isActive) playIn();
+        else resetOut();
+      },
+    });
+    requestAnimationFrame(() => ScrollTrigger.refresh());
   } else {
-    refresh();
+    gsap.set(vector, { y: 0, opacity: 0.9 });
   }
 })();
 
