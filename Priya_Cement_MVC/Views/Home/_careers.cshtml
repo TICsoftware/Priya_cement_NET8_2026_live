@@ -65,7 +65,7 @@
                     @if (!string.IsNullOrWhiteSpace(Component.component_Url2))
                     {
                         <div class="outer-btn-wrap">
-                          <a class="site-link" href="@Component.component_Url2">
+                          <a class="site-link" href="@Component.component_Url2" target="_blank">
                             @(!string.IsNullOrWhiteSpace(Component.component_Url_Text2) ? Component.component_Url_Text2 : "Explore openings")
                             <span class="site-link-arrow" aria-hidden="true">
                               <img src="@(string.IsNullOrWhiteSpace(Component.Icon_Image2) ? "/Assets/images/common-images/button-arrow-icon.svg" : Component.Icon_Image2)" alt="" class="w-auto object-cover">
