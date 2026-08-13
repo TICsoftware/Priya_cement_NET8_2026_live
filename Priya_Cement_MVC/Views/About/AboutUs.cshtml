@@ -222,11 +222,13 @@
                   </h3>
                </div>
             </div>
-
-            <div class="bg-parallax-cta-row absolute left-0 bottom-0 z-3">
-               <div class="outer-btn-wrap outer-bg-white outer-btn-spacing">
-                  @if (!string.IsNullOrWhiteSpace(item?.Url))
+         @if (!string.IsNullOrWhiteSpace(item?.Url) || !string.IsNullOrWhiteSpace(item?.component_Url2))
                      {
+            <div class="bg-parallax-cta-row absolute left-0 bottom-0 z-3">
+               @if (!string.IsNullOrWhiteSpace(item?.Url))
+                     {
+               <div class="outer-btn-wrap outer-bg-white outer-btn-spacing">
+                  
                         <a class="site-link" href="@item.Url">
                            @(string.IsNullOrWhiteSpace(item.Url_Text) ? "Explore our products" : item.Url_Text)
                            <span class="site-link-arrow" aria-hidden="true">
@@ -234,11 +236,13 @@
                                  class="w-auto object-cover">
                            </span>
                         </a>
-                     }
+                     
                   </div>
-                  <div class="outer-btn-wrap outer-bg-white outer-btn-spacing">
-                     @if (!string.IsNullOrWhiteSpace(item?.component_Url2))
+                  }
+                   @if (!string.IsNullOrWhiteSpace(item?.component_Url2))
                      {
+                  <div class="outer-btn-wrap outer-bg-white outer-btn-spacing">
+                    
                         <a class="site-link" href="@item.component_Url2">
                            @(string.IsNullOrWhiteSpace(item.component_Url_Text2) ? "Find a dealer near you" :  item.component_Url_Text2)
                            <span class="site-link-arrow" aria-hidden="true">
@@ -246,9 +250,11 @@
                                  class="w-auto object-cover">
                            </span>
                         </a>
-                     }
+                     
                   </div>
+                  }
                </div>
+               }
             </div>
 
          </div>
