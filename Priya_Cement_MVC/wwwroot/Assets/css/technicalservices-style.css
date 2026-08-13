@@ -215,7 +215,8 @@
   .onsite-ul-list img {max-width: 32px;}
   .right-listcol li {font-size: 1rem;}
   .grid-cols-content p{font-size: 1rem;}
-  .outer-grid-cols {gap: 20px;}
+  .outer-grid-cols {gap: 20px;grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(220px, 225px);}
+  .enquiry-form-card .section-title-outer{max-width: 65%;}
 }
 
 /* Hide native select — kept in DOM for submit / validation / cascade */
