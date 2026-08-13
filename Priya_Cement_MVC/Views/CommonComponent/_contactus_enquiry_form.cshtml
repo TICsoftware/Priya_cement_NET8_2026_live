@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Mvc.Rendering
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
 @model ContactUsEnquiryModel
 
 <form asp-controller="Contactus" asp-action="SubmitEnquiry" method="post" id="contactForm" novalidate>
@@ -30,9 +30,7 @@
             <span asp-validation-for="Email" class="text-red-500"></span>
         </div>
 
-
-
-        <div>
+        <div class="cselect">
             <select asp-for="StateId" class="f-field">
                 <option value="">Select State</option>
                 @foreach (var item in ViewBag.StateList)
@@ -43,7 +41,7 @@
             <span asp-validation-for="StateId" class="text-red-500"></span>
         </div>
 
-        <div>
+        <div class="cselect">
             <select asp-for="CityId" class="f-field">
                 <option value="">Select city*</option>
                 @if (ViewBag.CityList != null)
@@ -57,9 +55,7 @@
             <span asp-validation-for="CityId" class="text-red-500"></span>
         </div>
 
-
-
-        <div class="md:col-span-2 xl:col-span-3">
+        <div class="md:col-span-2 xl:col-span-2">
             <textarea asp-for="Message" class="f-field" rows="4"
                 placeholder="Tell us a little about your requirement"></textarea>
             <span asp-validation-for="Message" class="text-red-500"></span>
