@@ -18,6 +18,7 @@ namespace Priya_Cement_BusinessLogic.Entity
         // Product inside
         public List<ComponentModel> Product_Float_List { get; set; } = new();
         public List<ComponentModel> Intro_BestFor_List { get; set; } = new();
+      
         public List<ComponentModel> Why_Experts_List { get; set; } = new();
         public List<ComponentModel> Physical_Properties_List { get; set; } = new();
         public List<ComponentModel> Compressive_Strength_List { get; set; } = new();
