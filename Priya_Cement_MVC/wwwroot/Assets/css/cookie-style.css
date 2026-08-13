@@ -115,4 +115,5 @@
   .privacy_btn #acceptCookie {
     flex: 1 1 auto;
   }
+  .privacy_policy_bg p{flex: 0 auto;}
 }
