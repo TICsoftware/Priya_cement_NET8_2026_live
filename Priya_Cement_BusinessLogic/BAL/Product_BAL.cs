@@ -61,13 +61,14 @@ namespace Priya_Cement_BusinessLogic.BAL
                 model.Components = groupedData;
 
                 model.Product_Float_List = MapComponents(groupedData, 1);
-                model.Intro_BestFor_List = MapComponents(groupedData, 2);
+                model.Intro_BestFor_List = MapComponents(groupedData, 2);                               
                 model.Why_Experts_List = MapComponents(groupedData, 3);
-                model.Physical_Properties_List = MapComponents(groupedData, 4);
-                model.Compressive_Strength_List = MapComponents(groupedData, 5);
-                model.Chemical_Properties_List = MapComponents(groupedData, 6);
-                model.Things_To_Know_List = MapComponents(groupedData, 7);
-                model.Product_CTA_List = MapComponents(groupedData, 8);
+                model.GreenPro_Certificate_List = MapComponents(groupedData, 4);
+                model.Physical_Properties_List = MapComponents(groupedData, 5);
+                model.Compressive_Strength_List = MapComponents(groupedData, 6);
+                model.Chemical_Properties_List = MapComponents(groupedData, 7);
+                model.Things_To_Know_List = MapComponents(groupedData, 8);
+                model.Product_CTA_List = MapComponents(groupedData, 9);
             }
 
             return model;

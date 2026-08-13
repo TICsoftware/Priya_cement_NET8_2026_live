@@ -1,0 +1,36 @@
+
+@using Priya_Cement_BusinessLogic.Entity
+@using Priya_Cement_MVC.Helpers
+@model List<ComponentModel>
+
+@{
+    var intro = Model?
+        .Where(x => x.IsBlock == 0)
+        .OrderBy(x => x.Sequence)
+        .FirstOrDefault();
+
+    var bestFor = Model?
+        .Where(x => x.IsBlock == 1)
+        .OrderBy(x => x.Sequence)
+        .ToList() ?? new List<ComponentModel>();
+}
+<section class="section-spacing greenpro-section">
+      <div class="container">
+         <h3 class="text-h4">  @Html.Raw((!string.IsNullOrWhiteSpace(intro.Section_title) ? intro.Section_title :"" ).CleanParagraphTags())</h3>
+         <div class="mt-4 border-t border-[#EAEAEA] pt-6 product-content-max">
+             <h4 class="text-p font-semibold mb-1">
+                  @Html.Raw((!string.IsNullOrWhiteSpace(intro.DisplayTitle) ? intro.DisplayTitle : intro.Title).CleanParagraphTags())
+               </h4>
+                     @if (!string.IsNullOrWhiteSpace(intro.Intro) )
+                        {
+                            @Html.Raw((!string.IsNullOrWhiteSpace(intro.Intro) ? intro.Intro : ""))
+                        }
+
+                       @if (!string.IsNullOrWhiteSpace(intro.Content) )
+                        {
+                            @Html.Raw((!string.IsNullOrWhiteSpace(intro.Content) ? intro.Content : ""))
+                        }
+
+         </div>
+      </div>
+   </section>

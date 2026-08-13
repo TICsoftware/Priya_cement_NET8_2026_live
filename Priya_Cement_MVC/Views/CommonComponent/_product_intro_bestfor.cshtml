@@ -24,10 +24,7 @@
                         <h2 class="text-h2 title-section reveal-text">
                             @Html.Raw((!string.IsNullOrWhiteSpace(intro.DisplayTitle) ? intro.DisplayTitle : intro.Title).CleanParagraphTags())
                         </h2>
-                        @if (!string.IsNullOrWhiteSpace(intro.Intro) || !string.IsNullOrWhiteSpace(intro.Content))
-                        {
-                            <p>@Html.Raw((!string.IsNullOrWhiteSpace(intro.Intro) ? intro.Intro : intro.Content).CleanParagraphTags())</p>
-                        }
+                      
                     </div>
                 </div>
             </div>
@@ -54,6 +51,10 @@
                     </div>
                 </div>
             }
+              @if (!string.IsNullOrWhiteSpace(intro.Intro) || !string.IsNullOrWhiteSpace(intro.Content))
+                        {
+                            <p>@Html.Raw((!string.IsNullOrWhiteSpace(intro.Intro) ? intro.Intro : intro.Content).CleanParagraphTags())</p>
+                        }
         </div>
     </section>
 }
