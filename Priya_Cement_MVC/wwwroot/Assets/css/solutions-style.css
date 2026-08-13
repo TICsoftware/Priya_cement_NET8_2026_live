@@ -549,6 +549,20 @@
 }
 
 #solutions-enquiry .cselect { position: relative; }
+#solutions-enquiry .cselect select.cselect-native {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  opacity: 0;
+  pointer-events: none;
+}
+#solutions-enquiry .cselect .cselect-ui { position: relative; width: 100%; }
 #solutions-enquiry .cselect-btn {
   width: 100%;
   display: flex;
@@ -693,6 +707,9 @@
 #solutions-enquiry .solutions-enquiry-sqft.is-collapsed .f-field {
   visibility: hidden;
 }
+#solutions-enquiry .solutions-enquiry-others.is-collapsed {
+  display: none;
+}
 #solutions-enquiry .solutions-enquiry-preferred {
   display: flex;
   justify-content: center;
@@ -700,6 +717,17 @@
 #solutions-enquiry .solutions-enquiry-preferred .cselect {
   width: 100%;
   max-width: 420px;
+}
+#solutionsEnquiryMessage .cu-form-alert {
+  font-size: 15px;
+  font-weight: 400;
+  padding: 0.5rem 0;
+}
+#solutionsEnquiryMessage .cu-form-alert--success {
+  color: #9ee6b2;
+}
+#solutionsEnquiryMessage .cu-form-alert--error {
+  color: #ff8a8a;
 }
 
 @media (min-width: 768px) {
