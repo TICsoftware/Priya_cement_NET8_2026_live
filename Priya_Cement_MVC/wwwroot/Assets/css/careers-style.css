@@ -147,6 +147,8 @@
 .section-title-large .title-section { max-width: 31vw; }
 .careers-intro { margin-top: 50px; margin-bottom: -80px; }
 
+ .testimonials-left-part .section-title-outer p{max-width: 100%;}
+
 @media (min-width: 1024px) {
   .our-products-img img { height: auto; }
 }
@@ -333,9 +335,10 @@
 
 @media (min-width: 1200px) and (max-width: 1366px) {
   .bg-parallax-section .bg-parallax-frame { min-height: 520px; }
-  .bg-parallax-section .bg-parallax-content { max-width: min(35rem, 45%); }
+  .bg-parallax-section .bg-parallax-content { max-width: min(35rem, 42%); }
   .bg-parallax-cta-row { max-width: 48%; }
   .man-image-wrap { width: min(70%, 900px); }
+  .testimonials-left-part .section-title-outer .title-section{max-width: 88%;}
 }
 
 /* ══════════════════════════════
@@ -831,10 +834,10 @@
     grid-template-rows: minmax(9rem, 1fr) minmax(9rem, 1fr);
   }
 
-  .workplaceculture-section .culture-intro .title-section {
+  /* .workplaceculture-section .culture-intro .title-section {
     font-size: clamp(1.35rem, 2.2vw, 1.85rem);
     line-height: 1.2;
-  }
+  } */
 
   .workplaceculture-section .culture-intro p {
     font-size: 0.9375rem;
@@ -850,10 +853,10 @@
     grid-template-rows: minmax(17rem, 1fr) minmax(17rem, 1fr);
   }
 
-  .workplaceculture-section .culture-intro .title-section {
+  /* .workplaceculture-section .culture-intro .title-section {
     font-size: clamp(1.45rem, 2.4vw, 2.1rem);
     line-height: 1.2;
-  }
+  } */
 
   .workplaceculture-section .culture-intro p {
     font-size: 1rem;
@@ -869,10 +872,10 @@
     grid-template-rows: minmax(8rem, 1fr) minmax(8rem, 1fr);
   }
 
-  .workplaceculture-section .culture-intro .title-section {
+  /* .workplaceculture-section .culture-intro .title-section {
     font-size: clamp(1.25rem, 2.8vw, 1.65rem);
     line-height: 1.2;
-  }
+  } */
 
   .workplaceculture-section .culture-intro p {
     font-size: 0.875rem;
