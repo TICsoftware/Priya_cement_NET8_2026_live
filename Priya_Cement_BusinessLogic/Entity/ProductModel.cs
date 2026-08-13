@@ -13,7 +13,7 @@ namespace Priya_Cement_BusinessLogic.Entity
         public List<ComponentModel> Technical_team_PL_List { get; set; } = new();
         public List<ArticleModel> Product_List { get; set; } = new();
 
-        
+
 
         // Product inside
         public List<ComponentModel> Product_Float_List { get; set; } = new();
@@ -33,7 +33,15 @@ namespace Priya_Cement_BusinessLogic.Entity
         public List<ComponentModel> Support_Items_List { get; set; } = new();
         public List<ComponentModel> Enquiry_CTA_List { get; set; } = new();
 
-        
+        //Solution Center
+        public List<ComponentModel> Build_Your_Own_Business_List { get; set; } = new();
+        public List<ComponentModel> What_Is_Priya_Cement_Customer_Solutions_List { get; set; } = new();
+        public List<ComponentModel> Why_Partner_With_Priya_Cement_List { get; set; } = new();
+        public List<ComponentModel> Who_Can_Apply_List { get; set; } = new();
+        public List<ComponentModel> What_You_Need_List { get; set; } = new();
+        public List<ComponentModel> Who_Can_Apply_Download_List { get; set; } = new();
+        public List<ComponentModel> Take_The_First_Step_Today_List { get; set; } = new();
+        public List<ComponentModel> Frequently_Asked_Questions_List { get; set; } = new();
 
         public int TotalCount { get; set; }
     }

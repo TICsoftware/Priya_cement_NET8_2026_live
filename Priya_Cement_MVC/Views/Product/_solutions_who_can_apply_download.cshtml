@@ -1,0 +1,56 @@
+@using Priya_Cement_BusinessLogic.Entity
+@using Priya_Cement_MVC.Helpers
+@model List<ComponentModel>
+
+@{
+    var component = Model?.FirstOrDefault(x => x.IsBlock == 0) ?? Model?.FirstOrDefault();
+
+}
+
+
+<section class="section-spacing whypartner-brochure-section relative overflow-hidden"
+    aria-labelledby="solutions-brochure-heading">
+    <div class="bgimage-outer-wrap" aria-hidden="true">
+        <img src="~/Assets/images/bg-image-dark.webp" alt="" class="w-full h-full object-cover bg-image">
+    </div>
+    <div class="container relative z-1">
+        <div class="solutions-brochure-inner">
+            <div class="section-title-outer section-title-outer-start">
+                <h2 id="solutions-brochure-heading" class="text-h2 title-section reveal-text">
+                    @Html.Raw(!string.IsNullOrWhiteSpace(component.DisplayTitle)
+                                        ? component.DisplayTitle.CleanParagraphTags()
+                                        : component.Title)
+                </h2>
+
+                @if (!string.IsNullOrWhiteSpace(component.Intro))
+                {
+                    <p class="mt-1 solutions-brochure-note">
+                        @Html.Raw(component.Intro.CleanParagraphTags())
+                    </p>
+                }
+
+            </div>
+
+            <div
+                class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 md:gap-4 lg:gap-6 solutions-brochure-grid">
+                @foreach (var item in Model.Where(x => x.IsBlock == 1)
+                                .OrderBy(x => x.Sequence))
+                {
+                    <div class="solutions-brochure-block aspect-240/192">
+                        <div class="lang-icon"><img src="@item.Icon_Image" alt="@item.Title" class="w-auto object-cover">
+                        </div>
+                        <div class="font-bold text-p mt-5">@item.Title</div>
+                        <div class="outer-btn-wrap">
+                            <a class="site-link" href="@item.MediafilePath">
+                                @item.Url_Text
+                                <span class="site-link-arrow" aria-hidden="true"><img
+                                        src="/Assets/images/common-images/download-vector-btn.svg" alt=""
+                                        class="w-auto object-cover"></span>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
