@@ -1245,6 +1245,9 @@
   .grow {
     flex-grow: 1;
   }
+  .caption-bottom {
+    caption-side: bottom;
+  }
   .caption-top {
     caption-side: top;
   }
