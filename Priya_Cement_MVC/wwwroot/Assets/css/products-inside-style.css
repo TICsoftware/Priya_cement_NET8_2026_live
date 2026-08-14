@@ -93,7 +93,7 @@
    * Below ~1867px gutter ≈ 5vw; on larger screens gutter grows with the
    * centered container so the bag does not drift into the grey margin.
    */
-  right: max(0.75rem, calc((100vw - min(78vw, 1680px)) / 2));
+  right: max(0.75rem, calc((100vw - min(85vw, 1680px)) / 2));
   left: auto;
   z-index: 30;
   /* Shared frame size so OPC / PPC / Bulk images occupy the same box */
