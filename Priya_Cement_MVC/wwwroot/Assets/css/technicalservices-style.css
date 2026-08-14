@@ -129,7 +129,7 @@
   z-index: 100;
   font-weight: 700;
 }
-.technicalsupport-outer-grid {max-width: 85%; margin-left:auto;}
+.technicalsupport-outer-grid {max-width: 85%; margin-left:auto;z-index: 50;}
 
 [data-rail-scope] article > img {
   height: auto;

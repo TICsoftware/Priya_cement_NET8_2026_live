@@ -26,15 +26,25 @@
         ? floatItem.FileUploadTitle2.CleanParagraphTags()
         : "Technical Data Sheet";
     var hasDownloads = !string.IsNullOrWhiteSpace(file1) || !string.IsNullOrWhiteSpace(file2);
+
+    // Bulk cement truck needs its own float styles (wider frame / card)
+    var path = (Context.Request.Path.Value ?? "").TrimEnd('/').ToLowerInvariant();
+    var isBulkFloat = path.EndsWith("/maxload-bulk-cement") || path.EndsWith("maxload-bulk-cement");
+    var floatStickyClass = isBulkFloat
+        ? "product-float-outer product-float-sticky product-float-sticky--bulk"
+        : "product-float-outer product-float-sticky";
 }
 
 @if (floatItem != null && !string.IsNullOrWhiteSpace(bagImg))
 {
     <div class="product-float-rail">
-        <div class="product-float-outer product-float-sticky">
+        <div class="@floatStickyClass">
             <div class="product-float-inner" aria-hidden="true">
                 <img src="@bagImg" alt="@bagAlt" class="product-float-bag">
-                <img src="/Assets/images/products/shadow-ellipse.webp" alt="" class="product-shadow-ellipse">
+                @if (!isBulkFloat)
+                {
+                    <img src="/Assets/images/products/shadow-ellipse.webp" alt="" class="product-shadow-ellipse">
+                }
             </div>
             <div class="product-site-link">
                 <a href="@ctaUrl" class="fill-site-link">
