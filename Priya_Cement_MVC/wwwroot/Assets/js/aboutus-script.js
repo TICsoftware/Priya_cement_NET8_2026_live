@@ -20,8 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return Number.isFinite(value) ? value : 40;
       };
 
+      // Move the image inside the frame (not the wrap) so cover always fills —
+      // avoids black/white gaps at top/bottom while scrolling.
       gsap.fromTo(
-        ctaWrap,
+        ctaImg,
         { y: () => bleed() },
         {
           y: () => -bleed(),
