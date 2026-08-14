@@ -36,6 +36,8 @@ namespace Priya_Cement_MVC.Models
         [Required]
         public int StateId { get; set; }
 
+        public string State { get; set; }
+
         [Required]
         public string City { get; set; }
 

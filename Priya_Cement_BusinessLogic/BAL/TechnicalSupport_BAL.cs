@@ -122,7 +122,7 @@ namespace Priya_Cement_BusinessLogic.BAL
 
                 "<tr>" +
                 "<td><strong>State</strong></td>" +
-                "<td>" + obj.StateId + "</td>" +
+                "<td>" + obj.State + "</td>" +
                 "</tr>" +
 
                 "<tr>" +

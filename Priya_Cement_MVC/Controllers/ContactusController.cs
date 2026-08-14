@@ -72,6 +72,7 @@ public class ContactusController : Controller
                 Phone = model.Phone,
                 City = model.City,
                 StateId = model.StateId,
+                State = model.State,
                 Query = model.Message,
                 Consent = model.Consent,
                 IPAddress = GetClientIpAddress()

@@ -211,7 +211,18 @@ $(document).ready(function () {
     }
 
 
+    $(document).on("change", "#StateId", function () {
 
+        var selectedStateText = $(this).find("option:selected").text();
+    
+        if ($(this).val() === "") {
+            $("#State").val("");
+        } else {
+            $("#State").val(selectedStateText);
+        }
+    
+    });
+    
     // State -> City
 // $("#StateId").change(function () {
 

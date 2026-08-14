@@ -11,6 +11,7 @@ namespace Priya_Cement_BusinessLogic.Entity
         public int CityId { get; set; }
         public string City { get; set; }
         public int StateId { get; set; }
+        public string State { get; set; }
         public int InterestId { get; set; }
         public string Query { get; set; }
         public bool Consent { get; set; }
