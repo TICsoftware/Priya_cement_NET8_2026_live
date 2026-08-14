@@ -56,20 +56,20 @@ builder.Services.AddAuthentication("MyCookieAuth")
 builder.Services.AddAuthorization();
 
 //uncomment while live start
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(20); // session timeout
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
+// builder.Services.AddSession(options =>
+// {
+//     options.IdleTimeout = TimeSpan.FromMinutes(20); // session timeout
+//     options.Cookie.HttpOnly = true;
+//     options.Cookie.IsEssential = true;
+// });
 
- builder.Services.AddAntiforgery(options =>
-{
-    options.Cookie.Name = "SecureToken";
-    options.Cookie.HttpOnly = true;
-   options.Cookie.SecurePolicy =
-        CookieSecurePolicy.Always;  
-});
+//  builder.Services.AddAntiforgery(options =>
+// {
+//     options.Cookie.Name = "SecureToken";
+//     options.Cookie.HttpOnly = true;
+//    options.Cookie.SecurePolicy =
+//         CookieSecurePolicy.Always;  
+// });
 //uncomment while live end
 
 builder.Services.AddHttpClient();
@@ -116,7 +116,7 @@ app.UseStaticFiles(new StaticFileOptions
 
 var redirects = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
 {
-    { "^$", "/" },
+
     { "^about-us/overview\\.html$", "/about-us" },
     { "^products/products-opc-and-ppc\\.html$", "/solutions" },
     { "^products/products-opc-and-ppc\\.html#OPC$", "/solutions/maxload-opc-53-grade" },
