@@ -568,7 +568,7 @@ BULLET LIST CSS
 .intro-outer-wrapper > p { max-width: 100%;}
  .innerbanner-overlay {
     background: linear-gradient(
-      95deg,
+      0deg,
       rgba(0, 0, 0, 0.75) 0%,
       rgba(0, 0, 0, 0.45) 45%,
       rgba(0, 0, 0, 0.15) 70%,
