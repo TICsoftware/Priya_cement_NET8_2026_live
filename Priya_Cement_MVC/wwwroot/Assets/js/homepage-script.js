@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (heroEl && typeof Swiper !== 'undefined') {
     const PARALLAX_MAX = 10;
     let heroSwiperReady = false;
+    let heroSwiper = null;
+    let heroAutoplayPausedByScroll = false;
 
     function applyImageParallax(swiper, duration) {
       swiper.slides.forEach((slide) => {
@@ -37,13 +39,54 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    function syncHeroAutoplayToScroll(progress) {
+      if (!heroSwiper || !heroSwiper.autoplay) return;
+      // Pause once the scale scrub is ≥80% through (scale ≈ 0.84 → 0.8)
+      const shouldPause = progress >= 0.8;
+      if (shouldPause === heroAutoplayPausedByScroll) return;
+      heroAutoplayPausedByScroll = shouldPause;
+      if (shouldPause) heroSwiper.autoplay.pause();
+      else heroSwiper.autoplay.resume();
+    }
+
+    function initHeroScrollScale() {
+      if (
+        reduceMotion ||
+        typeof gsap === 'undefined' ||
+        typeof ScrollTrigger === 'undefined'
+      ) {
+        return;
+      }
+
+      gsap.fromTo(
+        heroEl,
+        { scale: 1, transformOrigin: 'center center' },
+        {
+          scale: 0.8,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: heroEl,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+            onUpdate(self) {
+              syncHeroAutoplayToScroll(self.progress);
+            },
+            onRefresh(self) {
+              syncHeroAutoplayToScroll(self.progress);
+            },
+          },
+        }
+      );
+    }
+
     function initHeroSwiper() {
       if (heroSwiperReady) return;
       heroSwiperReady = true;
 
       applyParallaxAttrs();
 
-      new Swiper(heroEl, {
+      heroSwiper = new Swiper(heroEl, {
         loop: true,
         speed: reduceMotion ? 0 : 1050,
         effect: 'slide',
@@ -95,6 +138,8 @@ document.addEventListener("DOMContentLoaded", () => {
           },
         },
       });
+
+      initHeroScrollScale();
     }
 
     // Built immediately, hidden behind the preloader's opaque backdrop —

@@ -961,6 +961,7 @@ z-index: -1;
   .hero-swiper {height: calc(90vh - var(--header-h, 0px));}
 .logo-lion-vector-outer {right: -5vw; left: auto;}
 .home-sustainability-section .section-title-outer .title-section{max-width: 65vw;}
+.hero-swiper .slide-bg {object-fit: cover;}
 }
 
 @media (max-width: 480px){
