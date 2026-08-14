@@ -59,21 +59,11 @@
                 <div class="max-w-4xl text-left">
 
                     <h1 class="innerbanner-title innerbanner-title-heading text-h1">
-                         Privacy Policy
+                        @Html.Raw(Model.Content.ContTitle)
                     </h1>
 
                     <nav class="breadcrumb-nav" aria-label="Breadcrumb">
-                        <ol class="flex items-center gap-2 text-sm">
-                            <li>
-                                <a href="/" class="transition">
-                                    Home
-                                </a>
-                            </li>
-                            <li class="breadcrumb-sep">/</li>
-                            <li class="breadcrumb-current">
-                                Privacy Policy
-                            </li>
-                        </ol>
+                        @Html.Raw(Model.Content.BreadcrumPath)
                     </nav>
 
                 </div>
