@@ -191,7 +191,7 @@ namespace Priya_Cement_BusinessLogic.BAL
                 "<tr><td><strong>Email</strong></td><td>" + obj.Email + "</td></tr>" +
                 "<tr><td><strong>Phone</strong></td><td>" + obj.Phone + "</td></tr>" +
                 "<tr><td><strong>City</strong></td><td>" + obj.City + "</td></tr>" +
-                "<tr><td><strong>State</strong></td><td>" + obj.StateId + "</td></tr>" +
+                "<tr><td><strong>State</strong></td><td>" + obj.State + "</td></tr>" +
                 (!string.IsNullOrWhiteSpace(obj.Query)
                     ? "<tr><td><strong>Message</strong></td><td>" + obj.Query + "</td></tr>"
                     : "") +
