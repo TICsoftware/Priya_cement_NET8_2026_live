@@ -54,6 +54,16 @@
                     </article>
                 }
             </div>
+
+                  @if (!string.IsNullOrWhiteSpace(header.Content))
+                        {
+            <div class="product-content-max mt-5">
+           
+                           @Html.Raw((!string.IsNullOrWhiteSpace(header.Content) ? header.Content : ""))
+                      
+                        </div>
+
+                          }
         </div>
     </section>
 }
