@@ -67,7 +67,8 @@
         </div>
     </div>
 
-    <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="mt-6 flex flex-col sm:flex-col sm:items-start sm:justify-between gap-4">
+         <div>
         <label class="form-check">
             <input asp-for="Consent" type="checkbox" class="form-check-input" />
             <span class="form-check-box" aria-hidden="true"></span>
@@ -75,6 +76,7 @@
 
         </label>
         <span asp-validation-for="Consent" class="text-red-500"></span>
+        </div>
     </div>
 
     <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 lg:max-w-2xl">
@@ -90,6 +92,7 @@
     </div>
 
     <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
         <div class="input-field col s12 p-0 mr-3.75 flex flex-col sm:flex-row items-start sm:items-center gap-2">
             <div class="g-recaptcha" data-sitekey="@ViewBag.captchapublickey"></div>
             <div class="text-white font-light italic dark-textwhite text-sm">
@@ -97,7 +100,8 @@
                 and its services are enabled on your system.)
             </div>
         </div>
-        <span id="captchaError" class="text-red-500 ">
+        <span id="captchaError" class="text-red-500 field-validation-valid">
+            </div>
     </div>
 
     <div class="md:col-span-2 lg:col-span-3 mt-6 flex justify-center form-Submitbtn-wrap">
