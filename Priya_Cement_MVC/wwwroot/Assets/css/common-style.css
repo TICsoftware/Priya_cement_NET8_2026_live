@@ -568,11 +568,11 @@ BULLET LIST CSS
 .intro-outer-wrapper > p { max-width: 100%;}
  .innerbanner-overlay {
     background: linear-gradient(
-      95deg,
-      rgba(0, 0, 0, 0.75) 0%,
-      rgba(0, 0, 0, 0.45) 45%,
-      rgba(0, 0, 0, 0.15) 70%,
-      rgba(0, 0, 0, 0) 100%
+      0deg,
+      rgba(0, 0, 0, 0.60) 0%,
+      rgba(0, 0, 0, 0.45) 30%,
+      rgba(0, 0, 0, 0.15) 55%,
+      rgba(0, 0, 0, 0) 70%
     );
   }
 .innerbanner-image-wrapper {height: 75vh;}

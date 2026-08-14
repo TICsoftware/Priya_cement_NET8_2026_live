@@ -91,7 +91,7 @@
   top: var(--tab-dock-top, 76px);
   left: 0;
   right: 0;
-  z-index: 40;
+  z-index: 80;
   width: 100%;
   max-width: none;
   padding-left: 1rem;
