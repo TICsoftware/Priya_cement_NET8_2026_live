@@ -224,7 +224,7 @@
 .aboutus-leadership-quote .quote-vector2 {
   position: relative;
   right: 0;
-  bottom: clamp(-9.375rem, -8.8vw, -5.5rem);
+  bottom: clamp(-9.375rem, -7vw, -5.5rem);
 }
 
 .aboutus-leadership-content {
@@ -234,6 +234,7 @@
 .aboutus-leadership-heading {
   margin-bottom: 0;
   margin-left: -16vw;
+  margin-top: -20px;
 }
 
 .aboutus-leadership-title {

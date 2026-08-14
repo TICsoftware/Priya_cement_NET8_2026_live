@@ -2338,11 +2338,17 @@
     .sm\:grid-cols-4 {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
+    .sm\:flex-col {
+      flex-direction: column;
+    }
     .sm\:flex-row {
       flex-direction: row;
     }
     .sm\:items-center {
       align-items: center;
+    }
+    .sm\:items-start {
+      align-items: flex-start;
     }
     .sm\:justify-between {
       justify-content: space-between;
