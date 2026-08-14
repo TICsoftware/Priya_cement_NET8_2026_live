@@ -520,7 +520,7 @@
     height: 35px;
   }
   .whyexperts-article {gap: 15px;}
-  .bestfor-grid-outer {align-items: end;}
+  .bestfor-grid-outer {align-items: baseline;}
   .bestfor-grid { text-align: start; align-items: start;}
 }
 @media (min-width: 1367px) and (max-width: 1536px) {
