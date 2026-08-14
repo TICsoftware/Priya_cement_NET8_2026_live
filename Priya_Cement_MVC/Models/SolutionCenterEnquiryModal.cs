@@ -11,11 +11,11 @@ namespace Priya_Cement_MVC.Models
         public string FullName { get; set; }
 
         [Required(ErrorMessage = "Please enter your phone number")]
-        [RegularExpression(@"^\d{10}$", ErrorMessage = "Enter a valid 10-digit mobile number")]
+        [RegularExpression(@"^\+?[0-9\s\-\(\)]{7,20}$", ErrorMessage = "Enter a valid mobile number")]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Please enter your WhatsApp number")]
-        [RegularExpression(@"^\d{10}$", ErrorMessage = "Enter a valid 10-digit WhatsApp number")]
+        [RegularExpression(@"^\+?[0-9\s\-\(\)]{7,20}$", ErrorMessage = "Enter a valid WhatsApp numbe")]
         public string WhatsAppNumber { get; set; }
 
         [Required(ErrorMessage = "Please enter your email address")]
@@ -57,7 +57,7 @@ namespace Priya_Cement_MVC.Models
         [StringLength(100)]
         public string? PreferredTimeForContact { get; set; }
 
-         [Required]
+        [Required]
         [Range(typeof(bool), "true", "true", ErrorMessage = "Please accept the consent.")]
         public bool Consent { get; set; }
 

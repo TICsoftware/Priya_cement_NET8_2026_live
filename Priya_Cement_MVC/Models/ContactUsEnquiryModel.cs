@@ -22,8 +22,8 @@ namespace Priya_Cement_MVC.Models
         [StringLength(150)]
         public string? Email { get; set; }
 
-        [Required(ErrorMessage = "Please enter your contact number")]
-        [RegularExpression(@"^\+?[1-9][\d\s-]{7,14}$", ErrorMessage = "Enter a valid contact number")]
+        [Required(ErrorMessage = "Please enter your phone number")]
+        [RegularExpression(@"^\+?[1-9][\d\s-]{7,14}$", ErrorMessage = "Enter a valid phone number")]
         public string? Phone { get; set; }
 
 
