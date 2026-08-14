@@ -20,27 +20,27 @@
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-10">
 
         <div>
-            <input asp-for="Name" class="f-field" placeholder="Name*" />
+            <input asp-for="Name" class="f-field" placeholder="Name*" maxlength="150"/>
             <span asp-validation-for="Name" class="text-red-500"></span>
         </div>
 
         <div>
-            <input asp-for="Designation" class="f-field" placeholder="Designation" />
+            <input asp-for="Designation" class="f-field" placeholder="Designation" maxlength="200"/>
             <span asp-validation-for="Designation"></span>
         </div>
 
         <div>
-            <input asp-for="CompanyName" class="f-field" placeholder="Company or firm name*" />
+            <input asp-for="CompanyName" class="f-field" placeholder="Company or firm name*" maxlength="200" />
             <span asp-validation-for="CompanyName"></span>
         </div>
 
         <div>
-            <input asp-for="PhoneNumber" class="f-field" placeholder="Phone number*" />
+            <input asp-for="PhoneNumber" class="f-field" placeholder="Phone number*" maxlength="20"/>
             <span asp-validation-for="PhoneNumber"></span>
         </div>
 
         <div>
-            <input asp-for="EmailAddress" class="f-field" placeholder="Email address*" />
+            <input asp-for="EmailAddress" class="f-field" placeholder="Email address*" maxlength="150"/>
             <span asp-validation-for="EmailAddress"></span>
         </div>
 
@@ -64,7 +64,7 @@
                     <option value="@item.Value">@item.Text</option>
                 }
             </select> *@
-            <input asp-for="City" class="f-field" placeholder="City*" />
+            <input asp-for="City" class="f-field" placeholder="City*" maxlength="100"/>
             <span asp-validation-for="City"></span>
         </div>
 

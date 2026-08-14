@@ -70,27 +70,41 @@ namespace Priya_Cement_BusinessLogic.BAL
             {
                 var settings = _configuration.GetSection("MailSetting");
 
-                string host = settings["hostname"];
-                string username = settings["mailusername"];
-                string password = settings["mailpassword"];
-                int port = Convert.ToInt32(settings["Port"]);
-                string displayName = settings["DisplayName"];
+                string host = settings["hostname"] ?? string.Empty;
+                string username = settings["mailusername"] ?? string.Empty;
+                string password = settings["mailpassword"] ?? string.Empty;
+                string from = settings["From"] ?? string.Empty;
+                string to = settings["ContactUs"] ?? string.Empty;
+                string displayName = settings["DisplayName"] ?? string.Empty;
+
+                int.TryParse(settings["Port"], out int port);
+
+                if (string.IsNullOrWhiteSpace(host) ||
+                    string.IsNullOrWhiteSpace(username) ||
+                    string.IsNullOrWhiteSpace(password) ||
+                    string.IsNullOrWhiteSpace(from) ||
+                    string.IsNullOrWhiteSpace(to))
+                {
+                    throw new Exception("Mail settings are missing or invalid.");
+                }
 
                 using var message = new MailMessage();
 
-                message.To.Add("receiver@example.com");
+                message.From = new MailAddress(from, displayName);
 
-                //message.From = new MailAddress(username);
-                message.From = new MailAddress(settings["From"], displayName);
-                message.To.Add(new MailAddress(settings["To"], displayName));
+                // Multiple email addresses separated by comma
+                foreach (var email in to.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    message.To.Add(email.Trim());
+                }
 
-                message.Subject = subject;
-                message.Body = emailContent;
+                message.Subject = subject ?? string.Empty;
+                message.Body = emailContent ?? string.Empty;
                 message.IsBodyHtml = true;
 
                 using var smtp = new SmtpClient(host)
                 {
-                    Port = port,
+                    Port = port > 0 ? port : 587,
                     EnableSsl = true,
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential(username, password)
@@ -103,78 +117,6 @@ namespace Priya_Cement_BusinessLogic.BAL
                 throw new Exception("Email sending failed: " + ex.Message, ex);
             }
         }
-
-        public void SendMail1(string emailContent, string subject)
-        {
-            try
-            {
-                var settings = _configuration.GetSection("MailSetting");
-
-                using var message = new MailMessage();
-
-                string displayName = settings["DisplayName"];
-
-                // Receiver
-                message.To.Add(new MailAddress(settings["To"], displayName));
-
-                // Sender
-                message.From = new MailAddress(settings["From"], displayName);
-
-                message.Subject = subject;
-                message.Body = emailContent;
-                message.IsBodyHtml = true;
-
-                using var smtp = new SmtpClient(settings["Host"])
-                {
-                    Port = Convert.ToInt32(settings["Port"]),
-                    EnableSsl = true,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(
-                        settings["Username"],
-                        settings["Password"]
-                    )
-                };
-
-                smtp.Send(message);
-            }
-            catch (Exception ex)
-            {
-                // Log exception
-                throw;
-            }
-        }
-
-        // public void SendMail(string emailContent, string subject)
-        // {
-        //     try
-        //     {
-        //         var settings = _configuration.GetSection("EmailSettings");
-
-        //         using var message = new MailMessage();
-        //         string displayName = settings["DisplayName"];
-
-        //         message.To.Add(new MailAddress(settings["To"]!, settings["DisplayName"]));
-        //         message.From = new MailAddress(settings["From"]!, displayName);
-        //         message.Subject = subject;
-        //         message.Body = emailContent;
-        //         message.IsBodyHtml = true;
-
-        //         using var smtp = new SmtpClient(settings["Host"])
-        //         {
-        //             Port = Convert.ToInt32(settings["Port"]),
-        //             EnableSsl = true,
-        //             UseDefaultCredentials = false,
-        //             Credentials = new NetworkCredential(
-        //                 settings["Username"],
-        //                 settings["Password"])
-        //         };
-
-        //         smtp.Send(message);
-        //     }
-        //     catch
-        //     {
-        //     }
-        // }
 
         public string MailEnquiryContent(ContactUsEnquiry obj)
         {

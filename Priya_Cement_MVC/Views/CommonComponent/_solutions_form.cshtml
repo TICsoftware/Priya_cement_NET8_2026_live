@@ -5,7 +5,7 @@
     @Html.AntiForgeryToken()
 
     <div>
-        <input asp-for="FullName" class="f-field" placeholder="Full Name*" />
+        <input asp-for="FullName" class="f-field" placeholder="Full Name*" maxlength="150"/>
         <span asp-validation-for="FullName" class="text-red-500"></span>
     </div>
 
@@ -28,7 +28,7 @@
     </div>
 
     <div>
-        <input asp-for="EmailAddress" class="f-field" placeholder="Email Address*" />
+        <input asp-for="EmailAddress" class="f-field" placeholder="Email Address*" maxlength="150"/>
         <span asp-validation-for="EmailAddress" class="text-red-500"></span>
     </div>
 
@@ -70,7 +70,7 @@
     </div>
 
     <div>
-        <input asp-for="TownVillage" class="f-field" placeholder="Town / Village*" />
+        <input asp-for="TownVillage" class="f-field" placeholder="Town / Village*" maxlength="200"/>
         <span asp-validation-for="TownVillage" class="text-red-500"></span>
     </div>
 
@@ -89,7 +89,7 @@
     </div>
 
     <div class="solutions-enquiry-others md:col-span-2 xl:col-span-3 is-collapsed" data-occupation-others>
-        <input asp-for="CurrentOccupationOthers" class="f-field" placeholder="Please specify occupation*" />
+        <input asp-for="CurrentOccupationOthers" class="f-field" placeholder="Please specify occupation*" maxlength="200"/>
         <span asp-validation-for="CurrentOccupationOthers" class="text-red-500"></span>
     </div>
 
