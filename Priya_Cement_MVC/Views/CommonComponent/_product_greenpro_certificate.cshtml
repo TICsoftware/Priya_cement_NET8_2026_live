@@ -4,31 +4,28 @@
 @model List<ComponentModel>
 
 @{
-    var intro = Model?
+    var greenpro = Model?
         .Where(x => x.IsBlock == 0)
         .OrderBy(x => x.Sequence)
         .FirstOrDefault();
 
-    var bestFor = Model?
-        .Where(x => x.IsBlock == 1)
-        .OrderBy(x => x.Sequence)
-        .ToList() ?? new List<ComponentModel>();
+   
 }
 <section class="section-spacing greenpro-section">
       <div class="container">
-         <h3 class="text-h4">  @Html.Raw((!string.IsNullOrWhiteSpace(intro.Section_title) ? intro.Section_title :"" ).CleanParagraphTags())</h3>
+         <h3 class="text-h4">  @Html.Raw((!string.IsNullOrWhiteSpace(greenpro.Section_title) ? greenpro.Section_title :"" ).CleanParagraphTags())</h3>
          <div class="mt-4 border-t border-[#EAEAEA] pt-6 product-content-max">
              <h4 class="text-p font-semibold mb-1">
-                  @Html.Raw((!string.IsNullOrWhiteSpace(intro.DisplayTitle) ? intro.DisplayTitle : intro.Title).CleanParagraphTags())
+                  @Html.Raw((!string.IsNullOrWhiteSpace(greenpro.DisplayTitle) ? greenpro.DisplayTitle : greenpro.Title).CleanParagraphTags())
                </h4>
-                     @if (!string.IsNullOrWhiteSpace(intro.Intro) )
+                     @if (!string.IsNullOrWhiteSpace(greenpro.Intro) )
                         {
-                            @Html.Raw((!string.IsNullOrWhiteSpace(intro.Intro) ? intro.Intro : ""))
+                            @Html.Raw((!string.IsNullOrWhiteSpace(greenpro.Intro) ? greenpro.Intro : ""))
                         }
 
-                       @if (!string.IsNullOrWhiteSpace(intro.Content) )
+                       @if (!string.IsNullOrWhiteSpace(greenpro.Content) )
                         {
-                            @Html.Raw((!string.IsNullOrWhiteSpace(intro.Content) ? intro.Content : ""))
+                            @Html.Raw((!string.IsNullOrWhiteSpace(greenpro.Content) ? greenpro.Content : ""))
                         }
 
          </div>
