@@ -9,12 +9,32 @@
 @section head {
     <title>@(content?.cont_window_title)</title>
 
-    <script nonce="@(Context.Items["CSPNonce"])">document.documentElement.classList.add('site-preloader-pending');</script>
+    <script nonce="@(Context.Items["CSPNonce"])">
+      (function () {
+        var KEY = 'priyaHomepageLoaderSeen';
+        var isReload = false;
+        try {
+          var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+          if (nav) isReload = nav.type === 'reload';
+          else if (performance.navigation) isReload = performance.navigation.type === 1;
+        } catch (e) {}
+        var seen = false;
+        try { seen = sessionStorage.getItem(KEY) === '1'; } catch (e) {}
+        if (!isReload && seen) {
+          document.documentElement.classList.add('site-preloader-skip');
+        } else {
+          document.documentElement.classList.add('site-preloader-pending');
+        }
+      })();
+    </script>
     <style nonce="@(Context.Items["CSPNonce"])">
       html.site-preloader-pending .site-header {
         opacity:0 !important;
         visibility:hidden !important;
         pointer-events:none !important;
+      }
+      html.site-preloader-skip #sitePreloader {
+        display:none !important;
       }
     </style>
 

@@ -55,10 +55,15 @@
                     </div>
                 </div>
             }
-              @if (!string.IsNullOrWhiteSpace(intro.Content))
+               @if (!string.IsNullOrWhiteSpace(intro.Content))
                         {
+            <div class="product-content-max mt-5">
+           
                            @Html.Raw((!string.IsNullOrWhiteSpace(intro.Content) ? intro.Content : ""))
-                        }
+                      
+                        </div>
+
+                          }
         </div>
     </section>
 }

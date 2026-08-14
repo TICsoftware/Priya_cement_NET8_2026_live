@@ -100,8 +100,8 @@ app.MapControllerRoute(
 
             app.MapControllerRoute(
                 name: "legal-disclaimer",
-                pattern: "legal-disclaimer",
-                defaults: new { controller = "pagearticle", action = "article", id = "legal-disclaimer" }
+                pattern: "disclaimer",
+                defaults: new { controller = "pagearticle", action = "article", id = "disclaimer" }
             );
 
             app.MapControllerRoute(
@@ -112,8 +112,8 @@ app.MapControllerRoute(
 
             app.MapControllerRoute(
              name: "terms-of-use",
-             pattern: "terms-and-conditions",
-             defaults: new { controller = "pagearticle", action = "article", id = "terms-and-conditions" }
+             pattern: "terms-of-use",
+             defaults: new { controller = "pagearticle", action = "article", id = "terms-of-use" }
          );
             app.MapControllerRoute(
               name: "sitemap",

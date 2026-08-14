@@ -26,15 +26,25 @@
         ? floatItem.FileUploadTitle2.CleanParagraphTags()
         : "Technical Data Sheet";
     var hasDownloads = !string.IsNullOrWhiteSpace(file1) || !string.IsNullOrWhiteSpace(file2);
+
+    // Bulk cement truck needs its own float styles (wider frame / card)
+    var path = (Context.Request.Path.Value ?? "").TrimEnd('/').ToLowerInvariant();
+    var isBulkFloat = path.EndsWith("/maxload-bulk-cement") || path.EndsWith("maxload-bulk-cement");
+    var floatStickyClass = isBulkFloat
+        ? "product-float-outer product-float-sticky product-float-sticky--bulk"
+        : "product-float-outer product-float-sticky";
 }
 
 @if (floatItem != null && !string.IsNullOrWhiteSpace(bagImg))
 {
     <div class="product-float-rail">
-        <div class="product-float-outer product-float-sticky" style="opacity: 1; visibility: inherit;">
+        <div class="@floatStickyClass">
             <div class="product-float-inner" aria-hidden="true">
                 <img src="@bagImg" alt="@bagAlt" class="product-float-bag">
-                <img src="/Assets/images/products/shadow-ellipse.webp" alt="" class="product-shadow-ellipse">
+                @if (!isBulkFloat)
+                {
+                    <img src="/Assets/images/products/shadow-ellipse.webp" alt="" class="product-shadow-ellipse">
+                }
             </div>
             <div class="product-site-link">
                 <a href="@ctaUrl" class="fill-site-link">
@@ -48,7 +58,7 @@
     </div>
 }
 
-@if (floatItem != null && hasDownloads)
+@* @if (floatItem != null && hasDownloads)
 {
     <div class="product-download-fab" data-download-fab>
         <div class="product-download-fab-actions" role="group" aria-label="Downloads">
@@ -71,4 +81,4 @@
             <img src="/Assets/images/common-images/download-icon.svg" alt="" class="w-auto h-auto object-cover" aria-hidden="true">
         </button>
     </div>
-}
+} *@
