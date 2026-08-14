@@ -20,27 +20,27 @@
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-10">
 
         <div>
-            <input asp-for="Name" class="f-field" placeholder="Name*" />
+            <input asp-for="Name" class="f-field" placeholder="Name*" maxlength="150"/>
             <span asp-validation-for="Name" class="text-red-500"></span>
         </div>
 
         <div>
-            <input asp-for="Designation" class="f-field" placeholder="Designation" />
+            <input asp-for="Designation" class="f-field" placeholder="Designation" maxlength="200"/>
             <span asp-validation-for="Designation"></span>
         </div>
 
         <div>
-            <input asp-for="CompanyName" class="f-field" placeholder="Company or firm name*" />
+            <input asp-for="CompanyName" class="f-field" placeholder="Company or firm name*" maxlength="200" />
             <span asp-validation-for="CompanyName"></span>
         </div>
 
         <div>
-            <input asp-for="PhoneNumber" class="f-field" placeholder="Phone number*" />
+            <input asp-for="PhoneNumber" class="f-field" placeholder="Phone number*" maxlength="20"/>
             <span asp-validation-for="PhoneNumber"></span>
         </div>
 
         <div>
-            <input asp-for="EmailAddress" class="f-field" placeholder="Email address*" />
+            <input asp-for="EmailAddress" class="f-field" placeholder="Email address*" maxlength="150"/>
             <span asp-validation-for="EmailAddress"></span>
         </div>
 
@@ -64,7 +64,7 @@
                     <option value="@item.Value">@item.Text</option>
                 }
             </select> *@
-            <input asp-for="City" class="f-field" placeholder="City*" />
+            <input asp-for="City" class="f-field" placeholder="City*" maxlength="100"/>
             <span asp-validation-for="City"></span>
         </div>
 
@@ -81,7 +81,7 @@
 
     </div>
 
-    <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="mt-6 flex flex-col sm:flex-col sm:items-start sm:justify-between gap-4">
         <label class="form-check">
             <input asp-for="Consent" type="checkbox" class="form-check-input" />
             <span class="form-check-box" aria-hidden="true"></span>
@@ -91,7 +91,7 @@
         <span asp-validation-for="Consent" class="text-red-500"></span>
     </div>
 
-    <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 lg:max-w-2xl">
+    <div class="mt-6 flex flex-col sm:flex-col sm:items-start sm:justify-between gap-4 lg:max-w-2xl">
         <label class="label-check-txt">
             <p>
                 Disclaimer: I authorize Rain Cements Limited (Priya Cement) and its representatives to Call, SMS,
@@ -111,7 +111,7 @@
                 and its services are enabled on your system.)
             </div>
         </div>
-        <span id="captchaError" class="text-red-500 ">
+        <span id="captchaError" class="text-red-500 field-validation-valid">
     </div>
 
 

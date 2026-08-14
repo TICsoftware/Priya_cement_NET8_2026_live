@@ -59,7 +59,10 @@
 
                 @foreach (var item in items)
                 {
-                         var key =( item.Title.ToLowerInvariant()?.Replace(" ", "-"));
+                    var rawTitle = (item.Title ?? "").Trim().ToLowerInvariant();
+                    var knownKeys = new[] { "learning", "leadership", "recognition", "purpose", "culture", "safety", "wellness" };
+                    var key = knownKeys.FirstOrDefault(k => rawTitle.Contains(k))
+                        ?? rawTitle.Replace(" ", "-");
                     var icon = !string.IsNullOrWhiteSpace(item.Component_Icon_Image)
                         ? item.Component_Icon_Image
                         : (!string.IsNullOrWhiteSpace(item.Icon_Image) ? item.Icon_Image : item.ThumbnailImage);
@@ -74,7 +77,10 @@
             <div class="lifeinside-labels" id="lifeinside-labels">
                 @foreach (var item in items)
                 {
-                    var key =( item.Title.ToLowerInvariant()?.Replace(" ", "-"));
+                    var rawTitle = (item.Title ?? "").Trim().ToLowerInvariant();
+                    var knownKeys = new[] { "learning", "leadership", "recognition", "purpose", "culture", "safety", "wellness" };
+                    var key = knownKeys.FirstOrDefault(k => rawTitle.Contains(k))
+                        ?? rawTitle.Replace(" ", "-");
                     var side = string.IsNullOrWhiteSpace(item.bg_class) ? "right" : item.bg_class.Trim().ToLowerInvariant();
                        
                     var labelTitle = !string.IsNullOrWhiteSpace(item.DisplayTitle) ? item.DisplayTitle : item.Title;

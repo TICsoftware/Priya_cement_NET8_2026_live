@@ -29,7 +29,8 @@
   const FRAME_PATH = (i) =>
     `${framesBase}frame_${String(i).padStart(4, "0")}.png`;
 
-  /* Reveal order around the flower (clockwise from Learning) */
+  /* Reveal order around the flower (clockwise from Learning).
+     Must stay in this order — do not sort by CMS Sequence. */
   const ORDER = [
     "learning",
     "leadership",
@@ -39,23 +40,40 @@
     "safety",
     "wellness",
   ];
-  const icons = ORDER.map((k) =>
-    section.querySelector(`.icon[data-key="${k}"]`)
-  ).filter(Boolean);
-  const labels = ORDER.map((k) =>
-    section.querySelector(`.label[data-key="${k}"]`)
-  ).filter(Boolean);
+
+  function normalizeKey(s) {
+    return String(s || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  /** Resolve icon/label even if CMS title is "Learning & Growth" etc. */
+  function findByOrderKey(key, selector) {
+    const exact = section.querySelector(`${selector}[data-key="${key}"]`);
+    if (exact) return exact;
+    const nodes = Array.from(section.querySelectorAll(selector));
+    return (
+      nodes.find((el) => {
+        const k = normalizeKey(el.getAttribute("data-key"));
+        return k === key || k.startsWith(key + "-") || k.includes(key);
+      }) || null
+    );
+  }
+
+  const icons = ORDER.map((k) => findByOrderKey(k, ".icon")).filter(Boolean);
+  const labels = ORDER.map((k) => findByOrderKey(k, ".label")).filter(Boolean);
   const pairs = ORDER.map((k) => ({
     key: k,
-    icon: section.querySelector(`.icon[data-key="${k}"]`),
-    label: section.querySelector(`.label[data-key="${k}"]`),
+    icon: findByOrderKey(k, ".icon"),
+    label: findByOrderKey(k, ".label"),
   })).filter((p) => p.icon || p.label);
 
   const images = new Array(FRAME_COUNT);
   const state = { frame: 0 };
   let needsRender = true;
 
-  const SEQ_DURATION = 3;
+  const SEQ_DURATION = 3.6;
   let master = null;
   let seqStart = 0;
 
@@ -194,7 +212,7 @@
       const el =
         key === "logo"
           ? logo
-          : section.querySelector(`.icon[data-key="${key}"]`);
+          : findByOrderKey(key, ".icon");
       if (!el) continue;
 
       const nudge = NODE_NUDGE[key] || { x: 0, y: 0 };
@@ -212,7 +230,7 @@
     }
 
     for (const key of ORDER) {
-      const labelEl = section.querySelector(`.label[data-key="${key}"]`);
+      const labelEl = findByOrderKey(key, ".label");
       const icon = iconCenters[key];
       const off = labelOffsets[key];
       if (!labelEl || !icon || !off) continue;
@@ -357,10 +375,10 @@
       scrollTrigger: {
         trigger: section,
         start: "top top",
-        end: "+=260%",
+        end: "+=300%",
         pin: stickyStage,
         pinSpacing: true,
-        scrub: 1,
+        scrub: 1.05,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onRefresh: () => {
@@ -370,7 +388,7 @@
       },
     });
 
-    /* Title + canvas appear as soon as the section pins â€” no empty white beat */
+    /* Title + canvas appear as soon as the section pins — no empty white beat */
     tl.to(title, { opacity: 1, scale: 1, duration: 1.0 }, 0)
       .to(canvas, { opacity: 1, duration: 0.5, ease: "power1.out" }, 0.15)
       .to(title, { y: 0, duration: 1.4, ease: "power3.out" }, 0.35)
@@ -383,7 +401,7 @@
           duration: 0.9,
           ease: "power2.out",
         },
-        "seq+=0.35"
+        "seq+=0.25"
       )
       .to(
         logo,
@@ -391,17 +409,25 @@
           opacity: 1,
           scale: 1,
           filter: "blur(0px)",
-          duration: 0.65,
+          duration: 0.55,
           ease: "power2.out",
         },
-        "seq+=0.5"
+        "seq+=0.4"
       );
 
-    /* Each value: icon + label together, then next pair */
-    const PAIR_STAGGER = 0.24;
-    const PAIR_DUR = 0.55;
+    /*
+     * Strict 1→6 (then wellness): space pairs evenly across the flower
+     * bloom window so scrubbing always reads Learning → … → Safety.
+     * Stagger ≥ duration so the next pair starts as the previous settles.
+     */
+    const pairCount = Math.max(pairs.length, 1);
+    const PAIR_INTRO = 0.55; /* after logo starts */
+    const PAIR_WINDOW = Math.max(1.2, SEQ_DURATION - PAIR_INTRO - 0.2);
+    const PAIR_STAGGER = PAIR_WINDOW / pairCount;
+    const PAIR_DUR = Math.min(0.72, PAIR_STAGGER * 0.9);
+
     pairs.forEach((pair, i) => {
-      const at = `seq+=${(0.65 + i * PAIR_STAGGER).toFixed(2)}`;
+      const at = `seq+=${(PAIR_INTRO + i * PAIR_STAGGER).toFixed(3)}`;
       if (pair.icon) {
         tl.to(
           pair.icon,
@@ -410,7 +436,7 @@
             scale: 1,
             filter: "blur(0px)",
             duration: PAIR_DUR,
-            ease: "back.out(1.6)",
+            ease: "power2.out",
           },
           at
         );

@@ -22,12 +22,13 @@ namespace Priya_Cement_MVC.Models
         [Required]
         public string CompanyName { get; set; }
 
-        [Required]
-        [Phone]
+        [Required(ErrorMessage = "Please enter your phone number")]
+        [RegularExpression(@"^\+?[0-9\s\-\(\)]{7,20}$", ErrorMessage = "Enter a valid mobile number")]
         public string PhoneNumber { get; set; }
 
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Please enter your email address")]
+        [EmailAddress(ErrorMessage = "Enter a valid email address")]
+        [StringLength(200)]
         public string EmailAddress { get; set; }
 
 
@@ -38,9 +39,11 @@ namespace Priya_Cement_MVC.Models
 
         public string State { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter city")]
+        [StringLength(200)]
         public string City { get; set; }
 
+        [Required]
         public int TestTypeId { get; set; }
 
         [Required]

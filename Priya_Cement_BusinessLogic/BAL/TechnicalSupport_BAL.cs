@@ -48,36 +48,54 @@ namespace Priya_Cement_BusinessLogic.BAL
         {
             try
             {
-                var settings = _configuration.GetSection("EmailSettings");
+                var settings = _configuration.GetSection("MailSetting");
+
+                string host = settings["hostname"] ?? string.Empty;
+                string username = settings["mailusername"] ?? string.Empty;
+                string password = settings["mailpassword"] ?? string.Empty;
+                string from = settings["From"] ?? string.Empty;
+                //string to = settings["To"] ?? string.Empty;
+                string to = settings["TechnicalServices"] ?? string.Empty;
+                string displayName = settings["DisplayName"] ?? string.Empty;
+
+                int.TryParse(settings["Port"], out int port);
+
+                if (string.IsNullOrWhiteSpace(host) ||
+                    string.IsNullOrWhiteSpace(username) ||
+                    string.IsNullOrWhiteSpace(password) ||
+                    string.IsNullOrWhiteSpace(from) ||
+                    string.IsNullOrWhiteSpace(to))
+                {
+                    throw new Exception("Mail settings are missing or invalid.");
+                }
 
                 using var message = new MailMessage();
 
-                string displayName = settings["DisplayName"];
+                message.From = new MailAddress(from, displayName);
 
-                message.To.Add(new MailAddress(settings["To"]!, settings["DisplayName"]));
+                // Multiple email addresses separated by comma
+                foreach (var email in to.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    message.To.Add(email.Trim());
+                }
 
-
-
-                message.From = new MailAddress(settings["From"]!, displayName);
-                message.Subject = subject;
-                message.Body = emailContent;
+                message.Subject = subject ?? string.Empty;
+                message.Body = emailContent ?? string.Empty;
                 message.IsBodyHtml = true;
 
-                using var smtp = new SmtpClient(settings["Host"])
+                using var smtp = new SmtpClient(host)
                 {
-                    Port = Convert.ToInt32(settings["Port"]),
+                    Port = port > 0 ? port : 587,
                     EnableSsl = true,
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(
-                        settings["Username"],
-                        settings["Password"])
+                    Credentials = new NetworkCredential(username, password)
                 };
 
                 smtp.Send(message);
             }
             catch (Exception ex)
             {
-                //FileLogger.LogError("EmailService/SendMail", ex);
+                throw new Exception("Email sending failed: " + ex.Message, ex);
             }
         }
 
