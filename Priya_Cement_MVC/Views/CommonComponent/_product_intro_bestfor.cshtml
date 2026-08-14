@@ -26,6 +26,10 @@
                         </h2>
                       
                     </div>
+                     @if (!string.IsNullOrWhiteSpace(intro.Intro) )
+                        {
+                            <p>@Html.Raw((!string.IsNullOrWhiteSpace(intro.Intro) ? intro.Intro : "").CleanParagraphTags())</p>
+                        }
                 </div>
             </div>
 
@@ -51,9 +55,9 @@
                     </div>
                 </div>
             }
-              @if (!string.IsNullOrWhiteSpace(intro.Intro) || !string.IsNullOrWhiteSpace(intro.Content))
+              @if (!string.IsNullOrWhiteSpace(intro.Content))
                         {
-                            <p>@Html.Raw((!string.IsNullOrWhiteSpace(intro.Intro) ? intro.Intro : intro.Content).CleanParagraphTags())</p>
+                           @Html.Raw((!string.IsNullOrWhiteSpace(intro.Content) ? intro.Content : ""))
                         }
         </div>
     </section>
