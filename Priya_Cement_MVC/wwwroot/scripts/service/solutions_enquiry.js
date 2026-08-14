@@ -96,9 +96,10 @@ $(document).ready(function () {
         }
 
         var email = ($("#EmailAddress").val() || "").trim();
+
         if (email === "") {
             setError("EmailAddress", "Please enter your email address.");
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        } else if (!/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email)) {
             setError("EmailAddress", "Please enter a valid email address.");
         }
 

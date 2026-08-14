@@ -153,7 +153,7 @@ $(document).ready(function () {
             isValid = false;
         } else {
 
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 
             if (!emailRegex.test(email)) {
                 $('[data-valmsg-for="EmailAddress"]').text("Please enter a valid email address.");

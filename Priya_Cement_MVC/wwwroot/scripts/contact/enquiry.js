@@ -114,11 +114,13 @@ $(document).ready(function () {
     
         // Email
         let email = $("#Email").val().trim();
+
         if (email === "") {
             $('[data-valmsg-for="Email"]').text("Please enter your work email.");
             isValid = false;
         } else {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+        
             if (!emailRegex.test(email)) {
                 $('[data-valmsg-for="Email"]').text("Please enter a valid email address.");
                 isValid = false;
