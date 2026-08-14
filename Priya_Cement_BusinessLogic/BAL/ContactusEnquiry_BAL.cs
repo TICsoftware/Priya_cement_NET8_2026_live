@@ -4,6 +4,7 @@ using System.Data;
 using System.Net;
 using System.Net.Mail;
 using Microsoft.Extensions.Configuration;
+using Priya_Cement_BusinessLogic.Common;
 using Priya_Cement_BusinessLogic.DAL;
 using Priya_Cement_BusinessLogic.Entity;
 
@@ -114,6 +115,7 @@ namespace Priya_Cement_BusinessLogic.BAL
             }
             catch (Exception ex)
             {
+                Priya_CementFileLogger.LogError("/Contactus/Index :", ex);
                 throw new Exception("Email sending failed: " + ex.Message, ex);
             }
         }

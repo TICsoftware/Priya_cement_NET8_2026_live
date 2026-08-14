@@ -196,6 +196,7 @@ namespace Priya_Cement_BusinessLogic.BAL
             }
             catch (Exception ex)
             {
+                //FileLogError("SubmitEnquiry", ex);
                 throw new Exception("Email sending failed: " + ex.Message, ex);
             }
         }

@@ -144,7 +144,7 @@ $(document).ready(function () {
             const phoneRegex = /^\+?[1-9]\d{6,14}$/;
         
             if (!phoneRegex.test(cleanPhone)) {
-                $('[data-valmsg-for="Phone"]').text("Please enter a valid international phone number.");
+                $('[data-valmsg-for="Phone"]').text("Please enter a valid phone number.");
                 isValid = false;
             }
             else {
