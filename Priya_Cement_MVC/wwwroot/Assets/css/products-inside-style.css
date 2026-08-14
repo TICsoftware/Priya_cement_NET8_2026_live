@@ -181,11 +181,12 @@
 /* Bulk cement only — truck float (white card + wider frame) */
 .product-float-sticky--bulk {
   --product-float-w: min(36vw, 360px);
-  --product-float-ratio: 4 / 3;
+  --product-float-ratio: 3 / 4;
   width: var(--product-float-w);
 }
 .product-float-sticky--bulk .product-float-inner {
   align-items: center;
+  aspect-ratio: inherit;
 }
 .product-float-sticky--bulk .product-float-bag {
   object-position: center center;
