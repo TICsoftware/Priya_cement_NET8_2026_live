@@ -179,18 +179,29 @@ $(document).ready(function () {
         }
 
         // Google reCAPTCHA
-        var captchaResponse = grecaptcha.getResponse();
+        // var captchaResponse = grecaptcha.getResponse();
 
-        if (!captchaResponse || captchaResponse.length === 0) {
-            $("#captchaError").text("Please complete the captcha.");
-            isValid = false;
-        } else {
-            $("#captchaError").text("");
-        }
+        // if (!captchaResponse || captchaResponse.length === 0) {
+        //     $("#captchaError").text("Please complete the captcha.");
+        //     isValid = false;
+        // } else {
+        //     $("#captchaError").text("");
+        // }
     
         return isValid;
     }
 
+    $(document).on("change", "#StateId", function () {
+
+        var selectedStateText = $(this).find("option:selected").text();
+    
+        if ($(this).val() === "") {
+            $("#State").val("");
+        } else {
+            $("#State").val(selectedStateText);
+        }
+    
+    });
 
     // $("#StateId").change(function () {
 
