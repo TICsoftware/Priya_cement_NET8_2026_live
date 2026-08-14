@@ -541,7 +541,7 @@
   line-height: 28px;
   color: #fff;
 }
-#solutions-enquiry .f-field::placeholder { color: rgba(255, 255, 255, 0.4); }
+#solutions-enquiry .f-field::placeholder { color: #BA8A8B; }
 #solutions-enquiry .f-field:focus,
 #solutions-enquiry .f-field:focus-within {
   outline: none;

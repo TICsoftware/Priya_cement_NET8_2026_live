@@ -1137,6 +1137,13 @@
   }
 }
 
+
+@media (min-width: 1367px) and (max-width: 1440px) {
+  #aboutus-values .aboutus-values-title {left: clamp(1rem, 6vw, 20rem);top: clamp(1.25rem, 10vh, 8.5rem);}
+  .aboutus-leadership-quote .quote-vector2 {bottom: clamp(-9.375rem, -7vw, -5.5rem);}
+  .aboutus-leadership-heading {margin-top: -25px;}
+}
+
 @media (min-width: 1200px) and (max-width: 1366px) {
   .aboutus-projects-section .section-title-outer .section-sticky-title{max-width: 30vw;}
 }
