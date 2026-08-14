@@ -671,9 +671,9 @@ BULLET LIST CSS
 .form-check-label {
   flex: 1;
   min-width: 0;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 }
-.label-check-txt p {font-size: 0.75rem; color:#fff;}
+.label-check-txt p {font-size: 0.875rem; color:#fff;}
 /* Light surfaces (if checkbox is used on white background) */
 .form-check.form-check-light {
   color: var(--color-primary, #231F20);
