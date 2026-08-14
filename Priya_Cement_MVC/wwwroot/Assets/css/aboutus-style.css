@@ -1033,7 +1033,7 @@
 .aboutus-projects-section .text-ghost,
 .aboutus-stand-section .text-ghost,
 #pageContainerLegacy .text-ghost {
-  background: linear-gradient(270deg, rgba(0, 0, 0, 0.10) 6.31%, rgba(255, 255, 255, 0.10) 89.81%);
+  background: linear-gradient(270deg, rgba(0, 0, 0, 0.25) 6.31%, rgba(255, 255, 255, 0.10) 89.81%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
