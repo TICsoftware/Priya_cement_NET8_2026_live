@@ -483,6 +483,11 @@
   .bestfor-grid-outer {align-items: end;}
   .bestfor-grid { text-align: start; align-items: start;}
 }
+@media (min-width: 1367px) and (max-width: 1536px) {
+.product-content-max {max-width: 58rem;}
+.spec-table {max-width: 58rem;}
+}
+
 @media (min-width: 1200px) and (max-width: 1366px) {
   .cta-band .logo-lion-vector-outer{width: min(72vw, 420px);max-width: 420px;}
   .product-content-max {max-width: 55rem;}

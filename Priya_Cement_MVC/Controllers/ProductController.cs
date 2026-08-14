@@ -207,6 +207,7 @@ public class ProductController : Controller
                 PhoneNumber = model.PhoneNumber,
                 EmailAddress = model.EmailAddress,
                 StateId = Convert.ToInt32(model.StateId),
+                State = model.State,
                 City = model.City,
                 TestTypeId = Convert.ToInt32(model.TestTypeId),
                 Consent = Convert.ToBoolean(model.Consent),

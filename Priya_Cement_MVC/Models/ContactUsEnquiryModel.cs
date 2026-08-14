@@ -31,6 +31,8 @@ namespace Priya_Cement_MVC.Models
         [Range(1, int.MaxValue, ErrorMessage = "Please select your state")]
         public int StateId { get; set; }
 
+        public string State { get; set; }
+
         public int CityId { get; set; }
 
         [Required(ErrorMessage = "Please enter your city")]

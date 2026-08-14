@@ -64,6 +64,7 @@
 
 .marker-line {
   transition: height .7s cubic-bezier(.22,.61,.36,1);
+  width: 2px;
 }
 
 .ticks-track {
@@ -138,6 +139,22 @@
   width: 100%;
   aspect-ratio: 1097 / 640;
   overflow: hidden;
+}
+
+#pageContainerLegacy .legacy-media-viewport.legacy-media-draggable {
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#pageContainerLegacy .legacy-media-viewport.legacy-media-draggable.is-dragging {
+  cursor: grabbing;
+}
+
+#pageContainerLegacy .legacy-media-viewport.legacy-media-draggable .legacy-media-slide img {
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
 }
 
 #pageContainerLegacy .legacy-media-track {

@@ -68,13 +68,58 @@ namespace Priya_Cement_BusinessLogic.BAL
         {
             try
             {
-                var settings = _configuration.GetSection("EmailSettings");
+                var settings = _configuration.GetSection("MailSetting");
 
-                using var message = new MailMessage();
+                string host = settings["hostname"];
+                string username = settings["mailusername"];
+                string password = settings["mailpassword"];
+                int port = Convert.ToInt32(settings["Port"]);
                 string displayName = settings["DisplayName"];
 
-                message.To.Add(new MailAddress(settings["To"]!, settings["DisplayName"]));
-                message.From = new MailAddress(settings["From"]!, displayName);
+                using var message = new MailMessage();
+
+                message.To.Add("receiver@example.com");
+
+                //message.From = new MailAddress(username);
+                message.From = new MailAddress(settings["From"], displayName);
+                message.To.Add(new MailAddress(settings["To"], displayName));
+
+                message.Subject = subject;
+                message.Body = emailContent;
+                message.IsBodyHtml = true;
+
+                using var smtp = new SmtpClient(host)
+                {
+                    Port = port,
+                    EnableSsl = true,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(username, password)
+                };
+
+                smtp.Send(message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Email sending failed: " + ex.Message, ex);
+            }
+        }
+
+        public void SendMail1(string emailContent, string subject)
+        {
+            try
+            {
+                var settings = _configuration.GetSection("MailSetting");
+
+                using var message = new MailMessage();
+
+                string displayName = settings["DisplayName"];
+
+                // Receiver
+                message.To.Add(new MailAddress(settings["To"], displayName));
+
+                // Sender
+                message.From = new MailAddress(settings["From"], displayName);
+
                 message.Subject = subject;
                 message.Body = emailContent;
                 message.IsBodyHtml = true;
@@ -86,15 +131,50 @@ namespace Priya_Cement_BusinessLogic.BAL
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential(
                         settings["Username"],
-                        settings["Password"])
+                        settings["Password"]
+                    )
                 };
 
                 smtp.Send(message);
             }
-            catch
+            catch (Exception ex)
             {
+                // Log exception
+                throw;
             }
         }
+
+        // public void SendMail(string emailContent, string subject)
+        // {
+        //     try
+        //     {
+        //         var settings = _configuration.GetSection("EmailSettings");
+
+        //         using var message = new MailMessage();
+        //         string displayName = settings["DisplayName"];
+
+        //         message.To.Add(new MailAddress(settings["To"]!, settings["DisplayName"]));
+        //         message.From = new MailAddress(settings["From"]!, displayName);
+        //         message.Subject = subject;
+        //         message.Body = emailContent;
+        //         message.IsBodyHtml = true;
+
+        //         using var smtp = new SmtpClient(settings["Host"])
+        //         {
+        //             Port = Convert.ToInt32(settings["Port"]),
+        //             EnableSsl = true,
+        //             UseDefaultCredentials = false,
+        //             Credentials = new NetworkCredential(
+        //                 settings["Username"],
+        //                 settings["Password"])
+        //         };
+
+        //         smtp.Send(message);
+        //     }
+        //     catch
+        //     {
+        //     }
+        // }
 
         public string MailEnquiryContent(ContactUsEnquiry obj)
         {
@@ -111,7 +191,7 @@ namespace Priya_Cement_BusinessLogic.BAL
                 "<tr><td><strong>Email</strong></td><td>" + obj.Email + "</td></tr>" +
                 "<tr><td><strong>Phone</strong></td><td>" + obj.Phone + "</td></tr>" +
                 "<tr><td><strong>City</strong></td><td>" + obj.City + "</td></tr>" +
-                "<tr><td><strong>State</strong></td><td>" + obj.StateId + "</td></tr>" +
+                "<tr><td><strong>State</strong></td><td>" + obj.State + "</td></tr>" +
                 (!string.IsNullOrWhiteSpace(obj.Query)
                     ? "<tr><td><strong>Message</strong></td><td>" + obj.Query + "</td></tr>"
                     : "") +

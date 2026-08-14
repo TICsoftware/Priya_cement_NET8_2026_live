@@ -1200,6 +1200,9 @@
   .max-w-5xl {
     max-width: var(--container-5xl);
   }
+  .max-w-6xl {
+    max-width: var(--container-6xl);
+  }
   .max-w-\[290px\] {
     max-width: 290px;
   }
@@ -2537,6 +2540,9 @@
     }
     .lg\:max-w-2xl {
       max-width: var(--container-2xl);
+    }
+    .lg\:max-w-4xl {
+      max-width: var(--container-4xl);
     }
     .lg\:max-w-5xl {
       max-width: var(--container-5xl);
