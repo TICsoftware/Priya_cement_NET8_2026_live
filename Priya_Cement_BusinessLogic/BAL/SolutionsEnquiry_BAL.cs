@@ -197,7 +197,7 @@ namespace Priya_Cement_BusinessLogic.BAL
             }
             catch (Exception ex)
             {
-                Priya_CementFileLogger.LogError("/Contactus/Index :", ex);
+                Priya_CementFileLogger.LogError("Solutions Enquiry :", ex);
                 throw new Exception("Email sending failed: " + ex.Message, ex);
             }
         }
