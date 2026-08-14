@@ -3,7 +3,6 @@
   color: var(--color-primary, #231F20);
   display: inline-block;
   position: relative;
-  font-weight: 500;
 }
 
 .innerbanner-title-heading .word {
