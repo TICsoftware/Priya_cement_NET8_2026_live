@@ -2378,7 +2378,14 @@
     @media (width >= 40rem) {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
-    .sm\:flex-row {
+  }
+  .sm\:flex-col {
+    @media (width >= 40rem) {
+      flex-direction: column;
+    }
+  }
+  .sm\:flex-row {
+    @media (width >= 40rem) {
       flex-direction: row;
     }
   }
@@ -2386,7 +2393,14 @@
     @media (width >= 40rem) {
       align-items: center;
     }
-    .sm\:justify-between {
+  }
+  .sm\:items-start {
+    @media (width >= 40rem) {
+      align-items: flex-start;
+    }
+  }
+  .sm\:justify-between {
+    @media (width >= 40rem) {
       justify-content: space-between;
     }
   }
