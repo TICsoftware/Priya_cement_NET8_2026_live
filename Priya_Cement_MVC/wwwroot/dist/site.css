@@ -1943,6 +1943,9 @@
   .text-h2 {
     font-size: var(--text-h2);
   }
+  .text-h3 {
+    font-size: var(--text-h3);
+  }
   .text-h4 {
     font-size: var(--text-h4);
   }
@@ -2464,9 +2467,13 @@
     @media (width >= 40rem) {
       padding-inline: calc(var(--spacing) * 0);
     }
+<<<<<<< HEAD
   }
   .sm\:px-7 {
     @media (width >= 40rem) {
+=======
+    .sm\:px-7 {
+>>>>>>> 4699bdfcde6327f69b7a14b49974b8400a0fdad0
       padding-inline: calc(var(--spacing) * 7);
     }
   }
@@ -2878,9 +2885,13 @@
     @media (width >= 64rem) {
       padding: 21px;
     }
+<<<<<<< HEAD
   }
   .lg\:px-16 {
     @media (width >= 64rem) {
+=======
+    .lg\:px-16 {
+>>>>>>> 4699bdfcde6327f69b7a14b49974b8400a0fdad0
       padding-inline: calc(var(--spacing) * 16);
     }
   }
