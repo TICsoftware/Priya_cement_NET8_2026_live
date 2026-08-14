@@ -136,6 +136,25 @@ $(document).ready(function () {
             }
         }
 
+        // Consent
+        if (!$("#Consent").prop("checked")) {
+            $('[data-valmsg-for="Consent"]').text("Please accept the consent.");
+            isValid = false;
+        }
+        else {
+            $('[data-valmsg-for="Consent"]').text("");
+        }
+
+        // Google reCAPTCHA
+        var captchaResponse = grecaptcha.getResponse();
+
+        if (!captchaResponse || captchaResponse.length === 0) {
+            $("#captchaError").text("Please complete the captcha.");
+            isValid = false;
+        } else {
+            $("#captchaError").text("");
+        }
+
         return isValidFlag;
     }
 });

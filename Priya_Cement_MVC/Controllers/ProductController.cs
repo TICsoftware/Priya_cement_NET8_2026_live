@@ -69,6 +69,7 @@ public class ProductController : Controller
         try
         {
             var data = _bal.GetSolutionsCenter_BAL(title, 1, 1);
+            ViewBag.captchapublickey = objconfig["CaptchaKeys:PublicKey"];
             return View(data);
         }
         catch (Exception ex)
@@ -147,7 +148,8 @@ public class ProductController : Controller
                 StoreSizeSqft = string.Equals(model.HaveSpaceForStoreSetup, "Yes", StringComparison.OrdinalIgnoreCase)
                     ? model.StoreSizeSqFt
                     : null,
-                PreferredTimeForContact = model.PreferredTimeForContact
+                PreferredTimeForContact = model.PreferredTimeForContact,
+                Consent = model.Consent
             };
 
             DataTable dt = _SolutionsEnquiry_bal.SubmitEnquiry_BAL(entity);
@@ -205,7 +207,7 @@ public class ProductController : Controller
                 PhoneNumber = model.PhoneNumber,
                 EmailAddress = model.EmailAddress,
                 StateId = Convert.ToInt32(model.StateId),
-                CityId = Convert.ToInt32(model.CityId),
+                City = model.City,
                 TestTypeId = Convert.ToInt32(model.TestTypeId),
                 Consent = Convert.ToBoolean(model.Consent),
                 IPAddress = GetClientIpAddress()

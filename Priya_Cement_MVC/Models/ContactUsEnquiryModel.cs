@@ -31,9 +31,11 @@ namespace Priya_Cement_MVC.Models
         [Range(1, int.MaxValue, ErrorMessage = "Please select your state")]
         public int StateId { get; set; }
 
-        [Required(ErrorMessage = "Please select your city")]
-        [Range(1, int.MaxValue, ErrorMessage = "Please select your city")]
         public int CityId { get; set; }
+
+        [Required(ErrorMessage = "Please enter your city")]
+        [StringLength(100, ErrorMessage = "City cannot exceed 100 characters")]
+        public string? City { get; set; }
 
 
         [StringLength(1000, ErrorMessage = "Message cannot exceed 1000 characters")]

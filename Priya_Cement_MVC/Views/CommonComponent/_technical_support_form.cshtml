@@ -56,14 +56,15 @@
         </div>
 
         <div class="cselect">
-            <select asp-for="CityId" class="f-field">
+            @* <select asp-for="CityId" class="f-field">
                 <option value="">Site Location</option>
                 @foreach (var item in ViewBag.CityList)
                 {
                     <option value="@item.Value">@item.Text</option>
                 }
-            </select>
-            <span asp-validation-for="CityId"></span>
+            </select> *@
+            <input asp-for="City" class="f-field" placeholder="City*" />
+            <span asp-validation-for="City"></span>
         </div>
 
         <div class="cselect">
@@ -111,7 +112,7 @@
         </div>
         <span id="captchaError" class="text-red-500 ">
     </div>
-    
+
 
     </span>
 

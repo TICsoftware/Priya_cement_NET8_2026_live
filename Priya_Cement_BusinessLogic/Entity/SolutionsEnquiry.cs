@@ -18,5 +18,6 @@ namespace Priya_Cement_BusinessLogic.Entity
         public string SpaceForStoreSetup { get; set; }
         public string StoreSizeSqft { get; set; }
         public string PreferredTimeForContact { get; set; }
+        public bool Consent { get; set; }
     }
 }

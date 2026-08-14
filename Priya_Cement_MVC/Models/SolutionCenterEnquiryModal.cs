@@ -57,6 +57,10 @@ namespace Priya_Cement_MVC.Models
         [StringLength(100)]
         public string? PreferredTimeForContact { get; set; }
 
+         [Required]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Please accept the consent.")]
+        public bool Consent { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (string.Equals(CurrentOccupation, "Other", StringComparison.OrdinalIgnoreCase)

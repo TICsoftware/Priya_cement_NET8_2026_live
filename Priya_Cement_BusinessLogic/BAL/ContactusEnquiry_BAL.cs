@@ -26,7 +26,7 @@ namespace Priya_Cement_BusinessLogic.BAL
                 dt = AddContactUsEnquiry_DAL(model);
                 if (dt.Rows.Count > 0 && dt.Rows[0][0].ToString() == "updated")
                 {
-                    // SendMail(MailEnquiryContent(model), "Contact enquiry from " + model.FullName);
+                    SendMail(MailEnquiryContent(model), "Contact enquiry from " + model.FullName);
                 }
             }
             catch (Exception ex)
@@ -110,8 +110,8 @@ namespace Priya_Cement_BusinessLogic.BAL
                 "<tr><td><strong>Company</strong></td><td>" + obj.Organisation + "</td></tr>" +
                 "<tr><td><strong>Email</strong></td><td>" + obj.Email + "</td></tr>" +
                 "<tr><td><strong>Phone</strong></td><td>" + obj.Phone + "</td></tr>" +
-                "<tr><td><strong>City Id</strong></td><td>" + obj.CityId + "</td></tr>" +
-                "<tr><td><strong>State Id</strong></td><td>" + obj.StateId + "</td></tr>" +
+                "<tr><td><strong>City</strong></td><td>" + obj.City + "</td></tr>" +
+                "<tr><td><strong>State</strong></td><td>" + obj.StateId + "</td></tr>" +
                 (!string.IsNullOrWhiteSpace(obj.Query)
                     ? "<tr><td><strong>Message</strong></td><td>" + obj.Query + "</td></tr>"
                     : "") +
