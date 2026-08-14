@@ -778,7 +778,8 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     });
 
-    // Mobile / tablet: full-bleed video (no scale — that clips copy), fade content in
+    // Mobile / tablet: play-once content entrance + gentle video ken-burns
+    // (full-bleed wrap — never scale the wrap; that clips copy)
     mmSustain.add('(max-width: 1023px)', () => {
       const section = document.querySelector('.home-sustainability-section');
       if (!section) return;
@@ -790,20 +791,32 @@ document.addEventListener("DOMContentLoaded", () => {
       const cta = section.querySelector('.outer-btn-wrap');
       if (!videoWrap) return;
 
-      const contentEls = [title, stats, cta].filter(Boolean);
+      const statRows = stats
+        ? gsap.utils.toArray(stats.querySelectorAll('.counter-wrap-outer'))
+        : [];
+      const contentEls = [title, ...(statRows.length ? statRows : stats ? [stats] : []), cta].filter(
+        Boolean
+      );
+
       section.classList.add('is-sustain-anim');
 
-      // Full bleed from the start — do not scale (overflow + scale clips text on mobile)
       gsap.set(videoWrap, {
         scale: 1,
         x: 0,
         y: 0,
-        transformOrigin: '50% 50%',
-        force3D: true,
         borderRadius: 0,
         autoAlpha: 0,
       });
-      gsap.set(contentEls, { autoAlpha: 0, x: 0, y: 24, force3D: true });
+      if (video) {
+        gsap.set(video, {
+          scale: 1,
+          xPercent: 0,
+          yPercent: 0,
+          transformOrigin: '50% 45%',
+          force3D: true,
+        });
+      }
+      gsap.set(contentEls, { autoAlpha: 0, y: 28, force3D: true });
 
       const playVideo = () => {
         if (!video) return;
@@ -823,78 +836,81 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       };
 
-      const settleContent = () => {
-        gsap.set(videoWrap, { autoAlpha: 1, x: 0, y: 0, scale: 1, borderRadius: 0 });
-        gsap.set(contentEls, { autoAlpha: 1, x: 0, y: 0 });
-      };
+      // Slow drift on the <video> (wrap stays transform:none via CSS)
+      const kenBurns = video
+        ? gsap.to(video, {
+            scale: 1.1,
+            xPercent: -2.5,
+            yPercent: 1.5,
+            duration: 16,
+            ease: 'sine.inOut',
+            repeat: -1,
+            yoyo: true,
+            paused: true,
+            force3D: true,
+          })
+        : null;
 
-      const tl = gsap.timeline({
-        defaults: { force3D: true },
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 80%',
-          end: 'top 35%',
-          scrub: 1.1,
-          invalidateOnRefresh: true,
-          onEnter: playVideo,
-          onEnterBack: playVideo,
-          onLeave: () => {
-            settleContent();
-            playOdometers();
-          },
-          onLeaveBack: resetOdometers,
-        },
+      const entranceTl = gsap.timeline({
+        paused: true,
+        defaults: { force3D: true, ease: 'power3.out' },
+        onComplete: playOdometers,
+        onReverseComplete: resetOdometers,
       });
 
-      tl.to(
-        videoWrap,
-        {
-          autoAlpha: 1,
-          duration: 0.45,
-          ease: 'power1.out',
-        },
-        0
-      );
+      entranceTl.to(videoWrap, { autoAlpha: 1, duration: 0.75, ease: 'power2.out' }, 0);
 
       if (title) {
-        tl.to(
-          title,
-          { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' },
-          0.2
-        );
+        entranceTl.to(title, { autoAlpha: 1, y: 0, duration: 0.8 }, 0.18);
       }
-      if (stats) {
-        tl.to(
-          stats,
-          { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' },
-          0.35
+      if (statRows.length) {
+        entranceTl.to(
+          statRows,
+          { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.12 },
+          0.38
         );
-        tl.call(
-          () => {
-            if (tl.scrollTrigger && tl.scrollTrigger.direction === 1) {
-              playOdometers();
-            } else if (tl.scrollTrigger && tl.scrollTrigger.direction === -1) {
-              resetOdometers();
-            }
-          },
-          null,
-          0.4
-        );
+      } else if (stats) {
+        entranceTl.to(stats, { autoAlpha: 1, y: 0, duration: 0.7 }, 0.38);
       }
       if (cta) {
-        tl.to(
-          cta,
-          { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' },
-          0.5
-        );
+        entranceTl.to(cta, { autoAlpha: 1, y: 0, duration: 0.6 }, 0.62);
       }
+
+      const st = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 78%',
+        end: 'bottom 15%',
+        invalidateOnRefresh: true,
+        onEnter: () => {
+          playVideo();
+          entranceTl.play();
+          if (kenBurns) kenBurns.play();
+        },
+        onEnterBack: () => {
+          playVideo();
+          entranceTl.play();
+          if (kenBurns) kenBurns.play();
+        },
+        onLeave: () => {
+          if (kenBurns) kenBurns.pause();
+        },
+        onLeaveBack: () => {
+          entranceTl.reverse();
+          if (kenBurns) {
+            kenBurns.pause();
+            kenBurns.progress(0);
+          }
+          if (video) gsap.set(video, { scale: 1, xPercent: 0, yPercent: 0 });
+        },
+      });
 
       return () => {
         section.classList.remove('is-sustain-anim');
         resetOdometers();
-        if (tl.scrollTrigger) tl.scrollTrigger.kill();
-        tl.kill();
-        gsap.set([videoWrap, ...contentEls], {
+        st.kill();
+        entranceTl.kill();
+        if (kenBurns) kenBurns.kill();
+        gsap.set([videoWrap, ...contentEls, video].filter(Boolean), {
           clearProps: 'transform,opacity,visibility,borderRadius',
         });
       };
