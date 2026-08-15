@@ -116,15 +116,71 @@ app.UseStaticFiles(new StaticFileOptions
 
 var redirects = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
 {
+    // Home page
+    { "^index\\.html$", "/" },
+    { "^index_new\\.html$", "/" },
+    { "^404_page\\.html$", "/" },
+    { "^google30c494c5d635adbc\\.html$", "/" },
 
+    // Common pages
+    { "^disclaimer\\.html$", "/disclaimer" },
+    { "^privacy-policy\\.html$", "/privacy-policy" },
+    { "^sitemap\\.html$", "/sitemap" },
+    { "^terms-of-use\\.html$", "/terms-of-use" },
+
+    // Technical Services
+    { "^technical-services\\.html$", "/solutions/technical-services" },
+
+    // Contact
+    { "^dealership_enquiry$", "/contact-us" },
+    { "^contact-us/contact\\.html$", "/contact-us" },
+
+    // About Us
     { "^about-us/overview\\.html$", "/about-us" },
+
+    // Products / Solutions
+    { "^products/processes\\.html$", "/solutions" },
+    { "^products/processes1\\.html$", "/solutions" },
+    { "^products/processes2\\.html$", "/solutions" },
+    { "^products/processes3\\.html$", "/solutions" },
+    { "^products/processes4\\.html$", "/solutions" },
+    { "^products/processes5\\.html$", "/solutions" },
+    { "^products/processes6\\.html$", "/solutions" },
+    { "^products/processes7\\.html$", "/solutions" },
+    { "^products/processes8\\.html$", "/solutions" },
+
     { "^products/products-opc-and-ppc\\.html$", "/solutions" },
     { "^products/products-opc-and-ppc\\.html#OPC$", "/solutions/maxload-opc-53-grade" },
-    { "^products/products-maxload-bulk-cement\\.html$", "/solutions/maxload-bulk-cement" },
     { "^products/products-opc-and-ppc\\.html#PPC1$", "/solutions/portland-pozzolana-cement" },
-    { "^contact-us/contact\\.html$", "/contact-us" },
-    { "^technical-services\\.html$", "/solutions/technical-services" },
-      { "^.*\\.html$", "/" }
+
+    { "^products/products-maxload-bulk-cement\\.html$", "/solutions/maxload-bulk-cement" },
+
+    // Social Responsibility
+    { "^social-responsibility/overview\\.html$", "/about-us" },
+    { "^social-responsibility/join-us\\.html$", "/about-us" },
+    { "^social-responsibility/privacy-policy\\.html$", "/privacy-policy" },
+    { "^social-responsibility/404_page\\.html$", "/about-us" },
+    { "^social-responsibility/rcl-csr-policy\\.pdf$", "/about-us" },
+
+    // Media
+    { "^media/media\\.html$", "/" },
+    { "^media/gallery\\.html$", "/" },
+    { "^media/CorporateFilm\\.html$", "/" },
+    { "^media/Print\\.html$", "/" },
+
+    // Careers
+    { "^careers/join-us\\.html$", "/contact-us" },
+    { "^careers/current_opening\\.html$", "/contact-us" },
+    { "^careers/current-opening\\.html$", "/contact-us" },
+
+    // Financial Information
+    { "^financial-information/financial-information\\.html$", "/" },
+
+    // Regulatory Environment Reports
+    { "^regulatory-environment-reports/index\\.html$", "/" },
+
+    // Any other old .html URL → Home page
+    { "^.*\\.html$", "/" }
 };
 
 var options = new RewriteOptions();
