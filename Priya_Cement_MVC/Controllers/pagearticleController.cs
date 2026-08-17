@@ -51,6 +51,7 @@ namespace Priya_Cement_MVC.Controllers
 
         public IActionResult Error()
         {
+            Response.StatusCode = 404;
             return View();
         }
 

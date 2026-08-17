@@ -56,20 +56,20 @@ builder.Services.AddAuthentication("MyCookieAuth")
 builder.Services.AddAuthorization();
 
 //uncomment while live start
-// builder.Services.AddSession(options =>
-// {
-//     options.IdleTimeout = TimeSpan.FromMinutes(20); // session timeout
-//     options.Cookie.HttpOnly = true;
-//     options.Cookie.IsEssential = true;
-// });
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20); // session timeout
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
-//  builder.Services.AddAntiforgery(options =>
-// {
-//     options.Cookie.Name = "SecureToken";
-//     options.Cookie.HttpOnly = true;
-//    options.Cookie.SecurePolicy =
-//         CookieSecurePolicy.Always;  
-// });
+ builder.Services.AddAntiforgery(options =>
+{
+    options.Cookie.Name = "SecureToken";
+    options.Cookie.HttpOnly = true;
+   options.Cookie.SecurePolicy =
+        CookieSecurePolicy.Always;  
+});
 //uncomment while live end
 
 //builder.Services.AddHttpClient();
@@ -112,18 +112,76 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/Assets"
 });
 
-
+// Handles 404, 403, etc. when no endpoint produces the response
+app.UseStatusCodePagesWithReExecute("/Error");
 
 var redirects = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
 {
+    // Home page
+    { "^index\\.html$", "/" },
+    { "^index_new\\.html$", "/" },
+    { "^404_page\\.html$", "/" },
+    { "^google30c494c5d635adbc\\.html$", "/" },
 
+    // Common pages
+    { "^disclaimer\\.html$", "/disclaimer" },
+    { "^privacy-policy\\.html$", "/privacy-policy" },
+    { "^sitemap\\.html$", "/sitemap" },
+    { "^terms-of-use\\.html$", "/terms-of-use" },
+
+    // Technical Services
+    { "^technical-services\\.html$", "/solutions/technical-services" },
+
+    // Contact
+    { "^dealership_enquiry$", "/contact-us" },
+    { "^contact-us/contact\\.html$", "/contact-us" },
+
+    // About Us
     { "^about-us/overview\\.html$", "/about-us" },
+
+    // Products / Solutions
+    { "^products/processes\\.html$", "/solutions" },
+    { "^products/processes1\\.html$", "/solutions" },
+    { "^products/processes2\\.html$", "/solutions" },
+    { "^products/processes3\\.html$", "/solutions" },
+    { "^products/processes4\\.html$", "/solutions" },
+    { "^products/processes5\\.html$", "/solutions" },
+    { "^products/processes6\\.html$", "/solutions" },
+    { "^products/processes7\\.html$", "/solutions" },
+    { "^products/processes8\\.html$", "/solutions" },
+
     { "^products/products-opc-and-ppc\\.html$", "/solutions" },
     { "^products/products-opc-and-ppc\\.html#OPC$", "/solutions/maxload-opc-53-grade" },
-    { "^products/products-maxload-bulk-cement\\.html$", "/solutions/maxload-bulk-cement" },
     { "^products/products-opc-and-ppc\\.html#PPC1$", "/solutions/portland-pozzolana-cement" },
-    { "^contact-us/contact\\.html$", "/contact-us" },
-    { "^technical-services\\.html$", "/solutions/technical-services" }
+
+    { "^products/products-maxload-bulk-cement\\.html$", "/solutions/maxload-bulk-cement" },
+
+    // Social Responsibility
+    { "^social-responsibility/overview\\.html$", "/about-us" },
+    { "^social-responsibility/join-us\\.html$", "/about-us" },
+    { "^social-responsibility/privacy-policy\\.html$", "/privacy-policy" },
+    { "^social-responsibility/404_page\\.html$", "/about-us" },
+    { "^social-responsibility/rcl-csr-policy\\.pdf$", "/about-us" },
+
+    // Media
+    { "^media/media\\.html$", "/" },
+    { "^media/gallery\\.html$", "/" },
+    { "^media/CorporateFilm\\.html$", "/" },
+    { "^media/Print\\.html$", "/" },
+
+    // Careers
+    { "^careers/join-us\\.html$", "/contact-us" },
+    { "^careers/current_opening\\.html$", "/contact-us" },
+    { "^careers/current-opening\\.html$", "/contact-us" },
+
+    // Financial Information
+    { "^financial-information/financial-information\\.html$", "/" },
+
+    // Regulatory Environment Reports
+    { "^regulatory-environment-reports/index\\.html$", "/" },
+
+    // Any other old .html URL → Home page
+    { "^.*\\.html$", "/" }
 };
 
 var options = new RewriteOptions();
@@ -152,7 +210,7 @@ app.Use(async (context, next) =>
     context.Response.Headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
     context.Response.Headers["X-Permitted-Cross-Domain-Policies"] = "none";
     //uncommen for live after ssl
-    //context.Response.Headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains";
+    context.Response.Headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains";
     context.Response.Headers["Permissions-Policy"] = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(self), payment=(), fullscreen=(self)";
     context.Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
     context.Response.Headers["Pragma"] = "no-cache";
