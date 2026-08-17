@@ -739,6 +739,10 @@
     top: auto;
   }
 
+  .home-testimonials-section .testimonials-marquee-col {
+    overflow: visible;
+  }
+
   #marquee-section {
     height: auto !important;
   }
@@ -774,6 +778,11 @@
 
   #marquee-section .quote-card.is-collapsed {
     display: none;
+  }
+
+  #marquee-section.is-mobile-rise-anim .quote-card.is-rise-anim-card {
+    will-change: transform;
+    backface-visibility: hidden;
   }
 }
 
@@ -818,6 +827,8 @@
 .quote-card .site-link:hover img {
   filter: brightness(0) saturate(100%) invert(11%) sepia(5%) saturate(538%) hue-rotate(314deg) brightness(94%) contrast(90%);
 }
+
+/* Mobile rise helpers live under the max-width:1023px marquee block */
 
 @media (max-width: 767px) {
 .quote-card-content {padding: 40px 0 0px 0;}
