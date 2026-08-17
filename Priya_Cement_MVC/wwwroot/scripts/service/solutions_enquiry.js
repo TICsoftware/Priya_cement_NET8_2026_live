@@ -89,9 +89,10 @@ $(document).ready(function () {
         }
 
         var whatsapp = ($("#WhatsAppNumber").val() || "").trim();
-        if (whatsapp === "") {
-            setError("WhatsAppNumber", "Please enter your WhatsApp number.");
-        } else if (!/^\d{10}$/.test(whatsapp)) {
+        // if (whatsapp === "") {
+        //     setError("WhatsAppNumber", "Please enter your WhatsApp number.");
+        // } 
+        if (!/^\d{10}$/.test(whatsapp)) {
             setError("WhatsAppNumber", "Enter a valid 10-digit WhatsApp number.");
         }
 

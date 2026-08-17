@@ -21,7 +21,7 @@
     <div>
         <div class="f-field flex items-center gap-2 p-0">
             <span class="pl-1 text-[16px] font-light text-white">+91</span>
-            <input asp-for="WhatsAppNumber" type="tel" maxlength="10" placeholder="WhatsApp Number*"
+            <input asp-for="WhatsAppNumber" type="tel" maxlength="10" placeholder="WhatsApp Number"
                 class="w-full bg-transparent text-base font-light text-white placeholder:text-white/40 focus:outline-none" />
         </div>
         <span asp-validation-for="WhatsAppNumber" class="text-red-500"></span>
@@ -70,7 +70,7 @@
     </div>
 
     <div>
-        <input asp-for="TownVillage" class="f-field" placeholder="Town / Village*" maxlength="200"/>
+        <input asp-for="TownVillage" class="f-field" placeholder="Town / Village" maxlength="200"/>
         <span asp-validation-for="TownVillage" class="text-red-500"></span>
     </div>
 
@@ -89,7 +89,7 @@
     </div>
 
     <div class="solutions-enquiry-others md:col-span-2 xl:col-span-3 is-collapsed" data-occupation-others>
-        <input asp-for="CurrentOccupationOthers" class="f-field" placeholder="Please specify occupation*" maxlength="200"/>
+        <input asp-for="CurrentOccupationOthers" class="f-field" placeholder="Please specify occupation" maxlength="200"/>
         <span asp-validation-for="CurrentOccupationOthers" class="text-red-500"></span>
     </div>
 
@@ -114,7 +114,7 @@
                 <span asp-validation-for="OwnShopOrCommercialSpace" class="text-red-500"></span>
             </div>
             <div class="solutions-enquiry-q">
-                <p class="solutions-enquiry-radio-label">Have you previously run a business<span class="req">*</span>
+                <p class="solutions-enquiry-radio-label">Have you previously run a business
                 </p>
                 <div class="solutions-enquiry-radios" role="radiogroup"
                     aria-label="Have you previously run a business?">
@@ -135,7 +135,7 @@
 
         <div class="solutions-enquiry-qpair">
             <div class="solutions-enquiry-q">
-                <p class="solutions-enquiry-radio-label">Do you have space for Store setup<span class="req">*</span></p>
+                <p class="solutions-enquiry-radio-label">Do you have space for Store setup</p>
                 <div class="solutions-enquiry-radios" role="radiogroup" aria-label="Do you have space for store setup?">
                     <label class="radio-opt">
                         <input asp-for="HaveSpaceForStoreSetup" type="radio" value="Yes" checked />
@@ -151,7 +151,7 @@
                 <span asp-validation-for="HaveSpaceForStoreSetup" class="text-red-500"></span>
             </div>
             <div class="solutions-enquiry-q solutions-enquiry-sqft" data-sqft-field>
-                <p class="solutions-enquiry-radio-label">If Yes, what is the size in sq.ft.<span class="req">*</span>
+                <p class="solutions-enquiry-radio-label">If Yes, what is the size in sq.ft.
                 </p>
                 <input asp-for="StoreSizeSqFt" placeholder="Sq. Ft." class="f-field" />
                 <span asp-validation-for="StoreSizeSqFt" class="text-red-500"></span>
