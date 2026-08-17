@@ -541,7 +541,7 @@
   line-height: 28px;
   color: #fff;
 }
-#solutions-enquiry .f-field::placeholder { color: #ffffff; }
+#solutions-enquiry .f-field::placeholder {color: rgba(255, 255, 255, 0.9); }
 #solutions-enquiry .f-field:focus,
 #solutions-enquiry .f-field:focus-within {
   outline: none;
@@ -573,6 +573,9 @@
 }
 #solutions-enquiry .cselect-btn[data-empty="true"] .cselect-value {
   color: rgba(255, 255, 255, 0.9);
+}
+#solutions-enquiry .f-field input[type="tel"] {
+   color: rgba(255, 255, 255, 0.9);
 }
 #solutions-enquiry .cselect-chevron {
   transition: transform 0.25s ease;
