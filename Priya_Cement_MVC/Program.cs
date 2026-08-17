@@ -112,7 +112,8 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/Assets"
 });
 
-
+// Handles 404, 403, etc. when no endpoint produces the response
+app.UseStatusCodePagesWithReExecute("/Error");
 
 var redirects = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
 {
