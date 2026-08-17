@@ -92,9 +92,11 @@ $(document).ready(function () {
         // if (whatsapp === "") {
         //     setError("WhatsAppNumber", "Please enter your WhatsApp number.");
         // } 
+        if (whatsapp != "") {
         if (!/^\d{10}$/.test(whatsapp)) {
             setError("WhatsAppNumber", "Enter a valid 10-digit WhatsApp number.");
         }
+           }
 
         var email = ($("#EmailAddress").val() || "").trim();
 
@@ -109,7 +111,7 @@ $(document).ready(function () {
         if (!$("#District").val()) setError("District", "Please select district.");
 
         var town = ($("#TownVillage").val() || "").trim();
-        if (town === "") setError("TownVillage", "Please enter town / village.");
+       // if (town === "") setError("TownVillage", "Please enter town / village.");
 
         var occupation = $("#CurrentOccupation").val();
         if (!occupation) {
