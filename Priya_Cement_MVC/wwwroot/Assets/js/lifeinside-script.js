@@ -355,11 +355,12 @@
   }
 
   function createTimeline() {
-    /* Keep title inside the sticky panel â€” viewport centering at init time
-       pushed it hundreds of px above the fold once the section pins. */
-    gsap.set(title, { opacity: 0, scale: 1.12, y: 48 });
-    gsap.set(canvas, { opacity: 0, filter: "blur(12px)" });
-    /* GSAP alone centers nodes â€” never mix with CSS translate(-50%,-50%) */
+    /* Title + first flower frame visible as soon as the section pins —
+       fading them from 0 left a blank viewport at scrub progress 0
+       (same fix as aboutus-values). */
+    gsap.set(title, { opacity: 1, scale: 1, y: 0 });
+    gsap.set(canvas, { opacity: 1, filter: "blur(0px)" });
+    /* GSAP alone centers nodes — never mix with CSS translate(-50%,-50%) */
     centerNodes({
       opacity: 0,
       scale: 0.5,
@@ -388,21 +389,8 @@
       },
     });
 
-    /* Title + canvas appear as soon as the section pins — no empty white beat */
-    tl.to(title, { opacity: 1, scale: 1, duration: 1.0 }, 0)
-      .to(canvas, { opacity: 1, duration: 0.5, ease: "power1.out" }, 0.15)
-      .to(title, { y: 0, duration: 1.4, ease: "power3.out" }, 0.35)
-      .addLabel("seq", ">-0.1")
+    tl.addLabel("seq", 0)
       .to({}, { duration: SEQ_DURATION }, "seq")
-      .to(
-        canvas,
-        {
-          filter: "blur(0px)",
-          duration: 0.9,
-          ease: "power2.out",
-        },
-        "seq+=0.25"
-      )
       .to(
         logo,
         {
