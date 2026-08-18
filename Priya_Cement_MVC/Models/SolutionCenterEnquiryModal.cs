@@ -32,7 +32,7 @@ namespace Priya_Cement_MVC.Models
         [Required(ErrorMessage = "Please select district")]
         public string District { get; set; }
 
-        [Required(ErrorMessage = "Please enter town / village")]
+        //[Required(ErrorMessage = "Please enter town / village")]
         [StringLength(200)]
         public string TownVillage { get; set; }
 
