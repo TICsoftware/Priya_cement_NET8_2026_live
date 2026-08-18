@@ -114,7 +114,14 @@ $(document).ready(function () {
 
         if (!$("#Gender").val()) setError("Gender", "Please select gender.");
         if (!$("#AgeGroup").val()) setError("AgeGroup", "Please select age group.");
-        if (!$("#District").val()) setError("District", "Please select district.");
+        //if (!$("#District").val()) setError("District", "Please select district.");
+
+        if (!$("#District").val()) {
+            setError("District", "Please select district.");
+        } 
+        else if ($("#District").val() === "Other" && !$("#OtherDistrict").val().trim()) {
+            setError("OtherDistrict", "Please enter other district.");
+        }
 
         var town = ($("#TownVillage").val() || "").trim();
        // if (town === "") setError("TownVillage", "Please enter town / village.");
@@ -185,5 +192,5 @@ $(document).ready(function () {
     $("#District").change(function () {
         toggleOtherDistrict();
     });
-    
+
 });
