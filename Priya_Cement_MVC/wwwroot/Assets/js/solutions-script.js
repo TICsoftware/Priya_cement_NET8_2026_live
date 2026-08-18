@@ -462,4 +462,63 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
+
+  /* ---------------------------------------
+     Partner dock — right-edge sticky tab + panel
+  --------------------------------------- */
+  (function initPartnerDock() {
+    const root = document.getElementById("partner-dock");
+    if (!root) return;
+
+    const tab = document.getElementById("partner-dock-tab");
+    const panel = document.getElementById("partner-dock-panel");
+    const closeBtn = document.getElementById("partner-dock-close");
+    const backdrop = document.getElementById("partner-dock-backdrop");
+    if (!tab || !panel) return;
+
+    let open = false;
+
+    function setOpen(next) {
+      open = !!next;
+      tab.setAttribute("aria-expanded", open ? "true" : "false");
+      panel.setAttribute("aria-hidden", open ? "false" : "true");
+
+      if (open) {
+        panel.hidden = false;
+        if (backdrop) {
+          backdrop.hidden = false;
+          backdrop.setAttribute("aria-hidden", "false");
+        }
+        document.documentElement.classList.add("partner-dock-open");
+        requestAnimationFrame(() => {
+          root.classList.add("is-open");
+          const firstLink = panel.querySelector("a");
+          if (firstLink) firstLink.focus({ preventScroll: true });
+        });
+      } else {
+        root.classList.remove("is-open");
+        document.documentElement.classList.remove("partner-dock-open");
+        if (backdrop) backdrop.setAttribute("aria-hidden", "true");
+        const hide = () => {
+          if (open) return;
+          panel.hidden = true;
+          if (backdrop) backdrop.hidden = true;
+        };
+        if (reduceMotion) hide();
+        else window.setTimeout(hide, 360);
+        tab.focus({ preventScroll: true });
+      }
+    }
+
+    tab.addEventListener("click", () => setOpen(!open));
+    if (closeBtn) closeBtn.addEventListener("click", () => setOpen(false));
+    if (backdrop) backdrop.addEventListener("click", () => setOpen(false));
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && open) {
+        e.preventDefault();
+        setOpen(false);
+      }
+    });
+  })();
 });
