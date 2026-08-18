@@ -14,9 +14,9 @@ namespace Priya_Cement_MVC.Models
         [RegularExpression(@"^\+?[0-9\s\-\(\)]{7,20}$", ErrorMessage = "Enter a valid mobile number")]
         public string PhoneNumber { get; set; }
 
-        //[Required(ErrorMessage = "Please enter your WhatsApp number")]
+        
         [RegularExpression(@"^\+?[0-9\s\-\(\)]{7,20}$", ErrorMessage = "Enter a valid WhatsApp number")]
-        public string WhatsAppNumber { get; set; }
+        public string? WhatsAppNumber { get; set; }
 
         [Required(ErrorMessage = "Please enter your email address")]
         [EmailAddress(ErrorMessage = "Enter a valid email address")]
