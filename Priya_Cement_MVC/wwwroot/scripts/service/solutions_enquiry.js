@@ -89,14 +89,20 @@ $(document).ready(function () {
         }
 
         var whatsapp = ($("#WhatsAppNumber").val() || "").trim();
-        // if (whatsapp === "") {
-        //     setError("WhatsAppNumber", "Please enter your WhatsApp number.");
-        // } 
-        if (whatsapp != "") {
-        if (!/^\d{10}$/.test(whatsapp)) {
+
+        if (whatsapp !== "" && !/^\d{10}$/.test(whatsapp)) {
             setError("WhatsAppNumber", "Enter a valid 10-digit WhatsApp number.");
         }
-           }
+
+        // var whatsapp = ($("#WhatsAppNumber").val() || "").trim();
+        // // if (whatsapp === "") {
+        // //     setError("WhatsAppNumber", "Please enter your WhatsApp number.");
+        // // } 
+        // if (whatsapp != "") {
+        // if (!/^\d{10}$/.test(whatsapp)) {
+        //     setError("WhatsAppNumber", "Enter a valid 10-digit WhatsApp number.");
+        // }
+        //    }
 
         var email = ($("#EmailAddress").val() || "").trim();
 
