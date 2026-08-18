@@ -61,6 +61,10 @@ namespace Priya_Cement_MVC.Models
         [Range(typeof(bool), "true", "true", ErrorMessage = "Please accept the consent.")]
         public bool Consent { get; set; }
 
+
+
+        public string OtherDistrict { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (string.Equals(CurrentOccupation, "Other", StringComparison.OrdinalIgnoreCase)
