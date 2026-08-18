@@ -50,105 +50,226 @@ namespace Priya_Cement_BusinessLogic.BAL
             return dt;
         }
 
-
         public string MailSolutionsEnquiryContent(SolutionsEnquiry obj)
         {
             string district = obj.District == "Other"
                 ? obj.OtherDistrict
                 : obj.District;
 
-            string bodyhtmlcontent =
-                "<h4>Dear Team,</h4>" +
-                "<p>Please find below the Solution Centre Enquiry submitted through the website.</p>" +
+            string tableStyle = "border-collapse:collapse;width:100%;font-family:Arial,sans-serif;font-size:14px;";
+            string labelStyle = "padding:10px;border:1px solid #dddddd;background-color:#f5f5f5;font-weight:bold;width:35%;";
+            string valueStyle = "padding:10px;border:1px solid #dddddd;width:65%;";
 
-                "<table border='1' cellpadding='6' cellspacing='0' " +
-                "style='border-collapse:collapse;width:100%;'>" +
+            string bodyhtmlcontent =
+                "<div style='font-family:Arial,sans-serif;color:#333333;max-width:800px;margin:auto;'>" +
+
+                "<h3 style='margin-bottom:10px;'>Dear Team,</h3>" +
+
+                "<p style='line-height:1.6;'>Please find below the Solution Centre Enquiry submitted through the website.</p>" +
+
+                "<table cellpadding='0' cellspacing='0' style='" + tableStyle + "'>" +
                 "<tbody>" +
 
                 "<tr>" +
-                "<td><strong>Full Name</strong></td>" +
-                "<td>" + obj.FullName + "</td>" +
+                "<td style='" + labelStyle + "'>Full Name</td>" +
+                "<td style='" + valueStyle + "'>" + obj.FullName + "</td>" +
                 "</tr>" +
 
                 "<tr>" +
-                "<td><strong>Mobile Number</strong></td>" +
-                "<td>" + obj.MobileNumber + "</td>" +
+                "<td style='" + labelStyle + "'>Mobile Number</td>" +
+                "<td style='" + valueStyle + "'>" + obj.MobileNumber + "</td>" +
                 "</tr>" +
 
                 (!string.IsNullOrWhiteSpace(obj.WhatsappNumber)
-                    ? "<tr><td><strong>WhatsApp Number</strong></td><td>" +
-                      obj.WhatsappNumber + "</td></tr>"
+                    ? "<tr>" +
+                      "<td style='" + labelStyle + "'>WhatsApp Number</td>" +
+                      "<td style='" + valueStyle + "'>" + obj.WhatsappNumber + "</td>" +
+                      "</tr>"
                     : "") +
 
                 "<tr>" +
-                "<td><strong>Email Address</strong></td>" +
-                "<td>" + obj.EmailId + "</td>" +
+                "<td style='" + labelStyle + "'>Email Address</td>" +
+                "<td style='" + valueStyle + "'>" + obj.EmailId + "</td>" +
                 "</tr>" +
 
                 (!string.IsNullOrWhiteSpace(obj.Gender)
-                    ? "<tr><td><strong>Gender</strong></td><td>" +
-                      obj.Gender + "</td></tr>"
+                    ? "<tr>" +
+                      "<td style='" + labelStyle + "'>Gender</td>" +
+                      "<td style='" + valueStyle + "'>" + obj.Gender + "</td>" +
+                      "</tr>"
                     : "") +
 
                 (!string.IsNullOrWhiteSpace(obj.AgeGroup)
-                    ? "<tr><td><strong>Age Group</strong></td><td>" +
-                      obj.AgeGroup + "</td></tr>"
+                    ? "<tr>" +
+                      "<td style='" + labelStyle + "'>Age Group</td>" +
+                      "<td style='" + valueStyle + "'>" + obj.AgeGroup + "</td>" +
+                      "</tr>"
                     : "") +
 
                 "<tr>" +
-                "<td><strong>District</strong></td>" +
-                "<td>" + district + "</td>" +
+                "<td style='" + labelStyle + "'>District</td>" +
+                "<td style='" + valueStyle + "'>" + district + "</td>" +
                 "</tr>" +
 
                 "<tr>" +
-                "<td><strong>Town / Village</strong></td>" +
-                "<td>" + obj.TownVillage + "</td>" +
+                "<td style='" + labelStyle + "'>Town / Village</td>" +
+                "<td style='" + valueStyle + "'>" + obj.TownVillage + "</td>" +
                 "</tr>" +
 
                 "<tr>" +
-                "<td><strong>Current Occupation</strong></td>" +
-                "<td>" + obj.CurrentOccupation + "</td>" +
+                "<td style='" + labelStyle + "'>Current Occupation</td>" +
+                "<td style='" + valueStyle + "'>" + obj.CurrentOccupation + "</td>" +
                 "</tr>" +
 
                 (!string.IsNullOrWhiteSpace(obj.CurrentOccupationOthers)
-                    ? "<tr><td><strong>Current Occupation - Other</strong></td><td>" +
-                      obj.CurrentOccupationOthers + "</td></tr>"
+                    ? "<tr>" +
+                      "<td style='" + labelStyle + "'>Current Occupation - Other</td>" +
+                      "<td style='" + valueStyle + "'>" + obj.CurrentOccupationOthers + "</td>" +
+                      "</tr>"
                     : "") +
 
                 "<tr>" +
-                "<td><strong>Own Shop / Commercial Space</strong></td>" +
-                "<td>" + obj.OwnShopCommercialSpace + "</td>" +
+                "<td style='" + labelStyle + "'>Own Shop / Commercial Space</td>" +
+                "<td style='" + valueStyle + "'>" + obj.OwnShopCommercialSpace + "</td>" +
                 "</tr>" +
 
                 "<tr>" +
-                "<td><strong>Previously Run Business</strong></td>" +
-                "<td>" + obj.PreviouslyRunBusiness + "</td>" +
+                "<td style='" + labelStyle + "'>Previously Run Business</td>" +
+                "<td style='" + valueStyle + "'>" + obj.PreviouslyRunBusiness + "</td>" +
                 "</tr>" +
 
                 "<tr>" +
-                "<td><strong>Space Available for Store Setup</strong></td>" +
-                "<td>" + obj.SpaceForStoreSetup + "</td>" +
+                "<td style='" + labelStyle + "'>Space Available for Store Setup</td>" +
+                "<td style='" + valueStyle + "'>" + obj.SpaceForStoreSetup + "</td>" +
                 "</tr>" +
 
                 (!string.IsNullOrWhiteSpace(obj.StoreSizeSqft)
-                    ? "<tr><td><strong>Store Size (Sq. Ft.)</strong></td><td>" +
-                      obj.StoreSizeSqft + "</td></tr>"
+                    ? "<tr>" +
+                      "<td style='" + labelStyle + "'>Store Size (Sq. Ft.)</td>" +
+                      "<td style='" + valueStyle + "'>" + obj.StoreSizeSqft + "</td>" +
+                      "</tr>"
                     : "") +
 
                 (!string.IsNullOrWhiteSpace(obj.PreferredTimeForContact)
-                    ? "<tr><td><strong>Preferred Time for Contact</strong></td><td>" +
-                      obj.PreferredTimeForContact + "</td></tr>"
+                    ? "<tr>" +
+                      "<td style='" + labelStyle + "'>Preferred Time for Contact</td>" +
+                      "<td style='" + valueStyle + "'>" + obj.PreferredTimeForContact + "</td>" +
+                      "</tr>"
                     : "") +
 
                 "</tbody>" +
                 "</table>" +
 
                 "<br/>" +
-                "<p><strong>Regards,</strong><br/>" +
-                "<strong>Priya Cement Website</strong></p>";
+
+                "<p style='line-height:1.6;margin-top:20px;'>" +
+                "<strong>Regards,</strong><br/>" +
+                "<strong>Priya Cement Website</strong>" +
+                "</p>" +
+
+                "</div>";
 
             return bodyhtmlcontent;
         }
+
+        // public string MailSolutionsEnquiryContent(SolutionsEnquiry obj)
+        // {
+        //     string district = obj.District == "Other"
+        //         ? obj.OtherDistrict
+        //         : obj.District;
+
+        //     string bodyhtmlcontent =
+        //         "<h4>Dear Team,</h4>" +
+        //         "<p>Please find below the Solution Centre Enquiry submitted through the website.</p>" +
+
+        //         "<table border='1' cellpadding='6' cellspacing='0' " +
+        //         "style='border-collapse:collapse;width:100%;'>" +
+        //         "<tbody>" +
+
+        //         "<tr>" +
+        //         "<td><strong>Full Name</strong></td>" +
+        //         "<td>" + obj.FullName + "</td>" +
+        //         "</tr>" +
+
+        //         "<tr>" +
+        //         "<td><strong>Mobile Number</strong></td>" +
+        //         "<td>" + obj.MobileNumber + "</td>" +
+        //         "</tr>" +
+
+        //         (!string.IsNullOrWhiteSpace(obj.WhatsappNumber)
+        //             ? "<tr><td><strong>WhatsApp Number</strong></td><td>" +
+        //               obj.WhatsappNumber + "</td></tr>"
+        //             : "") +
+
+        //         "<tr>" +
+        //         "<td><strong>Email Address</strong></td>" +
+        //         "<td>" + obj.EmailId + "</td>" +
+        //         "</tr>" +
+
+        //         (!string.IsNullOrWhiteSpace(obj.Gender)
+        //             ? "<tr><td><strong>Gender </strong></td><td>" +
+        //               obj.Gender + "</td></tr>"
+        //             : "") +
+
+        //         (!string.IsNullOrWhiteSpace(obj.AgeGroup)
+        //             ? "<tr><td><strong>Age Group</strong></td><td>" +
+        //               obj.AgeGroup + "</td></tr>"
+        //             : "") +
+
+        //         "<tr>" +
+        //         "<td><strong>District</strong></td>" +
+        //         "<td>" + district + "</td>" +
+        //         "</tr>" +
+
+        //         "<tr>" +
+        //         "<td><strong>Town / Village</strong></td>" +
+        //         "<td>" + obj.TownVillage + "</td>" +
+        //         "</tr>" +
+
+        //         "<tr>" +
+        //         "<td><strong>Current Occupation</strong></td>" +
+        //         "<td>" + obj.CurrentOccupation + "</td>" +
+        //         "</tr>" +
+
+        //         (!string.IsNullOrWhiteSpace(obj.CurrentOccupationOthers)
+        //             ? "<tr><td><strong>Current Occupation - Other</strong></td><td>" +
+        //               obj.CurrentOccupationOthers + "</td></tr>"
+        //             : "") +
+
+        //         "<tr>" +
+        //         "<td><strong>Own Shop / Commercial Space</strong></td>" +
+        //         "<td>" + obj.OwnShopCommercialSpace + "</td>" +
+        //         "</tr>" +
+
+        //         "<tr>" +
+        //         "<td><strong>Previously Run Business</strong></td>" +
+        //         "<td>" + obj.PreviouslyRunBusiness + "</td>" +
+        //         "</tr>" +
+
+        //         "<tr>" +
+        //         "<td><strong>Space Available for Store Setup</strong></td>" +
+        //         "<td>" + obj.SpaceForStoreSetup + "</td>" +
+        //         "</tr>" +
+
+        //         (!string.IsNullOrWhiteSpace(obj.StoreSizeSqft)
+        //             ? "<tr><td><strong>Store Size (Sq. Ft.)</strong></td><td>" +
+        //               obj.StoreSizeSqft + "</td></tr>"
+        //             : "") +
+
+        //         (!string.IsNullOrWhiteSpace(obj.PreferredTimeForContact)
+        //             ? "<tr><td><strong>Preferred Time for Contact</strong></td><td>" +
+        //               obj.PreferredTimeForContact + "</td></tr>"
+        //             : "") +
+
+        //         "</tbody>" +
+        //         "</table>" +
+
+        //         "<br/>" +
+        //         "<p><strong>Regards,</strong><br/>" +
+        //         "<strong>Priya Cement Website</strong></p>";
+
+        //     return bodyhtmlcontent;
+        // }
 
 
         public void SendMail(string emailContent, string subject)
