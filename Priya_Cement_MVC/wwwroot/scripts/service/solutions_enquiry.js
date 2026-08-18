@@ -167,4 +167,23 @@ $(document).ready(function () {
 
         return isValidFlag;
     }
+
+
+    function toggleOtherDistrict() {
+        if ($("#District").val() === "Other") {
+            $("#otherDistrictDiv").show();
+        } else {
+            $("#otherDistrictDiv").hide();
+            $("#OtherDistrict").val(""); // Clear value when hidden
+        }
+    }
+
+    // On page load
+    toggleOtherDistrict();
+
+    // On dropdown change
+    $("#District").change(function () {
+        toggleOtherDistrict();
+    });
+    
 });

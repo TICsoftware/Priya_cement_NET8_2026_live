@@ -58,15 +58,20 @@
     <div class="cselect">
         <select asp-for="District" class="f-field">
             <option value="">District*</option>
-            <option value="Hyderabad">Hyderabad</option>
-            <option value="Rangareddy">Rangareddy</option>
-            <option value="Krishna">Krishna</option>
-            <option value="Visakhapatnam">Visakhapatnam</option>
-            <option value="Guntur">Guntur</option>
-            <option value="Chittoor">Chittoor</option>
+            <option value="Andhra Pradesh-Ongole">Andhra Pradesh - Ongole</option>
+            <option value="Andhra Pradesh-Markapuram">Andhra Pradesh - Markapuram</option>
+            <option value="Andhra Pradesh-Prakasham">Andhra Pradesh - Prakasham</option>
+            <option value="Karnataka-Kalaburgi">Karnataka - Kalaburgi</option>
+            <option value="Karnataka-Bidar">Karnataka - Bidar</option>
+            <option value="Karnataka-Yadgir">Karnataka - Yadgir</option>
             <option value="Other">Other</option>
         </select>
         <span asp-validation-for="District" class="text-red-500"></span>
+    </div>
+
+    <div id="otherDistrictDiv" style="display:none;">
+        <input asp-for="OtherDistrict" class="f-field" placeholder="District" maxlength="200"/>
+        <span asp-validation-for="OtherDistrict" class="text-red-500"></span>
     </div>
 
     <div>

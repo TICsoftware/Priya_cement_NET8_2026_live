@@ -149,7 +149,8 @@ public class ProductController : Controller
                     ? model.StoreSizeSqFt
                     : null,
                 PreferredTimeForContact = model.PreferredTimeForContact,
-                Consent = model.Consent
+                Consent = model.Consent,
+                OtherDistrict = model.OtherDistrict,
             };
 
             DataTable dt = _SolutionsEnquiry_bal.SubmitEnquiry_BAL(entity);

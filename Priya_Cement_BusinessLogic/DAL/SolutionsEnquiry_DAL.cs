@@ -31,7 +31,8 @@ namespace Priya_Cement_BusinessLogic.DAL
                 new SqlParameter("@space_for_store_setup", string.IsNullOrWhiteSpace(model.SpaceForStoreSetup) ? (object)DBNull.Value : model.SpaceForStoreSetup),
                 new SqlParameter("@store_size_sqft", string.IsNullOrWhiteSpace(model.StoreSizeSqft) ? (object)DBNull.Value : model.StoreSizeSqft),
                 new SqlParameter("@preferred_time_for_contact", string.IsNullOrWhiteSpace(model.PreferredTimeForContact) ? (object)DBNull.Value : model.PreferredTimeForContact),
-                new SqlParameter("@Consent", (object?)model.Consent ?? DBNull.Value)
+                new SqlParameter("@Consent", (object?)model.Consent ?? DBNull.Value),
+                new SqlParameter("@OtherDistrict", model.OtherDistrict ?? (object)DBNull.Value),
             };
 
             return GetDataSet("Solutions_Enquiry_Submission_Insert", sqlParams).Tables[0];

@@ -53,6 +53,10 @@ namespace Priya_Cement_BusinessLogic.BAL
 
         public string MailSolutionsEnquiryContent(SolutionsEnquiry obj)
         {
+            string district = obj.District == "Other"
+                ? obj.OtherDistrict
+                : obj.District;
+
             string bodyhtmlcontent =
                 "<h4>Dear Team,</h4>" +
                 "<p>Please find below the Solution Centre Enquiry submitted through the website.</p>" +
@@ -93,7 +97,7 @@ namespace Priya_Cement_BusinessLogic.BAL
 
                 "<tr>" +
                 "<td><strong>District</strong></td>" +
-                "<td>" + obj.District + "</td>" +
+                "<td>" + district + "</td>" +
                 "</tr>" +
 
                 "<tr>" +
@@ -202,7 +206,7 @@ namespace Priya_Cement_BusinessLogic.BAL
             }
         }
 
-        
+
 
 
     }
