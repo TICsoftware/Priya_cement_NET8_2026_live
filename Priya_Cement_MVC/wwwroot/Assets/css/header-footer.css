@@ -27,7 +27,7 @@
   .logo-link{ display:flex; align-items:center; flex-shrink:0; line-height:0; outline-offset:6px;}
   .logo-link img{width:auto; height:90px; display:block; transition:height .35s var(--ease);}
   @media (min-width: 1025px){
-    .site-header.is-compact .logo-link img{ height:48px;}
+    .site-header.is-compact .logo-link img{ height:65px;}
   }
   .primary-nav{position:relative; display:flex; align-items:center; gap:4px; flex:1;justify-content: end;}
   .nav-item{ position:relative;}
@@ -321,7 +321,7 @@
 
 @media (min-width: 1200px) and (max-width: 1366px) {
    .nav-trigger {padding: 10px 6px;}
-   .logo-link img {height: 60px;}
+   .logo-link img {height: 80px;}
    .ml-title{font-size:0.875rem;}
    .ml-desc {font-size:0.75rem;}
    .nav-trigger, .btn-dealer, .lang-btn{font-size: 1rem;}
@@ -329,7 +329,7 @@
    .icon-btn img { width: 15px; height: 15px;}
    .icon-btn {width: 30px;height: 30px;}
    .header-actions {gap: 4px;}
-   .site-header.is-compact .logo-link img {height: 42px;}
+   .site-header.is-compact .logo-link img {height: 70px;}
    .mega-panel {max-width: 90%;}
   
 }
@@ -344,7 +344,7 @@
 /* 125% zoom */
 @media screen and (min-width: 1025px) and (-webkit-min-device-pixel-ratio:1.25),screen and (min-width:1025px) and (min-resolution:120dpi) {
 .nav-trigger {padding: 10px 6px;}
-   .logo-link img {height: 52px;}
+   .logo-link img {height: 75px;}
    .ml-title{font-size:0.875rem;}
    .ml-desc {font-size:0.75rem;}
    .nav-trigger{font-size: 1rem;}
@@ -353,7 +353,7 @@
    .icon-btn img { width: 15px; height: 15px;}
    .icon-btn {width: 30px;height: 30px;}
    .header-actions {gap: 4px;}
-    .site-header.is-compact .logo-link img {height: 42px;}
+    .site-header.is-compact .logo-link img {height: 65px;}
     .site-header {padding: 6px 0;}
 }
 

@@ -98,15 +98,15 @@
       culture: { x: -34.3, y: 3.2 },
       safety: { x: -23.4, y: -28.0 },
     },
-    /* Push labels farther into side gutters when the stage is scaled down */
+    /* Mobile — push labels into gutters with clearer vertical stagger */
     labelOffsetMobile: {
-      wellness: { x: 10, y: -18 },
-      learning: { x: 24, y: -4 },
-      leadership: { x: 24, y: -2 },
-      recognition: { x: 20, y: 12 },
-      purpose: { x: -34, y: 8 },
-      culture: { x: -38, y: 2 },
-      safety: { x: -18, y: -32 },
+      wellness: { x: -23, y: -34 },
+      learning: { x: 28, y: -34 },
+      leadership: { x: 30, y: 10 },
+      recognition: { x: 5, y: 15 },
+      purpose: { x: -34, y: 13 },
+      culture: { x: -42, y: 8 },
+      safety: { x: -42, y: -14 },
     },
     /*
      * 1920px display @ ~150% browser zoom only (CSS viewport ~1280).
@@ -125,9 +125,9 @@
   };
 
   const mqNarrow = window.matchMedia("(max-width: 767px)");
-  const EDGE_PAD = () => (mqNarrow.matches ? 8 : 12);
-  /* Icons slightly smaller on phone so petals leave room for copy */
-  const NODE_SIZE_SCALE = () => (mqNarrow.matches ? 0.82 : 1);
+  const EDGE_PAD = () => (mqNarrow.matches ? 6 : 12);
+  /* Larger nodes on phone so petal icons stay readable */
+  const NODE_SIZE_SCALE = () => (mqNarrow.matches ? 1.22 : 1);
 
   /** 1920-class screen with ~150% page zoom (CSS viewport ≈ 1280×720). */
   function isZoom150On1920() {
