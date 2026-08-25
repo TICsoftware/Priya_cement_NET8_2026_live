@@ -30,11 +30,11 @@
     asp-append-version="true">
   <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
 
-  <link rel="preload" href="~/Assets/css/header-footer.css" as="style"   asp-append-version="true">
+  <link rel="preload" href="~/Assets/css/header-footer.css" as="style" asp-append-version="true">
   <link rel="stylesheet" href="~/Assets/css/header-footer.css" asp-append-version="true">
 
-  <link rel="preload" href="~/Assets/css/common-style.css" as="style"   asp-append-version="true">
-  <link rel="stylesheet" href="~/Assets/css/common-style.css"   asp-append-version="true">
+  <link rel="preload" href="~/Assets/css/common-style.css" as="style" asp-append-version="true">
+  <link rel="stylesheet" href="~/Assets/css/common-style.css" asp-append-version="true">
   <link rel="stylesheet" href="~/Assets/css/cookie-style.css" asp-append-version="true" />
 
 
@@ -45,7 +45,7 @@
 
 <body>
 
-<!-- Google Tag Manager (noscript) -->
+  <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2XDZW5Z" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
@@ -72,13 +72,15 @@
     </div>
   }
 
-  @Html.Partial("~/Views/Shared/_Header.cshtml")
+  @* @Html.Partial("~/Views/Shared/_Header.cshtml") *@
+  @await Component.InvokeAsync("HeaderMenu")
 
 
   <main id="main-content">
     @RenderBody()
 
-    @Html.Partial("~/Views/Shared/_Footer.cshtml")
+    @* @Html.Partial("~/Views/Shared/_Footer.cshtml") *@
+    @await Component.InvokeAsync("FooterMenu")
 
   </main>
 
@@ -112,11 +114,13 @@
   <div class="privacy_policy_botm" id="popup-privacypolicy">
     <div class="container">
       <div class="privacy_policy_bg">
-        <p>We use cookies to enhance your browsing experience. By continuing to use our website you agree to our policies.</p>
+        <p>We use cookies to enhance your browsing experience. By continuing to use our website you agree to our
+          policies.</p>
         <div class="privacy_btn">
           <div class="privacy_close transition_all_4s hvr-shutter-out-horizontal acceptbtn" id="acceptCookie">Accept
           </div>
-          <a href="/privacy-policy" class="transition_all_4s acceptbtn text-white hover:text-fontColorOne">Read the policy</a>
+          <a href="/privacy-policy" class="transition_all_4s acceptbtn text-white hover:text-fontColorOne">Read the
+            policy</a>
         </div>
       </div>
     </div>
@@ -125,13 +129,13 @@
 
 
   @* COMMON SCRIPT  *@
-  <script src="~/Assets/js/jquery.min.js"  asp-append-version="true"></script>
-  <script src="~/Assets/js/gsap.min.js"  asp-append-version="true"></script>
-  <script src="~/Assets/js/ScrollTrigger.min.js"  asp-append-version="true"></script>
-  <script src="~/Assets/js/lenis.min.js"  asp-append-version="true"></script>
-  <script src="~/Assets/js/common-script.js"  asp-append-version="true"></script>
-  <script src="~/Assets/js/title-animation.js"  asp-append-version="true"></script>
-  <script defer type="text/javascript" src="~/Assets/js/cookie-script.js"  asp-append-version="true"></script>
+  <script src="~/Assets/js/jquery.min.js" asp-append-version="true"></script>
+  <script src="~/Assets/js/gsap.min.js" asp-append-version="true"></script>
+  <script src="~/Assets/js/ScrollTrigger.min.js" asp-append-version="true"></script>
+  <script src="~/Assets/js/lenis.min.js" asp-append-version="true"></script>
+  <script src="~/Assets/js/common-script.js" asp-append-version="true"></script>
+  <script src="~/Assets/js/title-animation.js" asp-append-version="true"></script>
+  <script defer type="text/javascript" src="~/Assets/js/cookie-script.js" asp-append-version="true"></script>
   <script src="~/scripts/Search/Search_Home.js" asp-append-version="true"></script>
 
 
