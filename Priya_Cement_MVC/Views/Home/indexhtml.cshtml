@@ -26,6 +26,13 @@
       })();
     </script>
     <style nonce="@(Context.Items["CSPNonce"])">
+      html.site-preloader-pending {
+        overflow-y: scroll !important;
+      }
+      html.site-preloader-pending body {
+        overflow: hidden !important;
+        height: 100% !important;
+      }
       html.site-preloader-pending .site-header {
         opacity:0 !important;
         visibility:hidden !important;
