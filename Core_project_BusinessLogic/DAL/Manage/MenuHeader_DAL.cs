@@ -215,6 +215,17 @@ namespace Core_project_BusinessLogic.DAL
             ExecuteNonQuery("MenuHeader_Update", p);
         }
 
+
+        public void Deactivate_dal(int id, int userId)
+        {
+            SqlParameter[] p =
+            {
+                new SqlParameter("@ID", id),
+                new SqlParameter("@DeActivated_UserID", userId)
+            };
+            SQLInsert_Update_Delete_Data("MenuHeader_Deactivate", p);
+        }
+
         // ============================================
         // MAP DATA ROW TO MODEL
         // ============================================
