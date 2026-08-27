@@ -242,6 +242,11 @@ namespace Core_project_BusinessLogic.DAL
                     ? null
                     : Convert.ToInt32(r["ParentMenuId"]),
 
+                ParentMenuName = r["ParentMenuName"] == DBNull.Value
+                    ? null
+                    : r["ParentMenuName"].ToString(),
+
+
                 MenuCategory = r["MenuCategory"] == DBNull.Value
                     ? 0
                     : Convert.ToInt32(r["MenuCategory"]),
