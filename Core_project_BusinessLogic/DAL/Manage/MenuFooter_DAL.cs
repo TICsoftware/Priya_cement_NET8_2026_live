@@ -273,6 +273,10 @@ namespace Core_project_BusinessLogic.DAL
                     ? null
                     : Convert.ToInt32(r["ParentFooterId"]),
 
+                    ParentFooterTitle = r["ParentFooterTitle"] == DBNull.Value
+                    ? "Main Footer"
+                    : r["ParentFooterTitle"].ToString(),
+
                 FooterType = r["FooterType"] == DBNull.Value
                     ? "Menu"
                     : r["FooterType"].ToString(),
