@@ -36,6 +36,13 @@
     <meta property="og:url" content="@(content?.CanonicalUrl)" />
 
     <link rel="canonical" href="@(content?.CanonicalUrl)" />
+
+      @if (!string.IsNullOrWhiteSpace(content?.page_schema))
+    {
+      
+            @Html.Raw(content?.page_schema.Replace("<p>", "").Replace("</p>", ""))
+       
+    }
 }
 
 @section Styles {

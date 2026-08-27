@@ -78,6 +78,7 @@ namespace Priya_Cement_BusinessLogic.BAL
                 cont_window_title = row.Field<string>("cont_window_title") ?? "",
                 cont_metadesc = row.Field<string>("cont_metadesc") ?? "",
                 cont_metatag = row.Field<string>("cont_metatag") ?? "",
+                page_schema = row.Field<string>("page_schema") ?? "",
                 CanonicalUrl = Config_Application_Website.GetMetaUrl(baseurl, canUrl),
                 cont_meta_image = Config_Application_Website.GetMetaUrl(baseurl, Image)
             };
