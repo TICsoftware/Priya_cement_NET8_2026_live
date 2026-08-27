@@ -100,9 +100,7 @@ public class SitemapController : Controller
 
                 DateTime lastModified;
 
-                if (!DateTime.TryParse(
-                    Convert.ToString(row["LastModified"]),
-                    out lastModified))
+                if (!DateTime.TryParse(Convert.ToString(row["LastModified"]), out lastModified))
                 {
                     lastModified = DateTime.Now;
                 }

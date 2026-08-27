@@ -48,5 +48,12 @@ namespace Core_project_BusinessLogic.BAL
         {
             return GetParentFooters_dal();
         }
+
+        public void Deactivate(int id, int userId)
+        {
+            Deactivate_dal(id, userId); ;
+        }
+
+
     }
 }

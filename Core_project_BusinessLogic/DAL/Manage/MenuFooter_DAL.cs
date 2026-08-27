@@ -109,6 +109,17 @@ namespace Core_project_BusinessLogic.DAL
         }
 
 
+        public void Deactivate_dal(int id, int userId)
+        {
+            SqlParameter[] p =
+            {
+                new SqlParameter("@ID", id),
+                new SqlParameter("@DeActivated_UserID", userId)
+            };
+            SQLInsert_Update_Delete_Data("MenuFooter_Deactivate", p);
+        }
+
+
         // ============================================
         // GET PARENT FOOTERS
         // ============================================

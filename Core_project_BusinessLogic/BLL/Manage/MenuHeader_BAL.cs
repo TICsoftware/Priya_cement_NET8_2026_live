@@ -30,7 +30,7 @@ namespace Core_project_BusinessLogic.BAL
         {
             return GetPagedMenus_dal(search, isActive, page, pageSize);
         }
-        
+
         public List<MenuHeader> GetMenus()
         {
             return GetMenus_dal();
@@ -40,5 +40,14 @@ namespace Core_project_BusinessLogic.BAL
         {
             return GetParentMenus_dal();
         }
+
+
+        public void Deactivate(int id, int userId)
+        {
+            Deactivate_dal(id, userId); ;
+        }
+
+
+
     }
 }

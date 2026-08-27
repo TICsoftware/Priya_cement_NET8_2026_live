@@ -10,6 +10,7 @@ using Priya_Cement_MVC.Models.Manage_Model;
 using Core_project_BusinessLogic.Entity.Manage;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Priya_Cement_MVC.Classes;
+using Priya_Cement_MVC.Helpers;
 namespace Priya_Cement_MVC.Controllers.Manage
 {
     [Authorize]
@@ -159,6 +160,16 @@ namespace Priya_Cement_MVC.Controllers.Manage
         }
 
 
+        public IActionResult Deactivate(string Id)
+        {
+            int realId = Convert.ToInt32(CryptoEngine.Decrypt(Id));
+            bal.Deactivate(realId, Convert.ToInt32(User.GetUserId()));
+
+            TempData["AlertMessage"] = "Menu deactivated";
+            return RedirectToAction("List");
+        }
+
+
 
 
         [HttpGet]
@@ -298,6 +309,15 @@ namespace Priya_Cement_MVC.Controllers.Manage
                 : 1;
 
             return View(result.Data);
+        }
+
+        public IActionResult DeactivateFooter(string Id)
+        {
+            int realId = Convert.ToInt32(CryptoEngine.Decrypt(Id));
+            bal_footer.Deactivate(realId, Convert.ToInt32(User.GetUserId()));
+
+            TempData["AlertMessage"] = "Footer deactivated";
+            return RedirectToAction("ListFooter");
         }
 
 
