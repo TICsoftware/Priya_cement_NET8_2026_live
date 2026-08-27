@@ -1,6 +1,7 @@
 /* ══════════════════════════════
    SITE PRELOADER
-   Lion + wordmark line-draw while loading, then lion flies to header.
+   Lion line-draw while loading; wordmark stays fully colored.
+   Then both fly to the header logo.
 ══════════════════════════════ */
 
 html.site-preloader-pending,
@@ -110,18 +111,7 @@ html.site-preloader-travel #sitePreloader {
 }
 
 .site-preloader__wordmark svg path {
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-}
-
-/* Only force empty fill while drawing — once filled, SVG fills must show */
-.site-preloader__wordmark:not(.is-filled) svg path {
-  fill: transparent;
-}
-
-.site-preloader__wordmark.is-filled svg path {
-  stroke: none !important;
+  stroke: none;
 }
 
 .site-preloader__logo.is-flying {

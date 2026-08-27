@@ -1,7 +1,7 @@
 /* ---------------------------------------
    SITE PRELOADER
-   Lion + wordmark draw together, then both fly to the header logo
-   in sync and swap to priyacement-logo-red as one brand.
+   Lion stroke-draws while loading; wordmark stays fully colored.
+   Then both fly to the header logo and swap to priyacement-logo-red.
 --------------------------------------- */
 (function () {
   const LOADER_SEEN_KEY = 'priyaHomepageLoaderSeen';
@@ -216,15 +216,32 @@
     });
   }
 
-  function loadSvg(container, fallbackSrc, cacheKey) {
+  function restoreFilledPaths(svg) {
+    svg.querySelectorAll('path').forEach((p) => {
+      const orig = p.getAttribute('data-orig-fill') || p.getAttribute('fill');
+      if (orig && orig !== 'none') {
+        p.setAttribute('fill', orig);
+        p.style.fill = orig;
+      }
+      p.setAttribute('stroke', 'none');
+      p.style.stroke = 'none';
+    });
+  }
+
+  function prepareLoaderSvg(svg, keepFills) {
+    svg.removeAttribute('width');
+    svg.removeAttribute('height');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    if (keepFills) restoreFilledPaths(svg);
+    else stripFillsKeepOrig(svg);
+    return svg;
+  }
+
+  function loadSvg(container, fallbackSrc, cacheKey, keepFills) {
     // Prefer SVG already inlined in HTML (first paint — no blank wait)
     const existing = container && container.querySelector('svg');
     if (existing) {
-      existing.removeAttribute('width');
-      existing.removeAttribute('height');
-      existing.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-      stripFillsKeepOrig(existing);
-      return Promise.resolve(existing);
+      return Promise.resolve(prepareLoaderSvg(existing, keepFills));
     }
 
     const src = container.getAttribute('data-svg-src') || fallbackSrc;
@@ -245,11 +262,7 @@
       container.innerHTML = text;
       const svg = container.querySelector('svg');
       if (!svg) throw new Error('No SVG root');
-      svg.removeAttribute('width');
-      svg.removeAttribute('height');
-      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-      stripFillsKeepOrig(svg);
-      return svg;
+      return prepareLoaderSvg(svg, keepFills);
     });
   }
 
@@ -275,26 +288,9 @@
     return len;
   }
 
-  function setupWordmarkStrokeDraw(paths) {
-    return paths.map((path) => {
-      const originalFill =
-        path.getAttribute('data-orig-fill') || path.getAttribute('fill') || '#ED1C24';
-      const isDark = originalFill === '#231F20' || originalFill.toLowerCase() === '#231f20';
-      const len = setupStrokeDraw(path, isDark ? '#231F20' : '#ED1C24', 1.2);
-      return { path, len, fill: originalFill === 'none' ? '#ED1C24' : originalFill };
-    });
-  }
-
   function setDrawProgress(path, len, progress01) {
     const p = Math.max(0, Math.min(1, progress01));
     path.style.strokeDashoffset = String(len * (1 - p));
-  }
-
-  function setWordmarkDrawProgress(items, progress01) {
-    const p = Math.max(0, Math.min(1, progress01));
-    items.forEach((item) => {
-      item.path.style.strokeDashoffset = String(item.len * (1 - p));
-    });
   }
 
   function fillPath(path, logoEl) {
@@ -305,21 +301,6 @@
     path.style.strokeDasharray = 'none';
     path.style.strokeDashoffset = '0';
     if (logoEl) logoEl.classList.add('is-filled');
-  }
-
-  function fillWordmarkPaths(items, wordmarkEl) {
-    items.forEach((item) => {
-      const path = item.path;
-      path.style.transition = 'fill 0.4s ease, stroke-opacity 0.4s ease';
-      path.setAttribute('fill', item.fill);
-      path.style.fill = item.fill; // beats CSS; keeps wordmark visible after stroke ends
-      path.setAttribute('stroke', 'none');
-      path.style.stroke = 'none';
-      path.style.strokeOpacity = '0';
-      path.style.strokeDasharray = 'none';
-      path.style.strokeDashoffset = '0';
-    });
-    if (wordmarkEl) wordmarkEl.classList.add('is-filled');
   }
 
   function init() {
@@ -371,7 +352,6 @@
     let revealStarted = false;
     let pathLen = 0;
     let lionPath = null;
-    let wordmarkItems = null;
     // Shorter brand hold — ABET-like pace
     const MIN_MS = 1400;
     const MAX_MS = 3200;
@@ -382,11 +362,10 @@
     let shown = 0;
 
     function applyDraw(progress01) {
-      // Ease so stroke spends more time in the middle (easier to watch)
+      // Ease so lion stroke spends more time in the middle (easier to watch)
       const t = Math.max(0, Math.min(1, progress01));
       const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
       if (lionPath && pathLen) setDrawProgress(lionPath, pathLen, eased);
-      if (wordmarkItems) setWordmarkDrawProgress(wordmarkItems, eased);
     }
 
     function flyToHeaderThenExit() {
@@ -639,7 +618,6 @@
       setProgress(100);
       applyDraw(1);
       if (lionPath) fillPath(lionPath, logo);
-      if (wordmarkItems) fillWordmarkPaths(wordmarkItems, wordmark);
 
       window.setTimeout(() => {
         const afterFade = () => flyToHeaderThenExit();
@@ -708,14 +686,8 @@
     });
 
     const wordmarkReady = wordmark
-      ? loadSvg(wordmark, '/Assets/images/logo/logo-vector-loader.svg', 'wordmark')
-          .then((svg) => {
-            const paths = Array.prototype.slice.call(svg.querySelectorAll('path'));
-            if (!paths.length) throw new Error('No wordmark path');
-            wordmarkItems = setupWordmarkStrokeDraw(paths);
-            applyDraw(Math.min(1, shown / 100));
-          })
-          .catch(() => { /* optional */ })
+      ? loadSvg(wordmark, '/Assets/images/logo/logo-vector-loader.svg', 'wordmark', true)
+          .catch(() => { /* optional — colored wordmark already inlined */ })
       : Promise.resolve();
 
     Promise.all([lionReady, wordmarkReady]).catch(() => {

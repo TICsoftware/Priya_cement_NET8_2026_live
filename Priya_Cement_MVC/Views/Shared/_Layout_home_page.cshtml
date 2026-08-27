@@ -57,7 +57,7 @@
     ViewContext.RouteData.Values["controller"]?.ToString() == "Home" &&
     ViewContext.RouteData.Values["action"]?.ToString() == "Index";
 
-    string ReadLoaderSvg(string relativePath)
+    string ReadLoaderSvg(string relativePath, bool stripFills = true)
     {
       try
       {
@@ -67,12 +67,16 @@
         var full = System.IO.Path.Combine(env.WebRootPath, relativePath.Replace('/', System.IO.Path.DirectorySeparatorChar));
         if (!System.IO.File.Exists(full)) return string.Empty;
         var text = System.IO.File.ReadAllText(full);
-        // Stroke-only first paint; keep original fill for wordmark color restore after draw
-        text = System.Text.RegularExpressions.Regex.Replace(
-          text,
-          @"fill=""(#(ED1C24|231F20))""",
-          @"fill=""none"" data-orig-fill=""$1""",
-          System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        // Lion is stroke-drawn; strip fill so first paint is outline-only.
+        // Wordmark stays fully colored from first paint.
+        if (stripFills)
+        {
+          text = System.Text.RegularExpressions.Regex.Replace(
+            text,
+            @"fill=""(#(ED1C24|231F20))""",
+            @"fill=""none"" data-orig-fill=""$1""",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        }
         return text;
       }
       catch
@@ -82,7 +86,7 @@
     }
 
     var lionSvgInline = isHomePage ? ReadLoaderSvg("Assets/images/logo/lion-vector-loader.svg") : string.Empty;
-    var wordmarkSvgInline = isHomePage ? ReadLoaderSvg("Assets/images/logo/logo-vector-loader.svg") : string.Empty;
+    var wordmarkSvgInline = isHomePage ? ReadLoaderSvg("Assets/images/logo/logo-vector-loader.svg", stripFills: false) : string.Empty;
   }
 
   @if (isHomePage)
