@@ -40,6 +40,12 @@
         <meta property="og:description" content="@Model.Content.cont_metadesc" />
         <meta property="og:image" content="@Model.Content.MastheadImage" />
         <meta property="og:url" content="https://www.priyacement.com/" />
+            @if (!string.IsNullOrWhiteSpace(Model.Content.page_schema))
+    {
+      
+            @Html.Raw(Model.Content.page_schema.Replace("<p>", "").Replace("</p>", ""))
+       
+    }
     }
 }
 

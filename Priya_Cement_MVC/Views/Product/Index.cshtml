@@ -38,6 +38,12 @@
    <meta property="og:url" content="https://www.priyacement.com/" />
 
    <link rel="canonical" href="@Model.Content.CanonicalUrl" />
+         @if (!string.IsNullOrWhiteSpace(Model.Content.page_schema))
+    {
+      
+            @Html.Raw(Model.Content.page_schema.Replace("<p>", "").Replace("</p>", ""))
+       
+    }
 }
 
 @section Styles {
