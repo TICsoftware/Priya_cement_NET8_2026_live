@@ -100,6 +100,7 @@ $(document).on("click", ".btn-save", function () {
 
 // CLICK DELETE
 $(document).on("click", ".btn-delete-mapping", function () {
+    alert('hi')
     var btn = $(this);
     var row = btn.closest("tr");
     var id = btn.data("id") || row.data("id");

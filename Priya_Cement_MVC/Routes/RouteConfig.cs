@@ -127,7 +127,11 @@ app.MapControllerRoute(
                 pattern: "Error",
                 defaults: new { controller = "pagearticle", action = "Error" }
             );
-
+  app.MapControllerRoute(
+                name: "logout",
+                pattern: "manage/logout",
+                defaults: new { controller = "Manage", action = "Logout" }
+            );
             // ✅ Area / Admin route (before default)
             app.MapControllerRoute(
                 name: "manage",
