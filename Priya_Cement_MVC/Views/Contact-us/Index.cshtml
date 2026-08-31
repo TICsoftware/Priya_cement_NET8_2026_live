@@ -37,6 +37,12 @@
     <meta property="og:url" content="@(content?.CanonicalUrl.ToString().ToLower())" />
 
     <link rel="canonical" href="@(content?.CanonicalUrl.ToString().ToLower())" />
+        @if (!string.IsNullOrWhiteSpace(content?.page_schema))
+    {
+      
+            @Html.Raw(content?.page_schema.Replace("<p>", "").Replace("</p>", ""))
+       
+    }
 }
 
 @section Styles {

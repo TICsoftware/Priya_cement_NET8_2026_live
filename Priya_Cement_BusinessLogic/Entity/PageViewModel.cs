@@ -55,6 +55,7 @@ namespace Priya_Cement_BusinessLogic.Entity
         public string cont_metadesc { get; set; }
         public string cont_metatag { get; set; }
         public string cont_window_title { get; set; }
+        public string page_schema { get; set; }
 
         public string Hmpg_thumbnail { get; set; }
         public string Hmpg_thumbnail_alt_text { get; set; }
