@@ -1,0 +1,91 @@
+@using Priya_Cement_BusinessLogic.Entity
+@using Priya_Cement_MVC.Helpers
+@model List<ComponentModel>
+
+@{
+    var component = Model?.FirstOrDefault(x => x.IsBlock == 0) ?? Model?.FirstOrDefault();
+
+}
+
+<section class="section-spacing sustain-resp-section relative overflow-hidden" aria-labelledby="sustain-resp-heading">
+    <div class="bgimage-outer-wrap" aria-hidden="true">
+        <img src="~/Assets/images/bg-image.webp" alt="" class="w-full h-full object-cover bg-image">
+    </div>
+
+    <div class="container relative z-1">
+        <div class="section-title-outer section-title-outer-start section-title-md sustain-resp-title">
+            <h2 id="sustain-resp-heading" class="text-h2 title-section reveal-text">
+                @Html.Raw(!string.IsNullOrWhiteSpace(component.DisplayTitle)
+                         ? component.DisplayTitle.CleanParagraphTags()
+                         : component.Title)
+            </h2>
+        </div>
+
+        <div class="sustain-resp-tabs-wrap">
+            <div class="sustain-resp-tabs" role="tablist" aria-label="Responsible manufacturing">
+                <span class="sustain-resp-tab-pill" data-sustain-tab-pill aria-hidden="true"></span>
+
+                @foreach (var item in Model.Where(x => x.IsBlock == 1).OrderBy(x => Convert.ToInt32(x.Sequence)))
+                {
+                    var seq = Convert.ToInt32(item.Sequence);
+                    var tabKey = item.Title
+                        .ToLower()
+                        .Replace(" ", "-")
+                        .Replace("&", "and");
+
+                    var tabId = $"sustain-tab-{tabKey}";
+                    var panelId = $"sustain-panel-{tabKey}";
+
+                    <button type="button" class="sustain-resp-tab @(seq == 1 ? "is-active" : "")" role="tab" id="@tabId"
+                            data-sustain-tab="@tabKey" aria-selected="@(seq == 1 ? "true" : "false")" aria-controls="@panelId"
+                            tabindex="@(seq == 1 ? "0" : "-1")">
+                        @seq.ToString("00") @item.Title
+                    </button>
+                }
+            </div>
+        </div>
+
+        <div class="sustain-resp-panels">
+
+            @foreach (var item in Model.Where(x => x.IsBlock == 1).OrderBy(x => Convert.ToInt32(x.Sequence)))
+            {
+                var sequence = Convert.ToInt32(item.Sequence);
+
+                var tabKey = item.Title
+                    .ToLower()
+                    .Trim()
+                    .Replace(" ", "-");
+
+                var panelId = "sustain-panel-" + tabKey;
+                var tabId = "sustain-tab-" + tabKey;
+
+                <div class="sustain-resp-panel @(sequence == 1 ? "is-active" : "")" role="tabpanel" id="@panelId"
+                     data-sustain-panel="@tabKey" aria-labelledby="@tabId" @(sequence == 1 ? "" : "hidden")>
+                    <div class="sustain-resp-grid">
+                        <div class="sustain-resp-media">
+                            <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="800" height="600"
+                                 loading="lazy">
+                        </div>
+                        <div class="sustain-resp-copy">
+                            <div class="sustain-resp-copy-head">
+                                <span class="sustain-resp-num text-ghost text-big leading-none font-bold"
+                                      aria-hidden="true">@sequence.ToString("00")</span>
+                                <h3 class="sustain-resp-heading">@item.Title</h3>
+                            </div>
+
+                            @if (!string.IsNullOrWhiteSpace(item.HmpgIntro))
+                            {
+                                @Html.Raw(item.HmpgIntro)
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(item.Intro))
+                            {
+                                @Html.Raw(item.Intro)
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
