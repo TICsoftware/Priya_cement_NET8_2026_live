@@ -44,6 +44,8 @@ namespace Priya_Cement_BusinessLogic.Entity
         public List<ComponentModel> Take_The_First_Step_Today_List { get; set; } = new();
         public List<ComponentModel> Frequently_Asked_Questions_List { get; set; } = new();
 
+         
+
         public int TotalCount { get; set; }
     }
 }

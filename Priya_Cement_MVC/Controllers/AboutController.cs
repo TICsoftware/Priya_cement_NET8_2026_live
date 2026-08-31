@@ -39,7 +39,7 @@ public class AboutController : Controller
         }
         catch (Exception ex)
         {
-            FileLogger.LogError("/About_Cop :", ex);
+            FileLogger.LogError("/About :", ex);
             return View(new AboutModel());
         }
         finally
@@ -48,7 +48,26 @@ public class AboutController : Controller
         }
     }
 
-    
+
+    public IActionResult FinancialInformation(string title)
+    {
+        try
+        {
+            var data = _bal.GetFinancialInformation_BAL(title, 1, 1);
+            return View(data);
+        }
+        catch (Exception ex)
+        {
+            FileLogger.LogError("/FinancialInformation :", ex);
+            return View(new AboutModel());
+        }
+        finally
+        {
+            _bal.Dispose();
+        }
+    }
+
+
 
 
 

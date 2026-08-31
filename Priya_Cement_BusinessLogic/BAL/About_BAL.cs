@@ -40,7 +40,37 @@ namespace Priya_Cement_BusinessLogic.BAL
                 model.Values_That_Define_How_We_Work_List = MapComponents(groupedData, 5);
                 model.Built_On_Trust_Proven_At_Scale_List = MapComponents(groupedData, 6);
                 model.Legacy_Built_One_Year_At_A_Time_List = MapComponents(groupedData, 7);
-                model.Ready_To_Build_With_Priya_Cement_List  = MapComponents(groupedData, 8);
+                model.Ready_To_Build_With_Priya_Cement_List = MapComponents(groupedData, 8);
+            }
+
+            return model;
+        }
+
+
+        public AboutModel GetFinancialInformation_BAL(string pagename, int languageId, int geographyId)
+        {
+            var model = new AboutModel();
+
+            var ds = GetContentComponentData_DAL(pagename, languageId, geographyId);
+
+            if (ds == null || ds.Tables.Count == 0)
+            {
+                return model;
+            }
+
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                model.Content = MapContent(ds.Tables[0].Rows[0]);
+            }
+
+            if (ds.Tables.Count > 2 && ds.Tables[2].Rows.Count > 0)
+            {
+                model.Section_List = Config_Application_Website.MapArticleList(ds.Tables[2]);
+            }
+
+            if (ds.Tables.Count > 3 && ds.Tables[3].Rows.Count > 0)
+            {
+                model.SectionArticles_List = Config_Application_Website.MapArticleList(ds.Tables[3]);
             }
 
             return model;
