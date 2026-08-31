@@ -19,6 +19,12 @@ app.MapControllerRoute(
                   defaults: new { controller = "About", action = "AboutUs", title = "about-us" }
               );
 
+              app.MapControllerRoute(
+                  name: "financialInformation",
+                  pattern: "about-us/financial-Information",
+                  defaults: new { controller = "About", action = "FinancialInformation", title = "financial-Information" }
+              );
+
  app.MapControllerRoute(
                   name: "ourproducts",
                   pattern: "solutions",

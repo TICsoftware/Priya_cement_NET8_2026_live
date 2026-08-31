@@ -50,175 +50,88 @@
 <!-- HERO BANNER END -->
 
 
+@foreach (var item in Model.Section_List.Where(x => Convert.ToInt32(x.Sequence) == 1))
+{
+   <section class="section-spacing fi-reports-section" aria-labelledby="fi-reports-heading">
+      <div class="container">
+         <div class="section-title-outer section-title-outer-start section-title-md section-title-left">
+            <h2 class="text-h2 title-section reveal-text">
+               @Html.Raw(!string.IsNullOrWhiteSpace(item.HmpgIntro)
+                                   ? item.HmpgIntro.CleanParagraphTags()
+                                   : item.Title)
+            </h2>
+         </div>
 
-<section class="section-spacing fi-reports-section" aria-labelledby="fi-reports-heading">
-   <div class="container">
-      <div class="section-title-outer section-title-outer-start section-title-md section-title-left">
-         <h2 class="text-h2 title-section reveal-text">
-            Annual <span>Reports</span>
-         </h2>
+         <div class="fi-card-grid fi-report-grid">
+            @foreach (var item1 in Model.SectionArticles_List.Where(x => x.ContParentId == item.ContId))
+            {
+               <a class="fi-report-card" href="@item1.MediafilePath" target="_blank" download
+                  aria-label="Download 25th Annual Report for the year ended December 31, 2023">
+                  <span class="fi-report-cover">
+                     <span class="fi-report-media">
+                        <img src="@item1.ThumbnailImage" alt="@item1.ThumbnailAltText" width="420" height="560"
+                             loading="lazy">
+
+                        <span class="fi-report-dl" aria-hidden="true">
+                           <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15"
+                                height="20">
+                        </span>
+                     </span>
+                     <span class="fi-report-copy">
+                        <strong>@item1.Title</strong>
+                        <span>@item1.DisplayDate</span>
+                     </span>
+                  </span>
+               </a>
+            }
+         </div>
+      </div>
+   </section>
+}
+
+
+@foreach (var item in Model.Section_List.Where(x => Convert.ToInt32(x.Sequence) == 2))
+{
+   <section class="section-spacing fi-mgt-section relative overflow-hidden bgimage-section"
+            aria-labelledby="fi-mgt-heading">
+      <div class="bgimage-outer-wrap" aria-hidden="true">
+         <img src="~/Assets/images/bg-image.webp" alt="" class="w-full h-full object-cover bg-image">
       </div>
 
-      <div class="fi-card-grid fi-report-grid">
-         <a class="fi-report-card" href="#" download
-            aria-label="Download 25th Annual Report for the year ended December 31, 2023">
-            <span class="fi-report-cover">
-               <span class="fi-report-media">
-                  <img src="~/Assets/images/financialinformation/ar1.webp" alt="25th Annual Report 2023 cover"
-                       width="420" height="560" loading="lazy">
-                  <span class="fi-report-dl" aria-hidden="true">
-                     <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15"
-                          height="20">
-                  </span>
-               </span>
-               <span class="fi-report-copy">
-                  <strong>25th Annual Report for the year ended</strong>
-                  <span>December 31, 2023</span>
-               </span>
-            </span>
-         </a>
+      <div class="container relative z-1">
+         <div class="section-title-outer section-title-outer-start section-title-md section-title-left">
+            <h2 class="text-h2 title-section reveal-text">
+               @Html.Raw(!string.IsNullOrWhiteSpace(item.HmpgIntro)
+                                     ? item.HmpgIntro.CleanParagraphTags()
+                                     : item.Title)
+            </h2>
+         </div>
 
-         <a class="fi-report-card" href="#" download
-            aria-label="Download 24th Annual Report for the year ended December 31, 2022">
-            <span class="fi-report-cover">
-               <span class="fi-report-media">
-                  <img src="~/Assets/images/financialinformation/ar2.webp" alt="24th Annual Report 2022 cover"
-                       width="420" height="560" loading="lazy">
-                  <span class="fi-report-dl" aria-hidden="true">
-                     <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15"
-                          height="20">
-                  </span>
-               </span>
-               <span class="fi-report-copy">
-                  <strong>24th Annual Report for the year ended</strong>
-                  <span>December 31, 2022</span>
-               </span>
-            </span>
-         </a>
+         <div class="fi-card-grid fi-mgt-grid">
 
-         <a class="fi-report-card" href="#" download
-            aria-label="Download 23rd Annual Report for the year ended December 31, 2021">
-            <span class="fi-report-cover">
-               <span class="fi-report-media">
-                  <img src="~/Assets/images/financialinformation/ar3.webp" alt="23rd Annual Report 2021 cover"
-                       width="420" height="560" loading="lazy">
-                  <span class="fi-report-dl" aria-hidden="true">
-                     <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15"
-                          height="20">
+            @foreach (var item1 in Model.SectionArticles_List.Where(x => x.ContParentId == item.ContId))
+            {
+               <a class="fi-mgt-card" href="@item1.MediafilePath" target="_blank" download
+                  aria-label="Download Annual Return in Form MGT-7 for the financial year 2023">
+                  <span class="fi-mgt-card-body">@item1.Title</span>
+                  <span class="fi-mgt-card-corner" aria-hidden="true">
+                     <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15" height="20">
                   </span>
-               </span>
-               <span class="fi-report-copy">
-                  <strong>23rd Annual Report for the year ended</strong>
-                  <span>December 31, 2021</span>
-               </span>
-            </span>
-         </a>
-
-         <a class="fi-report-card" href="#" download
-            aria-label="Download 22nd Annual Report for the year ended December 31, 2020">
-            <span class="fi-report-cover">
-               <span class="fi-report-media">
-                  <img src="~/Assets/images/financialinformation/ar4.webp" alt="22nd Annual Report 2020 cover"
-                       width="420" height="560" loading="lazy">
-                  <span class="fi-report-dl" aria-hidden="true">
-                     <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15"
-                          height="20">
+                  <span class="fi-mgt-card-hover" aria-hidden="true">
+                     <span class="site-link">
+                        <span class="site-link-arrow">
+                           <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15"
+                                height="20">
+                        </span>
+                        Download
+                     </span>
                   </span>
-               </span>
-               <span class="fi-report-copy">
-                  <strong>22nd Annual Report for the year ended</strong>
-                  <span>December 31, 2020</span>
-               </span>
-            </span>
-         </a>
+               </a>
+            }
+         </div>
       </div>
-   </div>
-</section>
-
-<section class="section-spacing fi-mgt-section relative overflow-hidden bgimage-section"
-         aria-labelledby="fi-mgt-heading">
-   <div class="bgimage-outer-wrap" aria-hidden="true">
-      <img src="~/Assets/images/bg-image.webp" alt="" class="w-full h-full object-cover bg-image">
-   </div>
-
-   <div class="container relative z-1">
-      <div class="section-title-outer section-title-outer-start section-title-md section-title-left">
-         <h2 class="text-h2 title-section reveal-text">
-            Annual Return in <span>Form MGT-7</span>
-         </h2>
-      </div>
-
-      <div class="fi-card-grid fi-mgt-grid">
-         <a class="fi-mgt-card" href="#" download
-            aria-label="Download Annual Return in Form MGT-7 for the financial year 2023">
-            <span class="fi-mgt-card-body">Annual Return in Form MGT-7 for the financial year 2023</span>
-            <span class="fi-mgt-card-corner" aria-hidden="true">
-               <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15" height="20">
-            </span>
-            <span class="fi-mgt-card-hover" aria-hidden="true">
-               <span class="site-link">
-                  <span class="site-link-arrow">
-                     <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15"
-                          height="20">
-                  </span>
-                  Download
-               </span>
-            </span>
-         </a>
-
-         <a class="fi-mgt-card" href="#" download
-            aria-label="Download Annual Return in Form MGT-7 for the financial year 2022">
-            <span class="fi-mgt-card-body">Annual Return in Form MGT-7 for the financial year 2022</span>
-            <span class="fi-mgt-card-corner" aria-hidden="true">
-               <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15" height="20">
-            </span>
-            <span class="fi-mgt-card-hover" aria-hidden="true">
-               <span class="site-link">
-                  <span class="site-link-arrow">
-                     <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15"
-                          height="20">
-                  </span>
-                  Download
-               </span>
-            </span>
-         </a>
-
-         <a class="fi-mgt-card" href="#" download
-            aria-label="Download Annual Return in Form MGT-7 for the financial year 2021">
-            <span class="fi-mgt-card-body">Annual Return in Form MGT-7 for the financial year 2021</span>
-            <span class="fi-mgt-card-corner" aria-hidden="true">
-               <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15" height="20">
-            </span>
-            <span class="fi-mgt-card-hover" aria-hidden="true">
-               <span class="site-link">
-                  <span class="site-link-arrow">
-                     <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15"
-                          height="20">
-                  </span>
-                  Download
-               </span>
-            </span>
-         </a>
-
-         <a class="fi-mgt-card" href="#" download
-            aria-label="Download Annual Return in Form MGT-7 for the financial year 2020">
-            <span class="fi-mgt-card-body">Annual Return in Form MGT-7 for the financial year 2020</span>
-            <span class="fi-mgt-card-corner" aria-hidden="true">
-               <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15" height="20">
-            </span>
-            <span class="fi-mgt-card-hover" aria-hidden="true">
-               <span class="site-link">
-                  <span class="site-link-arrow">
-                     <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15"
-                          height="20">
-                  </span>
-                  Download
-               </span>
-            </span>
-         </a>
-      </div>
-   </div>
-</section>
+   </section>
+}
 
 @section Scripts {
    <script src="~/Assets/js/inner-banner-script.js" asp-append-version="true"></script>
