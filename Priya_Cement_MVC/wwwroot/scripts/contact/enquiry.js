@@ -162,13 +162,17 @@ $(document).ready(function () {
         }
 
         // City
-        if ($("#CityId").val() === "" || $("#CityId").val() === "0") {
-            $('[data-valmsg-for="CityId"]').text("Please select your city.");
+         let city = $("#City").val().trim();
+        if (city === "") {
+            $('[data-valmsg-for="City"]').text("Please enter your city.");
             isValid = false;
         }
-        else {
-            $('[data-valmsg-for="CityId"]').text("");
+        else{
+            $('[data-valmsg-for="City"]').text("");
         }
+
+
+        
 
     
         // Consent
