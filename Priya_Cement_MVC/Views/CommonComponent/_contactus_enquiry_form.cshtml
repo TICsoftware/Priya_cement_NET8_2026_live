@@ -46,6 +46,19 @@
             <input asp-for="City" class="f-field" placeholder="City*" maxlength="100"/>
             <span asp-validation-for="City" class="text-red-500"></span>
         </div>
+
+        <div class="cselect">
+            <select asp-for="CategoryId" class="f-field" id="CategoryId">
+                <option value="">Category / Purpose of Enquiry</option>
+                @foreach (var item in ViewBag.ContactCategoryList)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+            <span asp-validation-for="CategoryId" class="text-red-500"></span>
+             <input type="hidden" asp-for="CategoryTitle" id="CategoryTitle" />
+        </div>
+
         @* <div class="cselect">
             <select asp-for="CityId" class="f-field">
                 <option value="">Select city*</option>

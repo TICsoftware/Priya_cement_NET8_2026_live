@@ -63,8 +63,9 @@
                      data-sustain-panel="@tabKey" aria-labelledby="@tabId" @(sequence == 1 ? "" : "hidden")>
                     <div class="sustain-resp-grid">
                         <div class="sustain-resp-media">
-                            <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="800" height="600"
-                                 loading="lazy">
+                            <img src="@(string.IsNullOrEmpty(item.ThumbnailImage)
+                                     ? "/Assets/images/dummy-rectangle-big.webp"
+                                     : item.ThumbnailImage)" alt="@item.ThumbnailAltText" width="800" height="600" loading="lazy">
                         </div>
                         <div class="sustain-resp-copy">
                             <div class="sustain-resp-copy-head">

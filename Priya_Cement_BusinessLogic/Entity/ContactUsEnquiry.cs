@@ -16,5 +16,8 @@ namespace Priya_Cement_BusinessLogic.Entity
         public string Query { get; set; }
         public bool Consent { get; set; }
         public string IPAddress { get; set; }
+
+        public int CategoryId { get; set; }
+        public string CategoryTitle { get; set; }
     }
 }

@@ -47,5 +47,10 @@ namespace Priya_Cement_MVC.Models
 
         [Range(typeof(bool), "true", "true", ErrorMessage = "Please accept the consent.")]
         public bool Consent { get; set; }
+
+
+        public int CategoryId { get; set; }
+
+        public string CategoryTitle { get; set; }
     }
 }

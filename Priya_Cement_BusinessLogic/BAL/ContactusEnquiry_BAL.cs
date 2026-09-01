@@ -60,6 +60,11 @@ namespace Priya_Cement_BusinessLogic.BAL
             return GetCityList_DAL();
         }
 
+        public List<CommonDropdownModel> GetContactCategoryList()
+        {
+            return GetContactCategoryList_DAL();
+        }
+
         public List<CommonDropdownModel> GetAreaOfInterestList()
         {
             return GetAreaOfInterestList_DAL();
@@ -136,6 +141,7 @@ namespace Priya_Cement_BusinessLogic.BAL
                 "<tr><td><strong>Phone</strong></td><td>" + obj.Phone + "</td></tr>" +
                 "<tr><td><strong>City</strong></td><td>" + obj.City + "</td></tr>" +
                 "<tr><td><strong>State</strong></td><td>" + obj.State + "</td></tr>" +
+                "<tr><td><strong>Category</strong></td><td>" + obj.CategoryTitle + "</td></tr>" +
                 (!string.IsNullOrWhiteSpace(obj.Query)
                     ? "<tr><td><strong>Message</strong></td><td>" + obj.Query + "</td></tr>"
                     : "") +

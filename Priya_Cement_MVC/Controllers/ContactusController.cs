@@ -75,7 +75,9 @@ public class ContactusController : Controller
                 State = model.State,
                 Query = model.Message,
                 Consent = model.Consent,
-                IPAddress = GetClientIpAddress()
+                IPAddress = GetClientIpAddress(),
+                CategoryId = model.CategoryId,
+                CategoryTitle = model.CategoryTitle,
             };
 
             DataTable dt = _enquiryBal.SubmitEnquiry_BAL(entity);
@@ -126,6 +128,7 @@ public class ContactusController : Controller
     {
         ViewBag.CityList = new SelectList(_enquiryBal.GetCityList(), "Id", "Name");
         ViewBag.StateList = new SelectList(_enquiryBal.GetStateList(), "Id", "Name");
+        ViewBag.ContactCategoryList = new SelectList(_enquiryBal.GetContactCategoryList(), "Id", "Name");
     }
 
     private string GetClientIpAddress()

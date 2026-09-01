@@ -70,8 +70,9 @@
                   aria-label="Download 25th Annual Report for the year ended December 31, 2023">
                   <span class="fi-report-cover">
                      <span class="fi-report-media">
-                        <img src="@item1.ThumbnailImage" alt="@item1.ThumbnailAltText" width="420" height="560"
-                             loading="lazy">
+                        <img src="@(string.IsNullOrEmpty(item1.ThumbnailImage)
+                                         ? "/uploads/thumbnail/annual_reports_dummy.png"
+                                         : item1.ThumbnailImage)" alt="@item1.ThumbnailAltText" width="420" height="560" loading="lazy">
 
                         <span class="fi-report-dl" aria-hidden="true">
                            <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15"

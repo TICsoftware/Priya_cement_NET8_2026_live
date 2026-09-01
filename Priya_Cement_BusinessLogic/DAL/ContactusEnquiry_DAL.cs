@@ -27,7 +27,8 @@ namespace Priya_Cement_BusinessLogic.DAL
                 new SqlParameter("@City", model.City),
                 new SqlParameter("@Query", string.IsNullOrWhiteSpace(model.Query) ? (object)DBNull.Value : model.Query),
                 new SqlParameter("@IPAddress", string.IsNullOrWhiteSpace(model.IPAddress) ? (object)DBNull.Value : model.IPAddress),
-                new SqlParameter("@Consent", (object?)model.Consent ?? DBNull.Value)
+                new SqlParameter("@Consent", (object?)model.Consent ?? DBNull.Value),
+                new SqlParameter("@CategoryId", model.CategoryId),
             };
 
             return GetDataSet("AddContactUs", sqlParams).Tables[0];
@@ -54,6 +55,18 @@ namespace Priya_Cement_BusinessLogic.DAL
                      {
                          Id = Convert.ToInt32(x["Id"]),
                          Name = x["Name"]?.ToString()
+                     }).ToList();
+        }
+
+        public List<CommonDropdownModel> GetContactCategoryList_DAL()
+        {
+            DataTable dt = GetDataSet("GetContactCategory").Tables[0];
+
+            return dt.AsEnumerable()
+                     .Select(x => new CommonDropdownModel
+                     {
+                         Id = Convert.ToInt32(x["CategoryId"]),
+                         Name = x["CategoryTitle"]?.ToString()
                      }).ToList();
         }
 

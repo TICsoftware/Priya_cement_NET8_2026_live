@@ -205,6 +205,19 @@ $(document).ready(function () {
     
     });
 
+
+     $(document).on("change", "#CategoryId", function () {
+
+        var selectedStateText = $(this).find("option:selected").text();
+    
+        if ($(this).val() === "") {
+            $("#CategoryTitle").val("");
+        } else {
+            $("#CategoryTitle").val(selectedStateText);
+        }
+    
+    });
+
     // $("#StateId").change(function () {
 
     //     var stateId = $(this).val();
