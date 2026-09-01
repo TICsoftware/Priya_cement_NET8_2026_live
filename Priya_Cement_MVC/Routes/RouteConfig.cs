@@ -25,6 +25,12 @@ app.MapControllerRoute(
                   defaults: new { controller = "About", action = "FinancialInformation", title = "financial-Information" }
               );
 
+                app.MapControllerRoute(
+                  name: "sustainability",
+                  pattern: "esg/sustainability",
+                  defaults: new { controller = "ESG", action = "Sustainability", title = "sustainability" }
+              );
+
  app.MapControllerRoute(
                   name: "ourproducts",
                   pattern: "solutions",
