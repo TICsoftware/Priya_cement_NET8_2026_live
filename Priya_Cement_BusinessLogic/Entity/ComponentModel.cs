@@ -46,6 +46,9 @@ namespace Priya_Cement_BusinessLogic.Entity
         public string Video_path { get; set; }
         public string Video_poster { get; set; }
 
+         public string Component_Video_path { get; set; }
+
+
         public string Icon_Image { get; set; }
         public string Component_Icon_Image { get; set; }
         public string Component_Icon2_Image { get; set; }

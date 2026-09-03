@@ -162,7 +162,7 @@ $(document).ready(function () {
         }
 
         // City
-         let city = $("#City").val().trim();
+        let city = $("#City").val().trim();
         if (city === "") {
             $('[data-valmsg-for="City"]').text("Please enter your city.");
             isValid = false;

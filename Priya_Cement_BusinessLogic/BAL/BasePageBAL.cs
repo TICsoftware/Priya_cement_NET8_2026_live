@@ -166,6 +166,7 @@ namespace Priya_Cement_BusinessLogic.BAL
                     Component_RHS_icon1 = Config_Application_Website.GetPath(group, "RHS component icon image1"),
                     Component_RHS_icon2 = Config_Application_Website.GetPath(group, "RHS component icon image2"),
                     year = Config_Application_Website.GetValue(dict, "Year"),
+                    Component_Video_path = Config_Application_Website.GetPath(group, "component video"),
                 };
             })
             .OrderBy(x => x.Sequence)
