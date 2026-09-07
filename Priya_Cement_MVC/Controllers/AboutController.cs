@@ -34,7 +34,7 @@ public class AboutController : Controller
         try
         {
             //string pageName = HttpContext?.Request?.Path.Value?.Trim('/') ?? string.Empty;
-            var data = _bal.GetAboutUs_BAL(title, 1, 1);
+            var data = _bal.GetAwards_BAL(title, 1, 1);
             return View(data);
         }
         catch (Exception ex)
@@ -50,6 +50,25 @@ public class AboutController : Controller
 
 
     public IActionResult FinancialInformation(string title)
+    {
+        try
+        {
+            var data = _bal.GetFinancialInformation_BAL(title, 1, 1);
+            return View(data);
+        }
+        catch (Exception ex)
+        {
+            FileLogger.LogError("/FinancialInformation :", ex);
+            return View(new AboutModel());
+        }
+        finally
+        {
+            _bal.Dispose();
+        }
+    }
+
+
+    public IActionResult AwardsCertifications(string title)
     {
         try
         {
