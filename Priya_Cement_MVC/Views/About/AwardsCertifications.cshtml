@@ -57,7 +57,7 @@
 }
 <!-- HERO BANNER END -->
 
-@if (Model?.Intro_List != null)
+@if (Model?.Intro_List != null && Model.Intro_List.Any())
 {
    foreach (var item in Model.Intro_List.Where(x => x.IsBlock == 0))
    {
@@ -114,7 +114,7 @@
    }
 }
 
-@if (Model?.Infographic_List != null)
+@if (Model?.Infographic_List != null && Model.Infographic_List.Any())
 {
    <section class="aboutus-stats-section" data-stats-scope>
       <div class="container">
@@ -139,18 +139,18 @@
    </section>
 }
 
-@if (Model?.What_We_Stand_For_List != null)
+@if (Model?.What_We_Stand_For_List != null && Model.What_We_Stand_For_List.Any())
 {
    @await Html.PartialAsync("_what_we_stand.cshtml", Model.What_We_Stand_For_List)
 }
 
 
-@if (Model?.History_of_recognition_List != null)
+@if (Model?.History_of_recognition_List != null && Model.History_of_recognition_List.Any())
 {
    @await Html.PartialAsync("_built_on_trust.cshtml", Model.History_of_recognition_List)
 }
 
-@if (Model?.CTA_List != null)
+@if (Model?.CTA_List != null && Model.CTA_List.Any())
 {
    foreach (var item in Model.CTA_List.Where(x => x.IsBlock == 0))
    {
