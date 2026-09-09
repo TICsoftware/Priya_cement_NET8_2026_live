@@ -12,7 +12,10 @@
     <div class="container">
         <div class="aboutus-stand-inner">
             <div class="aboutus-stand-visual">
-                <img src="~/Assets/images/aboutus/lion.webp" alt="" class="aboutus-stand-visual-img">
+                <img src="@(string.IsNullOrWhiteSpace(component.ComponentThumbnail)
+                            ? Url.Content("~/Assets/images/aboutus/lion.webp")
+                            : component.ComponentThumbnail)" alt="@component.ComponentThumbnailAltText"
+                     class="aboutus-stand-visual-img">
             </div>
 
             <div class="aboutus-stand-content">
@@ -44,7 +47,7 @@
 
                             @if (!string.IsNullOrWhiteSpace(item.Intro))
                             {
-                               <p> @Html.Raw(item.Intro.CleanParagraphTags())</p>
+                                <p> @Html.Raw(item.Intro.CleanParagraphTags())</p>
                             }
 
                         </article>
