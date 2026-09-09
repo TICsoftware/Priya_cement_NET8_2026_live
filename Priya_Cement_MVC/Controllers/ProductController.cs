@@ -74,7 +74,7 @@ public class ProductController : Controller
         }
         catch (Exception ex)
         {
-            FileLogger.LogError("/Product/Inside :", ex);
+            FileLogger.LogError("/Product/SolutionsCenter :", ex);
             return View(new ProductModel());
         }
         finally
@@ -97,6 +97,25 @@ public class ProductController : Controller
         catch (Exception ex)
         {
             FileLogger.LogError("/Product/TechnicalServices :", ex);
+            return View(new ProductModel());
+        }
+        finally
+        {
+            _bal.Dispose();
+        }
+    }
+
+
+    public IActionResult SolutionsRMC(string title)
+    {
+        try
+        {
+            var data = _bal.GetSolutionsRMC_BAL(title, 1, 1);
+            return View(data);
+        }
+        catch (Exception ex)
+        {
+            FileLogger.LogError("/Product/SolutionsRMC :", ex);
             return View(new ProductModel());
         }
         finally

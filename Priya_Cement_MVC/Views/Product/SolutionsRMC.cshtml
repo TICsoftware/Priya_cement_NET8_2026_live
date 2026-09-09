@@ -1,0 +1,183 @@
+@using Priya_Cement_MVC.Helpers
+@model Priya_Cement_BusinessLogic.Entity.ProductModel
+@{
+    ViewData["Title"] = Model?.Content?.ContTitle ?? "RMC Solutions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var content = Model?.Content;
+}
+
+@section head {
+    <title>@(content?.cont_window_title)</title>
+
+    <meta content="@(content?.cont_metatag)" name="keywords" />
+    <meta content="@(content?.cont_metadesc)" name="description" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="" />
+    <meta name="twitter:title" content="@(content?.ContTitle)" />
+    <meta name="twitter:description" content="@(content?.cont_metadesc)" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Priya Cement" />
+    <meta property="og:title" content="@(content?.ContTitle)" />
+    <meta property="og:description" content="@(content?.cont_metadesc)" />
+    <meta property="og:url" content="@(content?.CanonicalUrl)" />
+    <meta property="og:image" content="@(content?.cont_meta_image)" />
+
+    <meta itemprop="name" content="Priya Cement" />
+    <meta itemprop="description" content="@(content?.cont_metadesc)" />
+    <meta itemprop="image" content="@(content?.cont_meta_image)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Priya Cement" />
+    <meta property="og:title" content="@(content?.ContTitle)" />
+    <meta property="og:description" content="@(content?.cont_metadesc)" />
+    <meta property="og:image" content="@(content?.cont_meta_image)" />
+    <meta property="og:url" content="@(content?.CanonicalUrl)" />
+
+    <link rel="canonical" href="@(content?.CanonicalUrl)" />
+
+    @if (!string.IsNullOrWhiteSpace(content?.page_schema))
+    {
+
+        @Html.Raw(content?.page_schema.Replace("<p>", "").Replace("</p>", ""))
+
+    }
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/Assets/css/solutions-style.css" asp-append-version="true" />
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+}
+
+
+
+<!-- HERO BANNER -->
+
+@if (Model?.Content != null)
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_page_banner.cshtml", Model.Content)
+}
+<!-- HERO BANNER END -->
+
+
+
+@if (Model?.Build_Your_Own_Business_List != null && Model.Build_Your_Own_Business_List.Any())
+{
+    @await Html.PartialAsync("_solutions_build_your_own_business.cshtml",
+    Model.Build_Your_Own_Business_List)
+}
+
+@if (Model?.What_Is_Priya_Cement_Customer_Solutions_List != null &&
+Model.What_Is_Priya_Cement_Customer_Solutions_List.Any())
+{
+    foreach (var item in Model.What_Is_Priya_Cement_Customer_Solutions_List.Where(x => x.IsBlock == 0))
+    {
+        <section class="relative section-spacing">
+            <div class="container">
+                <div
+                    class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10 leftright-grid-reverse leftright-grid-section">
+                    <div class="rounded-md parallax-wrap lg:max-w-[55%] w-full leftright-grid-img">
+                        <img src="@item.ComponentThumbnail" alt="@item.ComponentThumbnailAltText"
+                             class="rounded-md object-cover shadow-card parallax-img" />
+                    </div>
+                    <div class="lg:max-w-[45%] w-full leftright-grid-content">
+                        <div class="section-title-outer section-title-outer-start section-with-intro section-title-nonintro ">
+                            <h2 class="text-h2 title-section reveal-text section-title-mid section-title-left">
+                                @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
+                                                        ? item.DisplayTitle.CleanParagraphTags()
+                                                        : item.Title)
+                            </h2>
+
+                            @if (!string.IsNullOrWhiteSpace(item.Intro))
+                            {
+                                <p>
+                                    @Html.Raw(item.Intro.CleanParagraphTags())
+                                </p>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}
+
+
+@if (Model?.Why_Partner_With_Priya_Cement_List != null && Model.Why_Partner_With_Priya_Cement_List.Any())
+{
+    @await Html.PartialAsync("_solutions_why_partner_priyacement.cshtml",
+    Model.Why_Partner_With_Priya_Cement_List)
+}
+
+
+
+<section class="section-spacing whypartner-section relative overflow-hidden">
+    <div class="container relative z-1">
+        <div class="whypartner-split">
+            @if (Model?.Who_Can_Apply_List != null && Model.Who_Can_Apply_List.Any())
+            {
+                foreach (var item in Model.Who_Can_Apply_List.Where(x => x.IsBlock == 0))
+                {
+                    <div class="whypartner-apply">
+                        <div class="section-title-outer section-title-outer-start section-title-md">
+                            <h2 class="text-h2 title-section reveal-text">
+                                @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
+                                                        ? item.DisplayTitle.CleanParagraphTags()
+                                                        : item.Title)
+                            </h2>
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(item.Intro))
+                        {
+                            @Html.Raw(item.Intro.CleanParagraphTags())
+                        }
+                    </div>
+                }
+            }
+
+            @if (Model?.What_You_Need_List != null && Model.What_You_Need_List.Any())
+            {
+                foreach (var item in Model.What_You_Need_List.Where(x => x.IsBlock == 0))
+                {
+                    <div class="whypartner-need">
+                        <div class="section-title-outer section-title-outer-start section-title-md">
+                            <h2 class="text-h2 title-section reveal-text">
+                                @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
+                                                        ? item.DisplayTitle.CleanParagraphTags()
+                                                        : item.Title)
+                            </h2>
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(item.Intro))
+                        {
+                            @Html.Raw(item.Intro)
+                        }
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</section>
+
+
+@if (Model?.Who_Can_Apply_Download_List != null && Model.Who_Can_Apply_Download_List.Any())
+{
+    @await Html.PartialAsync("_solutions_who_can_apply_download.cshtml",
+    Model.Who_Can_Apply_Download_List)
+}
+
+
+@if (Model?.Product_CTA_List != null && Model.Product_CTA_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_product_cta_band.cshtml", Model.Product_CTA_List)
+}
+
+
+
+
+@section Scripts {
+    <script src="~/Assets/js/inner-banner-script.js" asp-append-version="true"></script>
+    <script src="~/Assets/js/solutions-script.js" asp-append-version="true"></script>
+    <script src="~/scripts/service/solutions_enquiry.js" asp-append-version="true"></script>
+}
