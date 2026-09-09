@@ -62,6 +62,12 @@ app.MapControllerRoute(
                       defaults: new { controller = "Product", action = "SolutionsCenter", title = "enquiry" }
                   );
 
+                   app.MapControllerRoute(
+                  name: "priyareadymixconcrete",
+                  pattern: "solutions/priya-ready-mix-concrete",
+                  defaults: new { controller = "Product", action = "SolutionsRMC", title = "priya-ready-mix-concrete" }
+              );
+
             app.MapControllerRoute(
                           name: "products-inside",
                           pattern: "solutions/{title?}",
