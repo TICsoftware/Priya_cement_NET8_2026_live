@@ -28,6 +28,13 @@ namespace Priya_Cement_BusinessLogic.Entity
         public List<ArticleModel> SectionArticles_List { get; set; } = new();
 
 
+        //Awards
+        public List<ComponentModel> Intro_List { get; set; } = new();
+        public List<ComponentModel> History_of_recognition_List { get; set; } = new();
+        public List<ComponentModel> CTA_List { get; set; } = new();
+
+
+
         public int TotalCount { get; set; }
 
     }

@@ -26,6 +26,12 @@ app.MapControllerRoute(
               );
 
                 app.MapControllerRoute(
+                  name: "awards",
+                  pattern: "about-us/awards",
+                  defaults: new { controller = "About", action = "AwardsCertifications", title = "awards" }
+              );
+
+                app.MapControllerRoute(
                   name: "sustainability",
                   pattern: "esg/sustainability",
                   defaults: new { controller = "ESG", action = "Sustainability", title = "sustainability" }
@@ -55,6 +61,12 @@ app.MapControllerRoute(
                       pattern: "solutions/enquiry",
                       defaults: new { controller = "Product", action = "SolutionsCenter", title = "enquiry" }
                   );
+
+                   app.MapControllerRoute(
+                  name: "priyareadymixconcrete",
+                  pattern: "solutions/priya-ready-mix-concrete",
+                  defaults: new { controller = "Product", action = "SolutionsRMC", title = "priya-ready-mix-concrete" }
+              );
 
             app.MapControllerRoute(
                           name: "products-inside",

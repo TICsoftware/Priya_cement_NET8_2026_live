@@ -65,21 +65,23 @@
                                 <!-- Project Image -->
                                 <div class="inner-article-img">
                                     <img data-fade src="@item.ThumbnailImage" alt="@item.ThumbnailAltText"
-                                        class="w-full h-auto rounded-md object-contain lg:ml-auto lg:w-[74%]" />
+                                         class="w-full h-auto rounded-md object-contain lg:ml-auto lg:w-[74%]" />
 
                                     @if (!string.IsNullOrWhiteSpace(item.Url_Text))
                                     {
-                                         @if (!string.IsNullOrWhiteSpace(item.Url))
-                                       {
-                                        <div class="img-caption-txt">
-                                           <a href="@item.Url" target="_blank"><p>@item.Url_Text</p></a> 
-                                        </div>
+                                        @if (!string.IsNullOrWhiteSpace(item.Url))
+                                        {
+                                            <div class="img-caption-txt">
+                                                <a href="@item.Url" target="_blank">
+                                                    <p>@item.Url_Text</p>
+                                                </a>
+                                            </div>
                                         }
                                         else
-                                        { 
+                                        {
                                             <div class="img-caption-txt">
-                                          <p>@item.Url_Text</p>
-                                        </div>
+                                                <p>@item.Url_Text</p>
+                                            </div>
                                         }
                                     }
                                 </div>
@@ -89,7 +91,7 @@
                                 <div class="inner-content-box">
 
                                     <span data-count aria-hidden="true"
-                                        class="pointer-events-none relative z-0 mb-2 block select-none leading-none text-ghost lg:absolute lg:left-0 lg:top-[8vw] lg:mb-0 text-big">
+                                          class="pointer-events-none relative z-0 mb-2 block select-none leading-none text-ghost lg:absolute lg:left-0 lg:top-[8vw] lg:mb-0 text-big">
                                         @item.Sequence.ToString("D2")
                                     </span>
                                     <div

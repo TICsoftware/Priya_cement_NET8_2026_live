@@ -34,10 +34,10 @@ namespace Core_project_BusinessLogic.Entity.Manage
 
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        
+
         public int MenuLevel { get; set; }
 
-public string? DisplayMenuName { get; set; }
+        public string? DisplayMenuName { get; set; }
 
     }
 }
