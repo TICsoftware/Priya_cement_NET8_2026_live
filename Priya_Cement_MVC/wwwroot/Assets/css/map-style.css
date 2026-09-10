@@ -47,12 +47,12 @@
 
 /* Dim other states once one is active */
 .map-outer-warapper.has-active .map-state:not(.active) {
-  opacity: 0.55;
+  /* opacity: 0.55; */
 }
 
 /* Dim other pins while a card is open — still hoverable / clickable */
 .map-outer-warapper.has-open-card .map-state:not(.hover-linked):not(.active) {
-  opacity: 0.55;
+  /* opacity: 0.55; */
 }
 .map-outer-warapper.has-open-card .map-item:not(.card-open) .map-hover {
   opacity: 0.38;
