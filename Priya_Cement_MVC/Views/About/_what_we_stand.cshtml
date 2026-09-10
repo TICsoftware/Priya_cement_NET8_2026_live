@@ -10,11 +10,11 @@
 
 <section class="aboutus-stand-section section-spacing">
     <div class="container">
-        <div class="aboutus-stand-inner">
+        <div class="aboutus-stand-inner @component.bg_class">
             <div class="aboutus-stand-visual">
                 <img src="@(string.IsNullOrWhiteSpace(component.ComponentThumbnail)
-                            ? Url.Content("~/Assets/images/aboutus/lion.webp")
-                            : component.ComponentThumbnail)" alt="@component.ComponentThumbnailAltText"
+                                                 ? Url.Content("~/Assets/images/aboutus/lion.webp")
+                                                 : component.ComponentThumbnail)" alt="@component.ComponentThumbnailAltText"
                      class="aboutus-stand-visual-img">
             </div>
 
@@ -36,9 +36,12 @@
                                 <span class="aboutus-stand-num text-ghost text-big leading-none" aria-hidden="true">
                                     @item.Sequence.ToString("D2")
                                 </span>
-                                <span class="aboutus-stand-icon">
-                                    <img src="@item.Icon_Image" alt="@item.Title" class="w-auto">
-                                </span>
+                                @if (!string.IsNullOrWhiteSpace(item.Icon_Image))
+                                {
+                                    <span class="aboutus-stand-icon">
+                                        <img src="@item.Icon_Image" alt="@item.Title" class="w-auto">
+                                    </span>
+                                }
                             </div>
 
                             <h3 class="text-h4">
