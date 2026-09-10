@@ -425,7 +425,7 @@
   left: 0;
   bottom: 0;
 }
-
+.awards-stand-visual .aboutus-stand-visual-img {width: 116%;}
 .aboutus-stand-content {
   flex: 1 1 0;
   min-width: 0;
@@ -566,7 +566,7 @@
     left: 0;
     object-position: center center;
   }
-
+.awards-stand-visual .aboutus-stand-visual-img {width: 113%;}
   .aboutus-stand-card {
     width: 78%;
     max-width: none;
@@ -700,7 +700,7 @@
     width: 118%;
     object-position: center center;
   }
-
+.awards-stand-visual .aboutus-stand-visual-img {width: 106%;}
   .aboutus-stand-cards {
     grid-area: cards;
     gap: calc(var(--stand-num-up) + 1.25rem);
