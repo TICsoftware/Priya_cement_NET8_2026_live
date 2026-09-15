@@ -77,7 +77,7 @@ public class AboutController : Controller
         }
         catch (Exception ex)
         {
-            FileLogger.LogError("/FinancialInformation :", ex);
+            FileLogger.LogError("/AwardsCertifications :", ex);
             return View(new AboutModel());
         }
         finally

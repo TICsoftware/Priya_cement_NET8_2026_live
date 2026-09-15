@@ -13,35 +13,53 @@ namespace Priya_Cement_MVC.Routes
 
 
 
-app.MapControllerRoute(
-                  name: "aboutus",
-                  pattern: "about-us",
-                  defaults: new { controller = "About", action = "AboutUs", title = "about-us" }
-              );
+            app.MapControllerRoute(
+                              name: "aboutus",
+                              pattern: "about-us",
+                              defaults: new { controller = "About", action = "AboutUs", title = "about-us" }
+                          );
 
-              app.MapControllerRoute(
-                  name: "financialInformation",
-                  pattern: "about-us/financial-Information",
-                  defaults: new { controller = "About", action = "FinancialInformation", title = "financial-Information" }
-              );
+            app.MapControllerRoute(
+                name: "financialInformation",
+                pattern: "about-us/financial-Information",
+                defaults: new { controller = "About", action = "FinancialInformation", title = "financial-Information" }
+            );
 
-                app.MapControllerRoute(
-                  name: "awards",
-                  pattern: "about-us/awards",
-                  defaults: new { controller = "About", action = "AwardsCertifications", title = "awards" }
-              );
+            app.MapControllerRoute(
+                name: "press-releases",
+                pattern: "media/press-peleases",
+                defaults: new { controller = "Media", action = "PressReleases", title = "press-peleases" }
+            );
 
-                app.MapControllerRoute(
-                  name: "sustainability",
-                  pattern: "esg/sustainability",
-                  defaults: new { controller = "ESG", action = "Sustainability", title = "sustainability" }
-              );
+            app.MapControllerRoute(
+                name: "campaigns-and-tvcs",
+                pattern: "media/campaigns-and-tvcs",
+                defaults: new { controller = "Media", action = "Campaigns", title = "campaigns-and-tvcs" }
+            );
 
- app.MapControllerRoute(
-                  name: "ourproducts",
-                  pattern: "solutions",
-                  defaults: new { controller = "Product", action = "Index", title = "solutions" }
-              );
+            app.MapControllerRoute(
+                name: "news-and-coverage",
+                pattern: "media/news-and-Coverage",
+                defaults: new { controller = "Media", action = "NewsCoverage", title = "news-and-coverage" }
+            );
+
+            app.MapControllerRoute(
+              name: "awards",
+              pattern: "about-us/awards",
+              defaults: new { controller = "About", action = "AwardsCertifications", title = "awards" }
+          );
+
+            app.MapControllerRoute(
+              name: "sustainability",
+              pattern: "esg/sustainability",
+              defaults: new { controller = "ESG", action = "Sustainability", title = "sustainability" }
+          );
+
+            app.MapControllerRoute(
+                             name: "ourproducts",
+                             pattern: "solutions",
+                             defaults: new { controller = "Product", action = "Index", title = "solutions" }
+                         );
             app.MapControllerRoute(
                   name: "ourproducts",
                   pattern: "solutions",
@@ -50,23 +68,23 @@ app.MapControllerRoute(
 
 
 
-        app.MapControllerRoute(
-                      name: "technical-services",
-                      pattern: "solutions/technical-services",
-                      defaults: new { controller = "Product", action = "TechnicalServices", title = "technical-services" }
-                  );
+            app.MapControllerRoute(
+                          name: "technical-services",
+                          pattern: "solutions/technical-services",
+                          defaults: new { controller = "Product", action = "TechnicalServices", title = "technical-services" }
+                      );
 
-                  app.MapControllerRoute(
-                      name: "solutions-enquiry",
-                      pattern: "solutions/enquiry",
-                      defaults: new { controller = "Product", action = "SolutionsCenter", title = "enquiry" }
-                  );
+            app.MapControllerRoute(
+                name: "solutions-enquiry",
+                pattern: "solutions/enquiry",
+                defaults: new { controller = "Product", action = "SolutionsCenter", title = "enquiry" }
+            );
 
-                   app.MapControllerRoute(
-                  name: "priyareadymixconcrete",
-                  pattern: "solutions/priya-ready-mix-concrete",
-                  defaults: new { controller = "Product", action = "SolutionsRMC", title = "priya-ready-mix-concrete" }
-              );
+            app.MapControllerRoute(
+           name: "priyareadymixconcrete",
+           pattern: "solutions/priya-ready-mix-concrete",
+           defaults: new { controller = "Product", action = "SolutionsRMC", title = "priya-ready-mix-concrete" }
+       );
 
             app.MapControllerRoute(
                           name: "products-inside",
@@ -94,7 +112,7 @@ app.MapControllerRoute(
           );
 
 
-            
+
 
 
             app.MapControllerRoute(
@@ -151,11 +169,11 @@ app.MapControllerRoute(
                 pattern: "Error",
                 defaults: new { controller = "pagearticle", action = "Error" }
             );
-  app.MapControllerRoute(
-                name: "logout",
-                pattern: "manage/logout",
-                defaults: new { controller = "Manage", action = "Logout" }
-            );
+            app.MapControllerRoute(
+                          name: "logout",
+                          pattern: "manage/logout",
+                          defaults: new { controller = "Manage", action = "Logout" }
+                      );
             // ✅ Area / Admin route (before default)
             app.MapControllerRoute(
                 name: "manage",
