@@ -8,8 +8,8 @@
       <span class="fi-report-cover">
 
          <span class="fi-report-media">
-            <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="420" height="560" loading="lazy">
-
+            <img src="@(string.IsNullOrWhiteSpace(item.ThumbnailImage) ? "/uploads/thumbnail/annual_reports_dummy.png" : item.ThumbnailImage)" alt="@item.ThumbnailAltText" width="420" height="560" loading="lazy" />
+            
             <span class="fi-report-dl" aria-hidden="true">
                <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15" height="20">
             </span>

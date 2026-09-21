@@ -67,13 +67,12 @@
       <div class="fi-card-grid fi-report-grid" id="blogsList">
          @foreach (var item in Model.SectionArticles_List)
          {
-            <a class="fi-report-card" href="@item.Url"  aria-label="@item.Title">
+            <a class="fi-report-card" href="@item.Url" aria-label="@item.Title">
                <span class="fi-report-cover">
                   <span class="fi-report-media">
-                     @if (!string.IsNullOrWhiteSpace(item.ThumbnailImage))
-                     {
-                        <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="420" height="560" loading="lazy">
-                     }
+                     <img src="@(string.IsNullOrWhiteSpace(item.ThumbnailImage)
+                          ? "/uploads/thumbnail/annual_reports_dummy.png"
+                          : item.ThumbnailImage)" alt="@item.ThumbnailAltText" width="420" height="560" loading="lazy">
                      <span class="fi-report-dl" aria-hidden="true">
                         <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15"
                              height="20">
