@@ -32,6 +32,12 @@ namespace Priya_Cement_MVC.Routes
             );
 
             app.MapControllerRoute(
+              name: "esgreports",
+              pattern: "esg/reports",
+              defaults: new { controller = "Media", action = "PressReleases", title = "reports" }
+          );
+
+            app.MapControllerRoute(
                 name: "campaigns-and-tvcs",
                 pattern: "media/campaigns-and-tvcs",
                 defaults: new { controller = "Media", action = "Campaigns", title = "campaigns-and-tvcs" }
