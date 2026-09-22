@@ -276,11 +276,11 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
                     // --------------------                   
                     let ddsubsections = $("#ddSubSections");
                     ddsubsections.empty();
-                    if (data.subSections == null) {
+                    if (data.listSections == null) {
                         ddsubsections.append(`<option value="0">Select</option>`);
                     }
                     else {
-                        $.each(data.subSections, function (i, item) {
+                        $.each(data.listSections, function (i, item) {
                             ddsubsections.append(`<option value="${item.value}">${item.text}</option>`);
                         });
                     }
@@ -290,12 +290,12 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
                     // --------------------
                     let ddarticles = $("#ddArticle");
                     ddarticles.empty();
-                    if (data.Articles == null) {
+                    if (data.listArticles == null) {
                         ddarticles.append(`<option value="0">Select</option>`);
                     }
                     else {
-                        $.each(data.Articles, function (i, item) {
-                            ddarticles.append(`<option value="${item.Value}">${item.Text}</option>`);
+                        $.each(data.listArticles, function (i, item) {
+                            ddarticles.append(`<option value="${item.value}">${item.text}</option>`);
                         });
                     }
                 },
@@ -318,23 +318,40 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
                 type: 'GET',
                 data: { language_id: language_id },
                 success: function (data) {
-                    $("#div_language_sections").show();
+                    if(language_id ==1)
+                    {
+                        $("#div_language_sections").hide();
+                        $("#Divmainenglishsections").show();
+                    }
+                    else
+                    {
+                        $("#div_language_sections").show();
+                        $("#Divmainenglishsections").hide();
+                    }
                     // --------------------
                     // Bind subsections
                     // --------------------
                     let ddsections = $("#ddLanguage_Sections");
                     ddsections.empty();
-                    if (data.Sections == null) {
+                    if (data.listsections == null) {
                         ddsections.append(`<option value="0">Select</option>`);
                     }
                     else {
-                        $.each(data.Sections, function (i, item) {
+                        $.each(data.listsections, function (i, item) {
                             ddsections.append(`<option value="${item.value}">${item.text}</option>`);
                         });
                     }
 
                     let ddsubsections = $("#ddLanguage_SubSections");
                     ddsubsections.empty().append('<option value="0">Select</option>');
+
+                    let ddtags = $("#lstTagging_Sections");
+                    ddtags.empty();
+                    if (data.taglist != null) { 
+                        $.each(data.taglist, function (i, item) {
+                            ddtags.append(`<option value="${item.value}">${item.text}</option>`);
+                        });
+                    }
 
                 },
                 error: function (xhr) {
@@ -356,17 +373,26 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
                 type: 'GET',
                 data: { language_id: language_id, cont_id: cont_Id },
                 success: function (data) {
-
+                    if(language_id ==1)
+                    {
+                        $("#div_language_sections").hide();
+                        $("#Divmainenglishsections").show();
+                    }
+                    else
+                    {
+                        $("#div_language_sections").show();
+                        $("#Divmainenglishsections").hide();
+                    }
                     // --------------------
                     // Bind subsections
                     // --------------------
                     let ddsubsections = $("#ddLanguage_SubSections");
                     ddsubsections.empty();
-                    if (data.subsections == null) {
+                    if (data.listsubsections == null) {
                         ddsubsections.append(`<option value="0">Select</option>`);
                     }
                     else {
-                        $.each(data.subsections, function (i, item) {
+                        $.each(data.listsubsections, function (i, item) {
                             ddsubsections.append(`<option value="${item.value}">${item.text}</option>`);
                         });
                     }

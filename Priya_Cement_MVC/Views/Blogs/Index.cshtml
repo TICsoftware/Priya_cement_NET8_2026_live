@@ -64,19 +64,21 @@
          </h2>
       </div>
 
-      <div class="fi-card-grid fi-report-grid" id="blogsList">
+      <div class="fi-card-grid fi-report-grid blogs-grid" id="blogsList">
          @foreach (var item in Model.SectionArticles_List)
          {
-            <a class="fi-report-card" href="@item.Url" aria-label="@item.Title">
-               <span class="fi-report-cover">
-                  <span class="fi-report-media">
-                     <img src="@(string.IsNullOrWhiteSpace(item.ThumbnailImage)
-                          ? "/uploads/thumbnail/annual_reports_dummy.png"
-                          : item.ThumbnailImage)" alt="@item.ThumbnailAltText" width="420" height="560" loading="lazy">
+            <a class="fi-report-card blogs-card" href="@item.Url" aria-label="@item.Title">
+               <span class="fi-report-cover blogs-cover">
+                  <span class="fi-report-media blogs-media">
+                     @* <img src="@(string.IsNullOrWhiteSpace(item.ThumbnailImage)
+                          ? "/uploads/thumbnail/blogs_dummy.webp"
+                          : item.ThumbnailImage)" alt="@item.ThumbnailAltText" width="480" height="600" loading="lazy"> *@
+                     <img src="/uploads/thumbnail/blogs_dummy.webp" alt="@item.ThumbnailAltText" width="480" height="600" loading="lazy">
                   </span>
-                  <span class="fi-report-copy">
+                  <span class="fi-report-copy blogs-copy">
                      <strong>@item.Title</strong>
                      <span>@item.DisplayDate?.ToString("MMMM dd, yyyy")</span>
+                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
                   </span>
                </span>
             </a>
