@@ -29,6 +29,26 @@ public class MediaController : Controller
         return View();
     }
 
+
+    public IActionResult PressReleases(string title)
+    {
+        try
+        {
+            var data = _bal.GetPressReleases_BAL(title, 1, 1);
+            return View(data);
+        }
+        catch (Exception ex)
+        {
+            FileLogger.LogError("/PressReleases :", ex);
+            return View(new AboutModel());
+        }
+        finally
+        {
+            _bal.Dispose();
+        }
+    }
+
+
     public IActionResult NewsCoverage(string title)
     {
         try
@@ -66,23 +86,7 @@ public class MediaController : Controller
     }
 
 
-    public IActionResult PressReleases(string title)
-    {
-        try
-        {
-            var data = _bal.GetPressReleases_BAL(title, 1, 1);
-            return View(data);
-        }
-        catch (Exception ex)
-        {
-            FileLogger.LogError("/PressReleases :", ex);
-            return View(new AboutModel());
-        }
-        finally
-        {
-            _bal.Dispose();
-        }
-    }
+
 
 
     public ActionResult LoadMorePressReleases(int cont_id, int pageSize, int pageNumber)
