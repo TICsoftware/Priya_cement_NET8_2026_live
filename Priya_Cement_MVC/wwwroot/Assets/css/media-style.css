@@ -9,7 +9,11 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.5rem 1.35rem;
 }
-
+.blogs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem 1.35rem;
+}
 /* Annual report cards */
 .fi-report-card,
 .fi-mgt-card {
@@ -118,10 +122,75 @@
 .bgimage-section .bgimage-outer-wrap .bg-image {
   z-index: 0;
 }
+
+.blogs-copy {margin-top: 0.5rem;}
+.blogs-copy strong {
+    font-size: 1.125rem;
+}
+.blogs-copy p {
+    font-size: 1rem;
+}
+.blogs-grid .blogs-card {
+    aspect-ratio: 4.5 / 3.75;
+}
+.blogs-media > img {
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    margin: 0;
+    border-radius: 10px;
+}
+.blogs-template-inner h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--color-primary, #231f20);
+    margin-bottom: 10px;
+    
+}
+.blogs-template-inner h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--color-primary, #231f20);
+    margin-bottom: 10px;
+}
+.blogs-template-inner ul {
+  list-style: none;
+  margin-bottom: 15px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.blogs-template-inner ul li {
+  position: relative;
+  padding-left: 1.35rem;
+  color: var(--color-primary, #231f20);
+  font-size: var(--text-p, 1rem);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.blogs-template-inner ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 9999px;
+  background: var(--color-secondary, #ed1c24);
+}
+
+
 @media (max-width: 991px) {
-  .fi-card-grid {
+  .fi-card-grid, .blogs-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  
     .fi-report-card .fi-report-dl, .fi-report-card:focus-visible .fi-report-dl {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
@@ -129,9 +198,27 @@
 }
 
 @media (max-width: 767px) {
-  .fi-card-grid {
-    grid-template-columns: 1fr;
+  .fi-card-grid, .blogs-grid {
+    grid-template-columns: minmax(0, 1fr);
     max-width: 100%;
+  }
+
+  .blogs-grid .blogs-card {
+    aspect-ratio: auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .blogs-grid .blogs-media {
+    aspect-ratio: 4.5 / 3.75;
+  }
+
+  .blogs-grid .blogs-media > img {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
 }
