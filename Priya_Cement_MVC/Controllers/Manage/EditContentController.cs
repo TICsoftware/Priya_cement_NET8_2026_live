@@ -69,7 +69,7 @@ public class EditContentController : Controller
                 }
             }
 
-            cont_id = Model.subSection_id == 0 ? Model.section_id ?? 0 : Model.subSection_id ?? 0;
+            cont_id = Model.subSection_id == 0 ? Model.section_id : Model.subSection_id;
 
 
         }
@@ -99,7 +99,7 @@ public class EditContentController : Controller
                 obj.Content_Type_ID = 1;
 
             model.Content_Type_ID = obj.Content_Type_ID;
-            cmsObj = objBal.CMS_Published_List((obj.subSection_id != 0 ? obj.subSection_id : obj.section_id) ?? 0, obj.searchquery ?? "", obj.language_id ?? 1,
+            cmsObj = objBal.CMS_Published_List(obj.subSection_id != 0 ? obj.subSection_id : obj.section_id, obj.searchquery ?? "", obj.language_id,
                        string.IsNullOrWhiteSpace(page_no) ? 1 : Convert.ToInt32(page_no), obj.Content_Type_ID, pageSize);
 
             if (cmsObj.sections != null)
@@ -215,16 +215,22 @@ public class EditContentController : Controller
                 }
                 else
                 {
-
-                    objModel.Language_section_id = objcontent.Language_root_parent_id;
-                    if (objcontent.Language_root_parent_id == objcontent.parent_id)
+                    if (objcontent.Language_root_parent_id == objcontent.id)
                     {
+                        objModel.Language_section_id = 0;
                         objModel.Language_subsection_id = 0;
+                    }
+                    else if (objcontent.Language_root_parent_id == objcontent.parent_id)
+                    {
+                        objModel.Language_section_id = objcontent.Language_root_parent_id;
+                        objModel.Language_subsection_id = objcontent.parent_id;
                     }
                     else
                     {
-                        objModel.Language_subsection_id = objcontent.parent_id;
+                        objModel.Language_section_id = objcontent.Language_root_parent_id;
+                        objModel.Language_subsection_id = objcontent.Language_subsection_id;
                     }
+
                     if (objcontent.Content_Type_ID == 1)
                     {
                         objModel.Section_id = objcontent.root_parent_id;
@@ -280,6 +286,21 @@ public class EditContentController : Controller
                 objModel.Mobile_Masthead_image = objcontent.Mobile_Masthead_image;
                 objModel.Background_image = objcontent.Background_image;
                 objModel.Attach_file = objcontent.Attach_file;
+                if (!string.IsNullOrWhiteSpace(objcontent.Mapped_sections))
+                {
+                    objModel.SelectedMapping_sections = objcontent.Mapped_sections
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                        .Select(int.Parse)
+                        .ToArray();
+                }
+
+                if (!string.IsNullOrWhiteSpace(objcontent.Tags))
+                {
+                    objModel.SelectedTagging_sections = objcontent.Tags
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                        .Select(int.Parse)
+                        .ToArray();
+                }
             }
         }
         catch (Exception)
@@ -381,7 +402,34 @@ public class EditContentController : Controller
 
                 if (cmsbal.Language_subSections != null && cmsbal.Language_subSections.Count > 0)
                 {
-                    Model.Language_sections = Helper.BuildHierarchy(cmsbal.Language_subSections, Model.Language_section_id);
+                    Model.Language_subSections = Helper.BuildHierarchy(cmsbal.Language_subSections, Model.Language_section_id);
+                }
+            }
+            Model.Mapping_sections = [];
+            if (cmsbal.Mapping_Sections != null && cmsbal.Mapping_Sections.Count > 0)
+            {
+                foreach (var item in cmsbal.Mapping_Sections)
+                {
+                    Model.Mapping_sections.Add(new SelectListItem
+                    {
+                        Text = item.title,
+                        Value = item.id.ToString(),
+                        Selected = Model.SelectedMapping_sections != null && Model.SelectedMapping_sections.Contains(item.id ?? 0)
+                    });
+                }
+            }
+
+            Model.Tagging_sections = [];
+            if (cmsbal.Tagging_Sections != null && cmsbal.Tagging_Sections.Count > 0)
+            {
+                foreach (var item in cmsbal.Tagging_Sections)
+                {
+                    Model.Tagging_sections.Add(new SelectListItem
+                    {
+                        Text = item.title,
+                        Value = item.id.ToString(),
+                        Selected = Model.SelectedTagging_sections != null && Model.SelectedTagging_sections.Contains(item.id ?? 0)
+                    });
                 }
             }
         }
@@ -548,6 +596,15 @@ public class EditContentController : Controller
                     ContentObj.Background_image_id = Modelobj.Background_image_id ?? null;
                     ContentObj.Background_image_Alttext = Modelobj.Background_image_Alttext;
                     ContentObj.Attach_file_id = Modelobj.Attach_file_id ?? null;
+                    if (Modelobj.SelectedMapping_sections != null && Modelobj.SelectedMapping_sections.Length > 0)
+                    {
+                        ContentObj.Mapped_sections = string.Join(",", Modelobj.SelectedMapping_sections);
+                    }
+
+                    if (Modelobj.SelectedTagging_sections != null && Modelobj.SelectedTagging_sections.Length > 0)
+                    {
+                        ContentObj.Tags = string.Join(",", Modelobj.SelectedTagging_sections);
+                    }
                     if (Modelobj.Displaydate != null)
                     {
                         ContentObj.displaydate = Modelobj.Displaydate;
@@ -735,8 +792,8 @@ public class EditContentController : Controller
                     Model.Geographies.Add(new SelectListItem { Text = item.title, Value = item.id.ToString() });
                 }
             }
-            cont_id = Model.subSection_id == 0 ? Model.section_id ?? 0 : Model.subSection_id ?? 0;
-            cmsObj = objBal.CMS_Section_articles_RepublishedList(cont_id, Model.searchquery ?? "", Model.language_id ?? 0, Model.current_page ?? 1);
+            cont_id = Model.subSection_id == 0 ? Model.section_id : Model.subSection_id;
+            cmsObj = objBal.CMS_Section_articles_RepublishedList(cont_id, Model.searchquery ?? "", Model.language_id, Model.current_page ?? 1);
 
             if (cmsObj.sections != null && cmsObj.sections.Count > 0)
             {
@@ -876,14 +933,22 @@ public class EditContentController : Controller
                 {
 
                     objModel.Language_section_id = objcontent.Language_root_parent_id;
-                    if (objcontent.Language_root_parent_id == objcontent.parent_id)
+                    if (objcontent.Language_root_parent_id == objcontent.id)
                     {
+                        objModel.Language_section_id = 0;
                         objModel.Language_subsection_id = 0;
+                    }
+                    else if (objcontent.Language_root_parent_id == objcontent.parent_id)
+                    {
+                        objModel.Language_section_id = objcontent.Language_root_parent_id;
+                        objModel.Language_subsection_id = objcontent.parent_id;
                     }
                     else
                     {
-                        objModel.Language_subsection_id = objcontent.parent_id;
+                        objModel.Language_section_id = objcontent.Language_root_parent_id;
+                        objModel.Language_subsection_id = objcontent.Language_subsection_id;
                     }
+
                     if (objcontent.Content_Type_ID == 1)
                     {
                         objModel.Section_id = objcontent.root_parent_id;
@@ -939,6 +1004,21 @@ public class EditContentController : Controller
                 objModel.Mobile_Masthead_image = objcontent.Mobile_Masthead_image;
                 objModel.Background_image = objcontent.Background_image;
                 objModel.Attach_file = objcontent.Attach_file;
+                if (!string.IsNullOrWhiteSpace(objcontent.Mapped_sections))
+                {
+                    objModel.SelectedMapping_sections = objcontent.Mapped_sections
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                        .Select(int.Parse)
+                        .ToArray();
+                }
+
+                if (!string.IsNullOrWhiteSpace(objcontent.Tags))
+                {
+                    objModel.SelectedTagging_sections = objcontent.Tags
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                        .Select(int.Parse)
+                        .ToArray();
+                }
             }
         }
         catch (Exception)
@@ -1024,6 +1104,15 @@ public class EditContentController : Controller
                     ContentObj.Background_image_id = Modelobj.Background_image_id ?? null;
                     ContentObj.Background_image_Alttext = Modelobj.Background_image_Alttext;
                     ContentObj.Attach_file_id = Modelobj.Attach_file_id ?? null;
+                    if (Modelobj.SelectedMapping_sections != null && Modelobj.SelectedMapping_sections.Length > 0)
+                    {
+                        ContentObj.Mapped_sections = string.Join(",", Modelobj.SelectedMapping_sections);
+                    }
+
+                    if (Modelobj.SelectedTagging_sections != null && Modelobj.SelectedTagging_sections.Length > 0)
+                    {
+                        ContentObj.Tags = string.Join(",", Modelobj.SelectedTagging_sections);
+                    }
                     if (Modelobj.Displaydate != null)
                     {
                         ContentObj.displaydate = Modelobj.Displaydate;

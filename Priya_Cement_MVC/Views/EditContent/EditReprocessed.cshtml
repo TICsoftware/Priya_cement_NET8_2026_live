@@ -155,6 +155,27 @@
                                                         
                                                     </div>
                                                 </div>
+                                                <div class="col-md-12 col-12" >
+                                                    <div class="row"> 
+                                                        <div class="col-md-6 col-12 mb-2">
+                                                            <div class="form-group mb-3">    
+                                                                <label for="lstMapping_Sections" class="form-label">Map to other section</label>
+                                                                @Html.ListBoxFor(model => model.SelectedMapping_sections,
+                                                                Model.Mapping_sections, new { id = "lstMapping_Sections", @class = "form-select", size = "8" })
+                                                                <small class="text-muted"><b>Hold Ctrl to select multiple sections</b></small>
+                                                            </div>  
+                                                        </div>
+                                                        <div class="col-md-6 col-12">
+                                                            <div class="form-group mb-3">    
+                                                                <label for="lstTagging_Sections" class="form-label">Select Tag(s)</label>
+                                                                @Html.ListBoxFor(model => model.SelectedTagging_sections,
+                                                                Model.Tagging_sections, new { id = "lstTagging_Sections", @class = "form-select", size = "8" })
+                                                                <small class="text-muted"><b>Hold Ctrl to select multiple tags</b></small>
+                                                                                                          
+                                                            </div>
+                                                        </div> 
+                                                    </div>
+                                                </div>
                                             </div>
                                          </div>
                                     </div>
