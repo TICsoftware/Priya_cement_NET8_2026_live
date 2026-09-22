@@ -25,6 +25,18 @@ namespace Priya_Cement_MVC.Routes
                 defaults: new { controller = "About", action = "FinancialInformation", title = "financial-Information" }
             );
 
+              app.MapControllerRoute(
+                name: "blogs",
+                pattern: "blogs",
+                defaults: new { controller = "Blogs", action = "Index", title = "blogs" }
+            );
+
+             app.MapControllerRoute(
+                          name: "blogs-inside",
+                          pattern: "blogs/{title?}",
+                          defaults: new { controller = "Blogs", action = "Inside" }
+                      );
+
             app.MapControllerRoute(
                 name: "press-releases",
                 pattern: "media/press-peleases",
