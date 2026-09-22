@@ -28,7 +28,7 @@ public class TagMaster_BAL : TagMaster_DAL
                 languages.Add(new Options_List
                 {
                     id = Convert.ToInt32(row["ID"]),
-                    title = row["name"] as string
+                    title = row["Language_Name"] as string
                 });
             }
         }
@@ -56,13 +56,15 @@ public class TagMaster_BAL : TagMaster_DAL
         return obj;
     }
 
-    public int AddTag(TagMaster obj, int userid)
+    public int AddTag(TagMaster obj, int userid, out int result)
     {
+        result = 0;
         DataTable dt = _dal.Add(obj, userid);
 
         if (dt.Rows.Count > 0)//dt.Columns.Contains("NewID")
         {
-            return Convert.ToInt32(dt.Rows[0]["NewID"]);
+            result = Convert.ToInt32(dt.Rows[0]["result"]);
+            return dt.Rows[0]["ID"] == DBNull.Value ? 0 : Convert.ToInt32(dt.Rows[0]["ID"]);
         }
         else
         {
@@ -82,17 +84,17 @@ public class TagMaster_BAL : TagMaster_DAL
         return new TagMaster
         {
             ID = Convert.ToInt32(row["ID"]),
-            Tag_name = row["Tag_name"] as string,
-            Language_Master_ID = row["Language_Master_ID"] as int?,
+            Tag_name = row["Tag_Name"] as string,
+            Language_Master_ID = row["Language_MasterID"] == DBNull.Value ? null : Convert.ToInt32(row["Language_MasterID"]),
             Languauge_Name = row.Table.Columns.Contains("Language_Name") ? row["Language_Name"]?.ToString() : null,
-            Status = row["Status"] as int?,
+            Status = Convert.ToInt32(row["Status"]),
             Created_Date = row["Created_Date"] != DBNull.Value ? Convert.ToDateTime(row["Created_Date"]) : (DateTime?)null,
             Updated_Date = row["Updated_Date"] != DBNull.Value ? Convert.ToDateTime(row["Updated_Date"]) : (DateTime?)null,
         };
     }
 
-    public void DeactivateTag(int id, int userid)
+    public void UpdateTagStatus(int id, int status, int userid)
     {
-        _dal.DeactivateTag_DAL(id, userid);
+        _dal.UpdateTagStatus_DAL(id,status, userid);
     }
 }

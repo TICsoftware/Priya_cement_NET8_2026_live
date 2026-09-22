@@ -16,7 +16,7 @@ namespace Core_project_BusinessLogic.Entity
          
         [Required(ErrorMessage = "Status is required.")]
         [Range(0, 1, ErrorMessage = "Please select a valid status.")]
-        public int? Status { get; set; }
+        public int Status { get; set; }
 
         public string? Languauge_Name  {get;set;}
         public DateTime? Created_Date { get; set; }
