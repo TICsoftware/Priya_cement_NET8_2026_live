@@ -51,14 +51,14 @@
                                     <div id="selectMastersAccordion-collapseOne" class="accordion-collapse collapse show" aria-labelledby="selectMastersAccordion-headingOne" data-bs-parent="#selectMastersAccordion">
                                          <div class="accordion-body">
                                             <div class="row">
-                                                <div class="col-md-3 col-12">
+                                                <div class="col-md-6 col-12">
                                                     <div class="form-group mb-3">
                                                         <label for="Language_master_id" class="form-label">Language</label>
                                                         @Html.DropDownListFor(model => model.Language_master_id, Model.Languages , new { id = "ddLanguage", @class = "form-select" })
                                                         @Html.ValidationMessageFor(model => model.Language_master_id, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
-                                               <div class="col-md-3 col-12">
+                                               <div class="col-md-6 col-12">
                                                     <div class="form-group mb-3">
                                                         <label for="Geography_ID" class="form-label">Geography <sup>*</sup></label>
                                                         <div class="d-flex flex-wrap">
@@ -87,7 +87,7 @@
                                                     </div>
                                                 </div> 
                                                 
-                                                <div class="col-md-6 col-6">
+                                                <div class="col-md-6 col-6" style="display: none;">
                                                     <div class="form-group mb-3">                                                                                                                 
                                                         <label for="template_type" class="form-label">Template type </label>
                                                         @Html.DropDownListFor(model => model.template_type,
@@ -99,7 +99,7 @@
                                                             new { @class = "form-select", id = "ddSequence" })   
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-6">
+                                                <div class="col-md-6 col-12">
                                                     <div class="form-group mb-3">
                                                         <label for="ddTemplates" class="form-label">Template </label>
                                                         <div class="d-flex flex-wrap">

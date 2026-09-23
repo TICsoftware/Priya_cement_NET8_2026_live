@@ -76,16 +76,16 @@
                     <div class="row" id="Divmainenglishsections" style="display:@(Model.language_id == 1 ? "show" : "none")">
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="ddSection" class="form-label">Sections </label> 
+                                <label for="ddSections" class="form-label">Sections </label> 
                                 @Html.DropDownListFor(model => model.section_id,
-                                Model.Sections , new { id = "ddSection", @class = "form-select" })
+                                Model.Sections , new { id = "ddSections", @class = "form-select" })
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="ddsubSection" class="form-label">&nbsp; </label> 
                                 @Html.DropDownListFor(model => model.subSection_id,
-                                Model.subSections , new { id = "ddsubSection", @class = "form-select" })
+                                Model.subSections , new { id = "ddSubSections", @class = "form-select" })
                             </div>
                         </div> 
                          

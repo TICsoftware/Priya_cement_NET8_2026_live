@@ -701,6 +701,9 @@ public class EditContentController : Controller
         using ContentManager objBal = new(objconfig);
         try
         {
+            Model.language_id = 1;
+            Model.section_id = 0;
+            Model.subSection_id = 0;
             RepublishedList_load(Model, objBal);
         }
         catch (Exception ex)
