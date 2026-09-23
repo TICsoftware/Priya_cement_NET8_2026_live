@@ -34,9 +34,12 @@ namespace Priya_Cement_BusinessLogic.BAL
                 model.Components = groupedData;
 
                 model.Intro_Guides_List = MapComponents(groupedData, 1);
-                model.Our_Guides_section_List = MapComponents(groupedData, 2);
-                model.download_brochure_List = MapComponents(groupedData, 3);
-                model.CTA_List = MapComponents(groupedData, 4);
+                model.Guide1_List = MapComponents(groupedData, 2);
+                model.Guide2_List = MapComponents(groupedData, 3);
+                model.Guide3_List = MapComponents(groupedData, 4);
+                model.Guide4_List = MapComponents(groupedData, 5);
+                model.Guide5_List = MapComponents(groupedData, 6);
+                model.CTA_List = MapComponents(groupedData, 7);
                
             }
 

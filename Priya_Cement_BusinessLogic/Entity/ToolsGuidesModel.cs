@@ -14,8 +14,11 @@ namespace Priya_Cement_BusinessLogic.Entity
 
         //Tools and Guides
         public List<ComponentModel> Intro_Guides_List { get; set; } = new();
-        public List<ComponentModel> Our_Guides_section_List { get; set; } = new();
-        public List<ComponentModel> download_brochure_List { get; set; } = new();
+        public List<ComponentModel> Guide1_List { get; set; } = new();
+        public List<ComponentModel> Guide2_List { get; set; } = new();
+        public List<ComponentModel> Guide3_List { get; set; } = new();
+        public List<ComponentModel> Guide4_List { get; set; } = new();
+        public List<ComponentModel> Guide5_List { get; set; } = new();
         public List<ComponentModel> CTA_List { get; set; } = new();
 
 

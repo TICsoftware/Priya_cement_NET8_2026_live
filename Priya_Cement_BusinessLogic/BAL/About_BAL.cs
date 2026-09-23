@@ -98,6 +98,7 @@ namespace Priya_Cement_BusinessLogic.BAL
                 model.Support_Intro_List = MapComponents(groupedData, 4);
                 model.Support_Items_List = MapComponents(groupedData, 5);
                 model.MP_CTA_List = MapComponents(groupedData, 6);
+                model.Legacy_Built_One_Year_At_A_Time_List = MapComponents(groupedData, 7);
             }
 
             return model;

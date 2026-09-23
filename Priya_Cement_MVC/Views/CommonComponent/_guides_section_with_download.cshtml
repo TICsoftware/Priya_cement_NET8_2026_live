@@ -1,0 +1,78 @@
+@using Priya_Cement_BusinessLogic.Entity
+@using Priya_Cement_MVC.Helpers
+@model List<ComponentModel>
+
+
+@foreach (var item in Model.Where(x => x.IsBlock == 0))
+{
+    <section class="relative section-spacing">
+        <div class="container">
+            <div
+                class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10 leftright-grid-reverse leftright-grid-section">
+                <div class="rounded-md parallax-wrap lg:max-w-[55%] w-full leftright-grid-img">
+                    <img src="@item.ComponentThumbnail" alt="@item.ComponentThumbnailAltText"
+                         class="rounded-md object-cover shadow-card parallax-img" />
+                </div>
+                <div class="lg:max-w-[45%] w-full leftright-grid-content">
+                    <div class="section-title-outer section-title-outer-start section-with-intro section-title-nonintro ">
+                        <h2 class="text-h2 title-section reveal-text section-title-mid section-title-left">
+                            @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
+                                                    ? item.DisplayTitle.CleanParagraphTags()
+                                                    : item.Title)
+                        </h2>
+
+                        @if (!string.IsNullOrWhiteSpace(item.Intro))
+                        {
+                            <p>
+                                @Html.Raw(item.Intro.CleanParagraphTags())
+                            </p>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-spacing whypartner-brochure-section relative overflow-hidden"
+             aria-labelledby="solutions-brochure-heading">
+        <div class="bgimage-outer-wrap" aria-hidden="true">
+            <img src="~/Assets/images/bg-image-dark.webp" alt="" class="w-full h-full object-cover bg-image">
+        </div>
+        <div class="container relative z-1">
+            <div class="solutions-brochure-inner">
+                <div class="section-title-outer section-title-outer-start">
+                    @if (!string.IsNullOrWhiteSpace(item.Content))
+                    {
+                        @Html.Raw(item.Content)
+                    }
+                </div>
+
+                <div
+                    class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 md:gap-4 lg:gap-6 solutions-brochure-grid">
+                    @foreach (var item1 in Model.Where(x => x.IsBlock == 1))
+                    {
+                        <div class="solutions-brochure-block aspect-240/192">
+                            <div class="lang-icon"><img src="@item1.Icon_Image" alt="@item1.Title" class="w-auto object-cover">
+                            </div>
+                            <div class="font-bold text-p mt-5">@item1.Title</div>
+                            <div class="outer-btn-wrap">
+                                @if (!string.IsNullOrWhiteSpace(item1.MediafilePath) && item1.MediafilePath.EndsWith(".pdf",
+                                                        StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <a class="site-link" href="@item1.MediafilePath" target="_blank">
+                                        @item1.Url_Text
+                                        <span class="site-link-arrow" aria-hidden="true"><img
+                                            src="/Assets/images/common-images/download-vector-btn.svg" alt=""
+                                            class="w-auto object-cover"></span>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    }

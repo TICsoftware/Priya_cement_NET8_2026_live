@@ -54,11 +54,17 @@
     @await Html.PartialAsync("~/Views/CommonComponent/_technical_services_intro.cshtml", Model.Intro_MP_List)
 }
 
+
+@if (Model?.Legacy_Built_One_Year_At_A_Time_List != null && Model.Legacy_Built_One_Year_At_A_Time_List.Any())
+{
+    @await Html.PartialAsync("_legacy_built.cshtml", Model.Legacy_Built_One_Year_At_A_Time_List)
+}
+
 <div id="services">
     @if ((Model?.Onsite_Testing_List != null && Model.Onsite_Testing_List.Any())
         || (Model?.Testing_Capabilities_List != null && Model.Testing_Capabilities_List.Any()))
     {
-        @await Html.PartialAsync("~/Views/CommonComponent/_technical_services_onsite.cshtml", Model)
+        @await Html.PartialAsync("~/Views/CommonComponent/_technical_services_onsite_common.cshtml", Model)
     }
 
     @if ((Model?.Support_Intro_List != null && Model.Support_Intro_List.Any())
