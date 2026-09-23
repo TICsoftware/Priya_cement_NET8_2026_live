@@ -75,6 +75,34 @@ namespace Priya_Cement_BusinessLogic.BAL
             return model;
         }
 
+        public AboutModel GetManufacturingProcessing_BAL(string pagename, int languageId, int geographyId)
+        {
+            var model = new AboutModel();
+            var ds = GetContentComponentData_DAL(pagename, languageId, geographyId);
+
+            // Content
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                model.Content = MapContent(ds.Tables[0].Rows[0]);
+            }
+
+            // Components
+            if (ds.Tables.Count > 1 && ds.Tables[1].Rows.Count > 0)
+            {
+                var groupedData = GetGroupedComponents(ds.Tables[1]);
+                model.Components = groupedData;
+
+                model.Intro_MP_List = MapComponents(groupedData, 1);
+                model.Onsite_Testing_List = MapComponents(groupedData, 2);
+                model.Testing_Capabilities_List = MapComponents(groupedData, 3);
+                model.Support_Intro_List = MapComponents(groupedData, 4);
+                model.Support_Items_List = MapComponents(groupedData, 5);
+                model.MP_CTA_List = MapComponents(groupedData, 6);
+            }
+
+            return model;
+        }
+
 
         public AboutModel GetFinancialInformation_BAL(string pagename, int languageId, int geographyId)
         {

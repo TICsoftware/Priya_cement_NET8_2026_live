@@ -1,0 +1,175 @@
+@using Priya_Cement_MVC.Helpers
+@model Priya_Cement_BusinessLogic.Entity.ToolsGuidesModel
+@{
+    ViewData["Title"] = Model?.Content?.ContTitle ?? "Guides";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var content = Model?.Content;
+}
+
+@section head {
+    <title>@(content?.cont_window_title)</title>
+
+    <meta content="@(content?.cont_metatag)" name="keywords" />
+    <meta content="@(content?.cont_metadesc)" name="description" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="" />
+    <meta name="twitter:title" content="@(content?.ContTitle)" />
+    <meta name="twitter:description" content="@(content?.cont_metadesc)" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Priya Cement" />
+    <meta property="og:title" content="@(content?.ContTitle)" />
+    <meta property="og:description" content="@(content?.cont_metadesc)" />
+    <meta property="og:url" content="@(content?.CanonicalUrl)" />
+    <meta property="og:image" content="@(content?.cont_meta_image)" />
+
+    <meta itemprop="name" content="Priya Cement" />
+    <meta itemprop="description" content="@(content?.cont_metadesc)" />
+    <meta itemprop="image" content="@(content?.cont_meta_image)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Priya Cement" />
+    <meta property="og:title" content="@(content?.ContTitle)" />
+    <meta property="og:description" content="@(content?.cont_metadesc)" />
+    <meta property="og:image" content="@(content?.cont_meta_image)" />
+    <meta property="og:url" content="@(content?.CanonicalUrl)" />
+
+    <link rel="canonical" href="@(content?.CanonicalUrl)" />
+
+
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/Assets/css/solutions-style.css" asp-append-version="true" />
+}
+
+
+
+<!-- HERO BANNER -->
+
+@if (Model?.Content != null)
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_page_banner.cshtml", Model.Content)
+}
+<!-- HERO BANNER END -->
+
+
+
+@if (Model?.Intro_Guides_List != null && Model.Intro_Guides_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_guides_build_your_own_business.cshtml",
+    Model.Intro_Guides_List)
+}
+
+@if (Model?.Our_Guides_section_List != null && Model.Our_Guides_section_List.Any())
+{
+    foreach (var item in Model.Our_Guides_section_List.Where(x => x.IsBlock == 0))
+    {
+        <section class="relative section-spacing">
+            <div class="container">
+                <div
+                    class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10 leftright-grid-reverse leftright-grid-section">
+                    <div class="rounded-md parallax-wrap lg:max-w-[55%] w-full leftright-grid-img">
+                        <img src="@item.ComponentThumbnail" alt="@item.ComponentThumbnailAltText"
+                             class="rounded-md object-cover shadow-card parallax-img" />
+                    </div>
+                    <div class="lg:max-w-[45%] w-full leftright-grid-content">
+                        <div class="section-title-outer section-title-outer-start section-with-intro section-title-nonintro ">
+                            <h2 class="text-h2 title-section reveal-text section-title-mid section-title-left">
+                                @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
+                                                        ? item.DisplayTitle.CleanParagraphTags()
+                                                        : item.Title)
+                            </h2>
+
+                            @if (!string.IsNullOrWhiteSpace(item.Intro))
+                            {
+                                <p>
+                                    @Html.Raw(item.Intro.CleanParagraphTags())
+                                </p>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}
+
+
+
+@if (Model?.download_brochure_List != null && Model.download_brochure_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_guides_who_can_apply_download.cshtml",
+    Model.download_brochure_List)
+}
+
+
+@if (Model?.CTA_List != null && Model.CTA_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_product_cta_band.cshtml", Model.CTA_List)
+}
+
+
+
+
+<!-- Sticky partner contact dock (right edge) -->
+<div class="partner-dock" id="partner-dock" data-partner-dock>
+    <button type="button" class="partner-dock-tab" id="partner-dock-tab" aria-label="Partner with us"
+            aria-expanded="false" aria-controls="partner-dock-panel" title="Partner with us">
+        <span class="partner-dock-tab-label">Partner with us</span>
+        <svg class="partner-dock-icon partner-dock-icon--enquiry" viewBox="0 0 24 24" width="28" height="28"
+             aria-hidden="true" focusable="false">
+            <path fill="currentColor"
+                  d="M12 3c-4.97 0-9 3.58-9 8 0 2.12.9 4.05 2.38 5.5L4 21l4.08-1.63C9.3 19.78 10.62 20 12 20c4.97 0 9-3.58 9-8s-4.03-9-9-9zm0 15.2c-1.18 0-2.3-.2-3.33-.57l-.4-.14-2.42.97.66-2.28-.26-.3C5.4 14.85 4.8 13.5 4.8 12c0-3.42 3.22-6.2 7.2-6.2s7.2 2.78 7.2 6.2-3.22 6.2-7.2 6.2z" />
+            <circle fill="currentColor" cx="8.5" cy="12" r="1.05" />
+            <circle fill="currentColor" cx="12" cy="12" r="1.05" />
+            <circle fill="currentColor" cx="15.5" cy="12" r="1.05" />
+        </svg>
+        <svg class="partner-dock-icon partner-dock-icon--close" viewBox="0 0 24 24" width="20" height="20"
+             aria-hidden="true" focusable="false">
+            <path fill="currentColor"
+                  d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z" />
+        </svg>
+    </button>
+
+    <div class="partner-dock-panel" id="partner-dock-panel" role="dialog" aria-labelledby="partner-dock-title"
+         aria-hidden="true" hidden>
+        <div class="partner-dock-panel-inner">
+            <header class="partner-dock-header">
+                <div>
+                    <h2 class="partner-dock-title" id="partner-dock-title">Partner with us</h2>
+                    <p class="partner-dock-sub">Talk to our regional team</p>
+                </div>
+                <button type="button" class="partner-dock-close" id="partner-dock-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </header>
+
+            <ul class="partner-dock-list">
+                <li class="partner-dock-item">
+                    <span class="partner-dock-region">AP / Telangana</span>
+                    <a class="partner-dock-value" href="tel:+918552985529">85529 85529</a>
+                </li>
+                <li class="partner-dock-item">
+                    <span class="partner-dock-region">Karnataka</span>
+                    <a class="partner-dock-value" href="tel:+919623996239">96239 96239</a>
+                </li>
+                <li class="partner-dock-item partner-dock-item--email">
+                    <span class="partner-dock-region">Email</span>
+                    <a class="partner-dock-value"
+                       href="mailto:partner&#64;priyacement.com">partner&#64;priyacement.com</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="partner-dock-backdrop" id="partner-dock-backdrop" hidden aria-hidden="true"></div>
+
+
+@section Scripts {
+    <script src="~/Assets/js/inner-banner-script.js" asp-append-version="true"></script>
+    <script src="~/Assets/js/solutions-script.js" asp-append-version="true"></script>
+}

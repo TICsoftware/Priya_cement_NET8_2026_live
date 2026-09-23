@@ -87,6 +87,25 @@ public class AboutController : Controller
     }
 
 
+    public IActionResult ManufacturingProcessing(string title)
+    {
+        try
+        {
+            var data = _bal.GetManufacturingProcessing_BAL(title, 1, 1);
+            return View(data);
+        }
+        catch (Exception ex)
+        {
+            FileLogger.LogError("/ManufacturingProcessing :", ex);
+            return View(new AboutModel());
+        }
+        finally
+        {
+            _bal.Dispose();
+        }
+    }
+
+
 
 
 

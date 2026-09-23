@@ -61,6 +61,22 @@ namespace Priya_Cement_MVC.Routes
                 defaults: new { controller = "Media", action = "NewsCoverage", title = "news-and-coverage" }
             );
 
+
+         app.MapControllerRoute(
+              name: "manufacturingandprocessing",
+              pattern: "about-us/manufacturing-and-processing",
+              defaults: new { controller = "About", action = "ManufacturingProcessing", title = "manufacturing-and-processing" }
+          );
+
+            app.MapControllerRoute(
+              name: "guides",
+              pattern: "tools-and-guides/guides",
+              defaults: new { controller = "ToolsGuides", action = "Guides", title = "guides" }
+          );
+
+
+
+
             app.MapControllerRoute(
               name: "awards",
               pattern: "about-us/awards",
