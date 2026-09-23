@@ -748,7 +748,7 @@ public class ContentController : Controller
             {
                 cont_id = Model.language_subSection_id > 0 ? Model.language_subSection_id : Model.language_section_id;
             }
-            cmsbal = objBal.CMS_Pageload_Get_BAL(Model.language_id, cont_id);
+            cmsbal = objBal.CMS_Pageload_Get_BAL(Model.language_id, cont_id, 1);
             Model.Languages = [];
             if (cmsbal.Languages != null && cmsbal.Languages.Count > 0)
             {
