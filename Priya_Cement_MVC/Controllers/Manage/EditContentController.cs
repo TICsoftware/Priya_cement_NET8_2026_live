@@ -38,7 +38,10 @@ public class EditContentController : Controller
         try
         {
             ViewBag.page_no = "1";
-            cmsbal = objBal.CMS_Pageload_Get_BAL(1, 0);
+            cmsbal = objBal.CMS_Pageload_Get_BAL(1, 2);
+            Model.language_id = 1;
+            Model.section_id = 0;
+            Model.subSection_id = 0;
             Model.Languages = [];
             if (cmsbal.Languages != null && cmsbal.Languages.Count > 0)
             {
@@ -66,6 +69,23 @@ public class EditContentController : Controller
                 foreach (var item in cmsbal.geographies)
                 {
                     Model.Geographies.Add(new SelectListItem { Text = item.title, Value = item.id.ToString() });
+                }
+            }
+            Model.Language_sections = [];
+            if (cmsbal.Language_sections != null && cmsbal.Language_sections.Count > 0)
+            {
+                foreach (var item in cmsbal.Language_sections)
+                {
+                    Model.Language_sections.Add(new SelectListItem { Text = item.title, Value = item.id.ToString() });
+                }
+            }
+
+            Model.Language_subSections = [];
+            if (cmsbal.Language_subSections != null && cmsbal.Language_subSections.Count > 0)
+            {
+                foreach (var item in cmsbal.Language_subSections)
+                {
+                    Model.Language_subSections.Add(new SelectListItem { Text = item.title, Value = item.id.ToString() });
                 }
             }
 

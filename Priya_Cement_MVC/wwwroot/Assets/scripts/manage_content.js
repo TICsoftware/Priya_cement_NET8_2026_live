@@ -105,8 +105,7 @@ window.Load_Edit_context_Temp_details = function (isrefresh, _templateid, _langu
             type: 'GET',
             data: { template_Id: _templateid, language_id: _language_id, Id_encrypt_val: _Id_encrypt_val },
             success: function (data) {
-                if (data != null)
-                {
+                if (data != null) {
                     $("#div_contentspotmapping").html(data);
                     $('.list_context').each(function () {
                         var id = $(this).data('paging-id');
@@ -155,8 +154,7 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
             type: 'GET',
             data: { template_Id: _templateid, language_id: _language_id, Id_encrypt_val: _Id_encrypt_val },
             success: function (data) {
-                if (data != null)
-                {
+                if (data != null) {
                     $("#div_contentspotmapping").html(data);
                     $('.list_context').each(function () {
                         var id = $(this).data('paging-id');
@@ -318,13 +316,15 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
                 type: 'GET',
                 data: { language_id: language_id },
                 success: function (data) {
-                    if(language_id ==1)
-                    {
+                    if (language_id == 1) {
+                        $("#lblddSections").text("Select Section");
+                        $("#lblddArticle").text("Select Article");
                         $("#div_language_sections").hide();
                         $("#Divmainenglishsections").show();
                     }
-                    else
-                    {
+                    else {
+                        $("#lblddSections").text("Tag English Section");
+                        $("#lblddArticle").text("Tag English Article");
                         $("#div_language_sections").show();
                         $("#Divmainenglishsections").hide();
                     }
@@ -344,13 +344,33 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
 
                     let ddsubsections = $("#ddLanguage_SubSections");
                     ddsubsections.empty().append('<option value="0">Select</option>');
+                    if ($("#lstTagging_Sections").length > 0) {
+                        let ddtags = $("#lstTagging_Sections");
+                        ddtags.empty();
+                        if (data.taglist != null) {
+                            $.each(data.taglist, function (i, item) {
+                                ddtags.append(`<option value="${item.value}">${item.text}</option>`);
+                            });
+                        }
+                    }
+                    if ($("#ddGeography").length > 0) {
+                        let ddGeography = $("#ddGeography");
+                        ddGeography.empty();
+                        if (data.geographies != null) {
+                            $.each(data.geographies, function (i, item) {
+                                ddGeography.append(`<option value="${item.value}">${item.text}</option>`);
+                            });
+                        }
+                    }
 
-                    let ddtags = $("#lstTagging_Sections");
-                    ddtags.empty();
-                    if (data.taglist != null) { 
-                        $.each(data.taglist, function (i, item) {
-                            ddtags.append(`<option value="${item.value}">${item.text}</option>`);
-                        });
+                    if ($("#lstMapping_Sections").length > 0) {
+                        let ddmappedsections = $("#lstMapping_Sections");
+                        ddmappedsections.empty();
+                        if (data.mapped_sections != null) {
+                            $.each(data.mapped_sections, function (i, item) {
+                                ddmappedsections.append(`<option value="${item.value}">${item.text}</option>`);
+                            });
+                        }
                     }
 
                 },
@@ -373,13 +393,11 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
                 type: 'GET',
                 data: { language_id: language_id, cont_id: cont_Id },
                 success: function (data) {
-                    if(language_id ==1)
-                    {
+                    if (language_id == 1) {
                         $("#div_language_sections").hide();
                         $("#Divmainenglishsections").show();
                     }
-                    else
-                    {
+                    else {
                         $("#div_language_sections").show();
                         $("#Divmainenglishsections").hide();
                     }
@@ -535,8 +553,7 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
 
         e.preventDefault();
         e.stopPropagation();
-        if(!confirm("Are you sure you want to delete data?"))
-        {
+        if (!confirm("Are you sure you want to delete data?")) {
             return false;
         }
 
@@ -646,8 +663,7 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
     });
 
     $(document).on("click", ".delete-content", function (e) {
-        if(!confirm("Are you sure you want to delete page?"))
-        {
+        if (!confirm("Are you sure you want to delete page?")) {
             return false;
         }
         var trcontent = $(this);
@@ -794,8 +810,7 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
     });
 
     $(document).on("click", ".publish-delete-spottemplate", function (e) {
-        if(!confirm("Are you sure you want to delete data?"))
-        {
+        if (!confirm("Are you sure you want to delete data?")) {
             return false;
         }
 
@@ -821,7 +836,7 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
         });
     });
 
-   
+
 
 
 })();

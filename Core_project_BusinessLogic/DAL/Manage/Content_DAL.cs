@@ -527,5 +527,32 @@ public class Content_DAL : DBHelper
             throw;
         }
     }
+
+    protected DataSet Sections_Mapping_Get_DAL(int language_id)
+    {
+        DataSet ds = new();
+        try
+        {
+            ds = GetDataSet("Sections_Mapping_CMS_Get", "@language_id", language_id.ToString());
+            return ds;
+        }
+        catch
+        {
+            throw;
+        }
+    }
+    protected DataSet Geographies_Get_DAL(int language_id)
+    {
+        DataSet ds = new();
+        try
+        {
+            ds = GetDataSet("Geographies_CMS_Get", "@language_id", language_id.ToString());
+            return ds;
+        }
+        catch
+        {
+            throw;
+        }
+    }
 }
 

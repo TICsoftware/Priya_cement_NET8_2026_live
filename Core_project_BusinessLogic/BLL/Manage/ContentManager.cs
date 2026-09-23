@@ -124,7 +124,7 @@ public class ContentManager : Content_DAL
             }
 
             //bind taggings 
-            obj.Tagging_Sections =[];
+            obj.Tagging_Sections = [];
             if (ds.Tables[5].Rows.Count > 0)
             {
                 foreach (DataRow row1 in ds.Tables[5].Rows)
@@ -789,6 +789,56 @@ public class ContentManager : Content_DAL
             throw;
         }
     }
+
+    public List<Options_List> Sections_Mapping_Get_BAL(int language_id)
+    {
+        List<Options_List> objsections = [];
+        DataSet ds = new();
+        try
+        {
+            ds = Sections_Mapping_Get_DAL(language_id);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    objsections.Add(new Options_List { id = Convert.ToInt32(dr["cont_id"].ToString()), parent_id = Convert.ToInt32(dr["cont_parent_id"].ToString()), title = dr["cont_title"].ToString() });
+                }
+            }
+            return objsections;
+        }
+        catch (System.Exception)
+        {
+            throw;
+        }
+    }
+
+    public List<Options_List> Geographies_Get_BAL(int language_id)
+    {
+        List<Options_List> objsections = [];
+        DataSet ds = new();
+        try
+        {
+            ds = Geographies_Get_DAL(language_id);
+            if (language_id > 1)
+            {
+                objsections = [new Options_List { id = 0, title = "Select", parent_id = 0 }];
+            }
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    objsections.Add(new Options_List { id = Convert.ToInt32(dr["ID"].ToString()),  title = dr["country_Name"].ToString() });
+                }
+            }
+            return objsections;
+        }
+        catch (System.Exception)
+        {
+            throw;
+        }
+    }
+
+
 }
 
 
