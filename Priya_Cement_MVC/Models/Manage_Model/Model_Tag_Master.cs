@@ -12,11 +12,11 @@ namespace Priya_Cement_MVC
         public int ID { get; set; }
 
         [Display(Name = "Language")]
-        //[Required(ErrorMessage = "Please select a language.")]
+        [Required(ErrorMessage = "Please select a language.")]
         public int? Language_Master_ID { get; set; }
 
         [Display(Name = "Tag Name")]
-        //[Required(ErrorMessage = "Please enter template name.")]
+        [Required(ErrorMessage = "Please enter tag name.")]
         [StringLength(120, ErrorMessage = "Tag name should not exceed 120 characters.")]
         [RegularExpression(@"^(?! )[A-Za-z0-9 .'\-&()]+(?<! )$", ErrorMessage = "Please enter only valid characters (letters, numbers, spaces, and .'-&()).")]
         public string? Tag_Name { get; set; }

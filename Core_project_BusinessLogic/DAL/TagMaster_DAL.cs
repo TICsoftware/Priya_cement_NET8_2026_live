@@ -52,15 +52,16 @@ namespace Core_project_BusinessLogic.DAL
             SQLInsert_Update_Delete_Data("sp_UpdateTagMaster", prms);
         }
 
-        public void DeactivateTag_DAL(int id, int userId)
+        public void UpdateTagStatus_DAL(int id, int status, int userId)
         {
             SqlParameter[] prms =
             {
                 new SqlParameter("@ID", id),
+                 new SqlParameter("@status", status.ToString()),
                 new SqlParameter("@UserID", userId)
             };
 
-            SQLInsert_Update_Delete_Data("sp_DeactivateTagMaster", prms);
+            SQLInsert_Update_Delete_Data("sp_UpdateTagMasterStatus", prms);
         }
 
         

@@ -58,9 +58,20 @@
                                                         @Html.ValidationMessageFor(model => model.Language_master_id, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
+                                               <div class="col-md-6 col-12">
+                                                    <div class="form-group mb-3">
+                                                        <label for="Geography_ID" class="form-label">Geography <sup>*</sup></label>
+                                                        <div class="d-flex flex-wrap">
+                                                        @Html.DropDownListFor(model => model.Geography_ID,
+                                                            Model.Geographies , new { id = "ddGeography", @class = "form-select" })
+                                                            @Html.ValidationMessageFor(model => model.Geography_ID, "", new { @class = "text-danger" })
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group mb-3">
-                                                        <label for="Content_Type_ID" class="form-label">Content type <sup>*</sup></label>
+                                                        <label for="Content_Type_ID" class="form-label form-check">Content type <sup>*</sup></label>
                                                             <div class="d-flex">
                                                                 <div class="form-check me-2">
                                                                     @Html.RadioButtonFor(model => model.Content_Type_ID, Core_project_BusinessLogic.Content_Types.Section, new { id = "Content_Type_ID" ,@class ="form-check-label"}) @Html.Label("Section")
@@ -76,7 +87,7 @@
                                                     </div>
                                                 </div> 
                                                 
-                                                <div class="col-md-6 col-12">
+                                                <div class="col-md-6 col-6" style="display: none;">
                                                     <div class="form-group mb-3">                                                                                                                 
                                                         <label for="template_type" class="form-label">Template type </label>
                                                         @Html.DropDownListFor(model => model.template_type,
@@ -94,54 +105,14 @@
                                                         <div class="d-flex flex-wrap">
                                                         @Html.HiddenFor(model => model.Template_Master_ID)
                                                          @Html.TextBoxFor(model => model.Template_name, new { id="Template_name" , @class="form-control" , @readonly="readonly"}) 
-                                                        @* @Html.DropDownListFor(model => model.Template_Master_ID,
-                                                            Model.Templates , new { id = "ddTemplates", @class = "form-select" })
-                                                            @Html.ValidationMessageFor(model => model.Template_Master_ID, "", new { @class = "text-danger" })
-                                                            *@
+                                                       
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
+                                                
+                                                <div class="col-md-12 col-12" id="div_language_sections"  style="display:@(Model.Language_master_id > 1 ? "block": "none");">
                                                     <div class="form-group mb-3">
-                                                        <label for="Geography_ID" class="form-label">Geography <sup>*</sup></label>
-                                                        <div class="d-flex flex-wrap">
-                                                        @Html.DropDownListFor(model => model.Geography_ID,
-                                                            Model.Geographies , new { id = "ddGeography", @class = "form-select" })
-                                                            @Html.ValidationMessageFor(model => model.Geography_ID, "", new { @class = "text-danger" })
-                                                           
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">  <div class="form-group mb-3"> </div></div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group mb-3">
-                                                        <label for="ddSections" class="form-label">Select Section</label>
-                                                        <div class="row">
-                                                            <div class="col-md-6 col-12 mb-2">
-                                                                @Html.DropDownListFor(model => model.Section_id,
-                                                                Model.Sections , new { id = "ddSections", @class = "form-select" }) 
-                                                            </div>
-                                                            <div class="col-md-6 col-12">
-                                                                @Html.DropDownListFor(model => model.Subsection_id,
-                                                                Model.subSections , new { id = "ddSubSections", @class = "form-select" }) 
-                                                            </div>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                  <div class="form-group mb-3">
-                                                    <label for="ddArticle" class="form-label">Select Article</label>
-                                                     <div class="d-flex flex-wrap">
-                                                        @Html.DropDownListFor(model => model.article_id,
-                                                            Model.Articles , new { id = "ddArticle", @class = "form-select" })                                                             
-                                                           
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                <div class="col-md-6 col-12@(Model.Language_master_id > 1 ? "" : " d-none")" id="div_language_sections">
-                                                    <div class="form-group mb-3">
-                                                        <label for="ddLanguage_Sections" class="form-label">Select Language Section</label>
+                                                        <label for="ddLanguage_Sections" class="form-label">Select Section</label>
                                                         <div class="row">
                                                             <div class="col-md-6 col-12 mb-2">
                                                                 @Html.DropDownListFor(model => model.Language_section_id ,
@@ -155,6 +126,36 @@
                                                         
                                                     </div>
                                                 </div>
+                                                <div class="col-md-12 col-12">
+                                                    <div class="form-group mb-3">
+                                                        <label for="ddSections" class="form-label" id="lblddSections">
+                                                            @(Model.Language_master_id > 1 ? "Tag English Section" : "Select Section")</label>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-12 mb-2">
+                                                                @Html.DropDownListFor(model => model.Section_id,
+                                                                Model.Sections , new { id = "ddSections", @class = "form-select" }) 
+                                                            </div>
+                                                            <div class="col-md-6 col-12">
+                                                                @Html.DropDownListFor(model => model.Subsection_id,
+                                                                Model.subSections , new { id = "ddSubSections", @class = "form-select" }) 
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-12">
+                                                  <div class="form-group mb-3">
+                                                    <label for="ddArticle" class="form-label" id="lblddArticle">
+                                                        @(Model.Language_master_id > 1 ? "Tag English Article" : "Select Article")
+                                                    </label>
+                                                     <div class="d-flex flex-wrap">
+                                                        @Html.DropDownListFor(model => model.article_id,
+                                                            Model.Articles , new { id = "ddArticle", @class = "form-select" })                                                             
+                                                           
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                
                                                 <div class="col-md-12 col-12" >
                                                     <div class="row"> 
                                                         <div class="col-md-6 col-12 mb-2">

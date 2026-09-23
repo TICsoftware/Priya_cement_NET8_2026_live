@@ -35,12 +35,11 @@ builder.Services.AddSession();
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddControllersWithViews();
-   //.AddRazorRuntimeCompilation();//uncomment while live
+    //.AddRazorRuntimeCompilation();//uncomment while live
 }
 else
 {
-    builder.Services
-        .AddControllersWithViews();
+    builder.Services.AddControllersWithViews();
       //.AddRazorRuntimeCompilation();
 }
 

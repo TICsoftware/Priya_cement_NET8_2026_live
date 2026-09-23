@@ -381,13 +381,17 @@ public class ContentController : Controller
     public IActionResult Load_Language_sections(int language_id)
     {
         using ContentManager objBal = new(objconfig);
-        List<SelectListItem> sections = new();
-        List<SelectListItem> tags = new();
+        List<SelectListItem> sectionsObj = new();
+        List<SelectListItem> tagsObj = new();
+        List<SelectListItem> mapping_sectionsObj = new();
+        List<SelectListItem> geographiesObj = new();
         try
         {
-            sections = objBal.Language_Sections_Get_BAL(language_id).Select(x => new SelectListItem { Value = x.id.ToString(), Text = x.title }).ToList();
-            tags = objBal.Tag_master_Get_BAL(language_id).Select(x => new SelectListItem { Value = x.id.ToString(), Text = x.title }).ToList();
-            return Json(new { listsections = sections, taglist = tags });
+            sectionsObj = objBal.Language_Sections_Get_BAL(language_id).Select(x => new SelectListItem { Value = x.id.ToString(), Text = x.title }).ToList();
+            tagsObj = objBal.Tag_master_Get_BAL(language_id).Select(x => new SelectListItem { Value = x.id.ToString(), Text = x.title }).ToList();
+            mapping_sectionsObj = objBal.Sections_Mapping_Get_BAL(language_id).Select(x => new SelectListItem { Value = x.id.ToString(), Text = x.title }).ToList();
+            geographiesObj =  objBal.Geographies_Get_BAL(language_id).Select(x => new SelectListItem { Value = x.id.ToString(), Text = x.title }).ToList();
+            return Json(new { listsections = sectionsObj, taglist = tagsObj, mapped_sections= mapping_sectionsObj , geographies = geographiesObj});
 
         }
         catch (Exception ex)
@@ -744,7 +748,7 @@ public class ContentController : Controller
             {
                 cont_id = Model.language_subSection_id > 0 ? Model.language_subSection_id : Model.language_section_id;
             }
-            cmsbal = objBal.CMS_Pageload_Get_BAL(Model.language_id, cont_id);
+            cmsbal = objBal.CMS_Pageload_Get_BAL(Model.language_id, cont_id, 1);
             Model.Languages = [];
             if (cmsbal.Languages != null && cmsbal.Languages.Count > 0)
             {
