@@ -34,6 +34,15 @@ namespace Priya_Cement_BusinessLogic.Entity
         public List<ComponentModel> CTA_List { get; set; } = new();
 
 
+        //Manufacturing and Processing
+        public List<ComponentModel> Intro_MP_List { get; set; } = new();
+        public List<ComponentModel> Onsite_Testing_List { get; set; } = new();
+        public List<ComponentModel> Testing_Capabilities_List { get; set; } = new();
+        public List<ComponentModel> Support_Intro_List { get; set; } = new();
+        public List<ComponentModel> Support_Items_List { get; set; } = new();
+        public List<ComponentModel> MP_CTA_List { get; set; } = new();
+
+
 
         public int TotalCount { get; set; }
 
