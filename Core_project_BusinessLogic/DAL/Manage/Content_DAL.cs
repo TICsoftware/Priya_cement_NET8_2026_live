@@ -69,7 +69,6 @@ public class Content_DAL : DBHelper
             Sqlparam.Add(new SqlParameter("@search_url", content.search_url ?? (object)DBNull.Value));
             // Sqlparam.Add(new SqlParameter("@page_url", content.page_url ?? (object)DBNull.Value));
             Sqlparam.Add(new SqlParameter("@breadcrumb_title", content.breadcrumb_title ?? (object)DBNull.Value));
-
             Sqlparam.Add(new SqlParameter("@Hmpg_thumbnail_Media_id", content.Thumb_image_id ?? (object)DBNull.Value));
             Sqlparam.Add(new SqlParameter("@Hmpg_thumbnail_alt_text", content.Thumb_image_alttext ?? (object)DBNull.Value));
             Sqlparam.Add(new SqlParameter("@Small_icon_Media_id", content.Small_Icon_Thumb_image_id ?? (object)DBNull.Value));
