@@ -125,6 +125,20 @@ public class Content_DAL : DBHelper
         }
     }
 
+     protected DataSet Articles_Get_DAL(int cont_id)
+    {
+        DataSet ds = new();
+        try
+        {
+            ds = GetDataSet("Articles_CMS_Get", "@cont_id", cont_id.ToString());
+            return ds;
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
     protected DataSet Language_Sections_Get_DAL(int language_id)
     {
         DataSet ds = new();
