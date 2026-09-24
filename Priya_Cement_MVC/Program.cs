@@ -77,7 +77,7 @@ builder.Services.AddSession(options =>
 // Kestrel limit
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.Limits.MaxRequestBodySize = 52428800;
+    options.Limits.MaxRequestBodySize = 1073741824;
     options.AddServerHeader = false;
 });
 

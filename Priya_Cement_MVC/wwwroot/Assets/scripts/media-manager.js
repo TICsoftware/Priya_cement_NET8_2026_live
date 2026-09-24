@@ -316,6 +316,8 @@
         e.preventDefault();
         e.stopImmediatePropagation();  // ✅ stop duplicate firing
 
+        let btn = $(this);
+        let originalText = btn.text();
         
         let fileType = $("#fileType").val();
         let fileInput = document.getElementById("files");
@@ -335,6 +337,10 @@
         formData.append("fileType", fileType);
         [...fileInput.files].forEach(f => formData.append("files", f));
     
+
+        btn.text("Uploading.....");
+        btn.prop("disabled", true);
+
         $.ajax({
             url: "/MediaManager/Upload",
             method: "POST",
@@ -367,7 +373,14 @@
                 }
             },
             error: function () {
+                 btn.text(originalText);
                 $("#uploadMessage").html("<span class='text-danger'>Upload failed.</span>");
+            },
+             complete: function () {
+
+            // Restore button after upload completes
+                btn.text(originalText);
+                btn.prop("disabled", false);
             }
         });
     });
