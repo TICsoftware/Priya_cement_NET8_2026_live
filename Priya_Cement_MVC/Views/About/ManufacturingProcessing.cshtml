@@ -41,7 +41,8 @@
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/Assets/css/technicalservices-style.css" />
+    <link rel="stylesheet" href="~/Assets/css/technicalservices-style.css" asp-append-version="true"  />
+     <link rel="stylesheet" href="~/Assets/css/legacy-style.css" asp-append-version="true" />
 }
 
 @if (Model?.Content != null)
@@ -88,4 +89,5 @@
     <script src="~/Assets/js/inner-banner-script.js"></script>
     <script src="~/Assets/js/technicalservices-script.js"></script>
     <script src="~/Assets/js/table-scroll.js"></script>
+    <script src="~/Assets/js/legacy-script.js" asp-append-version="true"></script>
 }

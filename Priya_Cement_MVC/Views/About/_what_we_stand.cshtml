@@ -10,7 +10,7 @@
 
 <section class="aboutus-stand-section section-spacing">
     <div class="container">
-        <div class="aboutus-stand-inner @component.bg_class">
+        <div class="aboutus-stand-inner @(component.bg_class ?? string.Empty)">
             <div class="aboutus-stand-visual">
                 <img src="@(string.IsNullOrWhiteSpace(component.ComponentThumbnail)
                                                  ? Url.Content("~/Assets/images/aboutus/lion.webp")
