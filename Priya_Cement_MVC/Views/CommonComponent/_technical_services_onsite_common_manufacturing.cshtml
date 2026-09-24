@@ -128,8 +128,8 @@
                                     ? item.ComponentThumbnail
                                     : (!string.IsNullOrWhiteSpace(item.ThumbnailImage) ? item.ThumbnailImage : item.Component_right_image);
                                 var listHtml = item.Content;
-                                <article class="grid items-start gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)_minmax(220px,300px)] lg:gap-10 outer-grid-cols">
-                                    <div class="flex min-w-0 gap-4 sm:gap-6 grid-cols-content">
+                                <article class="grid items-start gap-5 sm:gap-6 md:grid-cols-2 lg:gap-10 plant-spec-grid">
+                                    <div class="flex min-w-0 gap-4 sm:gap-6 grid-cols-content manufacturing-grid-cols-content">
                                         <span data-count class="font-bold text-ghost text-big leading-none shrink-0">@index.ToString("00")</span>
                                         <div data-fade class="min-w-0 pt-1">
                                             <h4 class="text-h4">@Html.Raw(itemTitle.CleanParagraphTags())</h4>
@@ -140,33 +140,39 @@
                                             }
                                         </div>
                                     </div>
-                                    @if (!string.IsNullOrWhiteSpace(itemImg))
-                                    {
-                                        <img data-fade src="@itemImg" alt="" class="w-full aspect-[4/3] sm:aspect-[16/11] lg:aspect-[5/3.6] rounded-md object-cover bg-[#E8E8E8]" />
-                                    }
-                                    @if (!string.IsNullOrWhiteSpace(listHtml))
-                                    {
-                                        if (listHtml.Contains("<li", StringComparison.OrdinalIgnoreCase) || listHtml.Contains("<ul", StringComparison.OrdinalIgnoreCase))
+                                    <div class="flex min-w-0 flex-col gap-5 sm:gap-6 manufacturing-table">
+                                        @if (!string.IsNullOrWhiteSpace(itemImg))
                                         {
-                                            <div data-fade class="md:col-span-2 lg:col-span-1 lg:pt-2 right-listcol">
-                                                @Html.Raw(listHtml)
+                                            <img data-fade src="@itemImg" alt="" class="w-full aspect-[4/3] sm:aspect-[16/11] rounded-md object-cover bg-[#E8E8E8]" />
+                                        }
+                                        @if (!string.IsNullOrWhiteSpace(listHtml))
+                                        {
+                                            <div class="table-scroll" data-table-scroll>
+                                                <div class="table-scroll-x">
+                                                    @if (listHtml.Contains("<li", StringComparison.OrdinalIgnoreCase) || listHtml.Contains("<ul", StringComparison.OrdinalIgnoreCase) || listHtml.Contains("<table", StringComparison.OrdinalIgnoreCase))
+                                                    {
+                                                        <div data-fade class="right-listcol">
+                                                            @Html.Raw(listHtml)
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        var lines = listHtml
+                                                            .Replace("<br>", "\n").Replace("<br/>", "\n").Replace("<br />", "\n")
+                                                            .Split(new[] { '\n', '|' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                                                        @for (var i = 0; i < lines.Length; i++)
+                                                        {
+                                                            var line = lines[i].CleanParagraphTags();
+                                                            if (string.IsNullOrWhiteSpace(line)) { continue; }
+                                                            <div class="flex items-start gap-3 border-b border-border py-3.5 text-p font-medium  @(i == lines.Length - 1 ? "last:border-b-0" : "")">
+                                                                @Html.Raw(line)
+                                                            </div>
+                                                        }
+                                                    }
+                                                </div>
                                             </div>
                                         }
-                                        else
-                                        {
-                                            var lines = listHtml
-                                                .Replace("<br>", "\n").Replace("<br/>", "\n").Replace("<br />", "\n")
-                                                .Split(new[] { '\n', '|' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-                                             @for (var i = 0; i < lines.Length; i++)
-                                                {
-                                                    var line = lines[i].CleanParagraphTags();
-                                                    if (string.IsNullOrWhiteSpace(line)) { continue; }
-                                                    <div class="flex items-start gap-3 border-b border-border py-3.5 text-p font-medium @(i == lines.Length - 1 ? "last:border-b-0" : "")">
-                                                        @Html.Raw(line)
-                                                    </div>
-                                                }
-                                        }
-                                    }
+                                    </div>
                                 </article>
                                 index++;
                             }
