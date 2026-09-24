@@ -84,8 +84,13 @@ builder.WebHost.ConfigureKestrel(options =>
 // Multipart/form-data limit (file uploads)
 builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(options =>
 {
-    options.MultipartBodyLengthLimit = 52428800; // 50 MB
+    options.MultipartBodyLengthLimit = 1073741824; // 1 GB
 });
+
+// builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(options =>
+// {
+//     options.MultipartBodyLengthLimit = 52428800; // 50 MB
+// });
 
 var app = builder.Build();
 
