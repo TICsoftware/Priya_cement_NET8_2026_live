@@ -70,7 +70,7 @@
     @if ((Model?.Support_Intro_List != null && Model.Support_Intro_List.Any())
         || (Model?.Support_Items_List != null && Model.Support_Items_List.Any()))
     {
-        @await Html.PartialAsync("~/Views/CommonComponent/_technical_services_support.cshtml", Model)
+        @await Html.PartialAsync("~/Views/CommonComponent/_technical_services_support_manufacturing.cshtml", Model)
     }
 
     <div data-services-end aria-hidden="true" class="h-px w-full"></div>
