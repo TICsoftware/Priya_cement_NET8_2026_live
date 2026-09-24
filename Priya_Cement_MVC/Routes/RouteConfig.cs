@@ -49,6 +49,18 @@ namespace Priya_Cement_MVC.Routes
               defaults: new { controller = "Media", action = "PressReleases", title = "reports" }
           );
 
+           app.MapControllerRoute(
+              name: "safety",
+              pattern: "esg/safety",
+              defaults: new { controller = "Careers", action = "Index", title = "safety" }
+          );
+
+          app.MapControllerRoute(
+                              name: "csr",
+                              pattern: "esg/csr",
+                              defaults: new { controller = "About", action = "AboutUs", title = "csr" }
+                          );
+
             app.MapControllerRoute(
                 name: "campaigns-and-tvcs",
                 pattern: "media/campaigns-and-tvcs",

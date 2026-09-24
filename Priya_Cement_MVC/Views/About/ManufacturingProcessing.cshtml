@@ -41,7 +41,8 @@
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/Assets/css/technicalservices-style.css" />
+    <link rel="stylesheet" href="~/Assets/css/technicalservices-style.css" asp-append-version="true"  />
+     <link rel="stylesheet" href="~/Assets/css/legacy-style.css" asp-append-version="true" />
 }
 
 @if (Model?.Content != null)
@@ -64,13 +65,13 @@
     @if ((Model?.Onsite_Testing_List != null && Model.Onsite_Testing_List.Any())
         || (Model?.Testing_Capabilities_List != null && Model.Testing_Capabilities_List.Any()))
     {
-        @await Html.PartialAsync("~/Views/CommonComponent/_technical_services_onsite_common.cshtml", Model)
+        @await Html.PartialAsync("~/Views/CommonComponent/_technical_services_onsite_common_manufacturing.cshtml", Model)
     }
 
     @if ((Model?.Support_Intro_List != null && Model.Support_Intro_List.Any())
         || (Model?.Support_Items_List != null && Model.Support_Items_List.Any()))
     {
-        @await Html.PartialAsync("~/Views/CommonComponent/_technical_services_support.cshtml", Model)
+        @await Html.PartialAsync("~/Views/CommonComponent/_technical_services_support_manufacturing.cshtml", Model)
     }
 
     <div data-services-end aria-hidden="true" class="h-px w-full"></div>
@@ -87,4 +88,6 @@
 @section Scripts {
     <script src="~/Assets/js/inner-banner-script.js"></script>
     <script src="~/Assets/js/technicalservices-script.js"></script>
+    <script src="~/Assets/js/table-scroll.js"></script>
+    <script src="~/Assets/js/legacy-script.js" asp-append-version="true"></script>
 }

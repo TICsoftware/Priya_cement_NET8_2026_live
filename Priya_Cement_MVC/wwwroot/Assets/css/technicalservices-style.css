@@ -130,11 +130,84 @@
   font-weight: 700;
 }
 .technicalsupport-outer-grid {max-width: 85%; margin-left:auto;z-index: 50;}
+.manufacturing-outer-grid {max-width: 95%; margin-left:auto;z-index: 50;}
 
 [data-rail-scope] article > img {
   height: auto;
   object-fit: contain;
   object-position: center center;
+}
+
+.table-scroll { position: relative; }
+.table-scroll::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 56px;
+  pointer-events: none;
+  z-index: 6;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+@media (max-width: 1023px) {
+  .table-scroll-x {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  .table-scroll.is-scrollable:not(.is-at-end)::after { opacity: 1; }
+  .table-scroll table { overflow: visible; }
+}
+@media (min-width: 1024px) {
+  .table-scroll::after { display: none; }
+  .plant-spec-grid .table-scroll-x { overflow: visible; }
+  .plant-spec-grid .spec-table {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.manufacturing-table .spec-table td {font-size: var(--text-small);padding: 8px 10px;}
+.manufacturing-table .spec-table td p{font-size: var(--text-small);}
+.manufacturing-table .spec-table th {padding: 10px 10px;}
+.manufacturing-table .spec-table .bg-brand-row th {font-size: var(--text-p);}
+
+@media (min-width: 1024px) {
+  .manufacturing-content-box { width: 675px; }
+}
+
+.inner-content-box-list ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.inner-content-box-list ul li {
+  position: relative;
+  padding-left: 1.35rem;
+  color: var(--color-primary, #231f20);
+  font-size: var(--text-p, 1rem);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.inner-content-box-list ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 9999px;
+  background: var(--color-secondary, #ed1c24);
 }
 
 /* Support cards: sit a little into the right-hand image */
@@ -210,12 +283,15 @@
       width: min(50vw, 360px);
     }
     
+    .manufacturing-grid-cols-content {flex-wrap: wrap;}
+    .manufacturing-table .spec-table {min-width: 550px;}
 }
 @media (min-width: 1200px) and (max-width: 1366px) {
   .onsite-ul-list img {max-width: 32px;}
   .right-listcol li {font-size: 1rem;}
   .grid-cols-content p{font-size: 1rem;}
   .outer-grid-cols {gap: 20px;grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(220px, 225px);}
+  .plant-spec-grid {gap: 20px;grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);}
   .enquiry-form-card .section-title-outer{max-width: 65%;}
 }
 

@@ -105,6 +105,44 @@ Model.What_Is_Priya_Cement_Customer_Solutions_List.Any())
 }
 
 
+
+@if (Model?.What_Is_Priya_Cement_Customer_Solutions_List2 != null &&
+Model.What_Is_Priya_Cement_Customer_Solutions_List2.Any())
+{
+    foreach (var item in Model.What_Is_Priya_Cement_Customer_Solutions_List2.Where(x => x.IsBlock == 0))
+    {
+        <section class="relative section-spacing">
+            <div class="container">
+                <div
+                    class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10 leftright-grid-reverse leftright-grid-section">
+                    <div class="rounded-md parallax-wrap lg:max-w-[55%] w-full leftright-grid-img">
+                        <img src="@item.ComponentThumbnail" alt="@item.ComponentThumbnailAltText"
+                             class="rounded-md object-cover shadow-card parallax-img" />
+                    </div>
+                    <div class="lg:max-w-[45%] w-full leftright-grid-content">
+                        <div class="section-title-outer section-title-outer-start section-with-intro section-title-nonintro ">
+                            <h2 class="text-h2 title-section reveal-text section-title-mid section-title-left">
+                                @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
+                                                        ? item.DisplayTitle.CleanParagraphTags()
+                                                        : item.Title)
+                            </h2>
+
+                            @if (!string.IsNullOrWhiteSpace(item.Intro))
+                            {
+                                <p>
+                                    @Html.Raw(item.Intro.CleanParagraphTags())
+                                </p>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}
+
+
 @if (Model?.Why_Partner_With_Priya_Cement_List != null && Model.Why_Partner_With_Priya_Cement_List.Any())
 {
     @await Html.PartialAsync("_solutions_why_partner_priyacement.cshtml",
