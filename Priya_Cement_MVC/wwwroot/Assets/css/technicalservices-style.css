@@ -177,6 +177,10 @@
 .manufacturing-table .spec-table th {padding: 10px 10px;}
 .manufacturing-table .spec-table .bg-brand-row th {font-size: var(--text-p);}
 
+@media (min-width: 1024px) {
+  .manufacturing-content-box { width: 675px; }
+}
+
 .inner-content-box-list ul{
   list-style: none;
   margin: 0;
