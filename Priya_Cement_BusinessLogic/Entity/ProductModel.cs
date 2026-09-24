@@ -43,6 +43,7 @@ namespace Priya_Cement_BusinessLogic.Entity
         public List<ComponentModel> Who_Can_Apply_Download_List { get; set; } = new();
         public List<ComponentModel> Take_The_First_Step_Today_List { get; set; } = new();
         public List<ComponentModel> Frequently_Asked_Questions_List { get; set; } = new();
+        public List<ComponentModel> What_Is_Priya_Cement_Customer_Solutions_List2 { get; set; } = new();
 
          
 
