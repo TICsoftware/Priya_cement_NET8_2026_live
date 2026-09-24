@@ -64,7 +64,7 @@
     @if ((Model?.Onsite_Testing_List != null && Model.Onsite_Testing_List.Any())
         || (Model?.Testing_Capabilities_List != null && Model.Testing_Capabilities_List.Any()))
     {
-        @await Html.PartialAsync("~/Views/CommonComponent/_technical_services_onsite_common.cshtml", Model)
+        @await Html.PartialAsync("~/Views/CommonComponent/_technical_services_onsite_common_manufacturing.cshtml", Model)
     }
 
     @if ((Model?.Support_Intro_List != null && Model.Support_Intro_List.Any())

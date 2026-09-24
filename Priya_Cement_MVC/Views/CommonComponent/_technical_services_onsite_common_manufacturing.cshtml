@@ -157,16 +157,14 @@
                                             var lines = listHtml
                                                 .Replace("<br>", "\n").Replace("<br/>", "\n").Replace("<br />", "\n")
                                                 .Split(new[] { '\n', '|' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-                                            <ul data-fade class="md:col-span-2 lg:col-span-1 lg:pt-2 list-none m-0 p-0">
-                                                @for (var i = 0; i < lines.Length; i++)
+                                             @for (var i = 0; i < lines.Length; i++)
                                                 {
                                                     var line = lines[i].CleanParagraphTags();
                                                     if (string.IsNullOrWhiteSpace(line)) { continue; }
-                                                    <li class="flex items-start gap-3 border-b border-border py-3.5 text-p font-medium @(i == lines.Length - 1 ? "last:border-b-0" : "")">
-                                                        <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"></span>@Html.Raw(line)
-                                                    </li>
+                                                    <div class="flex items-start gap-3 border-b border-border py-3.5 text-p font-medium @(i == lines.Length - 1 ? "last:border-b-0" : "")">
+                                                        @Html.Raw(line)
+                                                    </div>
                                                 }
-                                            </ul>
                                         }
                                     }
                                 </article>
