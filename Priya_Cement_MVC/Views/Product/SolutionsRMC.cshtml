@@ -218,4 +218,18 @@ Model.What_Is_Priya_Cement_Customer_Solutions_List2.Any())
     <script src="~/Assets/js/inner-banner-script.js" asp-append-version="true"></script>
     <script src="~/Assets/js/solutions-script.js" asp-append-version="true"></script>
     <script src="~/scripts/service/solutions_enquiry.js" asp-append-version="true"></script>
+    <script>
+        document.querySelectorAll("table").forEach((table) => {
+            if (table.closest("[data-table-scroll]")) return;
+            const scroller = document.createElement("div");
+            scroller.className = "table-scroll-x";
+            const wrap = document.createElement("div");
+            wrap.className = "table-scroll";
+            wrap.setAttribute("data-table-scroll", "");
+            table.parentNode.insertBefore(wrap, table);
+            wrap.appendChild(scroller);
+            scroller.appendChild(table);
+        });
+    </script>
+    <script src="~/Assets/js/table-scroll.js" asp-append-version="true"></script>
 }

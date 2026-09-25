@@ -1085,3 +1085,62 @@ html.partner-dock-open .partner-dock-backdrop {
   }
 }
 
+/* RMC comparison table: scroll inside the text column when the table is wider */
+.table-scroll { position: relative; }
+.table-scroll-x {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+.table-scroll::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 56px;
+  pointer-events: none;
+  z-index: 6;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.table-scroll.is-scrollable:not(.is-at-end)::after { opacity: 1; }
+.table-scroll table { overflow: visible; }
+
+
+.leftright-grid-content .spec-table td {font-size: var(--text-small);padding: 8px 10px;}
+.leftright-grid-content .spec-table td p{font-size: var(--text-small);}
+.leftright-grid-content .spec-table th {padding: 10px 10px;}
+.leftright-grid-content .spec-table .bg-brand-row th {font-size: var(--text-p);}
+.leftright-grid-content .spec-table {min-width: 510px;}
+.whypartner-need ul {
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.whypartner-need ul li {
+  position: relative;
+  padding-left: 1.1rem;
+  color: var(--color-primary, #231f20);
+  font-size: var(--text-p, 1rem);
+  line-height: 1.5;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.whypartner-need ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 9999px;
+  background: var(--color-primary, #231f20);
+}
