@@ -86,6 +86,14 @@ namespace Priya_Cement_BusinessLogic.BAL
                 model.Content = MapContent(ds.Tables[0].Rows[0]);
             }
 
+            if (ds.Tables.Count > 1 && ds.Tables[1].Rows.Count > 0)
+            {
+                var groupedData = GetGroupedComponents(ds.Tables[1]);
+                model.Components = groupedData;
+
+                model.Print_List = MapComponents(groupedData, 1);
+            }
+
             if (ds.Tables.Count > 2 && ds.Tables[2].Rows.Count > 0)
             {
                 model.SectionArticles_List = Config_Application_Website.MapArticleList(ds.Tables[2]);

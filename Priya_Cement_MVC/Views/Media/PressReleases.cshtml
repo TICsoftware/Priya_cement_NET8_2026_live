@@ -42,6 +42,7 @@
 
 @section Styles {
    <link rel="stylesheet" href="~/Assets/css/media-style.css" asp-append-version="true" />
+   <link rel="stylesheet" href="~/Assets/css/image-gallery.css" asp-append-version="true" />
 }
 
 <!-- HERO BANNER END-->
@@ -98,8 +99,47 @@
    </div>
 </section>
 
+
+
+
+
+@if (Model?.Print_List != null && Model.Print_List.Any())
+{
+   foreach (var item in Model.Print_List.Where(x => x.IsBlock == 0))
+   {
+      <section class="section-spacing print-section" aria-labelledby="print-heading">
+         <div class="container">
+            <div class="section-title-outer section-title-outer-start section-title-md section-title-left">
+               <h2 class="text-h2 title-section reveal-text">
+                  @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
+                              ? item.DisplayTitle.CleanParagraphTags()
+                              : item.Title)
+               </h2>
+
+               @if (!string.IsNullOrWhiteSpace(item.Intro))
+               {
+                  <p>@Html.Raw(item.Intro.CleanParagraphTags())</p>
+               }
+
+            </div>
+
+            <div class="image-gallery mt-5" data-gallery="print">
+               @foreach (var item1 in Model.Print_List.Where(x => x.IsBlock == 1).OrderBy(x => x.Sequence))
+               {
+                  <a class="image-gallery-card" href="@item1.ThumbnailImage" aria-label="@item1.ThumbnailAltText">
+                     <img src="@item1.ThumbnailImage" alt="@item1.ThumbnailAltText" width="480" height="600" loading="lazy">
+                  </a>
+               }
+            </div>
+         </div>
+      </section>
+   }
+}
+
+
 @section Scripts {
    <script src="~/Assets/js/inner-banner-script.js" asp-append-version="true"></script>
    <script src="~/Assets/js/pressreleases-script.js" asp-append-version="true"></script>
    <script src="~/scripts/media/PressRelease.js" asp-append-version="true"></script>
+   <script src="~/Assets/js/image-gallery.js" asp-append-version="true"></script>
 }
