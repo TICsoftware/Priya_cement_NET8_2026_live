@@ -297,6 +297,7 @@
   .enquiry-form-card .section-title-outer{max-width: 65%;}
     .manufacturing-outer-grid .inner-content-box p, .manufacturing-outer-grid .inner-content-box-list ul li {font-size: 0.875rem;}
     .manufacturing-content-box { width: 575px; }
+    .manufacturing-table .spec-table td p {font-size: 0.75rem;}
 }
 
 /* Hide native select — kept in DOM for submit / validation / cascade */
