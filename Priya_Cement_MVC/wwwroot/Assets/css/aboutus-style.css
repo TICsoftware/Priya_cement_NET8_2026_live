@@ -874,6 +874,8 @@
     font-size: 0.875rem;
     gap: 6px;
   }
+  .aboutus-stats-value {font-size: clamp(3.7rem, 7vw, 120px);}
+  .aboutus-stats-label {font-size: clamp(1.5rem, 3vw, 2rem);}
 }
 
 @media (max-width: 767px) {
