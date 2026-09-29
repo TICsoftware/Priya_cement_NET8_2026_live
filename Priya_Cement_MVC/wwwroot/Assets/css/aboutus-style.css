@@ -525,6 +525,7 @@
   .aboutus-stand-visual {
     top: calc(var(--header-h, 106px) + 32px);
   }
+  .aboutus-stats-label {max-width: 55vw;margin: 0 auto;}
 }
 
 @media (prefers-reduced-motion: reduce) {
