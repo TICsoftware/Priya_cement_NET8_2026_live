@@ -52,7 +52,7 @@ namespace Priya_Cement_MVC.Routes
            app.MapControllerRoute(
               name: "safety",
               pattern: "esg/safety",
-              defaults: new { controller = "Careers", action = "Index", title = "safety" }
+              defaults: new { controller = "ESG", action = "Safety", title = "safety" }
           );
 
           app.MapControllerRoute(
@@ -68,10 +68,16 @@ namespace Priya_Cement_MVC.Routes
             );
 
             app.MapControllerRoute(
-                name: "news-and-coverage",
-                pattern: "media/news-and-Coverage",
-                defaults: new { controller = "Media", action = "NewsCoverage", title = "news-and-coverage" }
+                name: "archive",
+                pattern: "media/archive",
+                defaults: new { controller = "Media", action = "NewsCoverage", title = "archive" }
             );
+
+            // app.MapControllerRoute(
+            //     name: "news-and-coverage",
+            //     pattern: "media/news-and-Coverage",
+            //     defaults: new { controller = "Media", action = "NewsCoverage", title = "news-and-coverage" }
+            // );
 
 
          app.MapControllerRoute(

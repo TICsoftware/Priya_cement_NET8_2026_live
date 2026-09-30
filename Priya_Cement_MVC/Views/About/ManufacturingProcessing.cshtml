@@ -41,8 +41,9 @@
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/Assets/css/technicalservices-style.css" asp-append-version="true"  />
-     <link rel="stylesheet" href="~/Assets/css/legacy-style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Assets/css/technicalservices-style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Assets/css/legacy-style.css" asp-append-version="true" />
+     <link rel="stylesheet" href="~/Assets/css/solutions-style.css" asp-append-version="true" />
 }
 
 @if (Model?.Content != null)
@@ -50,15 +51,22 @@
     @await Html.PartialAsync("~/Views/CommonComponent/_page_banner.cshtml", Model.Content)
 }
 
+
 @if (Model?.Intro_MP_List != null && Model.Intro_MP_List.Any())
 {
-    @await Html.PartialAsync("~/Views/CommonComponent/_technical_services_intro.cshtml", Model.Intro_MP_List)
+    @await Html.PartialAsync("~/Views/CommonComponent/_solutions_lion_intro_common.cshtml",
+    Model.Intro_MP_List)
 }
 
 
 @if (Model?.Legacy_Built_One_Year_At_A_Time_List != null && Model.Legacy_Built_One_Year_At_A_Time_List.Any())
 {
     @await Html.PartialAsync("_legacy_built.cshtml", Model.Legacy_Built_One_Year_At_A_Time_List)
+}
+
+@if (Model?.Intro_MP_List != null && Model.Intro_MP_List.Any())
+{
+    @await Html.PartialAsync("~/Views/CommonComponent/_manufacturing_tab.cshtml", Model.Intro_MP_List)
 }
 
 <div id="services">

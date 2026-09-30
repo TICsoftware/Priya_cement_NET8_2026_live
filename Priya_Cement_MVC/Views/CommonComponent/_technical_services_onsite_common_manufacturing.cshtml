@@ -78,21 +78,21 @@
 
                         @if (benefits.Any())
                         {
-                            <ul class="mt-6 grid gap-5 grid-cols-2 sm:grid-cols-2 onsite-ul">
+                            <ul class="mt-6 grid gap-5 grid-cols-1 sm:grid-cols-1 onsite-ul">
                                 @foreach (var item in benefits)
                                 {
                                     var icon = !string.IsNullOrWhiteSpace(item.Component_Icon_Image)
                                         ? item.Component_Icon_Image
                                         : (!string.IsNullOrWhiteSpace(item.Icon_Image) ? item.Icon_Image : item.ThumbnailImage);
                                     var label = !string.IsNullOrWhiteSpace(item.DisplayTitle) ? item.DisplayTitle : item.Title;
-                                    <li class="flex items-center gap-2 sm:gap-4 onsite-ul-list">
-                                        <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-surface-strong">
+                                    <li class="flex items-start gap-2 sm:gap-4 onsite-ul-list">
+                                        @* <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-surface-strong">
                                             @if (!string.IsNullOrWhiteSpace(icon))
                                             {
                                                 <img src="@icon" alt="" class="h-auto w-auto object-cover shrink-0">
                                             }
-                                        </span>
-                                        <span class="text-20 font-medium">@Html.Raw(label.CleanParagraphTags())</span>
+                                        </span> *@
+                                        <span class="text-p font-medium">@Html.Raw(label.CleanParagraphTags())</span>
                                     </li>
                                 }
                             </ul>
