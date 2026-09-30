@@ -34,23 +34,23 @@ builder.Services.AddSession();
 //.AddRazorRuntimeCompilation();
 if (builder.Environment.IsDevelopment())
 {
-    builder.Services.AddControllersWithViews()
-    .AddRazorRuntimeCompilation();//uncomment while live
+    builder.Services.AddControllersWithViews();
+    //.AddRazorRuntimeCompilation();//uncomment while live
 }
 else
 {
-    builder.Services.AddControllersWithViews()
-      .AddRazorRuntimeCompilation();
+    builder.Services.AddControllersWithViews();
+      //.AddRazorRuntimeCompilation();
 }
 
 
-builder.Services.AddAuthentication("MyCookieAuth")
-    .AddCookie("MyCookieAuth", options =>
-    {
-        options.LoginPath = "/Manage/Login";
-        options.AccessDeniedPath = "/Manage/AccessDenied";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-    });
+// builder.Services.AddAuthentication("MyCookieAuth")
+//     .AddCookie("MyCookieAuth", options =>
+//     {
+//         options.LoginPath = "/Manage/Login";
+//         options.AccessDeniedPath = "/Manage/AccessDenied";
+//         options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+//     });
 
 builder.Services.AddAuthorization();
 
