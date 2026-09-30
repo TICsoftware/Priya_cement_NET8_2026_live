@@ -52,7 +52,7 @@ namespace Priya_Cement_MVC.Routes
            app.MapControllerRoute(
               name: "safety",
               pattern: "esg/safety",
-              defaults: new { controller = "Careers", action = "Index", title = "safety" }
+              defaults: new { controller = "ESG", action = "Safety", title = "safety" }
           );
 
           app.MapControllerRoute(

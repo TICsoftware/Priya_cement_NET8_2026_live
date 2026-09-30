@@ -48,6 +48,25 @@ public class ESGController : Controller
     }
 
 
+    public IActionResult Safety(string title)
+    {
+        try
+        {
+            var data = _bal.GetSafety_BAL(title, 1, 1);
+            return View(data);
+        }
+        catch (Exception ex)
+        {
+            FileLogger.LogError("/Safety :", ex);
+            return View(new AboutModel());
+        }
+        finally
+        {
+            _bal.Dispose();
+        }
+    }
+
+
 
 
 
