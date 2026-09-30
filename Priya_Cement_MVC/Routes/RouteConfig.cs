@@ -49,6 +49,12 @@ namespace Priya_Cement_MVC.Routes
               defaults: new { controller = "Media", action = "PressReleases", title = "reports" }
           );
 
+             app.MapControllerRoute(
+              name: "LoadMorePressReleases",
+              pattern: "Media/LoadMorePressReleases",
+              defaults: new { controller = "Media", action = "LoadMorePressReleases"}
+          );
+
            app.MapControllerRoute(
               name: "safety",
               pattern: "esg/safety",

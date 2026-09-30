@@ -7,21 +7,21 @@
 
 }
 
-
+ @if (!string.IsNullOrWhiteSpace(component.DisplayTitle))
+                {
 <section class="section-spacing whypartner-brochure-section relative overflow-hidden"
-    aria-labelledby="solutions-brochure-heading">
+         aria-labelledby="solutions-brochure-heading">
     <div class="bgimage-outer-wrap" aria-hidden="true">
         <img src="~/Assets/images/bg-image-dark.webp" alt="" class="w-full h-full object-cover bg-image">
     </div>
     <div class="container relative z-1">
         <div class="solutions-brochure-inner">
             <div class="section-title-outer section-title-outer-start">
-                <h2 id="solutions-brochure-heading" class="text-h2 title-section reveal-text">
-                    @Html.Raw(!string.IsNullOrWhiteSpace(component.DisplayTitle)
-                                        ? component.DisplayTitle.CleanParagraphTags()
-                                        : component.Title)
-                </h2>
-
+               
+                    <h2 id="solutions-brochure-heading" class="text-h2 title-section reveal-text">
+                        @Html.Raw(!string.IsNullOrWhiteSpace(component.DisplayTitle.CleanParagraphTags()))
+                    </h2>
+               
                 @if (!string.IsNullOrWhiteSpace(component.Intro))
                 {
                     <p class="mt-1 solutions-brochure-note">
@@ -47,14 +47,15 @@
                                 <a class="site-link" href="@item.MediafilePath" target="_blank">
                                     @item.Url_Text
                                     <span class="site-link-arrow" aria-hidden="true"><img
-                                            src="/Assets/images/common-images/download-vector-btn.svg" alt=""
-                                            class="w-auto object-cover"></span>
-                                </a>
-                            }
+                                        src="/Assets/images/common-images/download-vector-btn.svg" alt=""
+                                        class="w-auto object-cover"></span>
+                                    </a>
+                                }
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+    }

@@ -71,7 +71,9 @@
             <a class="fi-report-card" href="@item.MediafilePath" download aria-label="Download @item.Title">
                <span class="fi-report-cover">
                   <span class="fi-report-media">
-                     <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="420" height="560" loading="lazy">
+                     @* <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="420" height="560" loading="lazy"> *@
+                     <img src="@Url.Action("Thumbnail", "Pdf", new { url = item.MediafilePath })"
+                          alt="@item.ThumbnailAltText" width="420" height="560" loading="lazy">
                      <span class="fi-report-dl" aria-hidden="true">
                         <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15"
                              height="20">

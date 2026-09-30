@@ -45,6 +45,10 @@
 
 @section Styles {
    <link rel="stylesheet" href="~/Assets/css/sustainability-style.css" asp-append-version="true" />
+   <link rel="stylesheet" href="~/Assets/css/solutions-style.css" asp-append-version="true" />
+   <link rel="stylesheet" href="~/Assets/css/products-inside-style.css" />
+   <link rel="stylesheet" href="~/Assets/css/aboutus-style.css" asp-append-version="true" />
+   <link rel="stylesheet" href="~/Assets/css/legacy-style.css" asp-append-version="true" />
 }
 
 <!-- HERO BANNER END-->
@@ -125,61 +129,66 @@ Model.Competency_is_the_foundation_of_safe_operations_List)
 
 @if (Model?.Technology_in_the_service_of_safety_List != null && Model.Technology_in_the_service_of_safety_List.Any())
 {
-   @await Html.PartialAsync("~/Views/CommonComponent/_product_intro_bestfor.cshtml", Model.Technology_in_the_service_of_safety_List)
+   @await Html.PartialAsync("~/Views/CommonComponent/_product_intro_bestfor.cshtml",
+Model.Technology_in_the_service_of_safety_List)
 }
 
 
-@if (Model?.Independently_verified_Externally_recognised_List != null && Model.Independently_verified_Externally_recognised_List.Any())
+@if (Model?.Independently_verified_Externally_recognised_List != null &&
+Model.Independently_verified_Externally_recognised_List.Any())
 {
-   @await Html.PartialAsync("~/Views/CommonComponent/_built_on_trust_common.cshtml", Model.Independently_verified_Externally_recognised_List)
+   @await Html.PartialAsync("~/Views/CommonComponent/_built_on_trust_common.cshtml",
+Model.Independently_verified_Externally_recognised_List)
 }
 
 
 
 
 <section class="section-spacing whypartner-section relative overflow-hidden">
-    <div class="container relative z-1">
-        <div class="whypartner-split">
-            @if (Model?.Protecting_health_left_side_intro_List != null && Model.Protecting_health_left_side_intro_List.Any())
+   <div class="container relative z-1">
+      <div class="whypartner-split">
+         @if (Model?.Protecting_health_left_side_intro_List != null &&
+      Model.Protecting_health_left_side_intro_List.Any())
+         {
+            foreach (var item in Model.Protecting_health_left_side_intro_List.Where(x => x.IsBlock == 0))
             {
-                foreach (var item in Model.Protecting_health_left_side_intro_List.Where(x => x.IsBlock == 0))
-                {
-                    <div class="whypartner-apply">
-                        <div class="section-title-outer section-title-outer-start section-title-md">
-                            <h2 class="text-h2 title-section reveal-text">
-                                @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
-                                                        ? item.DisplayTitle.CleanParagraphTags()
-                                                        : item.Title)
-                            </h2>
-                        </div>
-                        @if (!string.IsNullOrWhiteSpace(item.Intro))
-                        {
-                            @Html.Raw(item.Intro.CleanParagraphTags())
-                        }
-                    </div>
-                }
+               <div class="whypartner-apply">
+                  <div class="section-title-outer section-title-outer-start section-title-md">
+                     <h2 class="text-h2 title-section reveal-text">
+                        @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
+                                                ? item.DisplayTitle.CleanParagraphTags()
+                                                : item.Title)
+                     </h2>
+                  </div>
+                  @if (!string.IsNullOrWhiteSpace(item.Intro))
+                  {
+                     @Html.Raw(item.Intro.CleanParagraphTags())
+                  }
+               </div>
             }
+         }
 
-            @if (Model?.Protecting_health_right_side_point_List != null && Model.Protecting_health_right_side_point_List.Any())
+         @if (Model?.Protecting_health_right_side_point_List != null &&
+      Model.Protecting_health_right_side_point_List.Any())
+         {
+            foreach (var item in Model.Protecting_health_right_side_point_List.Where(x => x.IsBlock == 0))
             {
-                foreach (var item in Model.Protecting_health_right_side_point_List.Where(x => x.IsBlock == 0))
-                {
-                    <div class="whypartner-need">
-                        @if (!string.IsNullOrWhiteSpace(item.Intro))
-                        {
-                            @Html.Raw(item.Intro)
-                        }
-                    </div>
-                }
+               <div class="whypartner-need">
+                  @if (!string.IsNullOrWhiteSpace(item.Intro))
+                  {
+                     @Html.Raw(item.Intro)
+                  }
+               </div>
             }
+         }
 
-        </div>
-    </div>
+      </div>
+   </div>
 </section>
 
 @if (Model?.CTA_List != null && Model.CTA_List.Any())
 {
-    @await Html.PartialAsync("~/Views/CommonComponent/_product_cta_band.cshtml", Model.CTA_List)
+   @await Html.PartialAsync("~/Views/CommonComponent/_product_cta_band.cshtml", Model.CTA_List)
 }
 
 
