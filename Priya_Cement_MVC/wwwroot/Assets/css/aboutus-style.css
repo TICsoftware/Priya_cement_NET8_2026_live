@@ -876,6 +876,9 @@
   }
   .aboutus-stats-value {font-size: clamp(3.7rem, 7vw, 120px);}
   .aboutus-stats-label {font-size: clamp(1.5rem, 3vw, 2rem);}
+      .page-intro-outer .section-title-large .title-section {
+        max-width: 100%;
+    }
 }
 
 @media (max-width: 767px) {
@@ -1073,8 +1076,13 @@
 }
 
 
-
-
+.page-intro-outer .section-title-large .title-section {
+    max-width: 35vw;
+}
+.page-intro-outer .section-title-large {
+    max-width: 975px;
+    margin: 0 auto;
+}
 
 
 @media (min-width: 1024px) {
