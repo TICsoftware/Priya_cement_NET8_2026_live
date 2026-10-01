@@ -521,4 +521,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   })();
+
+  if (document.querySelector("[data-table-scroll]") && !document.querySelector('script[src*="table-scroll.js"]')) {
+    const tableScroll = document.createElement("script");
+    tableScroll.src = "/Assets/js/table-scroll.js";
+    document.body.appendChild(tableScroll);
+  }
 });

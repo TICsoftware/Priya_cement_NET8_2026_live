@@ -10,7 +10,7 @@ $(document).on("click", "#loadMoreBtn", function () {
     button.prop("disabled", true).text("Loading...");
 
     $.ajax({
-        url: '@Url.Action("LoadMorePressReleases", "Media")',
+        url: '/Media/LoadMorePressReleases',
         type: 'GET',
         data: {
             cont_id: cont_id,

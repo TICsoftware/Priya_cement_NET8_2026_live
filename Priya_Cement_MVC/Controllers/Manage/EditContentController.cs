@@ -585,7 +585,7 @@ public class EditContentController : Controller
                         ContentObj.parent_id = cont_parent_id;
                     }
 
-                    ContentObj.lang_groupid = cont_parent_id;
+                    ContentObj.lang_groupid = Modelobj.Lang_groupid;
                     ContentObj.root_parent_id = Modelobj.Section_id;
                     ContentObj.pagename = Modelobj.Pagename.Trim().Replace(" ", "-"); ;
                     ContentObj.title = Modelobj.Title.Trim();
@@ -1114,7 +1114,7 @@ public class EditContentController : Controller
                         ContentObj.parent_id = cont_parent_id;
                     }
 
-                    ContentObj.lang_groupid = cont_parent_id;
+                    ContentObj.lang_groupid = Modelobj.Lang_groupid;
                     ContentObj.root_parent_id = Modelobj.Section_id;
                     ContentObj.pagename = Modelobj.Pagename.Trim().Replace(" ", "-"); ;
                     ContentObj.title = Modelobj.Title.Trim();

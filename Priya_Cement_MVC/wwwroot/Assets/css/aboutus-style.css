@@ -482,7 +482,7 @@
 .aboutus-stand-icon {
   position: absolute;
   top: -3.5rem;
-  right: 1.25rem;
+  right: 0.15rem;
   z-index: 1;
   display: block;
   /* width: clamp(2.75rem, 4.4vw, 4.15rem); */
@@ -525,6 +525,7 @@
   .aboutus-stand-visual {
     top: calc(var(--header-h, 106px) + 32px);
   }
+  .aboutus-stats-label {max-width: 55vw;margin: 0 auto;}
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -873,6 +874,8 @@
     font-size: 0.875rem;
     gap: 6px;
   }
+  .aboutus-stats-value {font-size: clamp(3.7rem, 7vw, 120px);}
+  .aboutus-stats-label {font-size: clamp(1.5rem, 3vw, 2rem);}
 }
 
 @media (max-width: 767px) {
@@ -1086,6 +1089,7 @@
   .aboutus-projects-section .inner-content-box > div {
     left: 0;
   }
+  .aboutus-stand-card h3 {padding-right: 35px;}
 }
 
 @media (max-width: 1023px) {

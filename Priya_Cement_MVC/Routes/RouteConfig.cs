@@ -49,6 +49,24 @@ namespace Priya_Cement_MVC.Routes
               defaults: new { controller = "Media", action = "PressReleases", title = "reports" }
           );
 
+             app.MapControllerRoute(
+              name: "LoadMorePressReleases",
+              pattern: "Media/LoadMorePressReleases",
+              defaults: new { controller = "Media", action = "LoadMorePressReleases"}
+          );
+
+           app.MapControllerRoute(
+              name: "safety",
+              pattern: "esg/safety",
+              defaults: new { controller = "ESG", action = "Safety", title = "safety" }
+          );
+
+          app.MapControllerRoute(
+                              name: "csr",
+                              pattern: "esg/csr",
+                              defaults: new { controller = "About", action = "AboutUs", title = "csr" }
+                          );
+
             app.MapControllerRoute(
                 name: "campaigns-and-tvcs",
                 pattern: "media/campaigns-and-tvcs",
@@ -56,10 +74,16 @@ namespace Priya_Cement_MVC.Routes
             );
 
             app.MapControllerRoute(
-                name: "news-and-coverage",
-                pattern: "media/news-and-Coverage",
-                defaults: new { controller = "Media", action = "NewsCoverage", title = "news-and-coverage" }
+                name: "archive",
+                pattern: "media/archive",
+                defaults: new { controller = "Media", action = "NewsCoverage", title = "archive" }
             );
+
+            // app.MapControllerRoute(
+            //     name: "news-and-coverage",
+            //     pattern: "media/news-and-Coverage",
+            //     defaults: new { controller = "Media", action = "NewsCoverage", title = "news-and-coverage" }
+            // );
 
 
          app.MapControllerRoute(

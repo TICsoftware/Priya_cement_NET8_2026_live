@@ -16,8 +16,10 @@
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="Otp.NET" Version="1.4.1" />
+    <PackageReference Include="PDFtoImage" Version="5.4.0" />
     <PackageReference Include="QRCoder" Version="1.8.0" />
     <PackageReference Include="SimpleBase" Version="5.6.0" />
+    <PackageReference Include="SkiaSharp" Version="4.153.1" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <Optimize>false</Optimize>

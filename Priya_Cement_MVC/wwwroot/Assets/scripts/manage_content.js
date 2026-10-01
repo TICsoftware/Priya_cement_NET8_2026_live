@@ -307,6 +307,41 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
 
     });
 
+    $("#ddSubSections").on("change", function () {
+
+        if ($("#ddArticle").length > 0) {
+            let cont_Id = $(this).val();
+
+            if (cont_Id > 0) {
+                $.ajax({
+                    url: '/Content/Load_Articles',
+                    type: 'GET',
+                    data: { cont_id: cont_Id },
+                    success: function (data) {
+                        // --------------------
+                        // Bind articles
+                        // --------------------
+                        let ddarticles = $("#ddArticle");
+                        ddarticles.empty();
+                        if (data.listArticles == null) {
+                            ddarticles.append(`<option value="0">Select</option>`);
+                        }
+                        else {
+                            $.each(data.listArticles, function (i, item) {
+                                ddarticles.append(`<option value="${item.value}">${item.text}</option>`);
+                            });
+                        }
+                    },
+                    error: function (xhr) {
+                        alert(xhr.status + " : " + xhr.responseText);
+                    },
+                    complete: function (jqXHR) {
+                    }
+                });
+            }
+        }
+    });
+
     $("#ddLanguage").on("change", function () {
 
         let language_id = $(this).val();

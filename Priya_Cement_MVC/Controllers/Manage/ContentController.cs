@@ -88,7 +88,7 @@ public class ContentController : Controller
                         ContentObj.parent_id = cont_parent_id;
                     }
 
-                    ContentObj.lang_groupid = cont_parent_id;
+                    ContentObj.lang_groupid = Modelobj.Lang_groupid;
                     ContentObj.root_parent_id = Modelobj.Section_id;
                     ContentObj.pagename = Modelobj.Pagename.Trim().Replace(" ", "-"); ;
                     ContentObj.title = Modelobj.Title.Trim();
@@ -378,6 +378,34 @@ public class ContentController : Controller
     }
 
     [HttpGet]
+    public IActionResult Load_Articles(int cont_id)
+    {
+        using ContentManager objBal = new(objconfig);
+        List<Options_List> obj = new();
+        List<SelectListItem> articles = new();
+
+        try
+        {
+            obj = objBal.Articles_Get_BAL(cont_id);
+            if (obj != null && obj.Count > 0)
+            {
+                articles = obj.Select(x => new SelectListItem { Value = x.id.ToString(), Text = x.title }).ToList();
+            }
+            return Json(new { listArticles = articles });
+
+        }
+        catch (Exception ex)
+        {
+            FileLogger.LogError(" ", ex);
+            return Json(new { msg = ex.Message });
+        }
+        finally
+        {
+            objBal.Dispose();
+        }
+    }
+
+    [HttpGet]
     public IActionResult Load_Language_sections(int language_id)
     {
         using ContentManager objBal = new(objconfig);
@@ -390,8 +418,8 @@ public class ContentController : Controller
             sectionsObj = objBal.Language_Sections_Get_BAL(language_id).Select(x => new SelectListItem { Value = x.id.ToString(), Text = x.title }).ToList();
             tagsObj = objBal.Tag_master_Get_BAL(language_id).Select(x => new SelectListItem { Value = x.id.ToString(), Text = x.title }).ToList();
             mapping_sectionsObj = objBal.Sections_Mapping_Get_BAL(language_id).Select(x => new SelectListItem { Value = x.id.ToString(), Text = x.title }).ToList();
-            geographiesObj =  objBal.Geographies_Get_BAL(language_id).Select(x => new SelectListItem { Value = x.id.ToString(), Text = x.title }).ToList();
-            return Json(new { listsections = sectionsObj, taglist = tagsObj, mapped_sections= mapping_sectionsObj , geographies = geographiesObj});
+            geographiesObj = objBal.Geographies_Get_BAL(language_id).Select(x => new SelectListItem { Value = x.id.ToString(), Text = x.title }).ToList();
+            return Json(new { listsections = sectionsObj, taglist = tagsObj, mapped_sections = mapping_sectionsObj, geographies = geographiesObj });
 
         }
         catch (Exception ex)
@@ -968,7 +996,7 @@ public class ContentController : Controller
                         ContentObj.parent_id = cont_parent_id;
                     }
 
-                    ContentObj.lang_groupid = cont_parent_id;
+                    ContentObj.lang_groupid = Modelobj.Lang_groupid;
                     ContentObj.root_parent_id = Modelobj.Section_id;
                     ContentObj.pagename = Modelobj.Pagename.Trim().Replace(" ", "-"); ;
                     ContentObj.title = Modelobj.Title.Trim();

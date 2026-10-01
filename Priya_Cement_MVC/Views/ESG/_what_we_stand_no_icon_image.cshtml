@@ -11,14 +11,7 @@
 <section class="aboutus-stand-section section-spacing">
     <div class="container">
         <div class="aboutus-stand-inner @(component.bg_class ?? string.Empty)">
-            <div class="aboutus-stand-visual">
-                <img src="@(string.IsNullOrWhiteSpace(component.ComponentThumbnail)
-                                                 ? Url.Content("~/Assets/images/aboutus/lion.webp")
-                                                 : component.ComponentThumbnail)" alt="@component.ComponentThumbnailAltText"
-                     class="aboutus-stand-visual-img">
-            </div>
-
-            <div class="aboutus-stand-content">
+                      <div class="aboutus-stand-content">
                 <div class="section-title-outer section-title-outer-start aboutus-stand-heading">
                     <h2 class="text-h2 title-section reveal-text">
                         @Html.Raw(
@@ -36,12 +29,6 @@
                                 <span class="aboutus-stand-num text-ghost text-big leading-none" aria-hidden="true">
                                     @item.Sequence.ToString("D2")
                                 </span>
-                                @if (!string.IsNullOrWhiteSpace(item.Icon_Image))
-                                {
-                                    <span class="aboutus-stand-icon">
-                                        <img src="@item.Icon_Image" alt="@item.Title" class="w-auto">
-                                    </span>
-                                }
                             </div>
 
                             <h3 class="text-h4">

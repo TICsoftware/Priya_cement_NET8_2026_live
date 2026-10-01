@@ -44,31 +44,31 @@ else
 }
 
 
-builder.Services.AddAuthentication("MyCookieAuth")
-    .AddCookie("MyCookieAuth", options =>
-    {
-        options.LoginPath = "/Manage/Login";
-        options.AccessDeniedPath = "/Manage/AccessDenied";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-    });
+// builder.Services.AddAuthentication("MyCookieAuth")
+//     .AddCookie("MyCookieAuth", options =>
+//     {
+//         options.LoginPath = "/Manage/Login";
+//         options.AccessDeniedPath = "/Manage/AccessDenied";
+//         options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+//     });
 
 builder.Services.AddAuthorization();
 
 //uncomment while live start
-// builder.Services.AddSession(options =>
-// {
-//     options.IdleTimeout = TimeSpan.FromMinutes(20); // session timeout
-//     options.Cookie.HttpOnly = true;
-//     options.Cookie.IsEssential = true;
-// });
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20); // session timeout
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
-//  builder.Services.AddAntiforgery(options =>
-// {
-//     options.Cookie.Name = "SecureToken";
-//     options.Cookie.HttpOnly = true;
-//    options.Cookie.SecurePolicy =
-//         CookieSecurePolicy.Always;  
-// });
+ builder.Services.AddAntiforgery(options =>
+{
+    options.Cookie.Name = "SecureToken";
+    options.Cookie.HttpOnly = true;
+   options.Cookie.SecurePolicy =
+        CookieSecurePolicy.Always;  
+});
 //uncomment while live end
 
 //builder.Services.AddHttpClient();
@@ -77,15 +77,23 @@ builder.Services.AddAuthorization();
 // Kestrel limit
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.Limits.MaxRequestBodySize = 52428800;
+    options.Limits.MaxRequestBodySize = 1073741824;
     options.AddServerHeader = false;
 });
 
 // Multipart/form-data limit (file uploads)
 builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(options =>
 {
-    options.MultipartBodyLengthLimit = 52428800; // 50 MB
+    options.MultipartBodyLengthLimit = 1073741824; // 1 GB
 });
+
+// builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(options =>
+// {
+//     options.MultipartBodyLengthLimit = 52428800; // 50 MB
+// });
+
+
+builder.Services.AddScoped<PdfThumbnailService>();
 
 var app = builder.Build();
 

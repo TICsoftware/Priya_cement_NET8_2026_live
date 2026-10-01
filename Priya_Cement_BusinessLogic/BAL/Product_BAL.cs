@@ -157,6 +157,7 @@ namespace Priya_Cement_BusinessLogic.BAL
                 model.What_You_Need_List = MapComponents(groupedData, 5);
                 model.Who_Can_Apply_Download_List = MapComponents(groupedData, 6);
                 model.Product_CTA_List = MapComponents(groupedData, 7);
+                model.What_Is_Priya_Cement_Customer_Solutions_List2 = MapComponents(groupedData, 8);
             }
 
             return model;

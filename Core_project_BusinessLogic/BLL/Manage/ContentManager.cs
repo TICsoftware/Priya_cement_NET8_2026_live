@@ -241,6 +241,29 @@ public class ContentManager : Content_DAL
         }
     }
 
+    public List<Options_List> Articles_Get_BAL(int cont_id)
+    {
+        List<Options_List> objarticles = [new Options_List { id = 0, title = "Select", parent_id = 0 }];
+        DataSet ds = new();
+        try
+        {
+            ds = Articles_Get_DAL(cont_id);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    objarticles.Add(new Options_List { id = Convert.ToInt32(dr["cont_id"].ToString()), parent_id = Convert.ToInt32(dr["cont_parent_id"].ToString()), title = dr["cont_title"].ToString() });
+                }
+            }
+
+            return objarticles;
+        }
+        catch (System.Exception)
+        {
+            throw;
+        }
+    }
+
     public List<Options_List> Language_Sections_Get_BAL(int language_id)
     {
         List<Options_List> objsections = [new Options_List { id = 0, title = "Select", parent_id = 0 }];
@@ -827,7 +850,7 @@ public class ContentManager : Content_DAL
             {
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    objsections.Add(new Options_List { id = Convert.ToInt32(dr["ID"].ToString()),  title = dr["country_Name"].ToString() });
+                    objsections.Add(new Options_List { id = Convert.ToInt32(dr["ID"].ToString()), title = dr["country_Name"].ToString() });
                 }
             }
             return objsections;

@@ -83,7 +83,7 @@ namespace Priya_Cement_BusinessLogic.DAL
             SqlParameter[] sqlParams =
             {
                 new SqlParameter("@ContentId", contentId),
-                new SqlParameter("@Page", page),
+                new SqlParameter("@PageNumber", page),
                 new SqlParameter("@PageSize", pageSize)
             };
 
