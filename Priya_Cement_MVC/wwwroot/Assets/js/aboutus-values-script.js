@@ -84,6 +84,15 @@
       strength: { x: 28.78, y: 85.83, size: 28 },
       consistency: { x: 13.65, y: 41.35, size: 28 },
     },
+    /* Mobile only — raise `size` here without changing desktop */
+    nodesMobile: {
+      logo: { x: 53, y: 53, size: 36 },
+      customercentricity: { x: 55.25, y: 5.9, size: 36 },
+      integrity: { x: 98.72, y: 39.80, size: 36 },
+      sustainability: { x: 76.45, y: 95.83, size: 36 },
+      strength: { x: 15.78, y: 85.83, size: 36 },
+      consistency: { x: 9.65, y: 32.35, size: 36 },
+    },
     labelOffset: {
       customercentricity: { x: 17, y: -9 },
       integrity: { x: 17, y: -6 },
@@ -101,18 +110,18 @@
     },
     labelOffsetMobile: {
       /* Push labels outward into clear space around the smaller flower */
-      customercentricity: { x: 0, y: -34 },
-      integrity: { x: 28, y: 15 },
-      sustainability: { x: 14, y: 14 },
+      customercentricity: { x: 0, y: -36 },
+      integrity: { x: 28, y: -36 },
+      sustainability: { x: 12, y: 5 },
       strength: { x: -16, y: 4 },
-      consistency: { x: -28, y: 9 },
+      consistency: { x: -28, y: -37 },
     },
   };
 
   const mqNarrow = window.matchMedia("(max-width: 767px)");
   const mqTablet = window.matchMedia("(min-width: 768px) and (max-width: 1024px)");
   const EDGE_PAD = () => (mqNarrow.matches ? 10 : mqTablet.matches ? 14 : 12);
-  const NODE_SIZE_SCALE = () => (mqNarrow.matches ? 0.9 : mqTablet.matches ? 0.92 : 1);
+  const NODE_SIZE_SCALE = () => (mqNarrow.matches ? 1 : mqTablet.matches ? 0.92 : 1);
   const FRAME_NUDGE = { x: 0, y: 0 };
   const nodes = [...icons, logo].filter(Boolean);
 
@@ -142,6 +151,9 @@
     const stageToHostY = stageRect.top - hostRect.top;
     const iconCenters = {};
     const sizeScale = NODE_SIZE_SCALE();
+    const nodeLayout = mqNarrow.matches
+      ? FIGMA_LAYOUT.nodesMobile
+      : FIGMA_LAYOUT.nodes;
     const labelOffsets = mqNarrow.matches
       ? FIGMA_LAYOUT.labelOffsetMobile
       : mqTablet.matches
@@ -154,7 +166,7 @@
         )
       : 0;
 
-    for (const [key, p] of Object.entries(FIGMA_LAYOUT.nodes)) {
+    for (const [key, p] of Object.entries(nodeLayout)) {
       const el =
         key === "logo"
           ? logo
