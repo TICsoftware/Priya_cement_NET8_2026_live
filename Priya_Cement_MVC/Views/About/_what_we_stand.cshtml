@@ -31,7 +31,7 @@
                 <div class="aboutus-stand-cards">
                     @foreach (var item in Model.Where(x => x.IsBlock == 1).OrderBy(x => x.Sequence))
                     {
-                        <article class="aboutus-stand-card">
+                        <article class="aboutus-stand-card @item.bg_class">
                             <div class="inner-stand">
                                 <span class="aboutus-stand-num text-ghost text-big leading-none" aria-hidden="true">
                                     @item.Sequence.ToString("D2")
