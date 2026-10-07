@@ -514,6 +514,8 @@
   line-height: 1.55;
 }
 
+.aboutus-stand-section .awards-stand-card .text-ghost {background: linear-gradient(270deg, rgba(237, 28, 36, 0.25) 6.31%, rgba(255, 255, 255, 0.10) 89.81%);}
+
 @media (min-width: 768px) {
   .aboutus-stand-visual {
     position: sticky;
