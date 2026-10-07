@@ -1133,6 +1133,10 @@
 
 /* Sticky title: desktop only â€” not on phone/tablet */
 @media (min-width: 1024px) {
+  [data-rail] {
+    margin-left: -24px;
+  }
+
   .aboutus-projects-section .section-sticky-head {
     position: sticky;
     top: calc(var(--header-h, 106px) + 32px);
