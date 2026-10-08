@@ -514,6 +514,8 @@
   line-height: 1.55;
 }
 
+.aboutus-stand-section .awards-stand-card .text-ghost {background: linear-gradient(270deg, rgba(237, 28, 36, 0.25) 6.31%, rgba(255, 255, 255, 0.10) 89.81%);background-clip: text; -webkit-background-clip: text;-webkit-text-fill-color: transparent; font-weight: 700;}
+
 @media (min-width: 768px) {
   .aboutus-stand-visual {
     position: sticky;
@@ -1131,6 +1133,10 @@
 
 /* Sticky title: desktop only â€” not on phone/tablet */
 @media (min-width: 1024px) {
+  [data-rail] {
+    margin-left: -24px;
+  }
+
   .aboutus-projects-section .section-sticky-head {
     position: sticky;
     top: calc(var(--header-h, 106px) + 32px);
