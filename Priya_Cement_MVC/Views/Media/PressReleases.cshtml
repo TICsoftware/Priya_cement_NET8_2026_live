@@ -54,6 +54,53 @@
 <!-- HERO BANNER END -->
 
 
+
+
+@if (Model?.SectionArticles_List != null && Model.SectionArticles_List.Any())
+{
+   <section class="section-spacing print-section" aria-labelledby="print-heading">
+      <div class="container">
+         <div class="section-title-outer section-title-outer-start section-title-md section-title-left">
+            <h2 class="text-h2 title-section reveal-text">
+               @if (!string.IsNullOrWhiteSpace(Model.Content.Cont_hmpg_intro))
+               {
+                  @Html.Raw(Model.Content.Cont_hmpg_intro.CleanParagraphTags())
+               }
+            </h2>
+         </div>
+
+         <div class="image-gallery mt-5" data-gallery="print" id="pressReleaseList">
+            @foreach (var item in Model.SectionArticles_List)
+            {
+               <a class="image-gallery-card" href="@item.ThumbnailImage" aria-label="@item.ThumbnailAltText">
+                  <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="480" height="600" loading="lazy">
+
+                  <div class="image-gallery-caption">
+                     <strong>@item.Title</strong>
+                     <span>@item.DisplayDate?.ToString("MMMM dd, yyyy")</span>
+                  </div>
+               </a>
+              
+            }
+
+
+         </div>
+
+         @if (Model.TotalCount > 10)
+         {
+            <div class="text-center mt-4">
+               <button type="button" id="loadMoreBtn" class="btn btn-primary" data-page="1" data-pagesize="10"
+                       data-total="@Model.TotalCount" data-contid="@Model.Content.ContId">
+                  Load More
+               </button>
+            </div>
+         }
+      </div>
+   </section>
+}
+
+
+@* 
 <section class="section-spacing fi-reports-section" aria-labelledby="fi-reports-heading">
    <div class="container">
       <div class="section-title-outer section-title-outer-start section-title-md section-title-left">
@@ -71,7 +118,6 @@
             <a class="fi-report-card" href="@item.MediafilePath" download aria-label="Download @item.Title">
                <span class="fi-report-cover">
                   <span class="fi-report-media">
-                     @* <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="420" height="560" loading="lazy"> *@
                      <img src="@Url.Action("Thumbnail", "Pdf", new { url = item.MediafilePath })"
                           alt="@item.ThumbnailAltText" width="420" height="560" loading="lazy">
                      <span class="fi-report-dl" aria-hidden="true">
@@ -99,7 +145,7 @@
       }
 
    </div>
-</section>
+</section> *@
 
 
 

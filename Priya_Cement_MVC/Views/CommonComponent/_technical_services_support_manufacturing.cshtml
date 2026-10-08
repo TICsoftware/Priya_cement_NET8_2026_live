@@ -115,7 +115,7 @@
                                 var itemImg = !string.IsNullOrWhiteSpace(item.ComponentThumbnail)
                                     ? item.ComponentThumbnail
                                     : (!string.IsNullOrWhiteSpace(item.ThumbnailImage) ? item.ThumbnailImage : item.Component_right_image);
-                                <article class="relative grid gap-6 lg:block lg:pl-16">
+                                <article class="relative grid gap-6 lg:block lg:pl-16" data-process="@Html.Raw(itemTitle.CleanParagraphTags())">
                                     @if (!string.IsNullOrWhiteSpace(itemImg))
                                     {
                                         <img data-fade src="@itemImg" alt="" class="w-full rounded-md object-cover aspect-[4/3] sm:aspect-[16/10] lg:ml-auto lg:w-[74%] lg:aspect-[3/2]" />
