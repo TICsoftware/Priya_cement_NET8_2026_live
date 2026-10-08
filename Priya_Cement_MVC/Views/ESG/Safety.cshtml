@@ -46,9 +46,10 @@
 @section Styles {
    <link rel="stylesheet" href="~/Assets/css/sustainability-style.css" asp-append-version="true" />
    <link rel="stylesheet" href="~/Assets/css/solutions-style.css" asp-append-version="true" />
-   <link rel="stylesheet" href="~/Assets/css/products-inside-style.css" />
+   <link rel="stylesheet" href="~/Assets/css/products-inside-style.css" asp-append-version="true" />
    <link rel="stylesheet" href="~/Assets/css/aboutus-style.css" asp-append-version="true" />
    <link rel="stylesheet" href="~/Assets/css/legacy-style.css" asp-append-version="true" />
+   <link rel="stylesheet" href="~/Assets/css/technicalservices-style.css" asp-append-version="true" />
 }
 
 <!-- HERO BANNER END-->
@@ -62,8 +63,6 @@
 {
    @await Html.PartialAsync("~/Views/CommonComponent/_careers_intro.cshtml", Model.Intro_List)
 }
-
-
 
 <div id="services">
    @if ((Model?.Our_safety_culture_in_practice_List != null && Model.Our_safety_culture_in_practice_List.Any()))
@@ -83,15 +82,13 @@ Model.Recognising_the_people_who_make_us_safer_List.Any())
 
 @if (Model?.Safety_infrastructure_and_systems_List != null && Model.Safety_infrastructure_and_systems_List.Any())
 {
-   @await Html.PartialAsync("~/Views/CommonComponent/_product_intro_bestfor.cshtml",
-Model.Safety_infrastructure_and_systems_List)
+   @await Html.PartialAsync("~/Views/CommonComponent/_product_intro_bestfor.cshtml",Model.Safety_infrastructure_and_systems_List)
 }
 
 @if (Model?.Competency_is_the_foundation_of_safe_operations_List != null &&
 Model.Competency_is_the_foundation_of_safe_operations_List.Any())
 {
-   @await Html.PartialAsync("_what_we_stand_no_icon_image.cshtml",
-Model.Competency_is_the_foundation_of_safe_operations_List)
+   @await Html.PartialAsync("_what_we_stand_no_icon_image.cshtml",Model.Competency_is_the_foundation_of_safe_operations_List)
 }
 
 
@@ -129,66 +126,61 @@ Model.Competency_is_the_foundation_of_safe_operations_List)
 
 @if (Model?.Technology_in_the_service_of_safety_List != null && Model.Technology_in_the_service_of_safety_List.Any())
 {
-   @await Html.PartialAsync("~/Views/CommonComponent/_product_intro_bestfor.cshtml",
-Model.Technology_in_the_service_of_safety_List)
+   @await Html.PartialAsync("~/Views/CommonComponent/_product_intro_bestfor.cshtml", Model.Technology_in_the_service_of_safety_List)
 }
 
 
-@if (Model?.Independently_verified_Externally_recognised_List != null &&
-Model.Independently_verified_Externally_recognised_List.Any())
+@if (Model?.Independently_verified_Externally_recognised_List != null && Model.Independently_verified_Externally_recognised_List.Any())
 {
-   @await Html.PartialAsync("~/Views/CommonComponent/_built_on_trust_common.cshtml",
-Model.Independently_verified_Externally_recognised_List)
+   @await Html.PartialAsync("~/Views/CommonComponent/_built_on_trust_common.cshtml", Model.Independently_verified_Externally_recognised_List)
 }
 
 
 
 
 <section class="section-spacing whypartner-section relative overflow-hidden">
-   <div class="container relative z-1">
-      <div class="whypartner-split">
-         @if (Model?.Protecting_health_left_side_intro_List != null &&
-      Model.Protecting_health_left_side_intro_List.Any())
-         {
-            foreach (var item in Model.Protecting_health_left_side_intro_List.Where(x => x.IsBlock == 0))
+    <div class="container relative z-1">
+        <div class="whypartner-split">
+            @if (Model?.Protecting_health_left_side_intro_List != null && Model.Protecting_health_left_side_intro_List.Any())
             {
-               <div class="whypartner-apply">
-                  <div class="section-title-outer section-title-outer-start section-title-md">
-                     <h2 class="text-h2 title-section reveal-text">
-                        @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
-                                                ? item.DisplayTitle.CleanParagraphTags()
-                                                : item.Title)
-                     </h2>
-                  </div>
-                  @if (!string.IsNullOrWhiteSpace(item.Intro))
-                  {
-                     @Html.Raw(item.Intro.CleanParagraphTags())
-                  }
-               </div>
+                foreach (var item in Model.Protecting_health_left_side_intro_List.Where(x => x.IsBlock == 0))
+                {
+                    <div class="whypartner-apply">
+                        <div class="section-title-outer section-title-outer-start section-title-md">
+                            <h2 class="text-h2 title-section reveal-text">
+                                @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
+                                                        ? item.DisplayTitle.CleanParagraphTags()
+                                                        : item.Title)
+                            </h2>
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(item.Intro))
+                        {
+                            @Html.Raw(item.Intro.CleanParagraphTags())
+                        }
+                    </div>
+                }
             }
-         }
 
-         @if (Model?.Protecting_health_right_side_point_List != null &&
-      Model.Protecting_health_right_side_point_List.Any())
-         {
-            foreach (var item in Model.Protecting_health_right_side_point_List.Where(x => x.IsBlock == 0))
+            @if (Model?.Protecting_health_right_side_point_List != null && Model.Protecting_health_right_side_point_List.Any())
             {
-               <div class="whypartner-need">
-                  @if (!string.IsNullOrWhiteSpace(item.Intro))
-                  {
-                     @Html.Raw(item.Intro)
-                  }
-               </div>
+                foreach (var item in Model.Protecting_health_right_side_point_List.Where(x => x.IsBlock == 0))
+                {
+                    <div class="whypartner-need">
+                        @if (!string.IsNullOrWhiteSpace(item.Intro))
+                        {
+                            @Html.Raw(item.Intro)
+                        }
+                    </div>
+                }
             }
-         }
 
-      </div>
-   </div>
+        </div>
+    </div>
 </section>
 
 @if (Model?.CTA_List != null && Model.CTA_List.Any())
 {
-   @await Html.PartialAsync("~/Views/CommonComponent/_product_cta_band.cshtml", Model.CTA_List)
+    @await Html.PartialAsync("~/Views/CommonComponent/_product_cta_band.cshtml", Model.CTA_List)
 }
 
 
@@ -196,4 +188,9 @@ Model.Independently_verified_Externally_recognised_List)
    <script src="~/Assets/js/inner-banner-script.js" asp-append-version="true"></script>
    <script src="~/Assets/js/odometer-counter-script.js" asp-append-version="true"></script>
    <script src="~/Assets/js/sustainability-script.js" asp-append-version="true"></script>
+    <script src="~/Assets/js/aboutus-script.js" asp-append-version="true"></script>
+    <script src="~/Assets/js/legacy-script.js" asp-append-version="true"></script>
+      <script src="~/Assets/js/products-inside-script.js" asp-append-version="true"></script>
+       <script src="~/Assets/js/technicalservices-script.js" asp-append-version="true"></script>
+    <script src="~/Assets/js/table-scroll.js" asp-append-version="true"></script>
 }
