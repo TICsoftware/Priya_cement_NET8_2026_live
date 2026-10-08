@@ -185,6 +185,29 @@
   background: var(--color-secondary, #ed1c24);
 }
 
+#loadMoreBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  padding: 0.55rem 1.5rem;
+  border: 1px solid #231f20;
+  border-radius: 999px;
+  background: #fff;
+  color: #231f20;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#loadMoreBtn:hover,
+#loadMoreBtn:focus-visible {
+  background: #231f20;
+  color: #fff;
+}
+
 .image-gallery:has(.image-gallery-caption) {
   row-gap: 0.75rem;
 }

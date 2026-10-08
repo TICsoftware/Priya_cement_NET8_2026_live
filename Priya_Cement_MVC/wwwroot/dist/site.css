@@ -2198,6 +2198,9 @@
     .hover\:bg-\[\#DE392E\]:hover {
       background-color: #DE392E;
     }
+    .hover\:bg-neutral-900:hover {
+      background-color: var(--color-neutral-900);
+    }
     .hover\:text-primary:hover {
       color: var(--color-primary);
     }

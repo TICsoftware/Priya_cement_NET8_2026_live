@@ -88,8 +88,10 @@
 
          @if (Model.TotalCount > 10)
          {
-            <div class="text-center mt-4">
-               <button type="button" id="loadMoreBtn" class="btn btn-primary" data-page="1" data-pagesize="10"
+            <div class="mt-8 flex justify-center">
+               <button type="button" id="loadMoreBtn"
+                       class="inline-flex items-center justify-center gap-2 text-sm font-semibold border border-neutral-900 rounded-full px-6 py-2 transition-colors hover:bg-neutral-900 hover:text-white"
+                       data-page="1" data-pagesize="10"
                        data-total="@Model.TotalCount" data-contid="@Model.Content.ContId">
                   Load More
                </button>
