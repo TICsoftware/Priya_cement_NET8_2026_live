@@ -424,14 +424,24 @@ window.addEventListener("resize", () => {
 });
 window.addEventListener("orientationchange", () => ScrollTrigger.refresh());
 
-// entrance animations — skip the about-us projects block; aboutus-script.js owns those
+// set + to, not from(): ScrollTrigger.refresh() re-applies from() start values
+// and records the current (hidden) opacity as the end state, so the image stays invisible.
+// Skip the about-us projects block; aboutus-script.js owns those.
 gsap.utils.toArray("[data-fade]").forEach(el => {
   if (el.closest(".aboutus-projects-section")) return;
-  gsap.from(el, { y: 42, autoAlpha: 0, duration: .8, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%",  toggleActions: "play none none reverse", } });
+  gsap.set(el, { y: 42, autoAlpha: 0 });
+  gsap.to(el, {
+    y: 0, autoAlpha: 1, duration: .8, ease: "power3.out",
+    scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none reverse" }
+  });
 });
 gsap.utils.toArray("[data-count]").forEach(el => {
   if (el.closest(".aboutus-projects-section")) return;
-  gsap.from(el, { x: -40, autoAlpha: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%",  toggleActions: "play none none reverse", } });
+  gsap.set(el, { x: -40, autoAlpha: 0 });
+  gsap.to(el, {
+    x: 0, autoAlpha: 1, duration: .9, ease: "power3.out",
+    scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" }
+  });
 });
 
 // sticky section headings: smooth fade in on enter, fade out near section end
