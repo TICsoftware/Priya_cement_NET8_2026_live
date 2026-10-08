@@ -381,6 +381,7 @@ if (tabWrap && tabAnchor) {
 
 // scroll-driven vertical progress rails (all breakpoints)
 document.querySelectorAll("[data-rail]").forEach(rail => {
+  if (rail.closest(".aboutus-projects-section")) return;
   const thumb = rail.querySelector("[data-rail-thumb]");
   if (!thumb) return;
   const scope = rail.closest("[data-rail-scope]");
@@ -423,16 +424,19 @@ window.addEventListener("resize", () => {
 });
 window.addEventListener("orientationchange", () => ScrollTrigger.refresh());
 
-// entrance animations
+// entrance animations — skip the about-us projects block; aboutus-script.js owns those
 gsap.utils.toArray("[data-fade]").forEach(el => {
+  if (el.closest(".aboutus-projects-section")) return;
   gsap.from(el, { y: 42, autoAlpha: 0, duration: .8, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%",  toggleActions: "play none none reverse", } });
 });
 gsap.utils.toArray("[data-count]").forEach(el => {
+  if (el.closest(".aboutus-projects-section")) return;
   gsap.from(el, { x: -40, autoAlpha: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%",  toggleActions: "play none none reverse", } });
 });
 
 // sticky section headings: smooth fade in on enter, fade out near section end
 gsap.utils.toArray(".section-sticky-title").forEach(title => {
+  if (title.closest(".aboutus-projects-section")) return;
   const scope = title.closest("[data-rail-scope]");
   if (!scope) return;
   gsap.set(title, { autoAlpha: 0, y: 24 });
