@@ -39,8 +39,8 @@ namespace Priya_Cement_MVC.Routes
 
             app.MapControllerRoute(
                 name: "press-releases",
-                pattern: "media/press-peleases",
-                defaults: new { controller = "Media", action = "PressReleases", title = "press-peleases" }
+                pattern: "media/press-releases",
+                defaults: new { controller = "Media", action = "PressReleases", title = "press-releases" }
             );
 
             app.MapControllerRoute(
