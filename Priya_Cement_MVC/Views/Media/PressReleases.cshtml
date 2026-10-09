@@ -104,9 +104,11 @@
 
              @await Html.PartialAsync("_press_release_list", Model.SectionArticles_List)
 
-            @* @foreach (var item in Model.SectionArticles_List)
+            @*             @foreach (var item in Model.SectionArticles_List)
             {
-               <a class="image-gallery-card" href="@PressMediaSrc(item)" data-gallery-src="@PressMediaSrc(item)" aria-label="@item.ThumbnailAltText">
+               var mediaSrc = PressMediaSrc(item);
+               var isVideo = IsPressVideo(mediaSrc);
+               <a class="image-gallery-card@(isVideo ? " is-video" : "")" href="@mediaSrc" data-gallery-src="@mediaSrc" aria-label="@item.ThumbnailAltText">
                   <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="480" height="600" loading="lazy">
 
                   <div class="image-gallery-caption">

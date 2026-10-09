@@ -33,8 +33,12 @@
 
 @foreach (var item in Model)
 {
-   <a class="image-gallery-card" href="@PressMediaSrc(item)" data-gallery-src="@PressMediaSrc(item)" aria-label="@item.ThumbnailAltText">
-      <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="480" height="600" loading="lazy">
+   var mediaSrc = PressMediaSrc(item);
+   var isVideo = IsPressVideo(mediaSrc);
+   <a class="image-gallery-card@(isVideo ? " is-video" : "")" href="@mediaSrc" data-gallery-src="@mediaSrc" aria-label="@item.ThumbnailAltText">
+      <span class="image-gallery-frame">
+         <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="480" height="600" loading="lazy">
+      </span>
       <div class="image-gallery-caption">
          <strong>@item.Title</strong>
          <span>@item.DisplayDate?.ToString("MMMM dd, yyyy")</span>

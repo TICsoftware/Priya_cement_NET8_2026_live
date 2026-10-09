@@ -217,6 +217,14 @@
   margin-bottom: 4.75rem;
 }
 
+.image-gallery-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
 .image-gallery-card .image-gallery-caption {
   position: absolute;
   top: calc(100% + 0.65rem);
