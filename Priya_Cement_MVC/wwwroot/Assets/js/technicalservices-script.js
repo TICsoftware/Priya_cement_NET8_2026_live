@@ -341,7 +341,14 @@ function dockTabs(active) {
   }
 }
 
-setActive("onsite", false);
+const attrDefault = tabBar && tabBar.dataset.defaultTab;
+const pathDefault = /manufacturing-and-processing/i.test(location.pathname) ? "support" : null;
+const requestedTab = attrDefault || pathDefault;
+const preferredTab = requestedTab && tabs.some(t => t.dataset.tab === requestedTab) ? requestedTab : "onsite";
+// Keep the requested tab until the visitor actually moves down the page.
+let allowScrollTab = !requestedTab;
+const pinStartY = window.scrollY;
+setActive(preferredTab, false);
 const remeasurePill = () => movePill(tabs.find(t => t.dataset.tab === currentTab), false);
 window.addEventListener("resize", remeasurePill);
 window.addEventListener("load", remeasurePill);
@@ -375,9 +382,20 @@ if (tabWrap && tabAnchor) {
     trigger: "#" + id,
     start: "top 45%",
     end: "bottom 45%",
-    onToggle: self => { if (self.isActive) setActive(id); },
+    onToggle: self => { if (allowScrollTab && self.isActive) setActive(id); },
   });
 });
+
+if (!allowScrollTab) {
+  window.addEventListener("scroll", () => {
+    if (Math.abs(window.scrollY - pinStartY) > 80) allowScrollTab = true;
+  }, { passive: true });
+  // ScrollTrigger refreshes on load and would otherwise snap the pill onto Our plants.
+  const pinDefaultTab = () => { if (!allowScrollTab) setActive(preferredTab, false); };
+  window.addEventListener("load", pinDefaultTab);
+  ScrollTrigger.addEventListener("refresh", pinDefaultTab);
+  pinDefaultTab();
+}
 
 // scroll-driven vertical progress rails (all breakpoints)
 document.querySelectorAll("[data-rail]").forEach(rail => {
