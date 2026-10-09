@@ -1168,3 +1168,32 @@ html.partner-dock-open .partner-dock-backdrop {
 background-color: var(--color-secondary);
   color: #fff;
 }
+.bestfor-grid-outer ul {
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.bestfor-grid-outer ul li {
+  position: relative;
+  padding-left: 1.1rem;
+  color: var(--color-primary, #231f20);
+  font-size: var(--text-p, 1rem);
+  line-height: 1.5;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.bestfor-grid-outer ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 9999px;
+  background: var(--color-primary, #231f20);
+}
