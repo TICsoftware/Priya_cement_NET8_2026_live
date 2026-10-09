@@ -92,6 +92,56 @@ Model.Competency_is_the_foundation_of_safe_operations_List.Any())
 }
 
 
+
+<section class="section-spacing whypartner-section relative overflow-hidden">
+    <div class="container relative z-1">
+        <div class="whypartner-split">
+            @if (Model?.Safety_governance_and_participation_List != null && Model.Safety_governance_and_participation_List.Any())
+            {
+                foreach (var item in Model.Safety_governance_and_participation_List.Where(x => x.IsBlock == 0))
+                {
+                    <div class="whypartner-apply">
+                        <div class="section-title-outer section-title-outer-start section-title-md">
+                            <h2 class="text-h2 title-section reveal-text">
+                                @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
+                                                        ? item.DisplayTitle.CleanParagraphTags()
+                                                        : item.Title)
+                            </h2>
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(item.Intro))
+                        {
+                            @Html.Raw(item.Intro.CleanParagraphTags())
+                        }
+                    </div>
+                }
+            }
+
+            @if (Model?.Committee_activities_List != null && Model.Committee_activities_List.Any())
+            {
+                foreach (var item in Model.Committee_activities_List.Where(x => x.IsBlock == 0))
+                {
+                    <div class="whypartner-need">
+                        <div class="section-title-outer section-title-outer-start section-title-md">
+                            <h2 class="text-h2 title-section reveal-text">
+                                @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
+                                                        ? item.DisplayTitle.CleanParagraphTags()
+                                                        : item.Title)
+                            </h2>
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(item.Intro))
+                        {
+                            @Html.Raw(item.Intro)
+                        }
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</section>
+
+
+@* 
 @if (Model?.Safety_governance_and_participation_List != null && Model.Safety_governance_and_participation_List.Any())
 {
    @await Html.PartialAsync("_products", Model.Safety_governance_and_participation_List)
@@ -121,12 +171,12 @@ Model.Competency_is_the_foundation_of_safe_operations_List.Any())
          </div>
       </div>
    </section>
-}
+} *@
 
 
 @if (Model?.Technology_in_the_service_of_safety_List != null && Model.Technology_in_the_service_of_safety_List.Any())
 {
-   @await Html.PartialAsync("~/Views/CommonComponent/_product_intro_bestfor.cshtml", Model.Technology_in_the_service_of_safety_List)
+   @await Html.PartialAsync("~/Views/CommonComponent/_product_intro_bullet.cshtml", Model.Technology_in_the_service_of_safety_List)
 }
 
 
