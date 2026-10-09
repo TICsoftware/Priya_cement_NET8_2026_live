@@ -1,10 +1,39 @@
 @using Priya_Cement_MVC.Helpers
+@using Priya_Cement_BusinessLogic.Entity
 @model List<Priya_Cement_BusinessLogic.Entity.ArticleModel>
+@functions {
+   bool IsPressVideo(string input)
+   {
+      if (string.IsNullOrWhiteSpace(input)) return false;
+      var value = input.Trim();
+      var path = value.Split('?', '#')[0];
+      if (path.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)
+         || path.EndsWith(".webm", StringComparison.OrdinalIgnoreCase)
+         || path.EndsWith(".ogg", StringComparison.OrdinalIgnoreCase)
+         || path.EndsWith(".ogv", StringComparison.OrdinalIgnoreCase)
+         || path.EndsWith(".mov", StringComparison.OrdinalIgnoreCase))
+      {
+         return true;
+      }
+      return value.Contains("youtube.com", StringComparison.OrdinalIgnoreCase)
+         || value.Contains("youtu.be", StringComparison.OrdinalIgnoreCase)
+         || value.Contains("vimeo.com", StringComparison.OrdinalIgnoreCase);
+   }
 
+   string PressMediaSrc(ArticleModel item)
+   {
+      if (item == null) return string.Empty;
+      foreach (var candidate in new[] { item.MediafilePath, item.ExternalUrl, item.Url })
+      {
+         if (IsPressVideo(candidate)) return candidate.Trim();
+      }
+      return item.ThumbnailImage ?? string.Empty;
+   }
+}
 
 @foreach (var item in Model)
 {
-   <a class="image-gallery-card" href="@item.ThumbnailImage" aria-label="@item.ThumbnailAltText">
+   <a class="image-gallery-card" href="@PressMediaSrc(item)" data-gallery-src="@PressMediaSrc(item)" aria-label="@item.ThumbnailAltText">
       <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="480" height="600" loading="lazy">
       <div class="image-gallery-caption">
          <strong>@item.Title</strong>
