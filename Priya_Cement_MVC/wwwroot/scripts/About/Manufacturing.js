@@ -1,15 +1,19 @@
 $(document).on("click", ".btnProcess", function () {
 
-    var processName = $(this).data("process");
+    var processName = $(this).attr("data-process");
 
-    var $slide = $('.second-slider .swiper-slide')
+    var $article = $('.manufacturing-outer-grid article[data-process]')
         .filter(function () {
-            return $(this).data("process") === processName;
+            return $(this).attr("data-process")?.trim().toLowerCase()
+                === processName?.trim().toLowerCase();
         })
         .first();
 
-    if ($slide.length) {
-        var index = $slide.index();
-        secondSlider.slideTo(index);
+    if ($article.length) {
+        $('html, body').animate({
+            scrollTop: $article.offset().top - 100
+        }, 500);
+    } else {
+        console.log("No matching article found:", processName);
     }
 });
