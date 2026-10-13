@@ -2364,6 +2364,9 @@
     .sm\:py-10 {
       padding-block: calc(var(--spacing) * 10);
     }
+    .sm\:pt-0 {
+      padding-top: 0px;
+    }
     .sm\:pt-10 {
       padding-top: calc(var(--spacing) * 10);
     }
