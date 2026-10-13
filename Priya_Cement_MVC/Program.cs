@@ -44,13 +44,13 @@ else
 }
 
 
-// builder.Services.AddAuthentication("MyCookieAuth")
-//     .AddCookie("MyCookieAuth", options =>
-//     {
-//         options.LoginPath = "/Manage/Login";
-//         options.AccessDeniedPath = "/Manage/AccessDenied";
-//         options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-//     });
+builder.Services.AddAuthentication("MyCookieAuth")
+    .AddCookie("MyCookieAuth", options =>
+    {
+        options.LoginPath = "/Manage/Login";
+        options.AccessDeniedPath = "/Manage/AccessDenied";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+    });
 
 builder.Services.AddAuthorization();
 

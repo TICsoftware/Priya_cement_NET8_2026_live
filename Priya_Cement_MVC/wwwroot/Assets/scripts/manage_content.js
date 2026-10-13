@@ -709,7 +709,7 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
             success: function (data) {
                 alert(data.message);
                 if (data.refreshstatus == 1) {
-                    if (trcontent.attr("data-routeId") == "section") {
+                    if (trcontent.attr("data-contenttype") == "section") {
                         trcontent.closest("tr.js-pagination-section-item").remove();
                     }
                     else {
