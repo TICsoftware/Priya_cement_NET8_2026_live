@@ -1,16 +1,14 @@
 using System;
 using Core_project_BusinessLogic;
 using Priya_Cement_MVC.Classes;
-using Microsoft.AspNetCore.Mvc;
-using Core_project_BusinessLogic.Helpers;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc; 
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Core_project_BusinessLogic.BAL;
 using Core_project_BusinessLogic.Entity;
 
 using Priya_Cement_MVC.Filters;
 using Microsoft.AspNetCore.Authorization;
-using Priya_Cement_MVC.Helpers;
+using Priya_Cement_MVC.Helpers; 
 namespace Priya_Cement_MVC.Controllers;
 
 [Authorize]
@@ -1246,6 +1244,7 @@ public class ContentController : Controller
         }
         return objModel;
     }
+
 
 
 }
