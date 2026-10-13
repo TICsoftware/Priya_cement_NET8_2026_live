@@ -255,6 +255,7 @@
   .section-sticky-head { position: sticky; top: 136px; }
 }
  @media (min-width: 1024px) {
+   [data-rail] { margin-left: -24px; }
    .section-sticky-head { top: 144px; }
  }
  @media (prefers-reduced-motion: reduce) {

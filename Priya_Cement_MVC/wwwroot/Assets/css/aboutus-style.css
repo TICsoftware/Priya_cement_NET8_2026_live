@@ -482,7 +482,7 @@
 .aboutus-stand-icon {
   position: absolute;
   top: -3.5rem;
-  right: 1.25rem;
+  right: 0.15rem;
   z-index: 1;
   display: block;
   /* width: clamp(2.75rem, 4.4vw, 4.15rem); */
@@ -513,6 +513,8 @@
   font-size: var(--text-p);
   line-height: 1.55;
 }
+
+.aboutus-stand-section .awards-stand-card .text-ghost {background: linear-gradient(270deg, rgba(237, 28, 36, 0.25) 6.31%, rgba(255, 255, 255, 0.10) 89.81%);background-clip: text; -webkit-background-clip: text;-webkit-text-fill-color: transparent; font-weight: 700;}
 
 @media (min-width: 768px) {
   .aboutus-stand-visual {
@@ -876,6 +878,9 @@
   }
   .aboutus-stats-value {font-size: clamp(3.7rem, 7vw, 120px);}
   .aboutus-stats-label {font-size: clamp(1.5rem, 3vw, 2rem);}
+      .page-intro-outer .section-title-large .title-section {
+        max-width: 100%;
+    }
 }
 
 @media (max-width: 767px) {
@@ -1073,8 +1078,13 @@
 }
 
 
-
-
+.page-intro-outer .section-title-large .title-section {
+    max-width: 35vw;
+}
+.page-intro-outer .section-title-large {
+    max-width: 975px;
+    margin: 0 auto;
+}
 
 
 @media (min-width: 1024px) {
@@ -1089,6 +1099,7 @@
   .aboutus-projects-section .inner-content-box > div {
     left: 0;
   }
+  .aboutus-stand-card h3 {padding-right: 35px;}
 }
 
 @media (max-width: 1023px) {
@@ -1122,6 +1133,10 @@
 
 /* Sticky title: desktop only â€” not on phone/tablet */
 @media (min-width: 1024px) {
+  [data-rail] {
+    margin-left: -24px;
+  }
+
   .aboutus-projects-section .section-sticky-head {
     position: sticky;
     top: calc(var(--header-h, 106px) + 32px);

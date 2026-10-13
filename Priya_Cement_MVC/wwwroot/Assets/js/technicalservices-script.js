@@ -341,7 +341,14 @@ function dockTabs(active) {
   }
 }
 
-setActive("onsite", false);
+const attrDefault = tabBar && tabBar.dataset.defaultTab;
+const pathDefault = /manufacturing-and-processing/i.test(location.pathname) ? "support" : null;
+const requestedTab = attrDefault || pathDefault;
+const preferredTab = requestedTab && tabs.some(t => t.dataset.tab === requestedTab) ? requestedTab : "onsite";
+// Keep the requested tab until the visitor actually moves down the page.
+let allowScrollTab = !requestedTab;
+const pinStartY = window.scrollY;
+setActive(preferredTab, false);
 const remeasurePill = () => movePill(tabs.find(t => t.dataset.tab === currentTab), false);
 window.addEventListener("resize", remeasurePill);
 window.addEventListener("load", remeasurePill);
@@ -375,24 +382,55 @@ if (tabWrap && tabAnchor) {
     trigger: "#" + id,
     start: "top 45%",
     end: "bottom 45%",
-    onToggle: self => { if (self.isActive) setActive(id); },
+    onToggle: self => { if (allowScrollTab && self.isActive) setActive(id); },
   });
 });
 
+if (!allowScrollTab) {
+  window.addEventListener("scroll", () => {
+    if (Math.abs(window.scrollY - pinStartY) > 80) allowScrollTab = true;
+  }, { passive: true });
+  // ScrollTrigger refreshes on load and would otherwise snap the pill onto Our plants.
+  const pinDefaultTab = () => { if (!allowScrollTab) setActive(preferredTab, false); };
+  window.addEventListener("load", pinDefaultTab);
+  ScrollTrigger.addEventListener("refresh", pinDefaultTab);
+  pinDefaultTab();
+}
+
 // scroll-driven vertical progress rails (all breakpoints)
 document.querySelectorAll("[data-rail]").forEach(rail => {
+  if (rail.closest(".aboutus-projects-section")) return;
   const thumb = rail.querySelector("[data-rail-thumb]");
   if (!thumb) return;
-  gsap.fromTo(thumb, { y: 0 }, {
-    y: () => Math.max(rail.offsetHeight - 40, 0),
+  const scope = rail.closest("[data-rail-scope]");
+  if (!scope) return;
+
+  let fill = rail.querySelector("[data-rail-fill]");
+  if (!fill) {
+    fill = document.createElement("span");
+    fill.setAttribute("data-rail-fill", "");
+    fill.setAttribute("aria-hidden", "true");
+    fill.className = "pointer-events-none absolute top-0 left-1/2 z-0 w-px -translate-x-1/2 bg-secondary";
+    rail.insertBefore(fill, thumb);
+  }
+
+  const railScroll = () => ({
     ease: "none",
     scrollTrigger: {
-      trigger: rail.closest("[data-rail-scope]"),
+      trigger: scope,
       start: "top 60%",
       end: "bottom 70%",
       scrub: 0.4,
       invalidateOnRefresh: true,
     },
+  });
+  gsap.fromTo(thumb, { y: 0 }, {
+    y: () => Math.max(rail.offsetHeight - 40, 0),
+    ...railScroll(),
+  });
+  gsap.fromTo(fill, { height: 0 }, {
+    height: () => rail.offsetHeight,
+    ...railScroll(),
   });
 });
 
@@ -404,16 +442,29 @@ window.addEventListener("resize", () => {
 });
 window.addEventListener("orientationchange", () => ScrollTrigger.refresh());
 
-// entrance animations
+// set + to, not from(): ScrollTrigger.refresh() re-applies from() start values
+// and records the current (hidden) opacity as the end state, so the image stays invisible.
+// Skip the about-us projects block; aboutus-script.js owns those.
 gsap.utils.toArray("[data-fade]").forEach(el => {
-  gsap.from(el, { y: 42, autoAlpha: 0, duration: .8, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%",  toggleActions: "play none none reverse", } });
+  if (el.closest(".aboutus-projects-section")) return;
+  gsap.set(el, { y: 42, autoAlpha: 0 });
+  gsap.to(el, {
+    y: 0, autoAlpha: 1, duration: .8, ease: "power3.out",
+    scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none reverse" }
+  });
 });
 gsap.utils.toArray("[data-count]").forEach(el => {
-  gsap.from(el, { x: -40, autoAlpha: 0, duration: .9, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%",  toggleActions: "play none none reverse", } });
+  if (el.closest(".aboutus-projects-section")) return;
+  gsap.set(el, { x: -40, autoAlpha: 0 });
+  gsap.to(el, {
+    x: 0, autoAlpha: 1, duration: .9, ease: "power3.out",
+    scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" }
+  });
 });
 
 // sticky section headings: smooth fade in on enter, fade out near section end
 gsap.utils.toArray(".section-sticky-title").forEach(title => {
+  if (title.closest(".aboutus-projects-section")) return;
   const scope = title.closest("[data-rail-scope]");
   if (!scope) return;
   gsap.set(title, { autoAlpha: 0, y: 24 });

@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const mediaTrack = document.getElementById('legacyMediaTrack');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
+  const eventProcess = document.getElementById('eventProcess');
 
   if (!pageContainerLegacy || !timeline.length || !mediaViewport || !mediaTrack) return;
 
@@ -251,6 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
       bgYearEl.textContent = d.year;
       bgYearEl.classList.add('bgyear-enter');
       eventTitle.textContent = d.title;
+      eventProcess.setAttribute("data-process", d.title);
       eventDesc.textContent = d.desc;
       eventContent.classList.add('fade-slide-enter');
       syncMediaTrack(false);
@@ -270,6 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
     eventContent.classList.remove('fade-slide-enter');
     void eventContent.offsetWidth;
     eventTitle.textContent = d.title;
+    eventProcess.setAttribute("data-process", d.title);
     eventDesc.textContent = d.desc;
     eventContent.classList.add('fade-slide-enter');
 

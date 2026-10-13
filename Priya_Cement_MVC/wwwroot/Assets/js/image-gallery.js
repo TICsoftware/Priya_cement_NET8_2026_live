@@ -6,6 +6,7 @@
 
   let modal;
   let stageImgs = [];
+  let playerEl;
   let activeSlot = 0;
   let countEl;
   let lastTrigger = null;
@@ -34,6 +35,24 @@
   function getItemAlt(el) {
     const img = el.querySelector("img");
     return (el.getAttribute("aria-label") || (img && img.getAttribute("alt")) || "Gallery image").trim();
+  }
+
+  function mediaKind(src) {
+    const path = src.split("?")[0].split("#")[0].toLowerCase();
+    if (/\.(mp4|webm|ogg|ogv|mov)$/.test(path)) return "file";
+    if (/youtube\.com|youtu\.be/i.test(src)) return "youtube";
+    if (/vimeo\.com/i.test(src)) return "vimeo";
+    return "image";
+  }
+
+  function youtubeEmbed(src) {
+    const match = src.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/i);
+    return match ? "https://www.youtube.com/embed/" + match[1] + "?autoplay=1&rel=0" : "";
+  }
+
+  function vimeoEmbed(src) {
+    const match = src.match(/vimeo\.com\/(?:video\/)?(\d+)/i);
+    return match ? "https://player.vimeo.com/video/" + match[1] + "?autoplay=1" : "";
   }
 
   function collectItems(gallery) {
@@ -72,6 +91,7 @@
       '<div class="image-gallery-stage">' +
       '<img alt="">' +
       '<img alt="">' +
+      '<div class="image-gallery-player" hidden></div>' +
       "</div>" +
       '<div class="image-gallery-footer">' +
       '<p class="image-gallery-count" aria-live="polite"></p>' +
@@ -80,6 +100,7 @@
 
     document.body.appendChild(modal);
     stageImgs = Array.prototype.slice.call(modal.querySelectorAll(".image-gallery-stage img"));
+    playerEl = modal.querySelector(".image-gallery-player");
     countEl = modal.querySelector(".image-gallery-count");
     activeSlot = 0;
 
@@ -110,12 +131,49 @@
     img.classList.remove("is-active", "is-from-next", "is-from-prev", "is-to-next", "is-to-prev");
   }
 
+  function clearPlayer() {
+    if (!playerEl) return;
+    playerEl.innerHTML = "";
+    playerEl.setAttribute("hidden", "");
+  }
+
+  function showPlayer(src, kind) {
+    stageImgs.forEach(function (img) {
+      resetImgClasses(img);
+      img.removeAttribute("src");
+      img.alt = "";
+    });
+    clearPlayer();
+    playerEl.removeAttribute("hidden");
+
+    if (kind === "file") {
+      const video = document.createElement("video");
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.src = src;
+      playerEl.appendChild(video);
+      return;
+    }
+
+    const embed = kind === "youtube" ? youtubeEmbed(src) : vimeoEmbed(src);
+    if (!embed) return;
+    const frame = document.createElement("iframe");
+    frame.src = embed;
+    frame.title = "Video";
+    frame.allow = "autoplay; fullscreen; picture-in-picture";
+    frame.allowFullscreen = true;
+    playerEl.appendChild(frame);
+  }
+
   function preloadAround(current) {
     [current + 1, current - 1].forEach(function (i) {
       const item = items[(i + items.length) % items.length];
       if (!item) return;
+      const src = getItemSrc(item);
+      if (mediaKind(src) !== "image") return;
       const pre = new Image();
-      pre.src = getItemSrc(item);
+      pre.src = src;
     });
   }
 
@@ -132,6 +190,14 @@
     const item = items[index];
     const src = getItemSrc(item);
     const alt = getItemAlt(item);
+    const kind = mediaKind(src);
+
+    if (kind !== "image") {
+      showPlayer(src, kind);
+      return;
+    }
+
+    clearPlayer();
     const incomingSlot = instant || !stageImgs[activeSlot].getAttribute("src") ? activeSlot : 1 - activeSlot;
     const incoming = stageImgs[incomingSlot];
     const outgoing = stageImgs[activeSlot];
@@ -204,6 +270,7 @@
       img.removeAttribute("src");
       img.alt = "";
     });
+    clearPlayer();
     activeSlot = 0;
     items = [];
   }

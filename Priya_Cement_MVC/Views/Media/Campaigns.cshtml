@@ -110,7 +110,7 @@
             </div>
 
             <div class="video-card-grid video-card-grid-2 mt-5">
-               @foreach (var item1 in Model.TVC_List.Where(x => x.IsBlock == 1).OrderBy(x => x.Sequence))
+               @foreach (var item1 in Model.Corporate_Film_List.Where(x => x.IsBlock == 1).OrderBy(x => x.Sequence))
                {
                   <a class="video-card" href="#" data-video-src="@item1.Video_path" aria-label="@item1.ThumbnailAltText">
                      <span class="video-card-media">

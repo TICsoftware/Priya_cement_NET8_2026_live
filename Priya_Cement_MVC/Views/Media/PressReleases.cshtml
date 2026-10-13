@@ -1,5 +1,35 @@
 @using Priya_Cement_MVC.Helpers
+@using Priya_Cement_BusinessLogic.Entity
 @model Priya_Cement_BusinessLogic.Entity.MediaModel
+@functions {
+   bool IsPressVideo(string input)
+   {
+      if (string.IsNullOrWhiteSpace(input)) return false;
+      var value = input.Trim();
+      var path = value.Split('?', '#')[0];
+      if (path.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)
+         || path.EndsWith(".webm", StringComparison.OrdinalIgnoreCase)
+         || path.EndsWith(".ogg", StringComparison.OrdinalIgnoreCase)
+         || path.EndsWith(".ogv", StringComparison.OrdinalIgnoreCase)
+         || path.EndsWith(".mov", StringComparison.OrdinalIgnoreCase))
+      {
+         return true;
+      }
+      return value.Contains("youtube.com", StringComparison.OrdinalIgnoreCase)
+         || value.Contains("youtu.be", StringComparison.OrdinalIgnoreCase)
+         || value.Contains("vimeo.com", StringComparison.OrdinalIgnoreCase);
+   }
+
+   string PressMediaSrc(ArticleModel item)
+   {
+      if (item == null) return string.Empty;
+      foreach (var candidate in new[] { item.MediafilePath, item.ExternalUrl, item.Url })
+      {
+         if (IsPressVideo(candidate)) return candidate.Trim();
+      }
+      return item.ThumbnailImage ?? string.Empty;
+   }
+}
 @{
    ViewData["Title"] = Model?.Content?.ContTitle ?? "About us";
    Layout = "~/Views/Shared/_Layout.cshtml";
@@ -54,6 +84,61 @@
 <!-- HERO BANNER END -->
 
 
+
+
+@if (Model?.SectionArticles_List != null && Model.SectionArticles_List.Any())
+{
+   <section class="section-spacing print-section" aria-labelledby="print-heading">
+      <div class="container">
+         <div class="section-title-outer section-title-outer-start section-title-md section-title-left">
+            <h2 class="text-h2 title-section reveal-text">
+               @if (!string.IsNullOrWhiteSpace(Model.Content.Cont_hmpg_intro))
+               {
+                  @Html.Raw(Model.Content.Cont_hmpg_intro.CleanParagraphTags())
+               }
+            </h2>
+         </div>
+
+         <div class="image-gallery mt-5" data-gallery="print" id="pressReleaseList">
+
+
+             @await Html.PartialAsync("_press_release_list", Model.SectionArticles_List)
+
+            @*             @foreach (var item in Model.SectionArticles_List)
+            {
+               var mediaSrc = PressMediaSrc(item);
+               var isVideo = IsPressVideo(mediaSrc);
+               <a class="image-gallery-card@(isVideo ? " is-video" : "")" href="@mediaSrc" data-gallery-src="@mediaSrc" aria-label="@item.ThumbnailAltText">
+                  <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="480" height="600" loading="lazy">
+
+                  <div class="image-gallery-caption">
+                     <strong>@item.Title</strong>
+                     <span>@item.DisplayDate?.ToString("MMMM dd, yyyy")</span>
+                  </div>
+               </a>
+                  
+            } *@
+
+  
+         </div>
+
+         @if (Model.TotalCount > 10)
+         {
+            <div class="mt-8 flex justify-center">
+               <button type="button" id="loadMoreBtn"
+                       class="inline-flex items-center justify-center gap-2 text-sm font-semibold border border-neutral-900 rounded-full px-6 py-2 transition-colors hover:bg-neutral-900 hover:text-white"
+                       data-page="1" data-pagesize="10"
+                       data-total="@Model.TotalCount" data-contid="@Model.Content.ContId">
+                  Load More
+               </button>
+            </div>
+         }
+      </div>
+   </section>
+}
+
+
+@* 
 <section class="section-spacing fi-reports-section" aria-labelledby="fi-reports-heading">
    <div class="container">
       <div class="section-title-outer section-title-outer-start section-title-md section-title-left">
@@ -71,7 +156,8 @@
             <a class="fi-report-card" href="@item.MediafilePath" download aria-label="Download @item.Title">
                <span class="fi-report-cover">
                   <span class="fi-report-media">
-                     <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="420" height="560" loading="lazy">
+                     <img src="@Url.Action("Thumbnail", "Pdf", new { url = item.MediafilePath })"
+                          alt="@item.ThumbnailAltText" width="420" height="560" loading="lazy">
                      <span class="fi-report-dl" aria-hidden="true">
                         <img src="~/Assets/images/common-images/download-vector-btn-white.svg" alt="" width="15"
                              height="20">
@@ -97,7 +183,7 @@
       }
 
    </div>
-</section>
+</section> *@
 
 
 

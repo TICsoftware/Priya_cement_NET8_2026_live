@@ -49,21 +49,36 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('.aboutus-projects-section [data-rail]').forEach((rail) => {
       const thumb = rail.querySelector('[data-rail-thumb]');
       if (!thumb) return;
-      gsap.fromTo(
-        thumb,
-        { y: 0 },
-        {
-          y: () => Math.max(rail.offsetHeight - 40, 0),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: rail.closest('[data-rail-scope]'),
-            start: 'top 60%',
-            end: 'bottom 70%',
-            scrub: 0.4,
-            invalidateOnRefresh: true,
-          },
-        }
-      );
+      const scope = rail.closest('[data-rail-scope]');
+      if (!scope) return;
+
+      let fill = rail.querySelector('[data-rail-fill]');
+      if (!fill) {
+        fill = document.createElement('span');
+        fill.setAttribute('data-rail-fill', '');
+        fill.setAttribute('aria-hidden', 'true');
+        fill.className = 'pointer-events-none absolute top-0 left-1/2 z-0 w-px -translate-x-1/2 bg-secondary';
+        rail.insertBefore(fill, thumb);
+      }
+
+      const railScroll = () => ({
+        ease: 'none',
+        scrollTrigger: {
+          trigger: scope,
+          start: 'top 60%',
+          end: 'bottom 70%',
+          scrub: 0.4,
+          invalidateOnRefresh: true,
+        },
+      });
+      gsap.fromTo(thumb, { y: 0 }, {
+        y: () => Math.max(rail.offsetHeight - 40, 0),
+        ...railScroll(),
+      });
+      gsap.fromTo(fill, { height: 0 }, {
+        height: () => rail.offsetHeight,
+        ...railScroll(),
+      });
     });
 
     /* Use set + to (not from): Values pin / ScrollTrigger.refresh re-applies
@@ -104,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.utils.toArray('.aboutus-projects-section .section-sticky-title').forEach((title) => {
       const scope = title.closest('[data-rail-scope]') || projectsScope;
       if (!scope) return;
-      gsap.set(title, { autoAlpha: 0, y: 24, force3D: true });
+      gsap.set(title, { autoAlpha: 1, y: 24, force3D: true });
       const titleTl = gsap.timeline({
         scrollTrigger: {
           trigger: scope,
@@ -115,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       /* One timeline — two competing scrub tweens on the same node flicker */
       titleTl.to(title, { autoAlpha: 1, y: 0, ease: 'power2.out', duration: 1 }, 0);
-      titleTl.to(title, { autoAlpha: 0, y: -24, ease: 'power2.in', duration: 1 }, 0.72);
+      titleTl.to(title, { autoAlpha: 1, y: -24, ease: 'power2.in', duration: 1 }, 0.72);
     });
   }
 

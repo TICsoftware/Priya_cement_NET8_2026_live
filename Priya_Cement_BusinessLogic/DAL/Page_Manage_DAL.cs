@@ -78,19 +78,19 @@ namespace Priya_Cement_BusinessLogic.DAL
         }
 
 
-        public DataSet Get_PressRelease_page_wise_DAL(int contentId, int page, int pageSize)
+        public DataSet Get_PressRelease_page_wise_DAL(int contentId, int pageSize, int page)
         {
             SqlParameter[] sqlParams =
             {
                 new SqlParameter("@ContentId", contentId),
-                new SqlParameter("@Page", page),
+                new SqlParameter("@PageNumber", page),
                 new SqlParameter("@PageSize", pageSize)
             };
 
             return GetDataSet("Get_PressReleases_Articles_List", sqlParams);
         }
 
-         public DataSet Get_Blogs_page_wise_DAL(int contentId, int page, int pageSize)
+        public DataSet Get_Blogs_page_wise_DAL(int contentId, int page, int pageSize)
         {
             SqlParameter[] sqlParams =
             {

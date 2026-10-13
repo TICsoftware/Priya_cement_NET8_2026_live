@@ -107,11 +107,11 @@ namespace Priya_Cement_BusinessLogic.BAL
             return model;
         }
 
-        public MediaModel GetPressReleases_page_wise_BAL(int cont_id, int page, int pageSize)
+        public MediaModel GetPressReleases_page_wise_BAL(int cont_id, int pageSize, int page)
         {
             var model = new MediaModel();
 
-            var ds = Get_PressRelease_page_wise_DAL(cont_id, page, pageSize);
+            var ds = Get_PressRelease_page_wise_DAL(cont_id, pageSize, page);
 
             if (ds == null || ds.Tables.Count == 0)
             {

@@ -39,14 +39,20 @@ namespace Priya_Cement_MVC.Routes
 
             app.MapControllerRoute(
                 name: "press-releases",
-                pattern: "media/press-peleases",
-                defaults: new { controller = "Media", action = "PressReleases", title = "press-peleases" }
+                pattern: "media/press-releases",
+                defaults: new { controller = "Media", action = "PressReleases", title = "press-releases" }
             );
 
             app.MapControllerRoute(
               name: "esgreports",
               pattern: "esg/reports",
               defaults: new { controller = "Media", action = "PressReleases", title = "reports" }
+          );
+
+             app.MapControllerRoute(
+              name: "LoadMorePressReleases",
+              pattern: "Media/LoadMorePressReleases",
+              defaults: new { controller = "Media", action = "LoadMorePressReleases"}
           );
 
            app.MapControllerRoute(
