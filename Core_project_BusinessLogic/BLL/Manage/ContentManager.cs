@@ -862,6 +862,34 @@ public class ContentManager : Content_DAL
     }
 
 
+    public int Add_Files_bal(List<CMS_File_details> Uploadfiles, int userid, out string message)
+    {
+        int status = 0;
+        DataTable dt = new();
+        message = "";
+        try
+        {
+            foreach (CMS_File_details objfile in Uploadfiles)
+            {
+                dt = Add_File_dal(objfile, userid);
+                if (dt.Rows.Count > 0)
+                {
+                    status = Convert.ToInt32(dt.Rows[0]["result"]);
+                    if (status == 0)
+                    {
+                        message = message + "<br/>" + objfile.Uploadfilename + " already exists";
+                    }
+                }
+            }
+            return status;
+        }
+        catch (System.Exception)
+        {
+            throw;
+        }
+
+    }
+
 }
 
 

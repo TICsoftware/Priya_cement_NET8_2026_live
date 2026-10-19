@@ -14,7 +14,7 @@ namespace Priya_Cement_MVC
         public List<SelectListItem>? Sections { get; set; }
         public int Section_id { get; set; }
         public List<SelectListItem>? subSections { get; set; }
-        public int? Subsection_id { get; set; }
+        public int Subsection_id { get; set; }
         public List<SelectListItem>? Language_sections { get; set; }
         public int Language_section_id { get; set; }
         public List<SelectListItem>? Language_subSections { get; set; }
@@ -35,8 +35,5 @@ namespace Priya_Cement_MVC
         public DateTime? Filedate { get; set; }
         public string? Filepagename { get; set; }
         public int Sequence { get; set; }
-        public int[]? SelectedMapping_sections { get; set; }
-        public int[]? SelectedTagging_sections { get; set; }
-
     }
 }
