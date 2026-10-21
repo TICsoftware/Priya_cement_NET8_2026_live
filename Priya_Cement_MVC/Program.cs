@@ -44,31 +44,31 @@ else
 }
 
 
-// builder.Services.AddAuthentication("MyCookieAuth")
-//     .AddCookie("MyCookieAuth", options =>
-//     {
-//         options.LoginPath = "/Manage/Login";
-//         options.AccessDeniedPath = "/Manage/AccessDenied";
-//         options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-//     });
+builder.Services.AddAuthentication("MyCookieAuth")
+    .AddCookie("MyCookieAuth", options =>
+    {
+        options.LoginPath = "/Manage/Login";
+        options.AccessDeniedPath = "/Manage/AccessDenied";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+    });
 
 builder.Services.AddAuthorization();
 
 //uncomment while live start
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(20); // session timeout
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
+// builder.Services.AddSession(options =>
+// {
+//     options.IdleTimeout = TimeSpan.FromMinutes(20); // session timeout
+//     options.Cookie.HttpOnly = true;
+//     options.Cookie.IsEssential = true;
+// });
 
- builder.Services.AddAntiforgery(options =>
-{
-    options.Cookie.Name = "SecureToken";
-    options.Cookie.HttpOnly = true;
-   options.Cookie.SecurePolicy =
-        CookieSecurePolicy.Always;  
-});
+//  builder.Services.AddAntiforgery(options =>
+// {
+//     options.Cookie.Name = "SecureToken";
+//     options.Cookie.HttpOnly = true;
+//    options.Cookie.SecurePolicy =
+//         CookieSecurePolicy.Always;  
+// });
 //uncomment while live end
 
 //builder.Services.AddHttpClient();
