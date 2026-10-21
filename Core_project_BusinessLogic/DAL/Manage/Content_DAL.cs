@@ -568,7 +568,7 @@ public class Content_DAL : DBHelper
         }
     }
 
-    public DataTable Add_File_dal(CMS_File_details objfile, int userid)
+    protected DataTable Add_File_dal(CMS_File_details objfile, int userid)
     {
         DataTable dt = new();
         var Sqlparam = new List<SqlParameter>();
@@ -593,6 +593,20 @@ public class Content_DAL : DBHelper
             Sqlparam.Add(new SqlParameter("@file_size", objfile.UploadFileSize));
             Sqlparam.Add(new SqlParameter("@userid", userid.ToString()));
             dt = GetDataSet("Content_Insert_file", Sqlparam.ToArray()).Tables[0];
+            return dt;
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    protected DataTable Publish_Content_DAL(int cont_id, int user_id)
+    {
+        DataTable dt = new();
+        try
+        {
+            dt = GetDataSet("Set_publish_content", "@cont_id", cont_id.ToString(), "@user_id", user_id.ToString()).Tables[0];
             return dt;
         }
         catch

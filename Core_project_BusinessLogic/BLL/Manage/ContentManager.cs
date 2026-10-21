@@ -890,6 +890,27 @@ public class ContentManager : Content_DAL
 
     }
 
+
+    public int Publish_Content_BAL(int cont_id, int user_id, out string cont_title)
+    {
+        DataTable dt = new();
+        cont_title = "";
+        try
+        {
+            dt = Publish_Content_DAL(cont_id, user_id);
+            if (dt.Rows.Count > 0)
+            {
+                cont_title = dt.Rows[0]["cont_title"].ToString() ?? "";
+                return Convert.ToInt32(dt.Rows[0]["result"].ToString());
+            }
+            return 0;
+        }
+        catch (System.Exception)
+        {
+            throw;
+        }
+    }
+
 }
 
 

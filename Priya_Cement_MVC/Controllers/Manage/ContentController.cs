@@ -1,14 +1,14 @@
 using System;
 using Core_project_BusinessLogic;
 using Priya_Cement_MVC.Classes;
-using Microsoft.AspNetCore.Mvc; 
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Core_project_BusinessLogic.BAL;
 using Core_project_BusinessLogic.Entity;
 
 using Priya_Cement_MVC.Filters;
 using Microsoft.AspNetCore.Authorization;
-using Priya_Cement_MVC.Helpers; 
+using Priya_Cement_MVC.Helpers;
 namespace Priya_Cement_MVC.Controllers;
 
 [Authorize]
@@ -117,6 +117,7 @@ public class ContentController : Controller
                     ContentObj.Background_image_id = Modelobj.Background_image_id ?? null;
                     ContentObj.Background_image_Alttext = Modelobj.Background_image_Alttext;
                     ContentObj.Attach_file_id = Modelobj.Attach_file_id ?? null;
+                    ContentObj.search_url=Modelobj.Search_url ?? null;
                     ContentObj.Spot_temp_id = Modelobj.Spot_temp_id;
 
                     if (Modelobj.SelectedMapping_sections != null && Modelobj.SelectedMapping_sections.Length > 0)
@@ -731,16 +732,53 @@ public class ContentController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Drafts(string page_no, CMS_pages Model, IFormCollection form, string action)
+    public IActionResult Drafts(string page_no, CMS_pages Model, IFormCollection form, string Command)
     {
         if (TempData["alert_message"] != null)
         {
             ViewBag.alert_message = TempData["alert_message"];
         }
-
+        int cont_id = 0, status = 0;
+        string alert_msg = "", title = "";
         using ContentManager objBal = new(objconfig);
         try
         {
+            if (Command == "Publish")
+            {
+                var selectedValues = form["formchk"];
+
+                foreach (var value in selectedValues)
+                {
+                    title = "";
+                    if (!string.IsNullOrWhiteSpace(value))
+                    {
+                        cont_id = Convert.ToInt32(CryptoEngine.Decrypt(value));
+                        status = objBal.Publish_Content_BAL(cont_id, 2, out title);
+                        if (status == 0)
+                        {
+                            alert_msg = alert_msg + "Pagename given for '" + title + "' is already exists with inactive status.\n";
+                        }
+                        if (status == 1)
+                        {
+                            alert_msg = alert_msg + "Pagename given for '" + title + "' is already exists.\n";
+                        }
+                        else
+                        {
+                            alert_msg = alert_msg + title + "' is published succeessfully.\n";
+                        }
+
+                    }
+                }
+                if (String.IsNullOrWhiteSpace(alert_msg))
+                {
+                    ViewBag.alert_message = "Selected content(s) are published succeessfully";
+                }
+                else
+                {
+                    ViewBag.alert_message = alert_msg;
+                }
+
+            }
             Drafts_load(Model, objBal);
         }
         catch (Exception ex)
@@ -1025,6 +1063,7 @@ public class ContentController : Controller
                     ContentObj.Background_image_id = Modelobj.Background_image_id ?? null;
                     ContentObj.Background_image_Alttext = Modelobj.Background_image_Alttext;
                     ContentObj.Attach_file_id = Modelobj.Attach_file_id ?? null;
+                    ContentObj.search_url = Modelobj.Search_url ?? null;
                     if (Modelobj.SelectedMapping_sections != null && Modelobj.SelectedMapping_sections.Length > 0)
                     {
                         ContentObj.Mapped_sections = string.Join(",", Modelobj.SelectedMapping_sections);
