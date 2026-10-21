@@ -2262,9 +2262,6 @@
     .sm\:w-auto {
       width: auto;
     }
-    .sm\:max-w-4xl {
-      max-width: var(--container-4xl);
-    }
     .sm\:max-w-5xl {
       max-width: var(--container-5xl);
     }
@@ -2363,9 +2360,6 @@
     }
     .sm\:py-10 {
       padding-block: calc(var(--spacing) * 10);
-    }
-    .sm\:pt-0 {
-      padding-top: 0px;
     }
     .sm\:pt-10 {
       padding-top: calc(var(--spacing) * 10);
