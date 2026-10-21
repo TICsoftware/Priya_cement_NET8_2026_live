@@ -9,6 +9,9 @@
   let playerEl;
   let activeSlot = 0;
   let countEl;
+  let sideTitleEl;
+  let sideDateEl;
+  let sideCountEl;
   let lastTrigger = null;
   let isOpen = false;
   let items = [];
@@ -96,12 +99,20 @@
       '<div class="image-gallery-footer">' +
       '<p class="image-gallery-count" aria-live="polite"></p>' +
       "</div>" +
-      "</div>";
+      "</div>" +
+      '<aside class="image-gallery-side" hidden>' +
+      '<h2 class="image-gallery-side-title"></h2>' +
+      '<p class="image-gallery-side-date"></p>' +
+      '<p class="image-gallery-side-count" aria-live="polite"></p>' +
+      "</aside>";
 
     document.body.appendChild(modal);
     stageImgs = Array.prototype.slice.call(modal.querySelectorAll(".image-gallery-stage img"));
     playerEl = modal.querySelector(".image-gallery-player");
     countEl = modal.querySelector(".image-gallery-count");
+    sideTitleEl = modal.querySelector(".image-gallery-side-title");
+    sideDateEl = modal.querySelector(".image-gallery-side-date");
+    sideCountEl = modal.querySelector(".image-gallery-side-count");
     activeSlot = 0;
 
     modal.addEventListener("click", function (e) {
@@ -124,7 +135,23 @@
   }
 
   function updatePager() {
-    countEl.textContent = index + 1 + " / " + items.length;
+    const label = index + 1 + " / " + items.length;
+    countEl.textContent = label;
+    if (sideCountEl) sideCountEl.textContent = label;
+  }
+
+  function updateCaption(item) {
+    const title = (item.getAttribute("data-gallery-title") || "").trim();
+    const date = (item.getAttribute("data-gallery-date") || "").trim();
+    const hasCaption = !!(title || date);
+    modal.classList.toggle("has-caption", hasCaption);
+    const side = modal.querySelector(".image-gallery-side");
+    if (side) {
+      if (hasCaption) side.removeAttribute("hidden");
+      else side.setAttribute("hidden", "");
+    }
+    if (sideTitleEl) sideTitleEl.textContent = title;
+    if (sideDateEl) sideDateEl.textContent = date;
   }
 
   function resetImgClasses(img) {
@@ -191,6 +218,7 @@
     const src = getItemSrc(item);
     const alt = getItemAlt(item);
     const kind = mediaKind(src);
+    updateCaption(item);
 
     if (kind !== "image") {
       showPlayer(src, kind);
@@ -273,6 +301,9 @@
     clearPlayer();
     activeSlot = 0;
     items = [];
+    modal.classList.remove("has-caption");
+    const side = modal.querySelector(".image-gallery-side");
+    if (side) side.setAttribute("hidden", "");
   }
 
   function closeModal() {

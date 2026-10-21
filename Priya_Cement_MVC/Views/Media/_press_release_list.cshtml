@@ -35,7 +35,7 @@
 {
    var mediaSrc = PressMediaSrc(item);
    var isVideo = IsPressVideo(mediaSrc);
-   <a class="image-gallery-card@(isVideo ? " is-video" : "")" href="@mediaSrc" data-gallery-src="@mediaSrc" aria-label="@item.ThumbnailAltText">
+   <a class="image-gallery-card@(isVideo ? " is-video" : "")" href="@mediaSrc" data-gallery-src="@mediaSrc" data-gallery-title="@item.Title" data-gallery-date="@item.DisplayDate?.ToString("MMMM dd, yyyy")" aria-label="@item.ThumbnailAltText">
       <span class="image-gallery-frame">
          <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="480" height="600" loading="lazy">
       </span>
