@@ -124,7 +124,7 @@ public class Content_DAL : DBHelper
         }
     }
 
-     protected DataSet Articles_Get_DAL(int cont_id)
+    protected DataSet Articles_Get_DAL(int cont_id)
     {
         DataSet ds = new();
         try
@@ -171,7 +171,7 @@ public class Content_DAL : DBHelper
         DataSet ds = new();
         try
         {
-            ds = GetDataSet("Tag_master_CMS_Get",  "@language_id", language_id.ToString());
+            ds = GetDataSet("Tag_master_CMS_Get", "@language_id", language_id.ToString());
             return ds;
         }
         catch
@@ -561,6 +561,53 @@ public class Content_DAL : DBHelper
         {
             ds = GetDataSet("Geographies_CMS_Get", "@language_id", language_id.ToString());
             return ds;
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    protected DataTable Add_File_dal(CMS_File_details objfile, int userid)
+    {
+        DataTable dt = new();
+        var Sqlparam = new List<SqlParameter>();
+        try
+        {
+            Sqlparam.Add(new SqlParameter("@cont_pdf", objfile.Filepdf.ToString()));
+            Sqlparam.Add(new SqlParameter("@cont_title", objfile.Title.ToString()));
+            Sqlparam.Add(new SqlParameter("@cont_displaydate", objfile.UploadDate.ToString()));
+            Sqlparam.Add(new SqlParameter("@cont_sequence", objfile.Sequence));
+            Sqlparam.Add(new SqlParameter("@cont_parent_id", objfile.cont_parent_id));
+            Sqlparam.Add(new SqlParameter("@Template_Master_ID", objfile.Template_Master_ID));
+            Sqlparam.Add(new SqlParameter("@Content_Type_ID", objfile.Content_Type_ID));
+            Sqlparam.Add(new SqlParameter("@cont_pagename", objfile.Pagename.Replace(" ", "-")));//add_Content.cont_pagename.Trim());
+            Sqlparam.Add(new SqlParameter("@cont_languageid", objfile.Language_ID));
+            Sqlparam.Add(new SqlParameter("@cont_lang_group_id", objfile.Lang_groupid));
+            Sqlparam.Add(new SqlParameter("@geography_id", objfile.Geography_ID));
+            Sqlparam.Add(new SqlParameter("@cont_window_title", objfile.Title.ToString().Replace(" ", "-")));
+            Sqlparam.Add(new SqlParameter("@cont_section_tagid", objfile.MappedList ?? (object)DBNull.Value));
+            Sqlparam.Add(new SqlParameter("@tag_master_selected_id", objfile.TagList ?? (object)DBNull.Value));
+            Sqlparam.Add(new SqlParameter("@file_name", objfile.Uploadfilename));
+            Sqlparam.Add(new SqlParameter("@file_extension", objfile.UploadFileExtension));
+            Sqlparam.Add(new SqlParameter("@file_size", objfile.UploadFileSize));
+            Sqlparam.Add(new SqlParameter("@userid", userid.ToString()));
+            dt = GetDataSet("Content_Insert_file", Sqlparam.ToArray()).Tables[0];
+            return dt;
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    protected DataTable Publish_Content_DAL(int cont_id, int user_id)
+    {
+        DataTable dt = new();
+        try
+        {
+            dt = GetDataSet("Set_publish_content", "@cont_id", cont_id.ToString(), "@user_id", user_id.ToString()).Tables[0];
+            return dt;
         }
         catch
         {
