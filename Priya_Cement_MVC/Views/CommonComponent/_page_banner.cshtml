@@ -3,7 +3,7 @@
 @model ContentViewModel
 
 @{
-    var desktopImg = !string.IsNullOrWhiteSpace(Model?.MastheadImage) ? Model.MastheadImage : "~/Assets/images/banners/products-banner-desktop.webp";
+    var desktopImg = !string.IsNullOrWhiteSpace(Model?.MastheadImage) ? Model.MastheadImage : "/uploads/masthead/banner-dummy.webp";
     var mobileImg = !string.IsNullOrWhiteSpace(Model?.MobileMastheadImage) ? Model.MobileMastheadImage : "~/Assets/images/banners/products-banner-mob.webp";
     var title = !string.IsNullOrWhiteSpace(Model?.ContTitle) ? Model.ContTitle : "";
     var crumb = !string.IsNullOrWhiteSpace(Model?.BreadcrumPath) ? Model.BreadcrumPath.CleanParagraphTags() : "Products";

@@ -49,6 +49,25 @@ public class MediaController : Controller
     }
 
 
+    public IActionResult PressReleasesInside(string title)
+    {
+        try
+        {
+            var data = _bal.GetPressReleasesInside_BAL(title, 1, 1);
+            return View(data);
+        }
+        catch (Exception ex)
+        {
+            FileLogger.LogError("/PressReleasesInside :", ex);
+            return View(new AboutModel());
+        }
+        finally
+        {
+            _bal.Dispose();
+        }
+    }
+
+
     public IActionResult NewsCoverage(string title)
     {
         try

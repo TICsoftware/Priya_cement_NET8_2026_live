@@ -1,0 +1,118 @@
+@using Priya_Cement_MVC.Helpers
+@model Priya_Cement_BusinessLogic.Entity.MediaModel
+@{
+   ViewData["Title"] = Model?.Content?.ContTitle ?? "Press Release Inside";
+   Layout = "~/Views/Shared/_Layout.cshtml";
+   var content = Model?.Content;
+}
+
+@section head {
+   <title>@(content?.cont_window_title)</title>
+
+   <meta content="@(content?.cont_metatag)" name="keywords" />
+   <meta content="@(content?.cont_metadesc)" name="description" />
+
+   <meta name="twitter:card" content="summary" />
+   <meta name="twitter:site" content="" />
+   <meta name="twitter:title" content="@(content?.ContTitle)" />
+   <meta name="twitter:description" content="@(content?.cont_metadesc)" />
+
+   <meta property="og:type" content="article" />
+   <meta property="og:site_name" content="Priya Cement" />
+   <meta property="og:title" content="@(content?.ContTitle)" />
+   <meta property="og:description" content="@(content?.cont_metadesc)" />
+   <meta property="og:url" content="@(content?.CanonicalUrl)" />
+   <meta property="og:image" content="@(content?.cont_meta_image)" />
+
+   <meta itemprop="name" content="Priya Cement" />
+   <meta itemprop="description" content="@(content?.cont_metadesc)" />
+   <meta itemprop="image" content="@(content?.cont_meta_image)" />
+
+   <meta property="og:type" content="website" />
+   <meta property="og:site_name" content="Priya Cement" />
+   <meta property="og:title" content="@(content?.ContTitle)" />
+   <meta property="og:description" content="@(content?.cont_metadesc)" />
+   <meta property="og:image" content="@(content?.cont_meta_image)" />
+   <meta property="og:url" content="@(content?.CanonicalUrl)" />
+
+   <link rel="canonical" href="@(content?.CanonicalUrl)" />
+
+ 
+}
+
+@section Styles {
+   <link rel="stylesheet" href="~/Assets/css/media-style.css" asp-append-version="true" />
+}
+
+<!-- HERO BANNER END-->
+
+@if (Model?.Content != null)
+{
+   @await Html.PartialAsync("~/Views/CommonComponent/_page_banner.cshtml", Model.Content)
+}
+<!-- HERO BANNER END -->
+
+
+<section class="section-spacing fi-reports-section blogs-template-section" aria-labelledby="fi-reports-heading">
+   <div class="container">
+      @if (!string.IsNullOrWhiteSpace(Model?.Content?.Content))
+      {
+         <div class="blogs-template-inner">
+            <div class="lg:max-w-5xl 2xl:max-w-6xl">
+               @Html.Raw(Model.Content.Content)
+            </div>
+         </div>
+      }
+      else
+      {
+
+         if (!string.IsNullOrWhiteSpace(Model?.Content?.FilePath))
+         {
+            var filePath = Model.Content.FilePath;
+            var isYouTube = filePath.Contains("youtube.com", StringComparison.OrdinalIgnoreCase)
+                         || filePath.Contains("youtu.be", StringComparison.OrdinalIgnoreCase);
+            var isVideo = filePath.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)
+                       || filePath.EndsWith(".webm", StringComparison.OrdinalIgnoreCase);
+
+            <div class="page-image">
+               @if (isYouTube)
+               {
+                  var videoId = filePath.Contains("youtu.be", StringComparison.OrdinalIgnoreCase)
+                      ? filePath.Split('/').Last().Split('?')[0]
+                      : System.Text.RegularExpressions.Regex.Match(filePath, @"(?<=v=)[^&]+|(?<=embed/)[^?&]+").Value;
+
+                  <iframe src="https://www.youtube.com/embed/@videoId" title="YouTube video" allowfullscreen loading="lazy">
+                  </iframe>
+               }
+               else if (isVideo)
+               {
+                  <video controls class="img-fluid" preload="metadata">
+                     <source src="@filePath">
+                  </video>
+               }
+               else
+               {
+                  <img src="@Model.Content.Hmpg_thumbnail" alt="@Model.Content.Hmpg_thumbnail_alt_text" class="img-fluid">
+               }
+            </div>
+         }
+         else
+         {
+            if (!string.IsNullOrWhiteSpace(Model?.Content?.Hmpg_thumbnail))
+            {
+               <div class="page-image">
+                  <img src="@Model.Content.Hmpg_thumbnail" alt="@Model.Content.Hmpg_thumbnail_alt_text" class="img-fluid">
+               </div>
+            }
+         }
+      }
+   </div>
+</section>
+
+
+
+
+@section Scripts {
+   <script src="~/Assets/js/inner-banner-script.js" asp-append-version="true"></script>
+   <script src="~/Assets/js/pressreleases-script.js" asp-append-version="true"></script>
+}
