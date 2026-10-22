@@ -40,7 +40,7 @@ public class MediaController : Controller
         catch (Exception ex)
         {
             FileLogger.LogError("/PressReleases :", ex);
-            return View(new AboutModel());
+            return View(new MediaModel());
         }
         finally
         {
@@ -59,7 +59,7 @@ public class MediaController : Controller
         catch (Exception ex)
         {
             FileLogger.LogError("/PressReleasesInside :", ex);
-            return View(new AboutModel());
+            return View(new MediaModel());
         }
         finally
         {
@@ -78,7 +78,7 @@ public class MediaController : Controller
         catch (Exception ex)
         {
             FileLogger.LogError("/NewsCoverage :", ex);
-            return View(new AboutModel());
+            return View(new MediaModel());
         }
         finally
         {
@@ -96,7 +96,7 @@ public class MediaController : Controller
         catch (Exception ex)
         {
             FileLogger.LogError("/Campaigns :", ex);
-            return View(new AboutModel());
+            return View(new MediaModel());
         }
         finally
         {
@@ -118,7 +118,7 @@ public class MediaController : Controller
         catch (Exception ex)
         {
             FileLogger.LogError("/LoadMorePressReleases :", ex);
-            return View(new AboutModel());
+            return View(new MediaModel());
         }
         finally
         {
