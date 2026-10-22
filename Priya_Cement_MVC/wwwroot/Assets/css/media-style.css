@@ -313,6 +313,30 @@
   color: #5c5859;
 }
 
+.press-releases-article .page-image {
+      max-width: calc(100% - 65%);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.press-releases-article-video {
+  width: 100%;
+}
+
+.press-releases-article-video iframe,
+.press-releases-article-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+/* Keep self-hosted videos from being cropped or stretched */
+.press-releases-article-video video {
+  object-fit: contain;
+  background: #000;
+}
 
 @media (max-width: 991px) {
   .fi-card-grid, .blogs-grid {
@@ -323,6 +347,8 @@
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
+.press-releases-article .page-image {
+    max-width: 75%;}
 }
 
 @media (max-width: 767px) {
