@@ -53,7 +53,7 @@
 <!-- HERO BANNER END -->
 
 
-<section class="section-spacing fi-reports-section blogs-template-section" aria-labelledby="fi-reports-heading">
+<section class="section-spacing fi-reports-section blogs-template-section press-releases-article" aria-labelledby="fi-reports-heading">
    <div class="container">
       @if (!string.IsNullOrWhiteSpace(Model?.Content?.Content))
       {
@@ -73,35 +73,38 @@
                          || filePath.Contains("youtu.be", StringComparison.OrdinalIgnoreCase);
             var isVideo = filePath.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)
                        || filePath.EndsWith(".webm", StringComparison.OrdinalIgnoreCase);
+            <div class="container">
+               <div class="page-image press-releases-article-video">
+                  @if (isYouTube)
+                  {
+                     var videoId = filePath.Contains("youtu.be", StringComparison.OrdinalIgnoreCase)
+                        ? filePath.Split('/').Last().Split('?')[0]
+                        : System.Text.RegularExpressions.Regex.Match(filePath, @"(?<=v=)[^&]+|(?<=embed/)[^?&]+").Value;
 
-            <div class="page-image">
-               @if (isYouTube)
-               {
-                  var videoId = filePath.Contains("youtu.be", StringComparison.OrdinalIgnoreCase)
-                      ? filePath.Split('/').Last().Split('?')[0]
-                      : System.Text.RegularExpressions.Regex.Match(filePath, @"(?<=v=)[^&]+|(?<=embed/)[^?&]+").Value;
-
-                  <iframe src="https://www.youtube.com/embed/@videoId" title="YouTube video" allowfullscreen loading="lazy">
-                  </iframe>
-               }
-               else if (isVideo)
-               {
-                  <video controls class="img-fluid" preload="metadata">
-                     <source src="@filePath">
-                  </video>
-               }
-               else
-               {
-                  <img src="@Model.Content.Hmpg_thumbnail" alt="@Model.Content.Hmpg_thumbnail_alt_text" class="img-fluid">
-               }
+                     <iframe src="https://www.youtube.com/embed/@videoId" title="YouTube video" allowfullscreen loading="lazy">
+                     </iframe>
+                  }
+                  else if (isVideo)
+                  {
+                     <video controls class="img-fluid" preload="metadata">
+                        <source src="@filePath">
+                     </video>
+                  }
+                  else
+                  {
+                     <img src="@Model.Content.Hmpg_thumbnail" alt="@Model.Content.Hmpg_thumbnail_alt_text" class="img-fluid">
+                  }
+               </div>
             </div>
          }
          else
          {
             if (!string.IsNullOrWhiteSpace(Model?.Content?.Hmpg_thumbnail))
             {
-               <div class="page-image">
-                  <img src="@Model.Content.Hmpg_thumbnail" alt="@Model.Content.Hmpg_thumbnail_alt_text" class="img-fluid">
+               <div class="container">
+                  <div class="page-image press-releases-article-image">
+                     <img src="@Model.Content.Hmpg_thumbnail" alt="@Model.Content.Hmpg_thumbnail_alt_text" class="img-fluid">
+                  </div>
                </div>
             }
          }
