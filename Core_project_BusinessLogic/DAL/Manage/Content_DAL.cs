@@ -321,6 +321,28 @@ public class Content_DAL : DBHelper
     }
 
 
+     protected DataSet List_Inactive_Content_DAL(int cont_id, string search, int language_id, int current_page, int Content_Type_ID = 1, int pagesize = 25)
+    {
+        DataSet ds = new();
+        var Sqlparam = new List<SqlParameter>();
+        try
+        {
+            Sqlparam.Add(new SqlParameter("@cont_id", cont_id.ToString()));
+            Sqlparam.Add(new SqlParameter("@language_id", language_id.ToString()));
+            Sqlparam.Add(new SqlParameter("@Content_Type_ID", Content_Type_ID.ToString()));
+            Sqlparam.Add(new SqlParameter("@searchquery", search));
+            Sqlparam.Add(new SqlParameter("@current_page", current_page.ToString()));
+            Sqlparam.Add(new SqlParameter("@PageSize", pagesize.ToString()));
+            ds = GetDataSet("CMS_Inactive_Content_List", Sqlparam.ToArray());
+            return ds;
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+
     protected DataTable AddContentReprocess_DAL(Content_Master content, int userid)
     {
         DataTable dt = new();

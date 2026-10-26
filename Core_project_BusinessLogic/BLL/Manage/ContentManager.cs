@@ -546,6 +546,42 @@ public class ContentManager : Content_DAL
         }
     }
 
+    public Manage_List_CMS_page List_Inactive_Content_BAL(int cont_id, string search, int language_id, int current_page, int Content_Type_ID = 1, int pagesize = 25)
+    {
+        DataSet ds = new();
+        Manage_List_CMS_page obj = new();
+        try
+        {
+            ds = List_Inactive_Content_DAL(cont_id, search, language_id, current_page, Content_Type_ID, pagesize);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                obj.sections = new();
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    obj.sections.Add(
+                        new CMS_Page_detail
+                        {
+                            Id = Convert.ToInt32(dr["cont_id"]),
+                            Title = dr["cont_title"].ToString(),
+                            Parent_title = dr["parent_title"].ToString(),
+                            Language = dr["Language_Name"].ToString(),
+                            Created_date = Convert.ToDateTime(dr["cont_createdate"].ToString()),
+                            Updated_date = dr["cont_updatedt"] == DBNull.Value ? null : Convert.ToDateTime(dr["cont_updatedt"].ToString()),
+                            Status = Convert.ToInt32(dr["cont_status"]),
+                            IsReprocessed = dr["reprocess_Id"] == DBNull.Value ? 0 : 1
+                        });
+                }
+                obj.Sections_no_of_pages = Convert.ToInt32(ds.Tables[1].Rows[0]["Section_page_count"].ToString());
+            }
+
+            return obj;
+        }
+        catch (System.Exception)
+        {
+            throw;
+        }
+    }
+
     public void Update_Content_Status_BAL(int cont_id, int status, int userid)
     {
         try
