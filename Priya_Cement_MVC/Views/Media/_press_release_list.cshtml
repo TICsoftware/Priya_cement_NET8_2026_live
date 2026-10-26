@@ -31,19 +31,40 @@
    }
 }
 
+
+
+
 @foreach (var item in Model)
 {
-   var mediaSrc = PressMediaSrc(item);
-   var isVideo = IsPressVideo(mediaSrc);
-   <a class="image-gallery-card@(isVideo ? " is-video" : "")" href="@mediaSrc" data-gallery-src="@mediaSrc" aria-label="@item.ThumbnailAltText">
-      <span class="image-gallery-frame">
-         <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="480" height="600" loading="lazy">
-      </span>
-      <div class="image-gallery-caption">
-         <strong>@item.Title</strong>
-         <span>@item.DisplayDate?.ToString("MMMM dd, yyyy")</span>
-      </div>
-   </a>
+   if (!string.IsNullOrWhiteSpace(item.Content) || !string.IsNullOrWhiteSpace(item.ExternalUrl) ||
+     (!string.IsNullOrWhiteSpace(item.MediafilePath) && item.MediafilePath.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase)))
+   {
+      <article class="press-release-text-card">
+         <time class="press-release-text-date" datetime="@item.DisplayDate">@item.DisplayDate?.ToString("MMMM dd, yyyy")</time>
+         <h3 class="press-release-text-title">
+            <a href="@item.Url"
+               target="@(!string.IsNullOrWhiteSpace(item.ExternalUrl) || !string.IsNullOrWhiteSpace(item.MediafilePath) ? "_blank" : "_self")">
+               @item.Title
+            </a>
+         </h3>
+      </article>
+   }
+   else
+   {
+      var mediaSrc = PressMediaSrc(item);
+      var isVideo = IsPressVideo(mediaSrc);
+      <a class="image-gallery-card@(isVideo ? " is-video" : "")" href="@mediaSrc" data-gallery-src="@mediaSrc"
+         data-gallery-title="@item.Title" data-gallery-date="@item.DisplayDate?.ToString("MMMM dd, yyyy")"
+         aria-label="@item.ThumbnailAltText">
+         <span class="image-gallery-frame">
+            <img src="@item.ThumbnailImage" alt="@item.ThumbnailAltText" width="480" height="600" loading="lazy">
+         </span>
+         <div class="image-gallery-caption">
+            <strong>@item.Title</strong>
+            <span>@item.DisplayDate?.ToString("MMMM dd, yyyy")</span>
+         </div>
+      </a>
+   }
 }
 
 @* 

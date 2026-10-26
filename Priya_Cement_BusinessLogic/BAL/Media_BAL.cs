@@ -107,6 +107,29 @@ namespace Priya_Cement_BusinessLogic.BAL
             return model;
         }
 
+
+         public MediaModel GetPressReleasesInside_BAL(string pagename, int languageId, int geographyId)
+        {
+            var model = new MediaModel();
+
+            var ds = GetContentComponentData_DAL(pagename, languageId, geographyId);
+
+            if (ds == null || ds.Tables.Count == 0)
+            {
+                return model;
+            }
+
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                model.Content = MapContent(ds.Tables[0].Rows[0]);
+            }
+
+           
+
+            return model;
+        }
+
+
         public MediaModel GetPressReleases_page_wise_BAL(int cont_id, int pageSize, int page)
         {
             var model = new MediaModel();

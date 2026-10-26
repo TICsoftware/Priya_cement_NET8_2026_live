@@ -99,6 +99,7 @@ namespace Priya_Cement_BusinessLogic.Entity
 
         public DateTime? DisplayDate { get; set; }
         public int Sequence { get; set; }
+        public string Content { get; set; }
     }
 
 }

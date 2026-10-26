@@ -57,7 +57,8 @@ namespace Priya_Cement_BusinessLogic.BAL
                     : (row.Table.Columns.Contains("ByLine") ? row.Field<string>("ByLine") ?? "" : ""),
                 Publication = row.Table.Columns.Contains("Cont_Publication")
                     ? row.Field<string>("Cont_Publication") ?? ""
-                    : (row.Table.Columns.Contains("Publication") ? row.Field<string>("Publication") ?? "" : "")
+                    : (row.Table.Columns.Contains("Publication") ? row.Field<string>("Publication") ?? "" : ""),
+                FilePath = row.Field<string>("filepath") ?? "",
             };
         }
 

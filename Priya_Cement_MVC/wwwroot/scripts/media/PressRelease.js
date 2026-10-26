@@ -21,6 +21,7 @@ $(document).on("click", "#loadMoreBtn", function () {
         success: function (result) {
 
             $("#pressReleaseList").append(result);
+            if (window.initPressReleaseRise) window.initPressReleaseRise();
 
             button.attr("data-page", page);
 

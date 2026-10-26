@@ -69,6 +69,8 @@ namespace Priya_Cement_BusinessLogic.Entity
         public string ByLine { get; set; }
         public string Publication { get; set; }
 
+        public string FilePath { get; set; }
+
     }
 
 

@@ -228,7 +228,8 @@ namespace Priya_Cement_BusinessLogic
                         ? row.Field<DateTime?>("cont_displaydate")
                         : null,
 
-                    Sequence = row.Field<int?>("cont_sequence") ?? 0
+                    Sequence = row.Field<int?>("cont_sequence") ?? 0,
+                    Content = row["content"]?.ToString(),
                 })
                 .ToList();
         }
