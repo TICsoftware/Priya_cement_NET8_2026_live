@@ -17,10 +17,10 @@
 
 
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="" />
+        <meta name="twitter:site" content="https://priyacement.com/" />
         <meta name="twitter:title" content="@Model.Content.ContTitle" />
         <meta name="twitter:description" content="@Model.Content.cont_metadesc" />
-        <link rel="canonical" href="" />
+        <link rel="canonical" href="@(Model.Content?.CanonicalUrl)" />
 
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Priya Cement" />
@@ -39,7 +39,7 @@
         <meta property="og:title" content="@Model.Content.ContTitle" />
         <meta property="og:description" content="@Model.Content.cont_metadesc" />
         <meta property="og:image" content="@Model.Content.MastheadImage" />
-        <meta property="og:url" content="https://www.priyacement.com/" />
+        <meta property="og:url" content="@(Model.Content?.CanonicalUrl)" />
       
     }
 }

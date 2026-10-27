@@ -138,52 +138,88 @@ var redirects = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
     { "^technical-services\\.html$", "/solutions/technical-services" },
 
     // Contact
-    { "^dealership_enquiry$", "/contact-us" },
+    { "^dealership_enquiry$", "/solutions/enquiry" },
     { "^contact-us/contact\\.html$", "/contact-us" },
+     { "^Solutions/Enquiry$", "/solutions/enquiry" },
 
     // About Us
     { "^about-us/overview\\.html$", "/about-us" },
 
     // Products / Solutions
-    { "^products/processes\\.html$", "/solutions" },
-    { "^products/processes1\\.html$", "/solutions" },
-    { "^products/processes2\\.html$", "/solutions" },
-    { "^products/processes3\\.html$", "/solutions" },
-    { "^products/processes4\\.html$", "/solutions" },
-    { "^products/processes5\\.html$", "/solutions" },
-    { "^products/processes6\\.html$", "/solutions" },
-    { "^products/processes7\\.html$", "/solutions" },
-    { "^products/processes8\\.html$", "/solutions" },
+    { "^products/processes\\.html$", "/about-us/manufacturing-and-processing" },
+    { "^products/processes1\\.html$", "/about-us/manufacturing-and-processing" },
+    { "^products/processes2\\.html$", "/about-us/manufacturing-and-processing" },
+    { "^products/processes3\\.html$", "/about-us/manufacturing-and-processing" },
+    { "^products/processes4\\.html$", "/about-us/manufacturing-and-processing" },
+    { "^products/processes5\\.html$", "/about-us/manufacturing-and-processing" },
+    { "^products/processes6\\.html$", "/about-us/manufacturing-and-processing" },
+    { "^products/processes7\\.html$", "/about-us/manufacturing-and-processing" },
+    { "^products/processes8\\.html$", "/about-us/manufacturing-and-processing" },
+
+    { "^/about-us/financial-Information/annual-reports$", "/about-us/financial-information" },
+    { "^/about-us/financial-Information/annual-return-in-form-mgt-7$", "/about-us/financial-information" },
 
     { "^products/products-opc-and-ppc\\.html$", "/solutions" },
     { "^products/products-opc-and-ppc\\.html#OPC$", "/solutions/maxload-opc-53-grade" },
     { "^products/products-opc-and-ppc\\.html#PPC1$", "/solutions/portland-pozzolana-cement" },
 
     { "^products/products-maxload-bulk-cement\\.html$", "/solutions/maxload-bulk-cement" },
+    { "^/solutions/ppc$", "/solutions/portland-pozzolana-cement" },
 
     // Social Responsibility
-    { "^social-responsibility/overview\\.html$", "/about-us" },
-    { "^social-responsibility/join-us\\.html$", "/about-us" },
-    { "^social-responsibility/privacy-policy\\.html$", "/privacy-policy" },
-    { "^social-responsibility/404_page\\.html$", "/about-us" },
-    { "^social-responsibility/rcl-csr-policy\\.pdf$", "/about-us" },
+   { "^social-responsibility/overview\\.html$", "/esg/csr" },
+    { "^social-responsibility/join-us\\.html$", "/esg/csr" },
+    { "^social-responsibility/privacy-policy\\.html$", "/esg/csr" },
+    { "^social-responsibility/404_page\\.html$", "/esg/csr" },
+    { "^social-responsibility/rcl-csr-policy\\.pdf$", "/esg/csr" },
+
+    { "^/esg$", "/esg/sustainability" },
+    { "^/esg/sustainability/safety$", "/esg/safety" },
+    { "^/esg/sustainability/csr$", "/esg/csr" },
+
+
+    { "^/pdf/rcl-mgt-7-2021\\.pdf$", "/uploads/pdf/rcl-mgt-7-2021.pdf" },
+    { "^/pdf/rcl-mgt-7-2022\\.pdf$", "/uploads/pdf/rcl-mgt-7-2022.pdf" },
+    { "^/pdf/rain-cements-annual-reports-2021\\.pdf$", "/uploads/pdf/rain-cements-annual-reports-2021.pdf" },
+    { "^/pdf/rain-cements-annual-reports-2022\\.pdf$", "/uploads/pdf/rain-cements-annual-reports-2022.pdf" },
+    { "^/pdf/rcl-csr-committee-composition-and-csr-projects-2024\\.pdf$", "/uploads/pdf/rcl-csr-committee-composition-and-csr-projects-2024.pdf" },
+    { "^/pdf/rcl-csr-committee-composition-and-csr-projects-2023\\.pdf$", "/uploads/pdf/rcl-csr-committee-composition-and-csr-projects-2023.pdf" },
+    { "^/pdf/rcl-csr-policy\\.pdf$", "/uploads/pdf/rcl-csr-policy.pdf" },
+
+    { "^/pdf/rcl-unit-ii\\s+ml-1-details-committed-csr-expenditure\\.pdf$", "/esg/csr" },
+    { "^/pdf/rcl-unit-ii-ml-2-details-committed-sdu-frame-work\\.pdf$", "/esg/csr" },
+    { "^/pdf/rcl-unit-ii\\s+ml-1-details-committed-sdu-frame-work\\.pdf$", "/esg/csr" },
+    { "^/pdf/V_1_IA_TG_IND1_467947_2024_57732343\\.pdf$", "/esg/sustainability" },
+    { "^/pdf/rain-supplier-code-conduct-polish\\.pdf$", "/error/index" },
 
     // Media
-    { "^media/media\\.html$", "/" },
-    { "^media/gallery\\.html$", "/" },
-    { "^media/CorporateFilm\\.html$", "/" },
-    { "^media/Print\\.html$", "/" },
+     { "^media/media\\.html$", "/media/press-releases" },
+    { "^media/gallery\\.html$", "/media/archive" },
+    { "^media/CorporateFilm\\.html$", "/media/campaigns-and-tvcs" },
+    { "^media/Print\\.html$", "/media/press-releases" },
+    { "^media/?$", "/media/press-releases" },
 
     // Careers
-    { "^careers/join-us\\.html$", "/contact-us" },
-    { "^careers/current_opening\\.html$", "/contact-us" },
-    { "^careers/current-opening\\.html$", "/contact-us" },
+    { "^careers/join-us\\.html$", "/careers" },
+    { "^careers/current_opening\\.html$", "/careers" },
+    { "^careers/current-opening\\.html$", "/careers" },
+    { "^careers/index\\.html$", "/careers" },
+    { "^/about-cop/careers$", "/careers" },
+
+{ "^/tools-and-guides$", "/tools-and-guides/guides" },
 
     // Financial Information
-    { "^financial-information/financial-information\\.html$", "/" },
+    { "^financial-information/financial-information\\.html$", "/about-us/financial-information" },
 
     // Regulatory Environment Reports
-    { "^regulatory-environment-reports/index\\.html$", "/" },
+    { "^regulatory-environment-reports/index\\.html$", "/esg/sustainability" },
+
+    { "^investor-relations$", "/about-us/financial-information" },
+
+    { "^/contactus$", "/contact-us" },
+    { "^/Contact-Us$", "/contact-us" },
+
+    { "^home$", "/" },
 
     // Any other old .html URL → Home page
     { "^.*\\.html$", "/" }
