@@ -36,7 +36,7 @@
             @foreach (var child in children)
             {
               <li>
-                <a href="@child.Url" target="@(child.Target ?? "_self")">
+                <a href="@child.Url" target="@(child.Target ?? "_self")" rel="@(child.Target == "_blank" ? "noopener noreferrer" : null)">
 
                   <span class="ml-title">@child.MenuName</span>
 
@@ -56,7 +56,7 @@
             !string.IsNullOrEmpty(parent.FeatureTitle))
         {
           <div class="mega-promo">
-            <a href="@(parent.FeatureButtonUrl ?? parent.Url ?? "#")" target="@(parent.FeatureButtonTarget ?? "_self")">
+            <a href="@(parent.FeatureButtonUrl ?? parent.Url ?? "#")" target="@(parent.FeatureButtonTarget ?? "_self")" rel="@(parent.FeatureButtonTarget == "_blank" ? "noopener noreferrer" : null)">
 
               @if (!string.IsNullOrEmpty(parent.FeatureImage))
               {
