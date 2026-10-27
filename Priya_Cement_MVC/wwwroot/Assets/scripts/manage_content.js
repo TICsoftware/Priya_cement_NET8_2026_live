@@ -769,6 +769,7 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
         }
         $("#managestatusForm").trigger("submit");
     }
+    
 
     $(document).on("submit", "#managestatusForm", function (e) {
         e.preventDefault();
@@ -798,6 +799,19 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
                 $(".btn-loader").css('display', 'none');
             }
         });
+    });
+
+    // Checkboxes are injected into #divDisplaySections after the list AJAX loads.
+    $(document).on("change", "#formchkall", function () {
+        $("#divDisplaySections .formchk").prop("checked", this.checked);
+    });
+
+    $(document).on("change", "#divDisplaySections .formchk", function () {
+        var $boxes = $("#divDisplaySections .formchk");
+        $("#formchkall").prop(
+            "checked",
+            $boxes.length > 0 && $boxes.length === $boxes.filter(":checked").length
+        );
     });
 
     $(document).on("click", "#btnactivate, #btndeactivate", function (e) {

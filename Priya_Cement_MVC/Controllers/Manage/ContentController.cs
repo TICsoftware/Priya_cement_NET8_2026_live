@@ -154,7 +154,7 @@ public class ContentController : Controller
                         else
                         {
                             TempData["alert_message"] = "Content with title " + ContentObj.title.Trim() + " is saved and published successfully";
-                            return RedirectToAction("Index", "Content");
+                            return RedirectToAction("List", "EditContent");
                         }
                     }
                     else if (add_status == 1)
