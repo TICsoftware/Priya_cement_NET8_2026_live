@@ -60,7 +60,7 @@
                                 @if (!string.IsNullOrWhiteSpace(item1.MediafilePath) && item1.MediafilePath.EndsWith(".pdf",
                                                         StringComparison.OrdinalIgnoreCase))
                                 {
-                                    <a class="site-link" href="@item1.MediafilePath" target="_blank">
+                                    <a class="site-link" href="@item1.MediafilePath" target="_blank" rel="noopener noreferrer">
                                         @item1.Url_Text
                                         <span class="site-link-arrow" aria-hidden="true"><img
                                             src="/Assets/images/common-images/download-vector-btn.svg" alt=""

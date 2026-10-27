@@ -78,8 +78,8 @@
                                 @foreach (var link in links)
                                 {
                                     <li>
-                                        <a href="@(link.Url ?? "#")" target="@(link.Target ?? "_blank")"
-                                            class="social-item flex items-center gap-2.5">
+                                        <a href="@(link.Url ?? "#")" target="@(link.Target ?? "_blank")" 
+                                            class="social-item flex items-center gap-2.5" rel="@((link.Target ?? "_blank") == "_blank" ? "noopener noreferrer" : null)">
 
                                             @if (!string.IsNullOrEmpty(link.FooterImage))
                                             {
@@ -101,7 +101,7 @@
                                 @foreach (var link in links)
                                 {
                                     <li>
-                                        <a href="@(link.Url ?? "#")" target="@link.Target" class="link-item block">
+                                        <a href="@(link.Url ?? "#")" target="@link.Target" class="link-item block" rel="@(link.Target == "_blank" ? "noopener noreferrer" : null)">
                                             @link.Title
                                         </a>
                                     </li>
@@ -146,14 +146,14 @@
                     {
                         <span class="mx-1.5">|</span>
 
-                        <a href="@link.Url" target="@link.Target" class="link-item">
+                        <a href="@link.Url" target="@link.Target" class="link-item" rel="@(link.Target == "_blank" ? "noopener noreferrer" : null)">
                             @link.Title
                         </a>
                     }
                 </div>
 
                 <p class="text-white/30 text-[10px]! tic-text">
-                    <a href="https://www.ticworks.com/" target="_blank">TIC</a>
+                    <a href="https://www.ticworks.com/" target="_blank" rel="noopener noreferrer">TIC</a>
                 </p>
 
             </div>
