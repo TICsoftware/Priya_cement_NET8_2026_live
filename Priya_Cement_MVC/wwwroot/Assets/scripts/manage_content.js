@@ -757,9 +757,98 @@ window.Load_Edit_context_details = function (isrefresh, _templateid, _language_i
         });
     });
 
+
     if ($("#PublishedContentForm").length) {
         $("#PublishedContentForm").submit();
     };
+
+
+    function reloadManageStatusList() {
+        if ($("#page_no").length) {
+            $("#page_no").val("1");
+        }
+        $("#managestatusForm").trigger("submit");
+    }
+
+    $(document).on("submit", "#managestatusForm", function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        var pg_no = 1;
+        if ($("#page_no").length > 0) {
+            pg_no = $("#page_no").val();
+        }
+        var statusVal = $("#ddStatus").val();
+        if (statusVal !== "0" && statusVal !== "2") {
+            statusVal = "2";
+        }
+        $.ajax({
+            url: "/EditContent/DisplayList?page_no=" + encodeURIComponent(pg_no) + "&status=" + encodeURIComponent(statusVal),
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (html) {
+                $("#divDisplaySections").html(html);
+            },
+            error: function (xhr, ajaxOptions, response) {
+                alert("Error " + xhr.status + ": " + xhr.responseText);
+                alert("Something wrong. Please try again.");
+            },
+            finally: function (xhr) {
+                $(".btn-loader").css('display', 'none');
+            }
+        });
+    });
+
+    $(document).on("click", "#btnactivate, #btndeactivate", function (e) {
+        e.preventDefault();
+        var $btn = $(this);
+        var command = $btn.val();
+        var $checked = $("#divDisplaySections input[name='formchk']:checked");
+        if ($checked.length === 0) {
+            alert("Please select atleast one record");
+            return;
+        }
+
+        var confirmMsg = command === "Activate"
+            ? "Activate selected record(s)?"
+            : "Deactivate selected record(s)?";
+        if (!confirm(confirmMsg)) {
+            return;
+        }
+
+        var form = document.getElementById("managestatusForm");
+        var formData = new FormData(form);
+        formData.set("Command", command);
+        $btn.prop("disabled", true);
+
+        $.ajax({
+            url: "/EditContent/UpdateManageStatus",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data && data.message) {
+                    alert(data.message);
+                }
+                if (data && data.success) {
+                    reloadManageStatusList();
+                }
+            },
+            error: function (xhr) {
+                alert("Error " + xhr.status + ": " + xhr.responseText);
+            },
+            complete: function () {
+                $btn.prop("disabled", false);
+            }
+        });
+    });
+
+    if ($("#managestatusForm").length) {
+        $("#managestatusForm").submit();
+    };
+
 
     $(document).on("click", ".publish-add-spottemplate", function (e) {
         e.preventDefault();
