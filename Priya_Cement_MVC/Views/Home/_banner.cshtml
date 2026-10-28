@@ -65,13 +65,13 @@
                     <p class="hero-para">@Html.Raw(item.Intro.CleanParagraphTags())</p>
                 }
 
-              </div>
+              </div> 
             </div>
 
             @if (!string.IsNullOrWhiteSpace(item.Url))
             {
                 <div class="outer-hero-button outer-bg-white">
-                  <a class="site-link" href="@item.Url">
+                  <a class="site-link" href="@item.Url" aria-label="banner link">
                     @(!string.IsNullOrWhiteSpace(item.Url_Text) ? item.Url_Text : "Read the full story")
                     <span class="site-link-arrow" aria-hidden="true"><img src="/Assets/images/common-images/button-arrow-icon.svg" alt="" class="w-auto object-cover"></span>
                   </a>
