@@ -662,9 +662,13 @@ if (langWrap && langBtn) {
       return block.querySelector(':scope > ul');
     }
 
+    function toggleBtn(block) {
+      return block.querySelector('.footer-col-toggle');
+    }
+
     function closeBlock(block) {
       const ul = panel(block);
-      const title = block.querySelector('h4');
+      const btn = toggleBtn(block);
       if (ul && block.classList.contains('is-open')) {
         ul.style.maxHeight = ul.scrollHeight + 'px';
         void ul.offsetHeight;
@@ -673,12 +677,12 @@ if (langWrap && langBtn) {
         ul.style.maxHeight = '0px';
       }
       block.classList.remove('is-open');
-      if (title) title.setAttribute('aria-expanded', 'false');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
     }
 
     function openBlock(block) {
       const ul = panel(block);
-      const title = block.querySelector('h4');
+      const btn = toggleBtn(block);
       block.classList.add('is-open');
       if (ul) {
         // measure full open height (with spacing) then animate from 0
@@ -691,7 +695,7 @@ if (langWrap && langBtn) {
         ul.style.transition = transition;
         ul.style.maxHeight = fullHeight + 'px';
       }
-      if (title) title.setAttribute('aria-expanded', 'true');
+      if (btn) btn.setAttribute('aria-expanded', 'true');
     }
 
     function clearInlineHeights() {
@@ -699,11 +703,10 @@ if (langWrap && langBtn) {
         const ul = panel(block);
         if (ul) ul.style.maxHeight = '';
         block.classList.remove('is-open');
-        const title = block.querySelector('h4');
-        if (title) {
-          title.removeAttribute('role');
-          title.removeAttribute('tabindex');
-          title.removeAttribute('aria-expanded');
+        const btn = toggleBtn(block);
+        if (btn) {
+          btn.setAttribute('tabindex', '-1');
+          btn.removeAttribute('aria-expanded');
         }
       });
     }
@@ -714,12 +717,11 @@ if (langWrap && langBtn) {
         return;
       }
       blocks.forEach(block => {
-        const title = block.querySelector('h4');
+        const btn = toggleBtn(block);
         const ul = panel(block);
-        if (title) {
-          title.setAttribute('role', 'button');
-          title.setAttribute('tabindex', '0');
-          title.setAttribute('aria-expanded', block.classList.contains('is-open') ? 'true' : 'false');
+        if (btn) {
+          btn.setAttribute('tabindex', '0');
+          btn.setAttribute('aria-expanded', block.classList.contains('is-open') ? 'true' : 'false');
         }
         if (ul && !block.classList.contains('is-open')) {
           ul.style.maxHeight = '0px';
@@ -728,10 +730,10 @@ if (langWrap && langBtn) {
     }
 
     blocks.forEach(block => {
-      const title = block.querySelector('h4');
-      if (!title) return;
+      const btn = toggleBtn(block);
+      if (!btn) return;
 
-      title.addEventListener('click', () => {
+      btn.addEventListener('click', () => {
         if (!mq.matches) return;
         const willOpen = !block.classList.contains('is-open');
         blocks.forEach(b => {
@@ -739,13 +741,6 @@ if (langWrap && langBtn) {
         });
         if (willOpen) openBlock(block);
         else closeBlock(block);
-      });
-
-      title.addEventListener('keydown', e => {
-        if (!mq.matches) return;
-        if (e.key !== 'Enter' && e.key !== ' ') return;
-        e.preventDefault();
-        title.click();
       });
     });
 
