@@ -66,7 +66,7 @@
                   <div class="swiper-slide product-slide-box">
                     <div class="product-slide-inner">
                       <div class="rounded-sm overflow-hidden aspect-[1.05/1] product-slide-img">
-                        <a href="@(string.IsNullOrWhiteSpace(item.Url) ? "#" : item.Url)">
+                        <a href="@(string.IsNullOrWhiteSpace(item.Url) ? "#" : item.Url)" aria-label="Product link">
                           <img src="@img" alt="@item.ComponentThumbnailAltText" class="w-full h-full object-cover">
                         </a>
                       </div>
