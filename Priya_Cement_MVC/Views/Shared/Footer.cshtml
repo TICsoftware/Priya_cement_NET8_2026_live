@@ -69,12 +69,14 @@
 
                     <div class="linkcolumns-block">
                         <h4 class="font-bold text-white tracking-wide mb-4">
-                            @column.Title
+                            <button type="button" class="footer-col-toggle" tabindex="-1" aria-controls="footer-col-@column.FooterId">
+                                @column.Title
+                            </button>
                         </h4>
 
                         @if (column.Title?.ToUpper() == "FOLLOW ON US")
                         {
-                            <ul class="space-y-3 text-white/80">
+                            <ul id="footer-col-@column.FooterId" class="space-y-3 text-white/80">
                                 @foreach (var link in links)
                                 {
                                     <li>
@@ -97,7 +99,7 @@
                         }
                         else
                         {
-                            <ul class="space-y-2.5 text-white">
+                            <ul id="footer-col-@column.FooterId" class="space-y-2.5 text-white">
                                 @foreach (var link in links)
                                 {
                                     <li>
