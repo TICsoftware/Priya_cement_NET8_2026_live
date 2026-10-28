@@ -230,7 +230,7 @@
 .tic-text {position: absolute; right: 0; top:auto;}
 .linkcolumns-block .link-item, .social-item {font-size: 1rem;}
 .top-line-wrapper p{font-size: 1rem !important; color: #fff;}
-.linkcolumns-block h4 {font-size: 1.125rem; text-transform: uppercase; color: #fff;}
+.linkcolumns-block h2 {font-size: 1.125rem; text-transform: uppercase; color: #fff; margin-top: 0;}
 .linkcolumns-block .footer-col-toggle {
    display: inline;
    margin: 0;
@@ -259,7 +259,7 @@
    .linkcolumns-block {
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
    }
-   .linkcolumns-block h4 {
+   .linkcolumns-block h2 {
       margin-bottom: 0;
    }
    .linkcolumns-block .footer-col-toggle {
@@ -331,7 +331,7 @@
       padding-bottom: 0 !important;
    }
    .linkcolumns-block .footer-col-toggle::after,
-   .linkcolumns-block h4::after {
+   .linkcolumns-block h2::after {
       content: none !important;
    }
 }

@@ -53,7 +53,7 @@
                     @if (!string.IsNullOrWhiteSpace(Component.Url))
                     {
                         <div class="outer-btn-wrap">
-                          <a class="site-link" href="@Component.Url">
+                          <a class="site-link" href="@Component.Url" aria-label="Our Culture link">
                             @(!string.IsNullOrWhiteSpace(Component.Url_Text) ? Component.Url_Text : "Our Culture")
                             <span class="site-link-arrow" aria-hidden="true">
                               <img src="@(string.IsNullOrWhiteSpace(Component.Icon_Image) ? "/Assets/images/common-images/button-arrow-icon.svg" : Component.Icon_Image)" alt="" class="w-auto object-cover">
@@ -65,7 +65,7 @@
                     @if (!string.IsNullOrWhiteSpace(Component.component_Url2))
                     {
                         <div class="outer-btn-wrap">
-                          <a class="site-link" href="@Component.component_Url2" target="_blank">
+                          <a class="site-link" href="@Component.component_Url2" target="_blank" aria-label="Explore openings link">
                             @(!string.IsNullOrWhiteSpace(Component.component_Url_Text2) ? Component.component_Url_Text2 : "Explore openings")
                             <span class="site-link-arrow" aria-hidden="true">
                               <img src="@(string.IsNullOrWhiteSpace(Component.Icon_Image2) ? "/Assets/images/common-images/button-arrow-icon.svg" : Component.Icon_Image2)" alt="" class="w-auto object-cover">

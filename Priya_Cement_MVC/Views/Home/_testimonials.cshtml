@@ -48,7 +48,7 @@
                   @if (!string.IsNullOrWhiteSpace(Component.Url))
                   {
                   <div class="outer-btn-wrap">
-                     <a class="site-link" href="@Component.Url">
+                     <a class="site-link" href="@Component.Url" aria-label="Contact Us link">
                       @(!string.IsNullOrWhiteSpace(Component.Url_Text) ? Component.Url_Text : "Contact Us")
                       <span class="site-link-arrow" aria-hidden="true"><img src="/Assets/images/common-images/button-arrow-icon.svg" alt="" class="w-auto object-cover"></span>
                     </a>

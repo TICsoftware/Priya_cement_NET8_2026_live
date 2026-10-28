@@ -77,7 +77,7 @@
                     <div class="mt-4 space-y-4">
                       <h3>@Html.Raw((!string.IsNullOrWhiteSpace(item.BlockDisplayTitle) ? item.BlockDisplayTitle : item.Title).CleanParagraphTags())</h3>
                       <div class="outer-btn-wrap">
-                         <a class="site-link" href="@(string.IsNullOrWhiteSpace(item.Url) ? "#" : item.Url)">
+                         <a class="site-link" href="@(string.IsNullOrWhiteSpace(item.Url) ? "#" : item.Url)" aria-label="Product link">
                           @(!string.IsNullOrWhiteSpace(item.Url_Text) ? item.Url_Text : "View specs")
                           <span class="site-link-arrow" aria-hidden="true"><img src="/Assets/images/common-images/button-arrow-icon.svg" alt="" class="w-auto object-cover"></span>
                         </a>

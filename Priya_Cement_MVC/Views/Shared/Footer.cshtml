@@ -68,11 +68,11 @@
                     .ToList();
 
                     <div class="linkcolumns-block">
-                        <h4 class="font-bold text-white tracking-wide mb-4">
+                        <h2 class="font-bold text-white tracking-wide mb-4">
                             <button type="button" class="footer-col-toggle" tabindex="-1" aria-controls="footer-col-@column.FooterId">
                                 @column.Title
                             </button>
-                        </h4>
+                        </h2>
 
                         @if (column.Title?.ToUpper() == "FOLLOW ON US")
                         {
@@ -81,13 +81,13 @@
                                 {
                                     <li>
                                         <a href="@(link.Url ?? "#")" target="@(link.Target ?? "_blank")" 
-                                            class="social-item flex items-center gap-2.5" rel="@((link.Target ?? "_blank") == "_blank" ? "noopener noreferrer" : null)">
+                                            class="social-item flex items-center gap-2.5" rel="@((link.Target ?? "_blank") == "_blank" ? "noopener noreferrer" : null)" aria-label="social icons">
 
                                             @if (!string.IsNullOrEmpty(link.FooterImage))
                                             {
                                                 <span
                                                     class="social-circle w-6 h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                                                    <img src="@link.FooterImage" alt="@link.Title" />
+                                                    <img src="@link.FooterImage" alt="" />
                                                 </span>
                                             }
 
