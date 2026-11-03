@@ -215,33 +215,37 @@
   max-width: none;
 }
 
-/* Photo beside the leadership / CSR copy (not the quote marks) */
+/* Quote marks stay decorative. A real photo sits beside the copy with the title fully visible. */
 .aboutus-leadership-thumb {
-  flex: 0 0 clamp(10.5rem, 16vw, 15.5rem);
-  width: clamp(10.5rem, 16vw, 15.5rem);
-  align-self: center;
+  position: relative;
+  flex: 0 0 clamp(9.5rem, 16vw, 14rem);
+  width: clamp(9.5rem, 16vw, 14rem);
+  max-width: 14rem;
+  align-self: start;
+  margin: 0;
+}
+
+.leadership-quate-thumb {
+  margin: 0;
 }
 
 .leadership-quate-thumb img,
 .aboutus-leadership-thumb img {
   display: block;
-  width: 100%;
+  width: 100% !important;
   height: auto;
   max-width: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center;
   transform: none !important;
-}
-
-.aboutus-leadership-inner:has(.aboutus-leadership-thumb) {
-  align-items: center;
 }
 
 .aboutus-leadership-quote:has(.aboutus-leadership-thumb) {
   width: 100%;
+  max-width: none;
   justify-content: flex-start;
-  align-items: center;
-  gap: clamp(1.5rem, 3.5vw, 3.25rem);
+  align-items: flex-start;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
 }
 
 .aboutus-leadership-quote:has(.aboutus-leadership-thumb) .aboutus-leadership-content {
@@ -251,8 +255,8 @@
 
 .aboutus-leadership-quote:has(.aboutus-leadership-thumb) .aboutus-leadership-heading,
 .aboutus-leadership-inner:has(> .aboutus-leadership-thumb) .aboutus-leadership-heading {
-  margin-left: 0;
-  margin-top: 0;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
 }
 
 .aboutus-leadership-quote .quote-vector1 {
@@ -397,9 +401,9 @@
 
   .aboutus-leadership-thumb {
     grid-area: photo;
-    width: min(100%, 16rem);
+    width: min(100%, 14rem);
+    max-width: 14rem;
     margin-inline: auto;
-    align-self: start;
   }
 
   .aboutus-leadership-quote:has(.aboutus-leadership-thumb) {
