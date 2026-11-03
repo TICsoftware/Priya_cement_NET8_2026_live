@@ -538,11 +538,18 @@
   position: absolute;
   top: -3.5rem;
   right: 0.15rem;
-  z-index: 1;
+  z-index: 2;
   display: block;
   /* width: clamp(2.75rem, 4.4vw, 4.15rem); */
   width: auto;
   pointer-events: none;
+}
+
+.aboutus-stand-icon a {
+  pointer-events: auto;
+  display: block;
+  position: relative;
+  z-index: 2;
 }
 
 .aboutus-stand-icon img {
