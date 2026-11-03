@@ -210,10 +210,15 @@
                   </div>
 
                   <div class="aboutus-leadership-row">
-                     @* <div class="aboutus-leadership-photo">
-                  <img src="@item.ComponentThumbnail" alt="@item.ComponentThumbnailAltText" class="w-auto">
-               </div> *@
+                    @if (!string.IsNullOrWhiteSpace(item.Componentbackground))
+                              {
+                                 <div class="aboutus-leadership-photo">
+                                    <img src="@item.Componentbackground" alt="@item.ComponentbackgroundAltText" class="w-auto">
+                                 </div> 
+                              }
                      <div class="aboutus-leadership-copy">
+
+                        
                         @if (!string.IsNullOrWhiteSpace(item.Content))
                         {
                            @Html.Raw(item.Content)
