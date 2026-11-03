@@ -187,133 +187,148 @@
       <section class="aboutus-leadership-section section-spacing">
          <div class="container">
             <div class="aboutus-leadership-inner">
-               <div class="aboutus-leadership-quote" aria-hidden="true">
-                  <div class="quote-vector1"> <img src="@item.Component_LHS_thumbnail"
-                                                      alt="@item.Component_LHS_thumbnail_image_alt" class="w-auto"></div>
-                     <div class="quote-vector2"> <img src="@item.Component_right_image" alt="@item.Component_Right_image_alt"
-                                                         class="w-auto"></div>
+
+                @if (!string.IsNullOrWhiteSpace(item.ComponentThumbnail))
+               {
+                  <div class="aboutus-leadership-thumb" aria-hidden="true">
+                     <div class="leadership-quate-thumb">
+                        <img src="@item.ComponentThumbnail" alt="@item.ComponentThumbnailAltText" class="w-auto">
                      </div>
+                  </div>
+               }
+               else
+               {
+                  <div class="aboutus-leadership-quote" aria-hidden="true">
+                     <div class="quote-vector1">
+                        <img src="@item.Component_LHS_thumbnail" alt="@item.Component_LHS_thumbnail_image_alt" class="w-auto">
+                     </div>
+                     <div class="quote-vector2">
+                        <img src="@item.Component_right_image" alt="@item.Component_Right_image_alt" class="w-auto">
+                     </div>
+                  </div>
+               }
 
-                     <div class="aboutus-leadership-content">
-                        <div class="section-title-outer section-title-outer-start aboutus-leadership-heading">
-                           <h2 class="text-h2 title-section reveal-text aboutus-leadership-title">
-                              @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
-                                                ? item.DisplayTitle.CleanParagraphTags()
-                                                : item.Title)
-                           </h2>
-                        </div>
 
-                        <div class="aboutus-leadership-row">
-                           @* <div class="aboutus-leadership-photo">
+               <div class="aboutus-leadership-content">
+                  <div class="section-title-outer section-title-outer-start aboutus-leadership-heading">
+                     <h2 class="text-h2 title-section reveal-text aboutus-leadership-title">
+                        @Html.Raw(!string.IsNullOrWhiteSpace(item.DisplayTitle)
+                                          ? item.DisplayTitle.CleanParagraphTags()
+                                          : item.Title)
+                     </h2>
+                  </div>
+
+                  <div class="aboutus-leadership-row">
+                     @* <div class="aboutus-leadership-photo">
                   <img src="@item.ComponentThumbnail" alt="@item.ComponentThumbnailAltText" class="w-auto">
                </div> *@
-                           <div class="aboutus-leadership-copy">
-                              @if (!string.IsNullOrWhiteSpace(item.Content))
-                              {
-                                 @Html.Raw(item.Content)
-                              }
-                           </div>
-                        </div>
+                     <div class="aboutus-leadership-copy">
+                        @if (!string.IsNullOrWhiteSpace(item.Content))
+                        {
+                           @Html.Raw(item.Content)
+                        }
                      </div>
                   </div>
                </div>
-            </section>
-         }
-      }
+            </div>
+         </div>
+      </section>
+   }
+}
 
-      @if (Model?.Values_That_Define_How_We_Work_List != null && Model.Values_That_Define_How_We_Work_List.Any())
-      {
-         @await Html.PartialAsync("~/Views/CommonComponent/_about_how_we_work.cshtml",
-         Model.Values_That_Define_How_We_Work_List)
-      }
+@if (Model?.Values_That_Define_How_We_Work_List != null && Model.Values_That_Define_How_We_Work_List.Any())
+{
+   @await Html.PartialAsync("~/Views/CommonComponent/_about_how_we_work.cshtml",
+   Model.Values_That_Define_How_We_Work_List)
+}
 
-      @if (Model?.Built_On_Trust_Proven_At_Scale_List != null && Model.Built_On_Trust_Proven_At_Scale_List.Any())
-      {
-         @await Html.PartialAsync("_built_on_trust.cshtml",
-         Model.Built_On_Trust_Proven_At_Scale_List)
-      }
-
-
-
-      @if (Model?.Legacy_Built_One_Year_At_A_Time_List != null && Model.Legacy_Built_One_Year_At_A_Time_List.Any())
-      {
-         @await Html.PartialAsync("_legacy_built.cshtml",
-         Model.Legacy_Built_One_Year_At_A_Time_List)
-      }
+@if (Model?.Built_On_Trust_Proven_At_Scale_List != null && Model.Built_On_Trust_Proven_At_Scale_List.Any())
+{
+   @await Html.PartialAsync("_built_on_trust.cshtml",
+   Model.Built_On_Trust_Proven_At_Scale_List)
+}
 
 
 
-      @if (Model?.Ready_To_Build_With_Priya_Cement_List != null && Model.Ready_To_Build_With_Priya_Cement_List.Any())
-      {
-         foreach (var item in Model.Ready_To_Build_With_Priya_Cement_List.Where(x => x.IsBlock == 0))
-         {
-            <section class="relative section-spacing bg-parallax-section">
-               <div class="outer-bg-wrap">
-                  <div class="container relative z-1 bg-parallax-stage">
+@if (Model?.Legacy_Built_One_Year_At_A_Time_List != null && Model.Legacy_Built_One_Year_At_A_Time_List.Any())
+{
+   @await Html.PartialAsync("_legacy_built.cshtml",
+   Model.Legacy_Built_One_Year_At_A_Time_List)
+}
 
-                     <div class="bg-parallax-frame relative rounded-sm overflow-hidden">
-                        <div class="parallax-wrap rounded-sm" aria-hidden="true">
-                           <img src="@item.Componentbackground" alt="@item.ComponentbackgroundAltText"
-                                class="parallax-img rounded-sm" loading="eager" decoding="async">
-                        </div>
-                        <div class="overlay-scrim rounded-sm" aria-hidden="true"></div>
 
-                        <div class="bg-parallax-content relative z-2">
-                           <div class="section-title-outer section-title-outer-start section-title-sm white-copy">
-                              <h3 class="text-h2 title-section reveal-text">
-                                 @Html.Raw(
-                                 !string.IsNullOrWhiteSpace(item?.DisplayTitle)
-                                 ? item.DisplayTitle.CleanParagraphTags()
-                                 : item?.Title)
-                              </h3>
-                           </div>
-                        </div>
-                        @if (!string.IsNullOrWhiteSpace(item?.Url) || !string.IsNullOrWhiteSpace(item?.component_Url2))
+
+@if (Model?.Ready_To_Build_With_Priya_Cement_List != null && Model.Ready_To_Build_With_Priya_Cement_List.Any())
+{
+   foreach (var item in Model.Ready_To_Build_With_Priya_Cement_List.Where(x => x.IsBlock == 0))
+   {
+      <section class="relative section-spacing bg-parallax-section">
+         <div class="outer-bg-wrap">
+            <div class="container relative z-1 bg-parallax-stage">
+
+               <div class="bg-parallax-frame relative rounded-sm overflow-hidden">
+                  <div class="parallax-wrap rounded-sm" aria-hidden="true">
+                     <img src="@item.Componentbackground" alt="@item.ComponentbackgroundAltText"
+                          class="parallax-img rounded-sm" loading="eager" decoding="async">
+                  </div>
+                  <div class="overlay-scrim rounded-sm" aria-hidden="true"></div>
+
+                  <div class="bg-parallax-content relative z-2">
+                     <div class="section-title-outer section-title-outer-start section-title-sm white-copy">
+                        <h3 class="text-h2 title-section reveal-text">
+                           @Html.Raw(
+                           !string.IsNullOrWhiteSpace(item?.DisplayTitle)
+                           ? item.DisplayTitle.CleanParagraphTags()
+                           : item?.Title)
+                        </h3>
+                     </div>
+                  </div>
+                  @if (!string.IsNullOrWhiteSpace(item?.Url) || !string.IsNullOrWhiteSpace(item?.component_Url2))
+                  {
+                     <div class="bg-parallax-cta-row absolute left-0 bottom-0 z-3">
+                        @if (!string.IsNullOrWhiteSpace(item?.Url))
                         {
-                           <div class="bg-parallax-cta-row absolute left-0 bottom-0 z-3">
-                              @if (!string.IsNullOrWhiteSpace(item?.Url))
-                              {
-                                 <div class="outer-btn-wrap outer-bg-white outer-btn-spacing">
+                           <div class="outer-btn-wrap outer-bg-white outer-btn-spacing">
                   
-                                    <a class="site-link" href="@item.Url">
-                                       @(string.IsNullOrWhiteSpace(item.Url_Text) ? "Explore our products" : item.Url_Text)
-                                       <span class="site-link-arrow" aria-hidden="true">
-                                          <img src="~/Assets/images/common-images/button-arrow-icon.svg" alt=""
-                                               class="w-auto object-cover">
-                                       </span>
-                                    </a>
+                              <a class="site-link" href="@item.Url">
+                                 @(string.IsNullOrWhiteSpace(item.Url_Text) ? "Explore our products" : item.Url_Text)
+                                 <span class="site-link-arrow" aria-hidden="true">
+                                    <img src="~/Assets/images/common-images/button-arrow-icon.svg" alt=""
+                                         class="w-auto object-cover">
+                                 </span>
+                              </a>
                      
-                                 </div>
-                              }
-                              @if (!string.IsNullOrWhiteSpace(item?.component_Url2))
-                              {
-                                 <div class="outer-btn-wrap outer-bg-white outer-btn-spacing">
+                           </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(item?.component_Url2))
+                        {
+                           <div class="outer-btn-wrap outer-bg-white outer-btn-spacing">
                     
-                                    <a class="site-link" href="@item.component_Url2">
-                                       @(string.IsNullOrWhiteSpace(item.component_Url_Text2) ? "Find a dealer near you" :
-                                 item.component_Url_Text2)
-                                       <span class="site-link-arrow" aria-hidden="true">
-                                          <img src="~/Assets/images/common-images/button-arrow-icon.svg" alt=""
-                                               class="w-auto object-cover">
-                                       </span>
-                                    </a>
+                              <a class="site-link" href="@item.component_Url2">
+                                 @(string.IsNullOrWhiteSpace(item.component_Url_Text2) ? "Find a dealer near you" :
+                           item.component_Url_Text2)
+                                 <span class="site-link-arrow" aria-hidden="true">
+                                    <img src="~/Assets/images/common-images/button-arrow-icon.svg" alt=""
+                                         class="w-auto object-cover">
+                                 </span>
+                              </a>
                      
-                                 </div>
-                              }
                            </div>
                         }
                      </div>
-
-                  </div>
+                  }
                </div>
-            </section>
-         }
-      }
 
-      @section Scripts {
-         <script src="~/Assets/js/inner-banner-script.js" asp-append-version="true"></script>
-         <script src="~/Assets/js/aboutus-script.js" asp-append-version="true"></script>
-         <script src="~/Assets/js/odometer-counter-script.js" asp-append-version="true"></script>
-         <script src="~/Assets/js/aboutus-values-script.js" asp-append-version="true"></script>
-         <script src="~/Assets/js/legacy-script.js" asp-append-version="true"></script>
-      }
+            </div>
+         </div>
+      </section>
+   }
+}
+
+@section Scripts {
+   <script src="~/Assets/js/inner-banner-script.js" asp-append-version="true"></script>
+   <script src="~/Assets/js/aboutus-script.js" asp-append-version="true"></script>
+   <script src="~/Assets/js/odometer-counter-script.js" asp-append-version="true"></script>
+   <script src="~/Assets/js/aboutus-values-script.js" asp-append-version="true"></script>
+   <script src="~/Assets/js/legacy-script.js" asp-append-version="true"></script>
+}
