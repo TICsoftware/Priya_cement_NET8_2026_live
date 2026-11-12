@@ -138,8 +138,8 @@ var redirects = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
     { "^technical-services\\.html$", "/solutions/technical-services" },
 
     // Contact
-    { "^solutions/enquiry$", "/error/index" },
-    { "^dealership_enquiry$", "/solutions" },
+    //{ "^solutions/enquiry$", "/solutions/enquiry" },
+    { "^dealership_enquiry$", "/solutions/enquiry" },
     { "^contact-us/contact\\.html$", "/contact-us" },
     // { "^Solutions/Enquiry$", "/error/index" },
 
